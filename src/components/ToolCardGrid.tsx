@@ -3,8 +3,11 @@ import { ArrowUpRight, FileText, Image as ImageIcon, FileSpreadsheet, LayoutTemp
 import { useLanguage } from '../context/LanguageContext';
 import { TOOL_PAGES } from '../seo/toolCatalog';
 
+import { useLocalizedPath } from '../hooks/useLocalizedPath';
+
 export function ToolCardGrid({ limit }: { limit?: number }) {
   const { lang } = useLanguage();
+  const lp = useLocalizedPath();
   const pages = limit ? TOOL_PAGES.slice(0, limit) : TOOL_PAGES;
 
   return (
@@ -23,7 +26,7 @@ export function ToolCardGrid({ limit }: { limit?: number }) {
                 : FileText;
 
         return (
-          <Link key={tool.path} to={tool.path} className="premium-card group p-5 md:p-6 text-left block">
+          <Link key={tool.path} to={lp(tool.path)} className="premium-card group p-5 md:p-6 text-left block">
             <div className="flex items-start justify-between gap-2 mb-4">
               <div className="card-icon-wrap mb-0">
                 <Icon size={20} />

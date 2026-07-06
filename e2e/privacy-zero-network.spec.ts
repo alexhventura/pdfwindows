@@ -17,7 +17,7 @@ test('home loads without external font or pdfjs CDN requests', async ({ page }) 
     }
   });
 
-  await page.goto('/');
+  await page.goto('/en/');
   await expect(page.getByText(/PDF WINDOWS/i).first()).toBeVisible();
   expect(externalHosts).toEqual([]);
 });

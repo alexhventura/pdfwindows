@@ -50,11 +50,13 @@ export function hexToRgb(hex: string): RgbColor {
           .map((c) => c + c)
           .join('')
       : normalized.slice(0, 6);
-  return {
-    r: parseInt(h.slice(0, 2), 16),
-    g: parseInt(h.slice(2, 4), 16),
-    b: parseInt(h.slice(4, 6), 16),
-  };
+  const r = parseInt(h.slice(0, 2), 16);
+  const g = parseInt(h.slice(2, 4), 16);
+  const b = parseInt(h.slice(4, 6), 16);
+  if ([r, g, b].some((n) => Number.isNaN(n))) {
+    return { r: 0, g: 0, b: 0 };
+  }
+  return { r, g, b };
 }
 
 export function colorEntryFromRgb(color: RgbColor) {

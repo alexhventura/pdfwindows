@@ -1,8 +1,9 @@
 import { lazy, Suspense, useMemo } from 'react';
 import { BrowserRouter, Navigate, useRoutes } from 'react-router-dom';
-import { LanguageProvider } from '../context/LanguageContext';
 import { MainLayout } from '../layouts/MainLayout';
 import { TOOL_PAGES } from '../seo/toolCatalog';
+import { LocaleGate, RootLocaleRedirect } from './LocaleGate';
+import { useLocalizedPath } from '../hooks/useLocalizedPath';
 
 const HomePage = lazy(() => import('../pages/HomePage').then((m) => ({ default: m.HomePage })));
 const ToolsCatalogPage = lazy(() => import('../pages/ToolsCatalogPage').then((m) => ({ default: m.ToolsCatalogPage })));
@@ -22,27 +23,47 @@ function PageLoader() {
   );
 }
 
-function AppRoutes() {
+function LocalizedRedirect({ to, hash }: { to: string; hash?: string }) {
+  const lp = useLocalizedPath();
+  return <Navigate to={`${lp(to)}${hash ?? ''}`} replace />;
+}
+
+function LocalizedRoutes() {
   const routes = useMemo(
     () => [
       {
         path: '/',
-        element: <MainLayout />,
+        element: <RootLocaleRedirect />,
+      },
+      {
+        path: '/:lang',
+        element: <LocaleGate />,
         children: [
-          { index: true, element: <HomePage /> },
-          { path: 'ferramentas', element: <ToolsCatalogPage /> },
-          { path: 'conversor', element: <FullConverterPage /> },
-          { path: 'gerador-recibos', element: <Navigate to="/gerador-relatorios#recibo" replace /> },
-          { path: 'capturador-cores', element: <Navigate to="/capturador-de-cores" replace /> },
-          ...TOOL_PAGES.filter((p) => p.kind === 'converter').map((tool) => ({
-            path: tool.path.replace(/^\//, ''),
-            element: <ConverterToolPage />,
-          })),
-          ...TOOL_PAGES.filter((p) => p.kind === 'suite').map((tool) => ({
-            path: tool.path.replace(/^\//, ''),
-            element: <SuiteToolPage />,
-          })),
-          { path: '*', element: <NotFoundPage /> },
+          {
+            element: <MainLayout />,
+            children: [
+              { index: true, element: <HomePage /> },
+              { path: 'ferramentas', element: <ToolsCatalogPage /> },
+              { path: 'conversor', element: <FullConverterPage /> },
+              {
+                path: 'gerador-recibos',
+                element: <LocalizedRedirect to="/gerador-relatorios" hash="#recibo" />,
+              },
+              {
+                path: 'capturador-cores',
+                element: <LocalizedRedirect to="/capturador-de-cores" />,
+              },
+              ...TOOL_PAGES.filter((p) => p.kind === 'converter').map((tool) => ({
+                path: tool.path.replace(/^\//, ''),
+                element: <ConverterToolPage />,
+              })),
+              ...TOOL_PAGES.filter((p) => p.kind === 'suite').map((tool) => ({
+                path: tool.path.replace(/^\//, ''),
+                element: <SuiteToolPage />,
+              })),
+              { path: '*', element: <NotFoundPage /> },
+            ],
+          },
         ],
       },
     ],
@@ -54,12 +75,10 @@ function AppRoutes() {
 
 export default function App() {
   return (
-    <LanguageProvider>
-      <BrowserRouter>
-        <Suspense fallback={<PageLoader />}>
-          <AppRoutes />
-        </Suspense>
-      </BrowserRouter>
-    </LanguageProvider>
+    <BrowserRouter>
+      <Suspense fallback={<PageLoader />}>
+        <LocalizedRoutes />
+      </Suspense>
+    </BrowserRouter>
   );
 }

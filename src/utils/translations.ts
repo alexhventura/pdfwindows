@@ -1,4 +1,5 @@
 import { TranslationDict, LanguageType } from '../types';
+import { detectBrowserLanguage } from '../i18n/language';
 
 export const translations: Record<LanguageType, TranslationDict> = {
   pt: {
@@ -722,10 +723,7 @@ export const translations: Record<LanguageType, TranslationDict> = {
 
 export const getBrowserLanguage = (): LanguageType => {
   if (typeof navigator === 'undefined') return 'en';
-  const lang = (navigator.language || (navigator as Navigator & { userLanguage?: string }).userLanguage || 'en').toLowerCase();
-  if (lang.startsWith('pt')) return 'pt';
-  if (lang.startsWith('es')) return 'es';
-  return 'en';
+  return detectBrowserLanguage(navigator.languages, navigator.language);
 };
 
 export const formatNumber = (num: number, lang: LanguageType): string => {

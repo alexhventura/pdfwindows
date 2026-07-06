@@ -3,8 +3,8 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { SEO } from '../seo/SEO';
 import { getToolPageByPath } from '../seo/toolCatalog';
-import { ToolSeoArticle } from '../components/ToolSeoArticle';
-import { ToolBackNav } from '../components/ToolBackNav';
+import { ToolPageSeoBlocks, resolveToolContent, toolBreadcrumbs } from '../components/ToolPageLayout';
+import { useLocalizedPath } from '../hooks/useLocalizedPath';
 
 const SuiteToolEmbed = lazy(() =>
   import('../components/ProductivityTools').then((m) => ({ default: m.SuiteToolEmbed }))
@@ -13,26 +13,29 @@ const SuiteToolEmbed = lazy(() =>
 export function SuiteToolPage() {
   const { lang } = useLanguage();
   const { pathname } = useLocation();
+  const lp = useLocalizedPath();
   const tool = getToolPageByPath(pathname);
 
   if (!tool || !tool.suiteId) {
-    return <Navigate to="/" replace />;
+    return <Navigate to={lp('/')} replace />;
   }
 
-  const copy = tool.copy[lang];
+  const content = resolveToolContent(tool.path, lang);
+  const crumbs = toolBreadcrumbs(lang, content.toolName, tool.path);
 
   return (
     <>
-      <SEO title={copy.title} description={copy.description} keywords={copy.keywords} path={tool.path} lang={lang} />
-      <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 pt-6 pb-2">
-        <ToolBackNav className="mb-5" />
-        <ToolSeoArticle copy={copy} soft />
-      </div>
-      <div
-        className={`w-full mx-auto px-4 sm:px-6 pb-12 ${
-          tool.suiteId === 'color-picker' ? 'max-w-5xl' : 'max-w-4xl'
-        }`}
-      >
+      <SEO
+        title={content.title}
+        description={content.description}
+        keywords={content.keywords}
+        path={tool.path}
+        lang={lang}
+        toolName={content.toolName}
+        faq={content.faq}
+        breadcrumbs={crumbs}
+      />
+      <ToolPageSeoBlocks toolPath={tool.path} lang={lang}>
         <Suspense
           fallback={
             <div className="workspace-panel py-20 text-center">
@@ -43,9 +46,11 @@ export function SuiteToolPage() {
             </div>
           }
         >
-          <SuiteToolEmbed toolId={tool.suiteId} lang={lang} />
+          <div className={tool.suiteId === 'color-picker' ? 'max-w-5xl mx-auto' : ''}>
+            <SuiteToolEmbed toolId={tool.suiteId} lang={lang} />
+          </div>
         </Suspense>
-      </div>
+      </ToolPageSeoBlocks>
     </>
   );
 }

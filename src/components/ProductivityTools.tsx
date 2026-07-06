@@ -16,6 +16,7 @@ import { drawPdfWindowsFooter } from '../utils/pdfFooter';
 import { RichTextEditor } from './RichTextEditor';
 import { exportReportPdf } from '../utils/reportPdfExport';
 import { ColorPickerTool } from './ColorPickerTool';
+import { useLocalizedPath } from '../hooks/useLocalizedPath';
 
 interface Tool {
   id: string;
@@ -299,6 +300,7 @@ export const SuiteToolEmbed: React.FC<{ toolId: string; lang: LanguageType }> = 
 export const ProductivityTools: React.FC<{ lang: LanguageType; linkMode?: boolean }> = ({ lang, linkMode = false }) => {
   const [activeTool, setActiveTool] = useState<string | null>(null);
   const t = modalT[lang];
+  const lp = useLocalizedPath();
 
   const renderModal = () =>
     activeTool ? renderSuiteTool(activeTool, lang, () => setActiveTool(null), true) : null;
@@ -336,7 +338,7 @@ export const ProductivityTools: React.FC<{ lang: LanguageType; linkMode?: boolea
             return (
               <Link
                 key={tool.id}
-                to={SUITE_PATHS[tool.id]}
+                to={lp(SUITE_PATHS[tool.id])}
                 className="group relative premium-card p-5 text-left cursor-pointer overflow-hidden block"
               >
                 {card}

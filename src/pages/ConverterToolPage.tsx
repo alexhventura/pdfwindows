@@ -3,8 +3,8 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { SEO } from '../seo/SEO';
 import { getToolPageByPath } from '../seo/toolCatalog';
-import { ToolSeoArticle } from '../components/ToolSeoArticle';
-import { ToolBackNav } from '../components/ToolBackNav';
+import { ToolPageSeoBlocks, resolveToolContent, toolBreadcrumbs } from '../components/ToolPageLayout';
+import { useLocalizedPath } from '../hooks/useLocalizedPath';
 
 const ConverterWorkbench = lazy(() =>
   import('../components/ConverterWorkbench').then((m) => ({ default: m.ConverterWorkbench }))
@@ -13,22 +13,29 @@ const ConverterWorkbench = lazy(() =>
 export function ConverterToolPage() {
   const { lang } = useLanguage();
   const { pathname } = useLocation();
+  const lp = useLocalizedPath();
   const tool = getToolPageByPath(pathname);
 
   if (!tool || !tool.operation) {
-    return <Navigate to="/" replace />;
+    return <Navigate to={lp('/')} replace />;
   }
 
-  const copy = tool.copy[lang];
+  const content = resolveToolContent(tool.path, lang);
+  const crumbs = toolBreadcrumbs(lang, content.toolName, tool.path);
 
   return (
     <>
-      <SEO title={copy.title} description={copy.description} keywords={copy.keywords} path={tool.path} lang={lang} />
-      <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 pt-6 pb-2">
-        <ToolBackNav className="mb-5" />
-        <ToolSeoArticle copy={copy} soft />
-      </div>
-      <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 pb-12">
+      <SEO
+        title={content.title}
+        description={content.description}
+        keywords={content.keywords}
+        path={tool.path}
+        lang={lang}
+        toolName={content.toolName}
+        faq={content.faq}
+        breadcrumbs={crumbs}
+      />
+      <ToolPageSeoBlocks toolPath={tool.path} lang={lang}>
         <Suspense
           fallback={
             <div className="workspace-panel py-20 text-center">
@@ -44,7 +51,7 @@ export function ConverterToolPage() {
             showSuiteSection={false}
             showGuarantees={false}
             showSideAds={false}
-            pageHeading={copy.h1}
+            pageHeading={content.h1}
             pageSubheading={
               lang === 'pt'
                 ? 'Envie seus arquivos e processe localmente.'
@@ -54,7 +61,7 @@ export function ConverterToolPage() {
             }
           />
         </Suspense>
-      </div>
+      </ToolPageSeoBlocks>
     </>
   );
 }

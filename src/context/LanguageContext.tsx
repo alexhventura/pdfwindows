@@ -1,6 +1,8 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import type { LanguageType } from '../types';
-import { getBrowserLanguage } from '../utils/translations';
+import { getInitialLocale, isValidLocale, saveStoredLanguage } from '../i18n/language';
+import { localizedPath, parseLocaleFromPath, stripLocalePrefix } from '../i18n/routes';
 
 interface LanguageContextValue {
   lang: LanguageType;
@@ -9,14 +11,37 @@ interface LanguageContextValue {
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [lang, setLang] = useState<LanguageType>('en');
+interface LanguageProviderProps {
+  children: React.ReactNode;
+  /** When rendered inside a localized route, sync from the URL param. */
+  localeFromRoute?: LanguageType;
+}
+
+export function LanguageProvider({ children, localeFromRoute }: LanguageProviderProps) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const localeFromPath = parseLocaleFromPath(location.pathname);
+  const [lang, setLangState] = useState<LanguageType>(localeFromRoute ?? localeFromPath ?? getInitialLocale());
 
   useEffect(() => {
-    setLang(getBrowserLanguage());
-  }, []);
+    const resolved = localeFromRoute ?? localeFromPath;
+    if (resolved) setLangState(resolved);
+  }, [localeFromRoute, localeFromPath]);
 
-  const value = useMemo(() => ({ lang, setLang }), [lang]);
+  const setLang = useCallback(
+    (next: LanguageType) => {
+      saveStoredLanguage(next);
+      setLangState(next);
+      const bare = stripLocalePrefix(location.pathname);
+      const target = localizedPath(next, bare) + location.search + location.hash;
+      if (target !== location.pathname + location.search + location.hash) {
+        navigate(target, { replace: true });
+      }
+    },
+    [location.hash, location.pathname, location.search, navigate]
+  );
+
+  const value = useMemo(() => ({ lang, setLang }), [lang, setLang]);
 
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }
@@ -28,3 +53,5 @@ export function useLanguage(): LanguageContextValue {
   }
   return ctx;
 }
+
+export { isValidLocale };

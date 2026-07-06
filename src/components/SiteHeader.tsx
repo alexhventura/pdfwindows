@@ -2,14 +2,17 @@ import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../utils/translations';
 
+import { useLocalizedPath } from '../hooks/useLocalizedPath';
+
 export function SiteHeader() {
   const { lang, setLang } = useLanguage();
   const t = translations[lang];
+  const lp = useLocalizedPath();
 
   return (
     <header className="header-glass w-full">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
-        <Link to="/" className="flex items-center gap-3 select-none min-w-0 group">
+        <Link to={lp('/')} className="flex items-center gap-3 select-none min-w-0 group">
           <img
             src="/logo.png"
             alt="PDF WINDOWS"

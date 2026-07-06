@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Home, Search } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { useLocalizedPath } from '../hooks/useLocalizedPath';
 import { SEO } from '../seo/SEO';
 
 const COPY = {
@@ -32,6 +33,7 @@ const COPY = {
 
 export function NotFoundPage() {
   const { lang } = useLanguage();
+  const lp = useLocalizedPath();
   const t = COPY[lang];
 
   return (
@@ -44,14 +46,14 @@ export function NotFoundPage() {
           <p className="text-sm text-slate-500 mb-8 leading-relaxed">{t.body}</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
-              to="/"
+              to={lp('/')}
               className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-blue-700 text-white text-sm font-semibold hover:bg-blue-800 transition-colors"
             >
               <Home size={16} />
               {t.home}
             </Link>
             <Link
-              to="/ferramentas"
+              to={lp('/ferramentas')}
               className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200 text-slate-700 text-sm font-semibold hover:bg-slate-50 transition-colors"
             >
               <Search size={16} />

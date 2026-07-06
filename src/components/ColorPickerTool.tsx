@@ -24,7 +24,9 @@ import { isEyeDropperSupported, openEyeDropper } from '../utils/eyeDropper';
 
 const HISTORY_KEY = 'pdfwindows-color-history';
 const MAX_HISTORY = 12;
-const MAX_CANVAS_DIM = 4096;
+/** Cap canvas size to avoid main-thread freezes on large photos / screenshots */
+const MAX_CANVAS_DIM = 1920;
+const EYEDROPPER_TIMEOUT_MS = 45_000;
 
 type CaptureMode = 'image' | 'screen';
 
@@ -219,9 +221,13 @@ export const ColorPickerTool: React.FC<{
   const [history, setHistory] = useState<ColorHistoryEntry[]>(loadHistory);
   const [copiedKey, setCopiedKey] = useState<'hex' | 'rgb' | null>(null);
   const [screenLoading, setScreenLoading] = useState(false);
+  const screenPickAbortRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
     setHistory(loadHistory());
+    return () => {
+      screenPickAbortRef.current?.abort();
+    };
   }, []);
 
   const applyColor = useCallback((picked: RgbColor, clearMarker = false) => {
@@ -255,7 +261,12 @@ export const ColorPickerTool: React.FC<{
     ctx.drawImage(img, 0, 0, w, h);
     setColor(null);
     setMarker(null);
-    setDominant(extractDominantColors(canvas, 5));
+    // Defer palette extraction so paint stays responsive on large images
+    window.setTimeout(() => {
+      const live = canvasRef.current;
+      if (!live || live.width !== w || live.height !== h) return;
+      setDominant(extractDominantColors(live, 5));
+    }, 0);
     return true;
   }, []);
 
@@ -344,15 +355,35 @@ export const ColorPickerTool: React.FC<{
   };
 
   const pickFromScreen = async () => {
-    if (!eyeDropperOk) return;
+    if (!eyeDropperOk || screenLoading) return;
+    screenPickAbortRef.current?.abort();
+    const abort = new AbortController();
+    screenPickAbortRef.current = abort;
     setScreenLoading(true);
     try {
-      const result = await openEyeDropper();
-      applyColor(hexToRgb(result.sRGBHex), true);
+      const result = await Promise.race([
+        openEyeDropper(abort.signal),
+        new Promise<never>((_, reject) => {
+          window.setTimeout(() => {
+            abort.abort();
+            reject(new Error('EYEDROPPER_TIMEOUT'));
+          }, EYEDROPPER_TIMEOUT_MS);
+        }),
+      ]);
+      const picked = hexToRgb(result.sRGBHex);
+      if ([picked.r, picked.g, picked.b].some((n) => Number.isNaN(n))) {
+        throw new Error('INVALID_COLOR');
+      }
+      applyColor(picked, true);
       setMode('screen');
-    } catch {
-      /* user cancelled */
+    } catch (err) {
+      if (err instanceof Error && err.message !== 'EYEDROPPER_TIMEOUT' && err.message !== 'INVALID_COLOR') {
+        /* user cancelled — ignore */
+      }
     } finally {
+      if (screenPickAbortRef.current === abort) {
+        screenPickAbortRef.current = null;
+      }
       setScreenLoading(false);
     }
   };

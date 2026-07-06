@@ -336,6 +336,18 @@
     color: transparent;
   }
 
+  .landing-h2 {
+    @apply text-base md:text-lg font-bold text-slate-900 mb-4 tracking-tight;
+  }
+
+  .landing-h3 {
+    @apply text-sm md:text-base font-semibold text-slate-800 mb-3 mt-2;
+  }
+
+  .landing-section-title {
+    @apply flex items-center gap-2 text-sm font-bold text-slate-900 mb-4 uppercase tracking-wide;
+  }
+
   .faq-accordion-list {
     @apply relative flex flex-col gap-2;
   }
