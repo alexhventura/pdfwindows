@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://pdfwindows.app/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://pdfwindows.app/ferramentas</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://pdfwindows.app/conversor</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://pdfwindows.app/pdf-merge</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pdfwindows.app/pdf-compress</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pdfwindows.app/pdf-password</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pdfwindows.app/pdf-ocr</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pdfwindows.app/pdf-split</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pdfwindows.app/pdf-rotate</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pdfwindows.app/pdf-watermark</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pdfwindows.app/pdf-to-image</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pdfwindows.app/pdf-extract-text</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pdfwindows.app/image-converter</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pdfwindows.app/image-to-pdf</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pdfwindows.app/image-resize</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pdfwindows.app/image-ocr</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pdfwindows.app/image-filters</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pdfwindows.app/csv-to-json</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://pdfwindows.app/json-to-csv</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://pdfwindows.app/xml-to-json</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://pdfwindows.app/txt-to-pdf</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://pdfwindows.app/estudio-documentos</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pdfwindows.app/capturador-de-cores</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pdfwindows.app/gerador-relatorios</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pdfwindows.app/gerador-qr-code</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://pdfwindows.app/gerador-cpf</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://pdfwindows.app/limpador-codigo</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+</urlset>

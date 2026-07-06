@@ -1,0 +1,17 @@
+{
+  "name": "PDFWINDOWS",
+  "short_name": "PDFWINDOWS",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#eef6ff",
+  "theme_color": "#0078D7",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "description": "Professional 100% offline PDF and image suite. Local processing only."
+}
