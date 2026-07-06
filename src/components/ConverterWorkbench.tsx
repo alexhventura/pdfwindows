@@ -483,13 +483,6 @@ export function ConverterWorkbench({
             {/* MAIN TOOL CARD */}
             <section ref={workspaceAnchorRef} className="workspace-panel scroll-mt-24">
           
-          <div className="premium-stripe select-none">
-            <div className="flex items-center gap-1.5 font-bold tracking-widest uppercase text-[9px]">
-              <ShieldCheck size={13} className="text-win-green shrink-0" />
-              {t.privacyBadge}
-            </div>
-          </div>
-
           <div className="p-6 md:p-8">
             
             {/* Title Block */}
@@ -1244,12 +1237,6 @@ export function ConverterWorkbench({
               </motion.div>
             )}
             </AnimatePresence>
-
-            {/* Guaranteed Sandbox Bottom Badge */}
-            <div className="mt-6 pt-5 border-t border-slate-200/80 flex items-center justify-center gap-2 text-[10px] tracking-widest font-bold font-mono text-slate-400 uppercase select-none">
-              <ShieldCheck size={12} className="text-emerald-500 shrink-0" />
-              <span>{t.privacyBadge}</span>
-            </div>
 
           </div>
 

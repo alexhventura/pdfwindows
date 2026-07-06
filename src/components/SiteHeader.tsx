@@ -1,12 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
-import { translations } from '../utils/translations';
-
 import { useLocalizedPath } from '../hooks/useLocalizedPath';
 
 export function SiteHeader() {
   const { lang, setLang } = useLanguage();
-  const t = translations[lang];
   const lp = useLocalizedPath();
 
   return (
@@ -18,15 +15,9 @@ export function SiteHeader() {
             alt="PDF WINDOWS"
             className="w-10 h-10 rounded-2xl shadow-md shrink-0 ring-1 ring-white/80 group-hover:scale-[1.03] transition-transform duration-300"
           />
-          <div className="flex flex-col min-w-0">
-            <span className="font-bold text-[17px] sm:text-lg tracking-tight text-slate-900 leading-none">
-              PDF <span className="text-orange-500">WINDOWS</span>
-            </span>
-            <span className="text-[10px] text-slate-400 font-medium mt-1 flex items-center gap-1.5">
-              <span className="w-1 h-1 rounded-full bg-emerald-400" />
-              {t.secureBadgeShort}
-            </span>
-          </div>
+          <span className="font-bold text-[17px] sm:text-lg tracking-tight text-slate-900 leading-none min-w-0">
+            PDF <span className="text-orange-500">WINDOWS</span>
+          </span>
         </Link>
 
         <div className="flex items-center gap-0.5 p-0.5 rounded-xl bg-white/50 border border-slate-200/60 backdrop-blur-sm shrink-0">

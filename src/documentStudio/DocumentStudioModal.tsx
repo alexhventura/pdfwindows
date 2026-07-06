@@ -4,7 +4,6 @@ import {
   Eye,
   FileText,
   Sparkles,
-  ShieldCheck,
   Trash2,
   Plus,
   AlertCircle,
@@ -41,8 +40,6 @@ const studioT: Record<LanguageType, Record<string, string>> = {
   pt: {
     title: 'Estúdio de Documentos',
     subtitle: 'Editor estruturado • preview ao vivo • exportação PDF local',
-    privacy:
-      'Todos os dados permanecem no dispositivo do usuário. Nenhum documento ou informação é transmitido ou armazenado externamente.',
     template: 'Modelo',
     preview: 'Pré-visualização',
     smartFill: 'Preencher com dados recentes',
@@ -62,8 +59,6 @@ const studioT: Record<LanguageType, Record<string, string>> = {
   en: {
     title: 'Document Studio',
     subtitle: 'Structured editor • live preview • local PDF export',
-    privacy:
-      'All data stays on your device. No document or information is transmitted or stored externally.',
     template: 'Template',
     preview: 'Preview',
     smartFill: 'Fill with recent data',
@@ -83,8 +78,6 @@ const studioT: Record<LanguageType, Record<string, string>> = {
   es: {
     title: 'Estudio de Documentos',
     subtitle: 'Editor estructurado • vista previa en vivo • exportación PDF local',
-    privacy:
-      'Todos los datos permanecen en el dispositivo del usuario. Ningún documento o información se transmite o almacena externamente.',
     template: 'Plantilla',
     preview: 'Vista previa',
     smartFill: 'Rellenar con datos recientes',
@@ -319,11 +312,6 @@ export const DocumentStudioModal: React.FC<DocumentStudioModalProps> = ({ lang, 
           <X size={16} />
           {t.close}
         </button>
-      </div>
-
-      <div className="px-6 py-3 bg-emerald-50 border-b border-emerald-100 flex items-start gap-2 shrink-0">
-        <ShieldCheck size={16} className="text-emerald-600 shrink-0 mt-0.5" />
-        <p className="text-[10px] text-emerald-900 font-semibold leading-relaxed">{t.privacy}</p>
       </div>
 
       <div className="px-6 py-3 border-b border-slate-100 bg-slate-50 shrink-0">

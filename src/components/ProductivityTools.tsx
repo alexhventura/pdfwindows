@@ -125,7 +125,6 @@ const modalT: Record<
 > = {
   pt: {
     suiteTitle: 'Suíte de Produtividade',
-    suiteSubtitle: '100% offline • ferramentas locais',
     receiptTitle: 'Gerador de Recibos',
     qrTitle: 'Gerador de QR Code',
     cpfTitle: 'Gerador de CPF para Testes',
@@ -165,7 +164,6 @@ const modalT: Record<
   },
   en: {
     suiteTitle: 'Productivity Suite',
-    suiteSubtitle: '100% offline • local tools',
     receiptTitle: 'Receipt Generator',
     qrTitle: 'QR Code Generator',
     cpfTitle: 'CPF Generator for Tests',
@@ -205,7 +203,6 @@ const modalT: Record<
   },
   es: {
     suiteTitle: 'Suite de Productividad',
-    suiteSubtitle: '100% offline • herramientas locales',
     receiptTitle: 'Generador de Recibos',
     qrTitle: 'Generador de QR Code',
     cpfTitle: 'Generador de CPF para Pruebas',
@@ -313,7 +310,6 @@ export const ProductivityTools: React.FC<{ lang: LanguageType; linkMode?: boolea
         </div>
         <div>
           <h2 className="text-lg font-semibold text-slate-900">{t.suiteTitle}</h2>
-          <p className="text-xs text-slate-500 font-medium mt-0.5">{t.suiteSubtitle}</p>
         </div>
       </div>
 

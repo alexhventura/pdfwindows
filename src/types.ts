@@ -80,11 +80,7 @@ export interface TranslationDict {
   advertisingLabel: string;
   adContentPlaceholderOne: string;
   adContentPlaceholderTwo: string;
-  privacyBadge: string;
   privacyDetailedText: string;
-  privacyPledgeTitle: string;
-  privacyPledgeBody: string;
-  privacyPledgeShort: string;
   remoteImportWarning: string;
   remoteImportConfirmPrompt: string;
   remoteImportConsentLabel: string;
@@ -150,7 +146,6 @@ export interface TranslationDict {
   previewReady: string;
   confirmSave: string;
   newFiles: string;
-  secureBadgeShort: string;
 }
 
 export interface FileState {

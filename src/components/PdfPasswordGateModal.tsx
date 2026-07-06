@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShieldCheck, X, Lock } from 'lucide-react';
+import { X, Lock } from 'lucide-react';
 import type { LanguageType } from '../types';
 import { validateProtectionPassword } from '../utils/pdfPasswordProtection';
 
@@ -10,7 +10,6 @@ const copy: Record<
     subtitle: string;
     password: string;
     confirm: string;
-    privacy: string;
     cancel: string;
     confirmBtn: string;
     empty: string;
@@ -24,7 +23,6 @@ const copy: Record<
       'A senha fica apenas na memória do navegador. O PDF final usa criptografia padrão (AES-256) e pedirá senha ao abrir no Chrome, Adobe ou Edge.',
     password: 'Senha de proteção',
     confirm: 'Confirmar senha',
-    privacy: 'A senha nunca é enviada a servidores nem salva por padrão.',
     cancel: 'Cancelar',
     confirmBtn: 'Confirmar e processar',
     empty: 'Informe uma senha.',
@@ -37,7 +35,6 @@ const copy: Record<
       'Password stays in browser memory only. The final PDF uses standard encryption (AES-256) and will prompt for a password in Chrome, Adobe, or Edge.',
     password: 'Protection password',
     confirm: 'Confirm password',
-    privacy: 'Password is never sent to servers or saved by default.',
     cancel: 'Cancel',
     confirmBtn: 'Confirm & process',
     empty: 'Enter a password.',
@@ -50,7 +47,6 @@ const copy: Record<
       'La contraseña permanece solo en memoria del navegador. El PDF final usa cifrado estándar (AES-256) y pedirá contraseña al abrir en Chrome, Adobe o Edge.',
     password: 'Contraseña de protección',
     confirm: 'Confirmar contraseña',
-    privacy: 'La contraseña nunca se envía a servidores ni se guarda por defecto.',
     cancel: 'Cancelar',
     confirmBtn: 'Confirmar y procesar',
     empty: 'Ingrese una contraseña.',
@@ -100,11 +96,6 @@ export function PdfPasswordGateModal({ lang, onCancel, onConfirm }: PdfPasswordG
           <button type="button" onClick={onCancel} className="p-1.5 hover:bg-white/10 rounded-lg text-slate-300">
             <X size={16} />
           </button>
-        </div>
-
-        <div className="px-5 py-3 bg-emerald-50 border-b border-emerald-100 flex gap-2">
-          <ShieldCheck size={14} className="text-emerald-600 shrink-0 mt-0.5" />
-          <p className="text-[10px] text-emerald-900 font-semibold leading-relaxed">{t.privacy}</p>
         </div>
 
         <div className="p-5 space-y-3">

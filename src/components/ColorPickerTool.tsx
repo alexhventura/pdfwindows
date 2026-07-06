@@ -72,7 +72,6 @@ const copyT: Record<LanguageType, Record<string, string>> = {
     exportPalette: 'Exportar paleta',
     clearHistory: 'Limpar',
     close: 'Fechar',
-    offline: '100% local • sem upload • sem servidor',
   },
   en: {
     title: 'Color Picker',
@@ -106,7 +105,6 @@ const copyT: Record<LanguageType, Record<string, string>> = {
     exportPalette: 'Export palette',
     clearHistory: 'Clear',
     close: 'Close',
-    offline: '100% local • no upload • no server',
   },
   es: {
     title: 'Capturador de Colores',
@@ -140,7 +138,6 @@ const copyT: Record<LanguageType, Record<string, string>> = {
     exportPalette: 'Exportar paleta',
     clearHistory: 'Limpiar',
     close: 'Cerrar',
-    offline: '100% local • sin subida • sin servidor',
   },
 };
 
@@ -458,7 +455,6 @@ export const ColorPickerTool: React.FC<{
             <p className="text-xs md:text-sm text-slate-500 font-medium max-w-xl">{t.hero}</p>
           </>
         )}
-        <p className="text-[10px] text-slate-400 font-semibold mt-3 tracking-wide">{t.offline}</p>
       </div>
 
       <div className="color-picker-mode-tabs" role="tablist">

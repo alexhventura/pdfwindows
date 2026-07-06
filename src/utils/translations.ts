@@ -76,11 +76,7 @@ export const translations: Record<LanguageType, TranslationDict> = {
     advertisingLabel: "PUBLICIDADE - Apoie nossa plataforma gratuita",
     adContentPlaceholderOne: "Patrocinador Oficial: Servidores em Nuvem Premium e Hospedagem de Alto Desempenho. 100% Ecológico.",
     adContentPlaceholderTwo: "Anúncio do Google AdSense - Hospedagem ilimitada, VPN de altíssima velocidade e certificados SSL gratuitos.",
-    privacyBadge: "100% SEGURO & PRIVADO",
     privacyDetailedText: "Processamento 100% local no navegador. Nenhum documento é enviado a servidores — seus arquivos permanecem apenas no seu dispositivo.",
-    privacyPledgeTitle: "Promessa de privacidade",
-    privacyPledgeBody: "Seus arquivos nunca saem do seu dispositivo. Todo processamento ocorre localmente no navegador, garantindo privacidade total.",
-    privacyPledgeShort: "Processamento local: seus arquivos não são enviados a servidores de conversão.",
     remoteImportWarning: "Importar por link usa a rede apenas para baixar o PDF público que você informou. O processamento continua 100% local depois do download.",
     remoteImportConfirmPrompt: "Confirmar download deste PDF pela internet? Apenas o link informado será acessado.",
     remoteImportConsentLabel: "Entendo que esta ação fará um download pela internet (somente o link informado).",
@@ -238,8 +234,7 @@ export const translations: Record<LanguageType, TranslationDict> = {
     previewQueued: "Na fila",
     previewReady: "Pronto",
     confirmSave: "Confirmar e salvar",
-    newFiles: "Novos arquivos",
-    secureBadgeShort: "100% seguro"
+    newFiles: "Novos arquivos"
   },
   en: {
     logoName: "PDF WINDOWS",
@@ -315,11 +310,7 @@ export const translations: Record<LanguageType, TranslationDict> = {
     advertisingLabel: "ADVERTISING - Support our free platform",
     adContentPlaceholderOne: "Official Sponsor: Premium Cloud Hosting and High Performance Managed VPS. 100% Eco-friendly.",
     adContentPlaceholderTwo: "Google AdSense Ad - Unlimited web hosting, lightning-fast secure VPN, and free automated SSL certificates.",
-    privacyBadge: "100% SECURE & PRIVATE",
     privacyDetailedText: "100% in-browser processing. No documents are sent to servers — your files stay only on your device.",
-    privacyPledgeTitle: "Privacy pledge",
-    privacyPledgeBody: "Your files never leave your device. All processing happens locally in your browser, ensuring complete privacy.",
-    privacyPledgeShort: "Local processing: your files are not sent to conversion servers.",
     remoteImportWarning: "Link import uses the network only to download the public PDF you provide. Processing remains 100% local afterward.",
     remoteImportConfirmPrompt: "Confirm downloading this PDF from the internet? Only the URL you entered will be accessed.",
     remoteImportConsentLabel: "I understand this will download from the internet (only the URL I provide).",
@@ -477,8 +468,7 @@ export const translations: Record<LanguageType, TranslationDict> = {
     previewQueued: "Queued",
     previewReady: "Ready",
     confirmSave: "Confirm & save",
-    newFiles: "New files",
-    secureBadgeShort: "100% secure"
+    newFiles: "New files"
   },
   es: {
     logoName: "PDF WINDOWS",
@@ -554,11 +544,7 @@ export const translations: Record<LanguageType, TranslationDict> = {
     advertisingLabel: "PUBLICIDAD - Apoya nuestra plataforma gratuita",
     adContentPlaceholderOne: "Patrocinador Oficial: Servidores Cloud Premium y Alojamiento VPS de Alto Rendimiento. 100% Ecológico.",
     adContentPlaceholderTwo: "Anuncio de Google AdSense - Web hosting ilimitado, red VPN de ultra-velocidad y certificados SSL automatizados.",
-    privacyBadge: "100% SEGURO Y PRIVADO",
     privacyDetailedText: "Procesamiento 100% local en el navegador. Ningún documento se envía a servidores — sus archivos permanecen solo en su dispositivo.",
-    privacyPledgeTitle: "Compromiso de privacidad",
-    privacyPledgeBody: "Sus archivos nunca salen de su dispositivo. Todo el procesamiento ocurre localmente en el navegador, garantizando privacidad total.",
-    privacyPledgeShort: "Procesamiento local: tus archivos no se envían a servidores de conversión.",
     remoteImportWarning: "Importar por enlace usa la red solo para descargar el PDF público que indiques. El procesamiento sigue siendo 100% local después.",
     remoteImportConfirmPrompt: "¿Confirmar la descarga de este PDF desde internet? Solo se accederá a la URL indicada.",
     remoteImportConsentLabel: "Entiendo que esta acción descargará desde internet (solo la URL que proporciono).",
@@ -716,8 +702,7 @@ export const translations: Record<LanguageType, TranslationDict> = {
     previewQueued: "En cola",
     previewReady: "Listo",
     confirmSave: "Confirmar y guardar",
-    newFiles: "Nuevos archivos",
-    secureBadgeShort: "100% seguro"
+    newFiles: "Nuevos archivos"
   }
 };
 
