@@ -967,3 +967,29 @@
 .screen-color-pick-cancel:hover {
   background: rgba(255, 255, 255, 0.16);
 }
+
+body.screen-color-picking #tool-workspace ~ div,
+body.screen-color-picking .seo-soft-block,
+body.screen-color-picking .premium-surface {
+  content-visibility: hidden;
+  contain: strict;
+}
+
+.screen-color-pick-overlay--busy {
+  gap: 1.25rem;
+}
+
+.screen-color-pick-spinner {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #fb923c;
+  animation: screen-color-pick-spin 0.75s linear infinite;
+}
+
+@keyframes screen-color-pick-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

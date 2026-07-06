@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { startTransition, useCallback, useEffect, useRef, useState } from 'react';
 import {
   Copy,
   Check,
@@ -56,6 +56,7 @@ const copyT: Record<LanguageType, Record<string, string>> = {
       'Compartilhe a tela, depois clique no pixel desejado na captura. Pressione Esc para cancelar.',
     screenBtn: 'Capturar Cor da Tela',
     screenPicking: 'Preparando captura…',
+    screenBusy: 'Capturando tela…',
     screenOverlayHint: 'Clique em um pixel para capturar a cor · Esc para cancelar',
     screenCancel: 'Cancelar',
     screenUnsupported:
@@ -89,6 +90,7 @@ const copyT: Record<LanguageType, Record<string, string>> = {
       'Share your screen, then click the pixel you want on the capture. Press Esc to cancel.',
     screenBtn: 'Pick Color from Screen',
     screenPicking: 'Preparing capture…',
+    screenBusy: 'Capturing screen…',
     screenOverlayHint: 'Click a pixel to capture its color · Esc to cancel',
     screenCancel: 'Cancel',
     screenUnsupported:
@@ -122,6 +124,7 @@ const copyT: Record<LanguageType, Record<string, string>> = {
       'Comparte tu pantalla y haz clic en el píxel deseado en la captura. Pulsa Esc para cancelar.',
     screenBtn: 'Capturar Color de Pantalla',
     screenPicking: 'Preparando captura…',
+    screenBusy: 'Capturando pantalla…',
     screenOverlayHint: 'Haz clic en un píxel para capturar el color · Esc para cancelar',
     screenCancel: 'Cancelar',
     screenUnsupported:
@@ -394,9 +397,12 @@ export const ColorPickerTool: React.FC<{
       const picked = await pickColorFromScreen(abort.signal, {
         hint: t.screenOverlayHint,
         cancel: t.screenCancel,
+        busy: t.screenBusy,
       });
-      applyColor(picked, true);
-      setMode('screen');
+      startTransition(() => {
+        applyColor(picked, true);
+        setMode('screen');
+      });
     } catch (err) {
       if (err instanceof ScreenColorPickError && err.code === 'cancelled') {
         /* user cancelled */
@@ -605,15 +611,26 @@ export const ColorPickerTool: React.FC<{
             </div>
 
             {screenPickOk ? (
-              <button
-                type="button"
-                className="btn-primary px-8 py-3.5 text-sm inline-flex items-center gap-2 mx-auto"
-                onClick={pickFromScreen}
-                disabled={screenLoading}
-              >
-                <Monitor size={18} />
-                {screenLoading ? t.screenPicking : t.screenBtn}
-              </button>
+              <div className="flex flex-col items-center gap-3">
+                <button
+                  type="button"
+                  className="btn-primary px-8 py-3.5 text-sm inline-flex items-center gap-2 mx-auto"
+                  onClick={pickFromScreen}
+                  disabled={screenLoading}
+                >
+                  <Monitor size={18} />
+                  {screenLoading ? t.screenPicking : t.screenBtn}
+                </button>
+                {screenLoading && (
+                  <button
+                    type="button"
+                    className="text-xs font-semibold text-slate-500 hover:text-rose-600 transition-colors"
+                    onClick={() => screenPickAbortRef.current?.abort()}
+                  >
+                    {t.screenCancel}
+                  </button>
+                )}
+              </div>
             ) : (
               <p className="text-xs text-amber-800/90 bg-amber-50 border border-amber-200/80 rounded-xl px-4 py-3 max-w-md mx-auto font-medium">
                 {t.screenUnsupported}
