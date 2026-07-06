@@ -14,7 +14,7 @@ export const XML_TO_JSON_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = 
     toolName: 'XML to JSON',
     benefits: [
       'Transform XML element trees into JSON objects',
-      'Parse locally — markup never uploaded to conversion servers',
+      'Parse enterprise feeds and config files in your browser',
       'Quick inspection of nested enterprise feeds',
       'No installation or API credentials required',
       'Chain with JSON to CSV for spreadsheet analysis',
@@ -148,7 +148,7 @@ export const XML_TO_JSON_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = 
     toolName: 'XML para JSON',
     benefits: [
       'Transforme árvores de elementos XML em objetos JSON',
-      'Análise local — markup nunca enviado a servidores de conversão',
+      'Análise de markup no navegador',
       'Inspeção rápida de feeds corporativos aninhados',
       'Sem instalação ou credenciais de API',
       'Encadeie com JSON para CSV para análise em planilha',
@@ -278,7 +278,7 @@ export const XML_TO_JSON_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = 
     toolName: 'XML a JSON',
     benefits: [
       'Transforme árboles de elementos XML en objetos JSON',
-      'Análisis local — markup nunca enviado a servidores de conversión',
+      'Análisis de markup en el navegador',
       'Inspección rápida de feeds corporativos anidados',
       'Sin instalación ni credenciales API',
       'Encadene con JSON a CSV para análisis en hoja',

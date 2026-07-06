@@ -140,7 +140,7 @@ export const IMAGE_CONVERTER_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent
     toolName: 'Conversor de Imagens',
     benefits: [
       'Suporta JPG, PNG, WEBP, GIF e BMP',
-      'Processamento 100% local — sem envio para servidores',
+
       'Ajuste compressão e qualidade antes do download',
       'Funciona no Windows, macOS, Linux e navegadores móveis',
       'Gratuito, sem cadastro e sem marcas d\'água',

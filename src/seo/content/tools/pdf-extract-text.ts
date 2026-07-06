@@ -137,7 +137,7 @@ export const PDF_EXTRACT_TEXT_CONTENT: Record<'en' | 'pt' | 'es', ToolRichConten
   pt: {
     title: 'Extrair Texto de PDF Online Offline | PDFWINDOWS',
     description:
-      'Extraia texto selecionável de PDFs nativos no navegador. Exportação rápida em texto puro para edição e busca — sem upload, privacidade total.',
+      'Extraia texto selecionável de PDFs nativos no navegador. Exportação rápida em texto puro para edição e busca.',
     keywords:
       'extrair texto pdf, pdf para txt, copiar texto pdf offline, texto de pdf navegador, extrator texto pdf gratis',
     h1: 'Extrair Texto de PDF',

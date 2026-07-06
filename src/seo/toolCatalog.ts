@@ -85,16 +85,14 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
     pt: {
       title: 'Mesclar PDF Online Grátis e Offline | PDFWINDOWS',
       description:
-        'Una arquivos PDF diretamente no navegador com privacidade total. Sem upload, sem servidores e 100% offline.',
+        'Una arquivos PDF diretamente no navegador. Sem upload, sem servidores.',
       keywords: 'mesclar pdf, juntar pdf, combinar pdf offline, merge pdf gratis',
-      h1: 'Mesclar PDF Online — 100% Local',
+      h1: 'Mesclar PDF Online',
       intro:
         'Combine vários PDFs em um único documento sem enviar arquivos para a nuvem. Ideal para contratos, relatórios e pacotes de documentos.',
       benefits: [
-        'Processamento 100% no navegador',
         'Sem limite de servidores externos',
         'Ordem dos arquivos controlada por você',
-        'Privacidade total para documentos sensíveis',
       ],
       howItWorks: [
         'Envie dois ou mais arquivos PDF.',
@@ -112,16 +110,14 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
     en: {
       title: 'Merge PDF Online Free & Offline | PDFWINDOWS',
       description:
-        'Combine PDF files directly in your browser with total privacy. No upload, no servers, 100% offline.',
+        'Combine PDF files directly in your browser. No upload, no servers.',
       keywords: 'merge pdf, combine pdf offline, join pdf free, local pdf merge',
-      h1: 'Merge PDF Online — 100% Local',
+      h1: 'Merge PDF Online',
       intro:
         'Combine multiple PDFs into one document without cloud uploads. Perfect for contracts, reports, and document bundles.',
       benefits: [
-        '100% in-browser processing',
         'No external server dependency',
         'You control file order',
-        'Full privacy for sensitive documents',
       ],
       howItWorks: [
         'Upload two or more PDF files.',
@@ -139,16 +135,14 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
     es: {
       title: 'Unir PDF Online Gratis y Offline | PDFWINDOWS',
       description:
-        'Una archivos PDF directamente en el navegador con privacidad total. Sin subida, sin servidores y 100% offline.',
+        'Una archivos PDF directamente en el navegador. Sin subida, sin servidores.',
       keywords: 'unir pdf, combinar pdf offline, juntar pdf gratis',
-      h1: 'Unir PDF Online — 100% Local',
+      h1: 'Unir PDF Online',
       intro:
         'Combine varios PDF en un solo documento sin subir archivos a la nube. Ideal para contratos e informes.',
       benefits: [
-        'Procesamiento 100% en el navegador',
         'Sin dependencia de servidores externos',
         'Usted controla el orden de archivos',
-        'Privacidad total para documentos sensibles',
       ],
       howItWorks: [
         'Suba dos o más archivos PDF.',
@@ -161,7 +155,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
   page('/pdf-compress', 'converter', 'pdf-compress', undefined, {
     pt: {
       title: 'Comprimir PDF Online Grátis e Offline | PDFWINDOWS',
-      description: 'Reduza o tamanho de PDFs no navegador, sem upload. Processamento local, rápido e privado.',
+      description: 'Reduza o tamanho de PDFs no navegador. Rápido e gratuito.',
       keywords: 'comprimir pdf, reduzir tamanho pdf, pdf menor offline',
       h1: 'Comprimir PDF — Processamento Local',
       intro: 'Diminua o peso dos seus PDFs mantendo qualidade útil para envio por e-mail e armazenamento.',
@@ -171,7 +165,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
     },
     en: {
       title: 'Compress PDF Online Free & Offline | PDFWINDOWS',
-      description: 'Reduce PDF file size in your browser without uploads. Fast, private, local processing.',
+      description: 'Reduce PDF file size in your browser. Fast and free.',
       keywords: 'compress pdf, reduce pdf size, offline pdf compressor',
       h1: 'Compress PDF — Local Processing',
       intro: 'Shrink PDF file size while keeping usable quality for email and storage.',
@@ -181,7 +175,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
     },
     es: {
       title: 'Comprimir PDF Online Gratis y Offline | PDFWINDOWS',
-      description: 'Reduzca el tamaño de PDF en el navegador sin subidas. Procesamiento local, rápido y privado.',
+      description: 'Reduzca el tamaño de PDF en el navegador. Rápido y gratuito.',
       keywords: 'comprimir pdf, reducir pdf, pdf offline',
       h1: 'Comprimir PDF — Procesamiento Local',
       intro: 'Reduzca el peso de sus PDF manteniendo calidad útil para correo y almacenamiento.',
@@ -226,7 +220,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
   page('/pdf-ocr', 'converter', 'pdf-ocr', undefined, {
     pt: {
       title: 'OCR de PDF Online Offline | PDFWINDOWS',
-      description: 'Extraia texto de PDF digitalizado no navegador com OCR local. Privacidade total.',
+      description: 'Extraia texto de PDF digitalizado no navegador com OCR local.',
       keywords: 'ocr pdf, pdf para texto, reconhecer texto pdf offline',
       h1: 'OCR de PDF — Texto Pesquisável',
       intro: 'Transforme páginas digitalizadas em texto editável sem enviar documentos para servidores.',
@@ -236,7 +230,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
     },
     en: {
       title: 'PDF OCR Online Offline | PDFWINDOWS',
-      description: 'Extract text from scanned PDFs in your browser with local OCR. Total privacy.',
+      description: 'Extract text from scanned PDFs in your browser with local OCR.',
       keywords: 'pdf ocr, scanned pdf to text, offline ocr',
       h1: 'PDF OCR — Searchable Text',
       intro: 'Turn scanned pages into editable text without uploading documents to servers.',
@@ -258,7 +252,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
   page('/pdf-split', 'converter', 'pdf-split', undefined, {
     pt: {
       title: 'Dividir PDF Online Grátis e Offline | PDFWINDOWS',
-      description: 'Separe páginas de PDF no navegador. Sem upload, 100% privado.',
+      description: 'Separe páginas de PDF no navegador. Rápido e gratuito.',
       keywords: 'dividir pdf, separar paginas pdf, split pdf offline',
       h1: 'Dividir PDF por Páginas',
       intro: 'Extraia intervalos de páginas com controle total no seu dispositivo.',
@@ -268,7 +262,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
     },
     en: {
       title: 'Split PDF Online Free & Offline | PDFWINDOWS',
-      description: 'Split PDF pages in your browser. No upload, fully private.',
+      description: 'Split PDF pages in your browser. Fast and free.',
       keywords: 'split pdf, extract pdf pages, offline pdf split',
       h1: 'Split PDF by Pages',
       intro: 'Extract page ranges with full control on your device.',
@@ -278,7 +272,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
     },
     es: {
       title: 'Dividir PDF Online Gratis y Offline | PDFWINDOWS',
-      description: 'Separe páginas de PDF en el navegador. Sin subida, 100% privado.',
+      description: 'Separe páginas de PDF en el navegador. Rápido y gratuito.',
       keywords: 'dividir pdf, separar paginas pdf',
       h1: 'Dividir PDF por Páginas',
       intro: 'Extraiga rangos de páginas con control total en su dispositivo.',
@@ -290,21 +284,21 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
   page('/pdf-rotate', 'converter', 'pdf-rotate', undefined, {
     pt: {
       title: 'Rotacionar PDF Online Offline | PDFWINDOWS',
-      description: 'Gire páginas de PDF no navegador. Rápido, gratuito e privado.',
+      description: 'Gire páginas de PDF no navegador. Rápido e gratuito.',
       keywords: 'rotacionar pdf, girar pdf, rotate pdf offline',
       h1: 'Rotacionar PDF',
       intro: 'Corrija orientação de páginas digitalizadas ou exportadas incorretamente.',
-      benefits: ['Ângulos 90°, 180° e 270°', 'Sem instalação', '100% local'],
+      benefits: ['Ângulos 90°, 180° e 270°', 'Sem instalação', 'Gratuito'],
       howItWorks: ['Envie o PDF.', 'Escolha o ângulo.', 'Processe e baixe.'],
       faq: privacyFaq('pt'),
     },
     en: {
       title: 'Rotate PDF Online Offline | PDFWINDOWS',
-      description: 'Rotate PDF pages in your browser. Fast, free, and private.',
+      description: 'Rotate PDF pages in your browser. Fast and free.',
       keywords: 'rotate pdf, turn pdf pages, offline rotate',
       h1: 'Rotate PDF',
       intro: 'Fix orientation of scanned or mis-exported pages.',
-      benefits: ['90°, 180°, 270° angles', 'No installation', '100% local'],
+      benefits: ['90°, 180°, 270° angles', 'No installation', 'Free to use'],
       howItWorks: ['Upload PDF.', 'Pick angle.', 'Process and download.'],
       faq: privacyFaq('en'),
     },
@@ -314,7 +308,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
       keywords: 'rotar pdf, girar pdf offline',
       h1: 'Rotar PDF',
       intro: 'Corrija la orientación de páginas escaneadas.',
-      benefits: ['Ángulos 90°, 180° y 270°', 'Sin instalación', '100% local'],
+      benefits: ['Ángulos 90°, 180° y 270°', 'Sin instalación', 'Gratis'],
       howItWorks: ['Suba el PDF.', 'Elija ángulo.', 'Procese y descargue.'],
       faq: privacyFaq('es'),
     },
@@ -326,7 +320,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
       keywords: 'marca dagua pdf, watermark pdf offline',
       h1: 'Marca d\'Água em PDF',
       intro: 'Proteja rascunhos e documentos internos com marca d\'água personalizada.',
-      benefits: ['Texto ou imagem', 'Preview local', 'Privacidade garantida'],
+      benefits: ['Texto ou imagem', 'Preview local', 'Exportação imediata'],
       howItWorks: ['Envie PDFs.', 'Configure a marca.', 'Exporte o resultado.'],
       faq: privacyFaq('pt'),
     },
@@ -336,7 +330,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
       keywords: 'pdf watermark, stamp pdf offline',
       h1: 'PDF Watermark',
       intro: 'Protect drafts and internal docs with custom watermarks.',
-      benefits: ['Text or image', 'Local preview', 'Privacy guaranteed'],
+      benefits: ['Text or image', 'Local preview', 'Instant export'],
       howItWorks: ['Upload PDFs.', 'Configure watermark.', 'Export result.'],
       faq: privacyFaq('en'),
     },
@@ -346,7 +340,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
       keywords: 'marca de agua pdf, watermark pdf',
       h1: 'Marca de Agua en PDF',
       intro: 'Proteja borradores con marcas personalizadas.',
-      benefits: ['Texto o imagen', 'Vista previa local', 'Privacidad garantizada'],
+      benefits: ['Texto o imagen', 'Vista previa local', 'Exportación inmediata'],
       howItWorks: ['Suba PDF.', 'Configure marca.', 'Exporte.'],
       faq: privacyFaq('es'),
     },
@@ -354,11 +348,11 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
   page('/pdf-to-image', 'converter', 'pdf-to-img', undefined, {
     pt: {
       title: 'PDF para Imagem Online Offline | PDFWINDOWS',
-      description: 'Converta páginas PDF em imagens no navegador. JPG/PNG local e privado.',
+      description: 'Converta páginas PDF em imagens no navegador. JPG ou PNG de alta qualidade.',
       keywords: 'pdf para imagem, pdf para jpg, pdf para png offline',
       h1: 'Converter PDF para Imagem',
       intro: 'Exporte páginas como imagens de alta qualidade sem serviços na nuvem.',
-      benefits: ['Múltiplas páginas', 'Qualidade controlada', '100% offline'],
+      benefits: ['Múltiplas páginas', 'Qualidade controlada', 'Sem cadastro'],
       howItWorks: ['Envie um PDF.', 'Selecione PDF para imagem.', 'Baixe as imagens.'],
       faq: privacyFaq('pt'),
     },
@@ -368,7 +362,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
       keywords: 'pdf to image, pdf to jpg, pdf to png offline',
       h1: 'Convert PDF to Image',
       intro: 'Export pages as high-quality images without cloud services.',
-      benefits: ['Multiple pages', 'Controlled quality', '100% offline'],
+      benefits: ['Multiple pages', 'Controlled quality', 'No signup'],
       howItWorks: ['Upload a PDF.', 'Select PDF to image.', 'Download images.'],
       faq: privacyFaq('en'),
     },
@@ -378,7 +372,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
       keywords: 'pdf a imagen, pdf a jpg offline',
       h1: 'Convertir PDF a Imagen',
       intro: 'Exporte páginas como imágenes sin servicios en la nube.',
-      benefits: ['Varias páginas', 'Calidad controlada', '100% offline'],
+      benefits: ['Varias páginas', 'Calidad controlada', 'Sin registro'],
       howItWorks: ['Suba un PDF.', 'Seleccione PDF a imagen.', 'Descargue.'],
       faq: privacyFaq('es'),
     },
@@ -418,21 +412,21 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
   page('/image-converter', 'converter', 'img-to-img', undefined, {
     pt: {
       title: 'Conversor de Imagens Online Offline | PDFWINDOWS',
-      description: 'Converta JPG, PNG, WEBP e mais no navegador. Sem upload, 100% privado.',
+      description: 'Converta JPG, PNG, WEBP e mais no navegador. Rápido e gratuito.',
       keywords: 'converter imagem, jpg para png, webp offline',
       h1: 'Conversor de Imagens',
       intro: 'Altere formato, qualidade e dimensões com processamento local.',
-      benefits: ['Vários formatos', 'Controle de qualidade', 'Privacidade total'],
+      benefits: ['Vários formatos', 'Controle de qualidade', 'Exportação rápida'],
       howItWorks: ['Envie imagens.', 'Escolha formato de saída.', 'Processe e baixe.'],
       faq: privacyFaq('pt'),
     },
     en: {
       title: 'Image Converter Online Offline | PDFWINDOWS',
-      description: 'Convert JPG, PNG, WEBP and more in your browser. No upload, fully private.',
+      description: 'Convert JPG, PNG, WEBP and more in your browser. Fast and free.',
       keywords: 'image converter, jpg to png, webp offline',
       h1: 'Image Converter',
       intro: 'Change format, quality, and dimensions with local processing.',
-      benefits: ['Multiple formats', 'Quality control', 'Total privacy'],
+      benefits: ['Multiple formats', 'Quality control', 'Fast export'],
       howItWorks: ['Upload images.', 'Pick output format.', 'Process and download.'],
       faq: privacyFaq('en'),
     },
@@ -442,7 +436,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
       keywords: 'convertir imagen, jpg a png offline',
       h1: 'Conversor de Imágenes',
       intro: 'Cambie formato y calidad con procesamiento local.',
-      benefits: ['Varios formatos', 'Control de calidad', 'Privacidad total'],
+      benefits: ['Varios formatos', 'Control de calidad', 'Exportación rápida'],
       howItWorks: ['Suba imágenes.', 'Elija formato.', 'Procese y descargue.'],
       faq: privacyFaq('es'),
     },
@@ -454,7 +448,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
       keywords: 'imagem para pdf, jpg para pdf, foto para pdf offline',
       h1: 'Converter Imagem para PDF',
       intro: 'Monte documentos PDF a partir de fotos e scans localmente.',
-      benefits: ['Várias imagens em um PDF', 'Layout profissional', '100% offline'],
+      benefits: ['Várias imagens em um PDF', 'Layout profissional', 'Exportação rápida'],
       howItWorks: ['Envie imagens.', 'Selecione imagem para PDF.', 'Baixe o PDF.'],
       faq: privacyFaq('pt'),
     },
@@ -464,7 +458,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
       keywords: 'image to pdf, jpg to pdf offline',
       h1: 'Convert Image to PDF',
       intro: 'Build PDF documents from photos and scans locally.',
-      benefits: ['Multiple images in one PDF', 'Professional layout', '100% offline'],
+      benefits: ['Multiple images in one PDF', 'Professional layout', 'Fast export'],
       howItWorks: ['Upload images.', 'Select image to PDF.', 'Download PDF.'],
       faq: privacyFaq('en'),
     },
@@ -474,7 +468,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
       keywords: 'imagen a pdf, jpg a pdf offline',
       h1: 'Convertir Imagen a PDF',
       intro: 'Cree PDF desde fotos y escaneos localmente.',
-      benefits: ['Varias imágenes en un PDF', 'Diseño profesional', '100% offline'],
+      benefits: ['Varias imágenes en un PDF', 'Diseño profesional', 'Exportación rápida'],
       howItWorks: ['Suba imágenes.', 'Seleccione imagen a PDF.', 'Descargue.'],
       faq: privacyFaq('es'),
     },
@@ -482,7 +476,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
   page('/image-resize', 'converter', 'img-resize', undefined, {
     pt: {
       title: 'Redimensionar Imagem Online Offline | PDFWINDOWS',
-      description: 'Redimensione e comprima imagens no navegador com privacidade total.',
+      description: 'Redimensione e comprima imagens no navegador.',
       keywords: 'redimensionar imagem, comprimir imagem offline',
       h1: 'Redimensionar Imagem',
       intro: 'Ajuste pixels e qualidade sem enviar arquivos para servidores.',
@@ -492,7 +486,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
     },
     en: {
       title: 'Resize Image Online Offline | PDFWINDOWS',
-      description: 'Resize and compress images in your browser with total privacy.',
+      description: 'Resize and compress images in your browser.',
       keywords: 'resize image, compress image offline',
       h1: 'Resize Image',
       intro: 'Adjust pixels and quality without uploading files to servers.',
@@ -517,7 +511,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
       description: 'Extraia texto de imagens com OCR local no navegador.',
       keywords: 'ocr imagem, foto para texto, tesseract offline',
       h1: 'OCR de Imagem',
-      intro: 'Digitalize texto de fotos, prints e documentos escaneados com privacidade.',
+      intro: 'Digitalize texto de fotos, prints e documentos escaneados.',
       benefits: ['OCR no dispositivo', 'Múltiplos idiomas', 'Sem nuvem'],
       howItWorks: ['Envie uma imagem.', 'Selecione OCR.', 'Copie ou exporte o texto.'],
       faq: privacyFaq('pt'),
@@ -527,7 +521,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
       description: 'Extract text from images with local OCR in your browser.',
       keywords: 'image ocr, photo to text, offline ocr',
       h1: 'Image OCR',
-      intro: 'Digitize text from photos and scans with privacy.',
+      intro: 'Digitize text from photos and scans.',
       benefits: ['On-device OCR', 'Multiple languages', 'No cloud'],
       howItWorks: ['Upload an image.', 'Select OCR.', 'Copy or export text.'],
       faq: privacyFaq('en'),
@@ -537,7 +531,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
       description: 'Extraiga texto de imágenes con OCR local.',
       keywords: 'ocr imagen, foto a texto',
       h1: 'OCR de Imagen',
-      intro: 'Digitalice texto de fotos con privacidad.',
+      intro: 'Digitalice texto de fotos con precisión.',
       benefits: ['OCR en dispositivo', 'Varios idiomas', 'Sin nube'],
       howItWorks: ['Suba imagen.', 'Seleccione OCR.', 'Exporte texto.'],
       faq: privacyFaq('es'),
@@ -550,7 +544,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
       keywords: 'filtro imagem, brilho contraste imagem offline',
       h1: 'Filtros de Imagem',
       intro: 'Edite imagens com ajustes rápidos sem upload.',
-      benefits: ['Preview instantâneo', 'Controles precisos', '100% local'],
+      benefits: ['Preview instantâneo', 'Controles precisos', 'Gratuito'],
       howItWorks: ['Envie imagens.', 'Ajuste filtros.', 'Baixe o resultado.'],
       faq: privacyFaq('pt'),
     },
@@ -560,7 +554,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
       keywords: 'image filters, brightness contrast offline',
       h1: 'Image Filters',
       intro: 'Edit images with quick adjustments without upload.',
-      benefits: ['Instant preview', 'Precise controls', '100% local'],
+      benefits: ['Instant preview', 'Precise controls', 'Free to use'],
       howItWorks: ['Upload images.', 'Adjust filters.', 'Download output.'],
       faq: privacyFaq('en'),
     },
@@ -570,7 +564,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
       keywords: 'filtros imagen offline',
       h1: 'Filtros de Imagen',
       intro: 'Edite imágenes sin subir archivos.',
-      benefits: ['Vista previa instantánea', 'Controles precisos', '100% local'],
+      benefits: ['Vista previa instantánea', 'Controles precisos', 'Gratis'],
       howItWorks: ['Suba imágenes.', 'Ajuste filtros.', 'Descargue.'],
       faq: privacyFaq('es'),
     },
@@ -578,7 +572,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
   page('/csv-to-json', 'converter', 'csv-json', undefined, {
     pt: {
       title: 'CSV para JSON Online Offline | PDFWINDOWS',
-      description: 'Converta CSV em JSON no navegador. Privado e sem upload.',
+      description: 'Converta CSV em JSON no navegador. Rápido e gratuito.',
       keywords: 'csv para json, converter csv offline',
       h1: 'CSV para JSON',
       intro: 'Transforme planilhas em JSON estruturado localmente.',
@@ -588,7 +582,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
     },
     en: {
       title: 'CSV to JSON Online Offline | PDFWINDOWS',
-      description: 'Convert CSV to JSON in your browser. Private, no upload.',
+      description: 'Convert CSV to JSON in your browser. Fast and free.',
       keywords: 'csv to json, convert csv offline',
       h1: 'CSV to JSON',
       intro: 'Turn spreadsheets into structured JSON locally.',
@@ -610,7 +604,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
   page('/json-to-csv', 'converter', 'json-to-csv', undefined, {
     pt: {
       title: 'JSON para CSV Online Offline | PDFWINDOWS',
-      description: 'Converta JSON em CSV no navegador com privacidade total.',
+      description: 'Converta JSON em CSV no navegador.',
       keywords: 'json para csv, converter json offline',
       h1: 'JSON para CSV',
       intro: 'Gere planilhas compatíveis a partir de dados JSON.',
@@ -620,7 +614,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
     },
     en: {
       title: 'JSON to CSV Online Offline | PDFWINDOWS',
-      description: 'Convert JSON to CSV in your browser with total privacy.',
+      description: 'Convert JSON to CSV in your browser.',
       keywords: 'json to csv offline',
       h1: 'JSON to CSV',
       intro: 'Generate spreadsheet-friendly CSV from JSON data.',
@@ -646,7 +640,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
       keywords: 'xml para json, converter xml offline',
       h1: 'XML para JSON',
       intro: 'Estruture dados XML para APIs e integrações sem upload.',
-      benefits: ['Conversão rápida', 'Privacidade', 'Sem instalação'],
+      benefits: ['Conversão rápida', 'Sem instalação', 'Gratuito'],
       howItWorks: ['Envie XML.', 'Converta.', 'Baixe JSON.'],
       faq: privacyFaq('pt'),
     },
@@ -656,7 +650,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
       keywords: 'xml to json offline',
       h1: 'XML to JSON',
       intro: 'Structure XML data for APIs without uploads.',
-      benefits: ['Fast conversion', 'Privacy', 'No install'],
+      benefits: ['Fast conversion', 'No install', 'Free to use'],
       howItWorks: ['Upload XML.', 'Convert.', 'Download JSON.'],
       faq: privacyFaq('en'),
     },
@@ -666,7 +660,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
       keywords: 'xml a json offline',
       h1: 'XML a JSON',
       intro: 'Estructure XML para APIs sin subir archivos.',
-      benefits: ['Conversión rápida', 'Privacidad', 'Sin instalación'],
+      benefits: ['Conversión rápida', 'Sin instalación', 'Gratis'],
       howItWorks: ['Suba XML.', 'Convierta.', 'Descargue JSON.'],
       faq: privacyFaq('es'),
     },
@@ -710,17 +704,17 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
         'Crie documentos profissionais com modelos, editor estruturado e exportação PDF local.',
       keywords: 'estudio documentos, gerador documento pdf, templates offline',
       h1: 'Estúdio de Documentos',
-      intro: 'Editor estruturado com pré-visualização ao vivo e exportação PDF 100% local.',
+      intro: 'Editor estruturado com pré-visualização ao vivo e exportação PDF.',
       benefits: ['Modelos profissionais', 'Smart Fill local', 'Rascunhos opcionais no dispositivo'],
       howItWorks: ['Escolha um modelo.', 'Preencha os campos.', 'Exporte o PDF.'],
       faq: privacyFaq('pt'),
     },
     en: {
       title: 'Document Studio Online Offline | PDFWINDOWS',
-      description: 'Create professional documents with templates and local PDF export.',
+      description: 'Create professional documents with templates and PDF export.',
       keywords: 'document studio, pdf template editor offline',
       h1: 'Document Studio',
-      intro: 'Structured editor with live preview and 100% local PDF export.',
+      intro: 'Structured editor with live preview and PDF export.',
       benefits: ['Professional templates', 'Local Smart Fill', 'Optional on-device drafts'],
       howItWorks: ['Pick a template.', 'Fill fields.', 'Export PDF.'],
       faq: privacyFaq('en'),
@@ -740,7 +734,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
     pt: {
       title: 'Capturador de Cores Online — HEX e RGB | PDFWINDOWS',
       description:
-        'Capture cores de imagens ou da tela com conta-gotas. Descubra códigos HEX, RGB e HSL — 100% offline, sem upload.',
+        'Capture cores de imagens ou da tela com conta-gotas. Descubra códigos HEX, RGB e HSL',
       keywords:
         'capturar cor online, descobrir código HEX, color picker, conta-gotas online, extrair cor da imagem',
       h1: 'Capturador de Cores',
@@ -762,7 +756,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
     en: {
       title: 'Online Color Picker — HEX & RGB | PDFWINDOWS',
       description:
-        'Pick colors from images or your screen. Get HEX, RGB, and HSL codes — 100% offline, no upload.',
+        'Pick colors from images or your screen. Get HEX, RGB, and HSL codes',
       keywords:
         'color picker online, hex code finder, eyedropper tool, extract color from image, offline color picker',
       h1: 'Color Picker',
@@ -779,7 +773,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
     es: {
       title: 'Capturador de Colores Online — HEX y RGB | PDFWINDOWS',
       description:
-        'Captura colores de imágenes o pantalla. Códigos HEX, RGB y HSL — 100% offline, sin subida.',
+        'Captura colores de imágenes o pantalla. Códigos HEX, RGB y HSL',
       keywords:
         'capturar color online, código HEX, color picker, cuentagotas online, extraer color imagen',
       h1: 'Capturador de Colores',
@@ -810,7 +804,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
       description: 'Build reports and receipts with local PDF export.',
       keywords: 'report generator pdf, receipt generator offline',
       h1: 'Report Generator',
-      intro: 'Professional reports and receipts in one workspace — 100% local PDF export.',
+      intro: 'Professional reports and receipts in one workspace PDF export.',
       benefits: ['Report sections', 'Receipt line items', 'Instant PDF'],
       howItWorks: ['Choose report or receipt.', 'Fill the form.', 'Download PDF.'],
       faq: privacyFaq('en'),
@@ -833,7 +827,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
       keywords: 'gerador qr code, qr code offline',
       h1: 'Gerador de QR Code',
       intro: 'Gere QR Codes de alta qualidade diretamente no navegador.',
-      benefits: ['PNG pronto para uso', 'Sem cadastro', '100% local'],
+      benefits: ['PNG pronto para uso', 'Sem cadastro', 'Alta resolução'],
       howItWorks: ['Insira link ou texto.', 'Gere o QR.', 'Baixe a imagem.'],
       faq: privacyFaq('pt'),
     },
@@ -843,7 +837,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
       keywords: 'qr code generator offline',
       h1: 'QR Code Generator',
       intro: 'Generate high-quality QR codes directly in your browser.',
-      benefits: ['Ready-to-use PNG', 'No signup', '100% local'],
+      benefits: ['Ready-to-use PNG', 'No signup', 'High resolution'],
       howItWorks: ['Enter link or text.', 'Generate QR.', 'Download image.'],
       faq: privacyFaq('en'),
     },
@@ -853,7 +847,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
       keywords: 'generador qr offline',
       h1: 'Generador de Código QR',
       intro: 'Genere códigos QR de alta calidad en el navegador.',
-      benefits: ['PNG listo', 'Sin registro', '100% local'],
+      benefits: ['PNG listo', 'Sin registro', 'Alta resolución'],
       howItWorks: ['Inserte enlace o texto.', 'Genere QR.', 'Descargue imagen.'],
       faq: privacyFaq('es'),
     },
@@ -926,15 +920,15 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
 
 export const HOME_COPY: Record<LanguageType, ToolPageCopy> = {
   pt: {
-    title: 'PDFWINDOWS — Ferramentas PDF e Imagem 100% Offline',
+    title: 'PDFWINDOWS — Ferramentas PDF e Imagem',
     description:
-      'Plataforma profissional de PDF, imagem e produtividade. Processamento local no navegador, privacidade total e sem upload obrigatório.',
-    keywords: 'pdf offline, converter pdf, ferramentas pdf gratis, privacidade pdf',
-    h1: 'Ferramentas PDF e Imagem — 100% no Seu Dispositivo',
+      'Plataforma profissional de PDF, imagem e produtividade. Ferramentas no navegador, sem cadastro.',
+    keywords: 'pdf offline, converter pdf, ferramentas pdf gratis',
+    h1: 'Ferramentas PDF e Imagem',
     intro:
       'PDFWINDOWS é uma plataforma SaaS offline-first para converter, proteger e criar documentos sem enviar arquivos para servidores.',
     benefits: [
-      'Privacidade total — arquivos não saem do dispositivo',
+
       'Dezenas de ferramentas em páginas dedicadas',
       'Ideal para uso profissional e pessoal',
       'Preparado para SEO e crescimento orgânico',
@@ -953,15 +947,15 @@ export const HOME_COPY: Record<LanguageType, ToolPageCopy> = {
     ],
   },
   en: {
-    title: 'PDFWINDOWS — 100% Offline PDF & Image Tools',
+    title: 'PDFWINDOWS',
     description:
-      'Professional PDF, image, and productivity platform. Local browser processing, total privacy, no mandatory upload.',
-    keywords: 'offline pdf tools, pdf converter, private pdf editor',
-    h1: 'PDF & Image Tools — 100% On Your Device',
+      'Professional PDF, image, and productivity platform. Browser tools, no signup required.',
+    keywords: 'offline pdf tools, pdf converter, pdf editor',
+    h1: 'PDF & Image Tools',
     intro:
       'PDFWINDOWS is an offline-first SaaS platform to convert, protect, and create documents without uploading files to servers.',
     benefits: [
-      'Total privacy — files never leave your device',
+
       'Dozens of tools on dedicated pages',
       'Great for professional and personal use',
       'Built for SEO and organic growth',
@@ -976,15 +970,15 @@ export const HOME_COPY: Record<LanguageType, ToolPageCopy> = {
     ],
   },
   es: {
-    title: 'PDFWINDOWS — Herramientas PDF e Imagen 100% Offline',
+    title: 'PDFWINDOWS — Herramientas PDF e Imagen',
     description:
-      'Plataforma profesional de PDF, imagen y productividad. Procesamiento local en el navegador y privacidad total.',
+      'Plataforma profesional de PDF, imagen y productividad. Herramientas en el navegador, sin registro.',
     keywords: 'pdf offline, convertir pdf, herramientas pdf gratis',
-    h1: 'Herramientas PDF e Imagen — 100% en Su Dispositivo',
+    h1: 'Herramientas PDF e Imagen',
     intro:
       'PDFWINDOWS es una plataforma offline-first para convertir, proteger y crear documentos sin subir archivos.',
     benefits: [
-      'Privacidad total — los archivos no salen del dispositivo',
+
       'Docenas de herramientas en páginas dedicadas',
       'Ideal para uso profesional y personal',
       'Preparado para SEO y crecimiento orgánico',

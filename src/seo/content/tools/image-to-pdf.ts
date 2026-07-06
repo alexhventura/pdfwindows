@@ -14,7 +14,7 @@ export const IMAGE_TO_PDF_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> =
     toolName: 'Image to PDF',
     benefits: [
       'Combine one or many images into a single PDF file',
-      'No cloud upload — ideal for personal and business privacy',
+      'Combine multiple images into one polished document',
       'Works with JPG, PNG, WEBP, and other common image types',
       'Fast results without installing Adobe or desktop utilities',
       'Free, unlimited use with no account required',
@@ -130,7 +130,7 @@ export const IMAGE_TO_PDF_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> =
   pt: {
     title: 'Imagem para PDF Online Offline | PDFWINDOWS',
     description:
-      'Crie PDFs a partir de JPG, PNG e outras imagens no navegador. Combine várias fotos em um PDF com processamento local e privado.',
+      'Crie PDFs a partir de JPG, PNG e outras imagens no navegador. Combine várias fotos em um PDF.',
     keywords:
       'imagem para pdf, jpg para pdf, foto para pdf, juntar imagens em pdf offline, converter foto em pdf',
     h1: 'Converter Imagem para PDF',
@@ -139,7 +139,7 @@ export const IMAGE_TO_PDF_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> =
     toolName: 'Imagem para PDF',
     benefits: [
       'Combine uma ou várias imagens em um único PDF',
-      'Sem upload na nuvem — privacidade para uso pessoal e corporativo',
+      'Combine várias imagens em um documento profissional',
       'Compatível com JPG, PNG, WEBP e outros formatos comuns',
       'Resultado rápido sem instalar Adobe ou utilitários desktop',
       'Uso gratuito e ilimitado, sem conta',
@@ -255,7 +255,7 @@ export const IMAGE_TO_PDF_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> =
   es: {
     title: 'Imagen a PDF Online Offline | PDFWINDOWS',
     description:
-      'Cree documentos PDF desde JPG, PNG y otras imágenes en su navegador. Combine varias fotos en un PDF con procesamiento local y privado.',
+      'Cree documentos PDF desde JPG, PNG y otras imágenes en su navegador. Combine varias fotos en un PDF.',
     keywords:
       'imagen a pdf, jpg a pdf, foto a pdf, unir imágenes pdf offline, convertir foto a pdf navegador',
     h1: 'Convertir Imagen a PDF',
@@ -264,7 +264,7 @@ export const IMAGE_TO_PDF_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> =
     toolName: 'Imagen a PDF',
     benefits: [
       'Combine una o muchas imágenes en un solo archivo PDF',
-      'Sin subida a la nube — ideal para privacidad personal y empresarial',
+      'Combine varias imágenes en un documento profesional',
       'Compatible con JPG, PNG, WEBP y otros tipos comunes',
       'Resultados rápidos sin instalar Adobe ni utilidades de escritorio',
       'Uso gratuito e ilimitado sin cuenta',

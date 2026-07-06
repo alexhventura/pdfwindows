@@ -5,7 +5,7 @@ export const PDF_TO_IMAGE_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> =
   en: {
     title: 'PDF to Image Online Offline | PDFWINDOWS',
     description:
-      'Convert PDF pages to JPG or PNG images in your browser. Export slides, scans, and diagrams locally with no cloud upload — private, fast, and free.',
+      'Convert PDF pages to JPG or PNG images in your browser. Export slides, scans, and diagrams — fast and free.',
     keywords:
       'pdf to image, pdf to jpg, pdf to png offline, export pdf pages as images, convert pdf browser free',
     h1: 'Convert PDF to Image',
@@ -137,7 +137,7 @@ export const PDF_TO_IMAGE_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> =
   pt: {
     title: 'PDF para Imagem Online Offline | PDFWINDOWS',
     description:
-      'Converta páginas PDF em JPG ou PNG no navegador. Exporte slides, scans e diagramas localmente sem upload — privado, rápido e gratuito.',
+      'Converta páginas PDF em JPG ou PNG no navegador. Exporte slides, scans e diagramas — rápido e gratuito.',
     keywords:
       'pdf para imagem, pdf para jpg, pdf para png offline, exportar paginas pdf, converter pdf navegador gratis',
     h1: 'Converter PDF para Imagem',
@@ -269,7 +269,7 @@ export const PDF_TO_IMAGE_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> =
   es: {
     title: 'PDF a Imagen Online Offline | PDFWINDOWS',
     description:
-      'Convierta páginas PDF a JPG o PNG en su navegador. Exporte diapositivas, escaneos y diagramas localmente sin subida — privado, rápido y gratuito.',
+      'Convierta páginas PDF a JPG o PNG en su navegador. Exporte diapositivas, escaneos y diagramas — rápido y gratuito.',
     keywords:
       'pdf a imagen, pdf a jpg, pdf a png offline, exportar paginas pdf, convertir pdf navegador gratis',
     h1: 'Convertir PDF a Imagen',

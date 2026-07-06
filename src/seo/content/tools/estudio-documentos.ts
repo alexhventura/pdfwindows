@@ -5,7 +5,7 @@ export const ESTUDIO_DOCUMENTOS_CONTENT: Record<'en' | 'pt' | 'es', ToolRichCont
   en: {
     title: 'Document Studio Online Offline | PDFWINDOWS',
     description:
-      'Create professional documents with structured templates, live preview, and 100% local PDF export. No upload, no account.',
+      'Create professional documents with structured templates, live preview, and PDF export. No upload, no account.',
     keywords:
       'document studio, pdf template editor, contract generator offline, local document creator, professional pdf templates',
     h1: 'Document Studio — Professional Templates, Local PDF',
@@ -17,8 +17,8 @@ export const ESTUDIO_DOCUMENTOS_CONTENT: Record<'en' | 'pt' | 'es', ToolRichCont
       'Live preview updates as you type',
       'Smart Fill suggests values from recent local entries',
       'Optional on-device draft storage — never mandatory',
-      'PDF export runs 100% in the browser',
-      'No account, no server upload, no subscription wall',
+      'PDF export runs in the browser',
+      'No account or paywall required',
     ],
     useCases: [
       {
@@ -129,7 +129,7 @@ export const ESTUDIO_DOCUMENTOS_CONTENT: Record<'en' | 'pt' | 'es', ToolRichCont
   pt: {
     title: 'Estúdio de Documentos Online Offline | PDFWINDOWS',
     description:
-      'Crie documentos profissionais com modelos estruturados, pré-visualização ao vivo e exportação PDF 100% local. Sem upload e sem cadastro.',
+      'Crie documentos profissionais com modelos estruturados, pré-visualização ao vivo e exportação PDF. Sem upload e sem cadastro.',
     keywords:
       'estudio documentos, editor modelo pdf, gerador contrato offline, criador documento local, templates profissionais pdf',
     h1: 'Estúdio de Documentos — Modelos Profissionais, PDF Local',
@@ -141,8 +141,8 @@ export const ESTUDIO_DOCUMENTOS_CONTENT: Record<'en' | 'pt' | 'es', ToolRichCont
       'Pré-visualização ao vivo conforme você digita',
       'Smart Fill sugere valores de entradas locais recentes',
       'Rascunhos opcionais no dispositivo — nunca obrigatórios',
-      'Exportação PDF 100% no navegador',
-      'Sem conta, sem upload e sem paywall',
+      'Exportação PDF no navegador',
+      'Sem conta nem paywall',
     ],
     useCases: [
       {
@@ -254,7 +254,7 @@ export const ESTUDIO_DOCUMENTOS_CONTENT: Record<'en' | 'pt' | 'es', ToolRichCont
   es: {
     title: 'Estudio de Documentos Online Offline | PDFWINDOWS',
     description:
-      'Cree documentos profesionales con plantillas estructuradas, vista previa en vivo y exportación PDF 100% local. Sin subida ni registro.',
+      'Cree documentos profesionales con plantillas estructuradas, vista previa en vivo y exportación PDF. Sin subida ni registro.',
     keywords:
       'estudio documentos, editor plantillas pdf, generador contrato offline, creador documento local, plantillas profesionales pdf',
     h1: 'Estudio de Documentos — Plantillas Profesionales, PDF Local',
@@ -266,7 +266,8 @@ export const ESTUDIO_DOCUMENTOS_CONTENT: Record<'en' | 'pt' | 'es', ToolRichCont
       'Vista previa en vivo mientras escribe',
       'Smart Fill sugiere valores de entradas locales recientes',
       'Borradores opcionales en el dispositivo — nunca obligatorios',
-      'Exportación PDF 100% en el navegador',
+      'Exportación PDF en el navegador',
+      'Sin cuenta ni paywall',
       'Sin cuenta, sin subida y sin muro de pago',
     ],
     useCases: [

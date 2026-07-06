@@ -8,12 +8,12 @@ export const PDF_MERGE_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = {
       'Combine multiple PDF files into one document directly in your browser. No upload, no servers — merge PDFs locally with full privacy and control over file order.',
     keywords:
       'merge pdf, combine pdf offline, join pdf files, merge pdf free, local pdf merge, concatenate pdf browser',
-    h1: 'Merge PDF Online — 100% Local',
+    h1: 'Merge PDF Online',
     intro:
       'Combining scattered PDFs into a single file should not require uploading contracts, medical records, or financial statements to a stranger\'s server. PDFWINDOWS merges PDF documents entirely inside your browser: you choose the order, preview the queue, and download one unified file without any cloud transfer. Whether you are assembling a loan package, stitching together scanned receipts, or building a client deliverable from multiple exports, local merging keeps sensitive pages on your device from start to finish.',
     toolName: 'Merge PDF',
     benefits: [
-      '100% in-browser processing — files never leave your device',
+
       'Drag-and-drop reordering before you merge',
       'No artificial file-count limits from external servers',
       'Preserves original page content without re-scanning or recompression',
@@ -126,15 +126,15 @@ export const PDF_MERGE_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = {
   pt: {
     title: 'Mesclar PDF Online Grátis e Offline | PDFWINDOWS',
     description:
-      'Combine vários arquivos PDF em um único documento diretamente no navegador. Sem upload, sem servidores — mescle PDFs localmente com privacidade total e controle da ordem.',
+      'Combine vários arquivos PDF em um único documento diretamente no navegador. Sem upload, sem servidores — mescle PDFs localmente. e controle da ordem.',
     keywords:
       'mesclar pdf, juntar pdf, combinar pdf offline, merge pdf gratis, unir arquivos pdf navegador',
-    h1: 'Mesclar PDF Online — 100% Local',
+    h1: 'Mesclar PDF Online',
     intro:
       'Juntar PDFs espalhados em um único arquivo não deveria exigir enviar contratos, prontuários ou extratos financeiros para o servidor de terceiros. O PDFWINDOWS mescla documentos inteiramente no seu navegador: você define a ordem, visualiza a fila e baixa um arquivo unificado sem transferência para a nuvem. Seja para montar um pacote de crédito, unir recibos digitalizados ou entregar um material ao cliente a partir de várias exportações, a mesclagem local mantém páginas sensíveis no seu dispositivo do início ao fim.',
     toolName: 'Mesclar PDF',
     benefits: [
-      'Processamento 100% no navegador — arquivos não saem do dispositivo',
+
       'Reordenação por arrastar e soltar antes de mesclar',
       'Sem limite artificial de quantidade imposto por servidores externos',
       'Preserva o conteúdo original das páginas sem reescanear ou recomprimir',
@@ -247,15 +247,15 @@ export const PDF_MERGE_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = {
   es: {
     title: 'Unir PDF Online Gratis y Offline | PDFWINDOWS',
     description:
-      'Combine varios archivos PDF en un solo documento directamente en el navegador. Sin subida, sin servidores — una PDF localmente con privacidad total y control del orden.',
+      'Combine varios archivos PDF en un solo documento directamente en el navegador. Sin subida, sin servidores — una PDF localmente. y control del orden.',
     keywords:
       'unir pdf, combinar pdf offline, juntar pdf gratis, fusionar pdf navegador, merge pdf local',
-    h1: 'Unir PDF Online — 100% Local',
+    h1: 'Unir PDF Online',
     intro:
       'Combinar PDF dispersos en un solo archivo no debería exigir subir contratos, historiales médicos o estados financieros al servidor de un tercero. PDFWINDOWS une documentos completamente en su navegador: usted elige el orden, revisa la cola y descarga un archivo unificado sin transferencia a la nube. Ya sea para armar un paquete de crédito, unir recibos escaneados o entregar material al cliente desde varias exportaciones, la unión local mantiene páginas sensibles en su dispositivo de principio a fin.',
     toolName: 'Unir PDF',
     benefits: [
-      'Procesamiento 100% en el navegador — los archivos no salen del dispositivo',
+
       'Reordenación por arrastrar antes de unir',
       'Sin límite artificial impuesto por servidores externos',
       'Preserva el contenido original sin volver a escanear ni recomprimir',

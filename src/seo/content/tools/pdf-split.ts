@@ -14,7 +14,7 @@ export const PDF_SPLIT_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = {
     toolName: 'Split PDF',
     benefits: [
       'Extract exact page ranges with start and end controls',
-      'Unused pages never leave your device',
+      'Precise control over start and end pages',
       'Fast processing for large multi-page PDFs',
       'No account or upload quota',
       'Combine with merge for flexible restructuring',
@@ -133,7 +133,7 @@ export const PDF_SPLIT_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = {
   pt: {
     title: 'Dividir PDF Online Grátis e Offline | PDFWINDOWS',
     description:
-      'Extraia intervalos de páginas de PDFs no navegador. Divida documentos grandes localmente sem upload — controle preciso de páginas inicial e final com privacidade total.',
+      'Extraia intervalos de páginas de PDFs no navegador. Divida documentos grandes localmente sem upload — controle preciso de páginas inicial e final.',
     keywords:
       'dividir pdf, separar paginas pdf, extrair paginas pdf offline, cortar pdf navegador, split pdf gratis',
     h1: 'Dividir PDF por Páginas',
@@ -261,7 +261,7 @@ export const PDF_SPLIT_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = {
   es: {
     title: 'Dividir PDF Online Gratis y Offline | PDFWINDOWS',
     description:
-      'Extraiga rangos de páginas de archivos PDF en el navegador. Divida documentos grandes localmente sin subida — control preciso de páginas inicial y final con privacidad total.',
+      'Extraiga rangos de páginas de archivos PDF en el navegador. Divida documentos grandes localmente sin subida — control preciso de páginas inicial y final.',
     keywords:
       'dividir pdf, separar paginas pdf, extraer paginas pdf offline, cortar pdf navegador, split pdf gratis',
     h1: 'Dividir PDF por Páginas',

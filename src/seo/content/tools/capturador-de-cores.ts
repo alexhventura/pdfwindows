@@ -5,7 +5,7 @@ export const CAPTURADOR_CORES_CONTENT: Record<'en' | 'pt' | 'es', ToolRichConten
   en: {
     title: 'Online Color Picker — HEX, RGB & HSL | PDFWINDOWS',
     description:
-      'Pick colors from images or your screen with an eyedropper. Get HEX, RGB, and HSL codes instantly — 100% offline, no upload.',
+      'Pick colors from images or your screen with an eyedropper. Get HEX, RGB, and HSL codes instantly',
     keywords:
       'color picker online, hex code finder, eyedropper tool, extract color from image, offline color picker, dominant palette',
     h1: 'Color Picker — Image & Screen Capture',
@@ -130,7 +130,7 @@ export const CAPTURADOR_CORES_CONTENT: Record<'en' | 'pt' | 'es', ToolRichConten
   pt: {
     title: 'Capturador de Cores Online — HEX, RGB e HSL | PDFWINDOWS',
     description:
-      'Capture cores de imagens ou da tela com conta-gotas. Obtenha códigos HEX, RGB e HSL instantaneamente — 100% offline, sem upload.',
+      'Capture cores de imagens ou da tela com conta-gotas. Obtenha códigos HEX, RGB e HSL instantaneamente',
     keywords:
       'capturar cor online, descobrir código HEX, conta-gotas, extrair cor da imagem, color picker offline, paleta dominante',
     h1: 'Capturador de Cores — Imagem e Tela',
@@ -255,7 +255,7 @@ export const CAPTURADOR_CORES_CONTENT: Record<'en' | 'pt' | 'es', ToolRichConten
   es: {
     title: 'Capturador de Colores Online — HEX, RGB y HSL | PDFWINDOWS',
     description:
-      'Capture colores de imágenes o pantalla con cuentagotas. Obtenga códigos HEX, RGB y HSL al instante — 100% offline, sin subida.',
+      'Capture colores de imágenes o pantalla con cuentagotas. Obtenga códigos HEX, RGB y HSL al instante',
     keywords:
       'capturar color online, código HEX, cuentagotas, extraer color imagen, color picker offline, paleta dominante',
     h1: 'Capturador de Colores — Imagen y Pantalla',

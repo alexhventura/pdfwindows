@@ -13,7 +13,7 @@ export const PDF_OCR_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = {
       'A scanned contract looks like a PDF but behaves like a stack of photographs: you cannot search for a clause, copy a paragraph, or paste figures into a spreadsheet. Optical Character Recognition rebuilds a text layer from those page images so standard readers regain find-and-select behavior. Cloud OCR services demand that you upload entire documents — unacceptable when pages contain medical histories, unreleased filings, or personal identifiers. PDFWINDOWS runs OCR locally in your browser, processing each page on your device and returning extracted text or a searchable PDF without transmitting bytes to conversion servers.',
     toolName: 'PDF OCR',
     benefits: [
-      'OCR runs on your device — scanned content never uploaded',
+      'OCR runs entirely in your browser',
       'Multilingual recognition for mixed-language documents',
       'Ideal for digitized archives and mobile photo scans',
       'No account, queue, or email delivery step',
@@ -136,7 +136,7 @@ export const PDF_OCR_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = {
   pt: {
     title: 'OCR de PDF Online Offline | PDFWINDOWS',
     description:
-      'Extraia texto pesquisável de PDFs digitalizados no navegador com OCR local. Transforme páginas só-imagem em conteúdo editável — sem upload, privacidade total.',
+      'Extraia texto pesquisável de PDFs digitalizados no navegador com OCR local. Transforme páginas só-imagem em conteúdo editável.',
     keywords:
       'ocr pdf, pdf digitalizado para texto, ocr offline pdf, reconhecer texto pdf navegador, pdf pesquisável gratis',
     h1: 'OCR de PDF — Texto Pesquisável',

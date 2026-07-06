@@ -88,6 +88,14 @@ test.describe('Color picker interactions', () => {
   });
 
   test('mode tabs and screen capture button work', async ({ page }) => {
+    const policyViolations: string[] = [];
+    page.on('console', (msg) => {
+      const text = msg.text();
+      if (/Permissions policy violation.*camera/i.test(text)) {
+        policyViolations.push(text);
+      }
+    });
+
     await page.goto('/en/capturador-de-cores');
     await expect(page.locator('.color-picker-root')).toBeVisible({ timeout: 30_000 });
 
@@ -102,6 +110,7 @@ test.describe('Color picker interactions', () => {
 
     await expect(page.locator('.color-picker-swatch-large')).toBeVisible();
     await expect(page.locator('.color-picker-code-value').first()).toContainText('#FF5500');
+    expect(policyViolations, policyViolations.join('\n')).toEqual([]);
   });
 
   test('image upload and pixel pick', async ({ page }) => {

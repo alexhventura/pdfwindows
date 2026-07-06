@@ -19,7 +19,6 @@ import {
   ChevronRight, 
   ChevronDown, 
   ArrowRight,
-  Maximize2,
   HelpCircle,
   Eye,
 } from 'lucide-react';
@@ -53,7 +52,6 @@ export interface ConverterWorkbenchProps {
   fixedOperation?: OperationType;
   showSuiteSection?: boolean;
   showSideAds?: boolean;
-  showGuarantees?: boolean;
   linkMode?: boolean;
   pageHeading?: string;
   pageSubheading?: string;
@@ -63,7 +61,6 @@ export function ConverterWorkbench({
   fixedOperation,
   showSuiteSection = true,
   showSideAds = true,
-  showGuarantees = true,
   linkMode = false,
   pageHeading,
   pageSubheading,
@@ -1337,40 +1334,6 @@ export function ConverterWorkbench({
         </AnimatePresence>
 
         {showSuiteSection && <ProductivityTools lang={lang} linkMode={linkMode} />}
-
-        {showGuarantees && (
-        <section className="w-full max-w-3xl grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 pt-4 select-none">
-          <div className="premium-card p-4 flex gap-3 text-left">
-            <div className="p-2 h-max rounded-xl shrink-0 card-icon-wrap !w-9 !h-9 !mb-0">
-              <ShieldCheck size={18} />
-            </div>
-            <div>
-              <h4 className="text-xs font-extrabold text-slate-800 uppercase tracking-wider mb-1">{t.privacyGuaranteeTitle}</h4>
-              <p className="text-[11px] text-slate-500 leading-relaxed font-semibold">{t.privacyGuaranteeDesc}</p>
-            </div>
-          </div>
-
-          <div className="premium-card p-4 flex gap-3 text-left">
-            <div className="p-2 h-max rounded-xl shrink-0 card-icon-wrap !w-9 !h-9 !mb-0">
-              <Maximize2 size={18} />
-            </div>
-            <div>
-              <h4 className="text-xs font-extrabold text-slate-800 uppercase tracking-wider mb-1">{t.speedGuaranteeTitle}</h4>
-              <p className="text-[11px] text-slate-500 leading-relaxed font-semibold">{t.speedGuaranteeDesc}</p>
-            </div>
-          </div>
-
-          <div className="premium-card p-4 flex gap-3 text-left">
-            <div className="p-2 h-max rounded-xl shrink-0 card-icon-wrap !w-9 !h-9 !mb-0">
-              <Lock size={18} />
-            </div>
-            <div>
-              <h4 className="text-xs font-extrabold text-slate-800 uppercase tracking-wider mb-1">{t.localGuaranteeTitle}</h4>
-              <p className="text-[11px] text-slate-500 leading-relaxed font-semibold">{t.localGuaranteeDesc}</p>
-            </div>
-          </div>
-        </section>
-        )}
 
       </div>
       </div>

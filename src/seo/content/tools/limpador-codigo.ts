@@ -15,7 +15,7 @@ export const LIMPADOR_CODIGO_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent
     benefits: [
       'Format or minify HTML, CSS, and JavaScript',
       'Prettier engine bundled for consistent style',
-      'Source code never leaves your browser',
+      'Instant side-by-side input and output',
       'Instant side-by-side input and output',
       'No account, API key, or rate limits',
       'Great for snippets, configs, and email templates',

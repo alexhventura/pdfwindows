@@ -1,5 +1,29 @@
-import { describe, expect, it } from 'vitest';
-import { mapClickToCanvasPixel } from '../screenColorPick';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { mapClickToCanvasPixel, requestDisplayMediaForColorPick } from '../screenColorPick';
+
+describe('requestDisplayMediaForColorPick', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it('calls getDisplayMedia only (never getUserMedia)', async () => {
+    const getUserMedia = vi.fn();
+    const getDisplayMedia = vi.fn().mockResolvedValue({
+      getVideoTracks: () => [{ stop: () => {} }],
+    });
+
+    vi.stubGlobal('navigator', {
+      mediaDevices: { getUserMedia, getDisplayMedia },
+    });
+
+    const stream = await requestDisplayMediaForColorPick();
+
+    expect(getDisplayMedia).toHaveBeenCalledOnce();
+    expect(getDisplayMedia).toHaveBeenCalledWith({ video: true, audio: false });
+    expect(getUserMedia).not.toHaveBeenCalled();
+    expect(stream).toBeDefined();
+  });
+});
 
 describe('mapClickToCanvasPixel', () => {
   it('maps clicks with object-fit contain letterboxing', () => {

@@ -56,7 +56,7 @@ export function buildToolPageJsonLd(input: ToolSchemaInput): Record<string, unkn
     description,
     url: pageUrl,
     image: `${SITE_ORIGIN}/logo.png`,
-    featureList: '100% local browser processing, no file upload to servers, privacy-first PDF tools',
+    featureList: 'Browser-based PDF and image tools, fast conversion, no account required',
     provider: {
       '@type': 'Organization',
       name: 'PDFWINDOWS',

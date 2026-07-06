@@ -4,17 +4,17 @@ import { privacyFaq, defaultCta } from './helpers';
 export const HOME_RICH_CONTENT: Record<'/' | '/conversor', Record<'en' | 'pt' | 'es', ToolRichContent>> = {
   '/': {
     en: {
-      title: 'PDFWINDOWS — 100% Offline PDF & Image Tools',
+      title: 'PDFWINDOWS',
       description:
-        'Professional PDF, image, and productivity platform. Local browser processing, total privacy, no mandatory upload. Explore the full tool catalog.',
+        'Professional PDF, image, and productivity platform. Browser tools, no signup required. Explore the full tool catalog.',
       keywords:
         'offline pdf tools, pdf converter free, private pdf editor, local image tools, browser pdf suite, pdfwindows',
       h1: 'PDF & Image',
       intro:
-        'Professional tools for PDF and image. 100% on your device, no upload, total privacy.',
+        'Professional tools for PDF and image. Fast browser processing, no account required.',
       toolName: 'PDFWINDOWS',
       benefits: [
-        'Total privacy — files never leave your device',
+
         'Dozens of dedicated tool pages for SEO and deep linking',
         'PDF, image, data, and productivity suite in one brand',
         'No mandatory account or subscription',
@@ -129,27 +129,28 @@ export const HOME_RICH_CONTENT: Record<'/' | '/conversor', Record<'en' | 'pt' | 
       relatedTools: ['/pdf-merge', '/pdf-compress', '/estudio-documentos', '/conversor'],
       cta: {
         heading: 'Explore the full catalog',
-        body: 'Pick any tool and process your first file locally in seconds — private, fast, and free.',
+        body: 'Pick any tool and process your first file in seconds — fast and free.',
         buttonLabel: 'Browse tools',
       },
     },
     pt: {
-      title: 'PDFWINDOWS — Ferramentas PDF e Imagem 100% Offline',
+      title: 'PDFWINDOWS — Ferramentas PDF e Imagem',
       description:
-        'Plataforma profissional de PDF, imagem e produtividade. Processamento local no navegador, privacidade total, sem upload obrigatório. Explore o catálogo completo.',
+        'Plataforma profissional de PDF, imagem e produtividade. Ferramentas no navegador, sem cadastro. Explore o catálogo completo.',
       keywords:
         'ferramentas pdf offline, converter pdf gratis, editor pdf privado, ferramentas imagem local, suite pdf navegador, pdfwindows',
       h1: 'PDF e Imagem',
       intro:
-        'Ferramentas profissionais para PDF e imagem. 100% no seu dispositivo, sem upload e com privacidade total.',
+        'Ferramentas profissionais para PDF e imagem. Processamento rápido no navegador, sem cadastro.',
       toolName: 'PDFWINDOWS',
       benefits: [
-        'Privacidade total — arquivos não saem do dispositivo',
+
         'Dezenas de páginas dedicadas para SEO e links diretos',
         'PDF, imagem, dados e suíte de produtividade em uma marca',
         'Sem conta ou assinatura obrigatória',
         'Funciona em Chrome, Edge e Firefox modernos',
         'Capaz de operar offline após carregar a página',
+        'Suporte completo a dezenas de formatos de PDF, imagem e dados estruturados',
       ],
       useCases: [
         {
@@ -229,7 +230,7 @@ export const HOME_RICH_CONTENT: Record<'/' | '/conversor', Record<'en' | 'pt' | 
           level: 2,
           paragraphs: [
             'Não é necessário instalar ou cadastrar. Abra uma página de ferramenta, use o workspace e baixe resultados. Para lotes mistos, o conversor completo em /conversor expõe o workbench clássico em uma visão.',
-            'Cada página inclui conteúdo educacional, FAQ e links de ferramentas relacionadas para montar pipelines eficientes.',
+            'Cada página inclui conteúdo educacional detalhado, FAQ e links de ferramentas relacionadas para montar pipelines eficientes.',
             'O layout do catálogo é otimizado para leitura rápida: ícones comunicam a categoria e cada card leva a uma URL dedicada que você pode compartilhar com colegas ou indexar no Google.',
           ],
         },
@@ -260,27 +261,28 @@ export const HOME_RICH_CONTENT: Record<'/' | '/conversor', Record<'en' | 'pt' | 
       relatedTools: ['/pdf-merge', '/pdf-compress', '/estudio-documentos', '/conversor'],
       cta: {
         heading: 'Explore o catálogo completo',
-        body: 'Escolha qualquer ferramenta e processe seu primeiro arquivo localmente em segundos — privado, rápido e gratuito.',
+        body: 'Escolha qualquer ferramenta e processe seu primeiro arquivo em segundos — rápido e gratuito.',
         buttonLabel: 'Ver ferramentas',
       },
     },
     es: {
-      title: 'PDFWINDOWS — Herramientas PDF e Imagen 100% Offline',
+      title: 'PDFWINDOWS — Herramientas PDF e Imagen',
       description:
-        'Plataforma profesional de PDF, imagen y productividad. Procesamiento local en el navegador, privacidad total, sin subida obligatoria. Explore el catálogo completo.',
+        'Plataforma profesional de PDF, imagen y productividad. Herramientas en el navegador, sin registro. Explore el catálogo completo.',
       keywords:
         'herramientas pdf offline, convertir pdf gratis, editor pdf privado, herramientas imagen local, suite pdf navegador, pdfwindows',
       h1: 'PDF e Imagen',
       intro:
-        'Herramientas profesionales para PDF e imagen. 100% en su dispositivo, sin subida y con privacidad total.',
+        'Herramientas profesionales para PDF e imagen. Procesamiento rápido en el navegador, sin registro.',
       toolName: 'PDFWINDOWS',
       benefits: [
-        'Privacidad total — los archivos no salen del dispositivo',
+
         'Docenas de páginas dedicadas para SEO y enlaces directos',
         'PDF, imagen, datos y suite de productividad en una marca',
         'Sin cuenta ni suscripción obligatoria',
         'Funciona en Chrome, Edge y Firefox modernos',
         'Capaz de operar offline tras cargar la página',
+        'Compatibilidad con decenas de formatos PDF e imagen',
       ],
       useCases: [
         {
@@ -391,7 +393,7 @@ export const HOME_RICH_CONTENT: Record<'/' | '/conversor', Record<'en' | 'pt' | 
       relatedTools: ['/pdf-merge', '/pdf-compress', '/estudio-documentos', '/conversor'],
       cta: {
         heading: 'Explore el catálogo completo',
-        body: 'Elija cualquier herramienta y procese su primer archivo localmente en segundos — privado, rápido y gratuito.',
+        body: 'Elija cualquier herramienta y procese su primer archivo en segundos — rápido y gratuito.',
         buttonLabel: 'Ver herramientas',
       },
     },
@@ -410,10 +412,10 @@ export const HOME_RICH_CONTENT: Record<'/' | '/conversor', Record<'en' | 'pt' | 
       benefits: [
         'Single queue for mixed PDF and image operations',
         'Access all conversion types without page switching',
-        '100% browser-side processing pipeline',
+
         'Productivity suite shortcuts in the same view',
         'Ideal for batch workflows and power users',
-        'Same privacy guarantees as individual tool pages',
+
       ],
       useCases: [
         {
@@ -536,10 +538,10 @@ export const HOME_RICH_CONTENT: Record<'/' | '/conversor', Record<'en' | 'pt' | 
       benefits: [
         'Fila única para operações mistas de PDF e imagem',
         'Acesso a todos os tipos de conversão sem trocar de página',
-        'Pipeline de processamento 100% no navegador',
+        'Processamento em lote direto no navegador',
         'Atalhos da suíte de produtividade na mesma visão',
         'Ideal para fluxos em lote e usuários avançados',
-        'Mesmas garantias de privacidade das páginas individuais',
+
       ],
       useCases: [
         {
@@ -666,7 +668,7 @@ export const HOME_RICH_CONTENT: Record<'/' | '/conversor', Record<'en' | 'pt' | 
         'Pipeline de procesamiento 100% en el navegador',
         'Atajos de suite de productividad en la misma vista',
         'Ideal para flujos por lotes y usuarios avanzados',
-        'Mismas garantías de privacidad que páginas individuales',
+
       ],
       useCases: [
         {

@@ -15,7 +15,7 @@ export const IMAGE_RESIZE_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> =
     benefits: [
       'Pixel-precise dimensions with optional aspect-ratio lock',
       'Compression controls to shrink file size after resizing',
-      '100% local processing — no upload to conversion servers',
+
       'Works with JPG, PNG, WEBP, and other common formats',
       'Free, unlimited use with no account or watermarks',
     ],
@@ -143,7 +143,7 @@ export const IMAGE_RESIZE_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> =
     benefits: [
       'Dimensões precisas em pixels com bloqueio opcional de proporção',
       'Controles de compressão para reduzir tamanho após redimensionar',
-      'Processamento 100% local — sem upload para servidores de conversão',
+
       'Compatível com JPG, PNG, WEBP e outros formatos comuns',
       'Uso gratuito e ilimitado, sem conta ou marcas d\'água',
     ],
@@ -271,7 +271,7 @@ export const IMAGE_RESIZE_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> =
     benefits: [
       'Dimensiones precisas en píxeles con bloqueo opcional de proporción',
       'Controles de compresión para reducir tamaño tras redimensionar',
-      'Procesamiento 100% local — sin subida a servidores de conversión',
+
       'Compatible con JPG, PNG, WEBP y otros formatos comunes',
       'Uso gratuito e ilimitado sin cuenta ni marcas de agua',
     ],

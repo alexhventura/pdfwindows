@@ -43,20 +43,20 @@ export function defaultCta(lang: LanguageType, toolLabel: string): ToolRichConte
   if (lang === 'pt') {
     return {
       heading: `Pronto para usar ${toolLabel}?`,
-      body: 'Envie seus arquivos, processe localmente e baixe o resultado em segundos — com privacidade total.',
+      body: 'Envie seus arquivos, processe no navegador e baixe o resultado em segundos.',
       buttonLabel: 'Começar agora',
     };
   }
   if (lang === 'es') {
     return {
       heading: `¿Listo para usar ${toolLabel}?`,
-      body: 'Suba sus archivos, procese localmente y descargue el resultado en segundos — con privacidad total.',
+      body: 'Suba sus archivos, procese en el navegador y descargue el resultado en segundos.',
       buttonLabel: 'Empezar ahora',
     };
   }
   return {
     heading: `Ready to use ${toolLabel}?`,
-    body: 'Upload your files, process locally, and download results in seconds — with complete privacy.',
+    body: 'Upload your files, process in your browser, and download results in seconds.',
     buttonLabel: 'Start now',
   };
 }

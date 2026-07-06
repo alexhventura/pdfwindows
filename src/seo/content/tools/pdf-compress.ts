@@ -5,7 +5,7 @@ export const PDF_COMPRESS_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> =
   en: {
     title: 'Compress PDF Online Free & Offline | PDFWINDOWS',
     description:
-      'Reduce PDF file size in your browser without uploading to cloud servers. Shrink documents for email attachments while keeping readable quality — 100% local and private.',
+      'Reduce PDF file size in your browser without uploading to cloud servers. Shrink documents for email attachments while keeping readable quality',
     keywords:
       'compress pdf, reduce pdf size, shrink pdf offline, pdf compressor free, optimize pdf browser, smaller pdf email',
     h1: 'Compress PDF — Local Processing',
@@ -134,7 +134,7 @@ export const PDF_COMPRESS_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> =
   pt: {
     title: 'Comprimir PDF Online Grátis e Offline | PDFWINDOWS',
     description:
-      'Reduza o tamanho de PDFs no navegador sem enviar para servidores na nuvem. Diminua documentos para anexos de e-mail mantendo qualidade legível — 100% local e privado.',
+      'Reduza o tamanho de PDFs no navegador sem enviar para servidores na nuvem. Diminua documentos para anexos de e-mail mantendo qualidade legível',
     keywords:
       'comprimir pdf, reduzir tamanho pdf, pdf menor offline, otimizar pdf navegador, diminuir pdf email',
     h1: 'Comprimir PDF — Processamento Local',
@@ -263,7 +263,7 @@ export const PDF_COMPRESS_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> =
   es: {
     title: 'Comprimir PDF Online Gratis y Offline | PDFWINDOWS',
     description:
-      'Reduzca el tamaño de PDF en el navegador sin subir a servidores en la nube. Achique documentos para adjuntos de correo manteniendo calidad legible — 100% local y privado.',
+      'Reduzca el tamaño de PDF en el navegador sin subir a servidores en la nube. Achique documentos para adjuntos de correo manteniendo calidad legible',
     keywords:
       'comprimir pdf, reducir tamaño pdf, pdf más pequeño offline, optimizar pdf navegador, pdf email ligero',
     h1: 'Comprimir PDF — Procesamiento Local',

@@ -15,7 +15,7 @@ export const GERADOR_CPF_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = 
     benefits: [
       'Valid check-digit algorithm matching official CPF rules',
       'One-click generation and clipboard copy',
-      '100% local — no CPF sent to servers',
+
       'Clear legal disclaimer for ethical use',
       'Ideal for frontend mask and backend validator tests',
       'No registration or API key required',
@@ -136,7 +136,7 @@ export const GERADOR_CPF_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = 
     benefits: [
       'Algoritmo de dígitos verificadores conforme regras oficiais do CPF',
       'Geração e cópia para área de transferência em um clique',
-      '100% local — nenhum CPF enviado a servidores',
+
       'Aviso legal claro para uso ético',
       'Ideal para testes de máscara frontend e validador backend',
       'Sem cadastro ou chave de API',
@@ -256,7 +256,7 @@ export const GERADOR_CPF_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = 
     benefits: [
       'Algoritmo de dígitos verificadores según reglas oficiales del CPF',
       'Generación y copia al portapapeles en un clic',
-      '100% local — ningún CPF enviado a servidores',
+
       'Aviso legal claro para uso ético',
       'Ideal para pruebas de máscara frontend y validador backend',
       'Sin registro ni clave de API',

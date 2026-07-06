@@ -15,7 +15,7 @@ export const IMAGE_FILTERS_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> 
     benefits: [
       'Real-time preview as you adjust filter sliders',
       'Brightness, contrast, grayscale, and related controls',
-      '100% local processing — images never uploaded',
+
       'Works with JPG, PNG, WEBP, and common raster formats',
       'Free unlimited edits with no watermarks',
     ],
@@ -143,7 +143,7 @@ export const IMAGE_FILTERS_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> 
     benefits: [
       'Preview em tempo real ao mover os controles',
       'Brilho, contraste, escala de cinza e ajustes relacionados',
-      'Processamento 100% local — imagens nunca enviadas',
+
       'Funciona com JPG, PNG, WEBP e formatos raster comuns',
       'Edições gratuitas e ilimitadas sem marcas d\'água',
     ],
@@ -271,7 +271,7 @@ export const IMAGE_FILTERS_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> 
     benefits: [
       'Vista previa en tiempo real al mover los controles',
       'Brillo, contraste, escala de grises y ajustes relacionados',
-      'Procesamiento 100% local — imágenes nunca subidas',
+
       'Funciona con JPG, PNG, WEBP y formatos raster comunes',
       'Ediciones gratuitas e ilimitadas sin marcas de agua',
     ],

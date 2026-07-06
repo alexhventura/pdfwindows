@@ -195,7 +195,7 @@ export const IMAGE_OCR_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = {
         heading: 'Como o OCR no navegador reconhece texto',
         level: 2,
         paragraphs: [
-          'O reconhecimento óptico de caracteres analisa padrões de contraste na imagem para inferir letras, números e pontuação. O motor segmenta linhas e palavras, compara formas com modelos treinados e monta fluxo de texto Unicode. Como o PDFWINDOWS roda esse pipeline localmente, os bytes da imagem não saem do dispositivo — diferente de OCR SaaS que envia arquivos a farms de GPU compartilhadas.',
+
           'A precisão depende de resolução, clareza da fonte e iluminação. Documentos digitados e páginas impressas a laser costumam ter alta taxa de acerto. Escrita à mão, fontes decorativas e recibos térmicos de baixo contraste são mais difíceis. Trate a saída do OCR como rascunho: rápido para captura em massa, mas verifique campos críticos manualmente.',
         ],
       },
@@ -323,7 +323,7 @@ export const IMAGE_OCR_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = {
         heading: 'Cómo el OCR en navegador reconoce texto',
         level: 2,
         paragraphs: [
-          'El reconocimiento óptico de caracteres analiza patrones de contraste en la imagen para inferir letras, números y puntuación. El motor segmenta líneas y palabras, compara formas con modelos entrenados y ensambla flujo de texto Unicode. PDFWINDOWS ejecuta este pipeline localmente, por lo que los bytes de la imagen no salen del dispositivo.',
+
           'La precisión depende de resolución, claridad de fuente e iluminación. Documentos mecanografiados y páginas impresas láser suelen tener alta tasa de acierto. Trate la salida OCR como borrador y verifique campos críticos manualmente.',
         ],
       },

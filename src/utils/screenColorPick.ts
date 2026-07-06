@@ -6,6 +6,15 @@ const CAPTURE_TIMEOUT_MS = 18_000;
 const OVERALL_TIMEOUT_MS = 90_000;
 const BODY_LOCK_CLASS = 'screen-color-picking';
 
+/**
+ * Screen-share options for color picking. Uses getDisplayMedia only — never getUserMedia / camera.
+ * Triggered exclusively from the user's explicit "capture screen" button click.
+ */
+const DISPLAY_MEDIA_OPTIONS: DisplayMediaStreamOptions = {
+  video: true,
+  audio: false,
+};
+
 export class ScreenColorPickError extends Error {
   constructor(
     message: string,
@@ -22,6 +31,14 @@ export function isScreenColorPickSupported(): boolean {
     !!navigator.mediaDevices &&
     typeof navigator.mediaDevices.getDisplayMedia === 'function'
   );
+}
+
+/** Request screen share via getDisplayMedia — the only media API used for screen color pick. */
+export async function requestDisplayMediaForColorPick(): Promise<MediaStream> {
+  if (!isScreenColorPickSupported()) {
+    throw new ScreenColorPickError('unsupported', 'unsupported');
+  }
+  return navigator.mediaDevices.getDisplayMedia(DISPLAY_MEDIA_OPTIONS);
 }
 
 function yieldToMain(): Promise<void> {
@@ -315,14 +332,7 @@ async function capturePickCanvas(signal?: AbortSignal): Promise<HTMLCanvasElemen
   let stream: MediaStream | null = null;
   try {
     stream = await Promise.race([
-      navigator.mediaDevices.getDisplayMedia({
-        video: {
-          frameRate: { ideal: 1, max: 5 },
-          width: { max: 1920 },
-          height: { max: 1080 },
-        },
-        audio: false,
-      }),
+      requestDisplayMediaForColorPick(),
       new Promise<never>((_, reject) => {
         window.setTimeout(() => reject(new ScreenColorPickError('timeout', 'timeout')), CAPTURE_TIMEOUT_MS);
       }),

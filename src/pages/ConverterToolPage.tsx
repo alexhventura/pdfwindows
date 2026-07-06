@@ -49,7 +49,6 @@ export function ConverterToolPage() {
           <ConverterWorkbench
             fixedOperation={tool.operation}
             showSuiteSection={false}
-            showGuarantees={false}
             showSideAds={false}
             pageHeading={content.h1}
             pageSubheading={

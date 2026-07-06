@@ -5,7 +5,7 @@ export const JSON_TO_CSV_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = 
   en: {
     title: 'JSON to CSV Online Offline | PDFWINDOWS',
     description:
-      'Convert JSON arrays to CSV spreadsheets in your browser. Flatten structured data locally for Excel and analysis — private, no upload.',
+      'Convert JSON arrays to CSV spreadsheets in your browser. Flatten structured data for Excel and analysis.',
     keywords:
       'json to csv, convert json offline, json flatten csv browser, export json spreadsheet free, json csv converter local',
     h1: 'JSON to CSV',
@@ -138,7 +138,7 @@ export const JSON_TO_CSV_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = 
   pt: {
     title: 'JSON para CSV Online Offline | PDFWINDOWS',
     description:
-      'Converta arrays JSON em planilhas CSV no navegador. Achate dados estruturados localmente para Excel e análise — privado, sem upload.',
+      'Converta arrays JSON em planilhas CSV no navegador. Achate dados estruturados para Excel e análise.',
     keywords:
       'json para csv, converter json offline, achatar json csv navegador, exportar json planilha gratis, conversor json csv local',
     h1: 'JSON para CSV',
@@ -268,7 +268,7 @@ export const JSON_TO_CSV_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = 
   es: {
     title: 'JSON a CSV Online Offline | PDFWINDOWS',
     description:
-      'Convierta arrays JSON a hojas CSV en su navegador. Aplane datos estructurados localmente para Excel y análisis — privado, sin subida.',
+      'Convierta arrays JSON a hojas CSV en su navegador. Aplane datos estructurados para Excel y análisis.',
     keywords:
       'json a csv, convertir json offline, aplanar json csv navegador, exportar json hoja gratis, conversor json csv local',
     h1: 'JSON a CSV',
