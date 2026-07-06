@@ -39,10 +39,10 @@ export function RelatedTools({ paths, title }: RelatedToolsProps) {
             <li key={tool.path}>
               <Link
                 to={lp(tool.path)}
-                className="group flex items-start justify-between gap-2 p-3 rounded-xl border border-slate-100 hover:border-blue-200 hover:bg-blue-50/40 transition-colors"
+                className="tool-card group flex items-start justify-between gap-2 p-3 md:p-4"
               >
                 <div className="min-w-0">
-                  <p className="text-sm font-semibold text-slate-800 group-hover:text-blue-800">{copy.h1}</p>
+                  <p className="text-sm font-semibold text-slate-800 tool-card-title">{copy.h1}</p>
                   <p className="text-[11px] text-slate-500 line-clamp-2 mt-0.5">{copy.intro}</p>
                 </div>
                 <ArrowUpRight

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   Copy,
   Check,
@@ -13,20 +13,23 @@ import {
 import type { LanguageType } from '../types';
 import {
   colorEntryFromRgb,
-  hexToRgb,
   rgbToCss,
   rgbToHex,
   rgbToHsl,
   type RgbColor,
 } from '../utils/colorFormat';
 import { extractDominantColors } from '../utils/dominantColors';
-import { isEyeDropperSupported, openEyeDropper } from '../utils/eyeDropper';
+import { paintImageOnCanvas } from '../utils/imageCanvasPaint';
+import {
+  isScreenColorPickSupported,
+  pickColorFromScreen,
+  ScreenColorPickError,
+} from '../utils/screenColorPick';
 
 const HISTORY_KEY = 'pdfwindows-color-history';
 const MAX_HISTORY = 12;
 /** Cap canvas size to avoid main-thread freezes on large photos / screenshots */
 const MAX_CANVAS_DIM = 1920;
-const EYEDROPPER_TIMEOUT_MS = 45_000;
 
 type CaptureMode = 'image' | 'screen';
 
@@ -50,11 +53,13 @@ const copyT: Record<LanguageType, Record<string, string>> = {
     pickHint: 'Clique na imagem para capturar a cor do pixel.',
     screenTitle: 'Conta-gotas da tela',
     screenHint:
-      'Use o conta-gotas do navegador para capturar qualquer pixel visível — inclusive fora desta página.',
+      'Compartilhe a tela, depois clique no pixel desejado na captura. Pressione Esc para cancelar.',
     screenBtn: 'Capturar Cor da Tela',
-    screenPicking: 'Selecione um pixel na tela…',
+    screenPicking: 'Preparando captura…',
+    screenOverlayHint: 'Clique em um pixel para capturar a cor · Esc para cancelar',
+    screenCancel: 'Cancelar',
     screenUnsupported:
-      'Seu navegador não suporta captura global de cores. Use Chrome ou Edge no desktop, ou capture pela imagem.',
+      'Seu navegador não suporta captura de tela. Use Chrome ou Edge no desktop, ou capture pela imagem.',
     hex: 'HEX',
     rgb: 'RGB',
     hsl: 'HSL',
@@ -81,11 +86,13 @@ const copyT: Record<LanguageType, Record<string, string>> = {
     pickHint: 'Click on the image to capture the pixel color.',
     screenTitle: 'Screen eyedropper',
     screenHint:
-      'Use the browser eyedropper to capture any visible pixel — even outside this page.',
+      'Share your screen, then click the pixel you want on the capture. Press Esc to cancel.',
     screenBtn: 'Pick Color from Screen',
-    screenPicking: 'Pick a pixel on your screen…',
+    screenPicking: 'Preparing capture…',
+    screenOverlayHint: 'Click a pixel to capture its color · Esc to cancel',
+    screenCancel: 'Cancel',
     screenUnsupported:
-      'Your browser does not support global color picking. Use Chrome or Edge on desktop, or pick from an image.',
+      'Your browser does not support screen capture. Use Chrome or Edge on desktop, or pick from an image.',
     hex: 'HEX',
     rgb: 'RGB',
     hsl: 'HSL',
@@ -112,11 +119,13 @@ const copyT: Record<LanguageType, Record<string, string>> = {
     pickHint: 'Haz clic en la imagen para capturar el color del píxel.',
     screenTitle: 'Cuentagotas de pantalla',
     screenHint:
-      'Usa el cuentagotas del navegador para capturar cualquier píxel visible, incluso fuera de esta página.',
+      'Comparte tu pantalla y haz clic en el píxel deseado en la captura. Pulsa Esc para cancelar.',
     screenBtn: 'Capturar Color de Pantalla',
-    screenPicking: 'Selecciona un píxel en la pantalla…',
+    screenPicking: 'Preparando captura…',
+    screenOverlayHint: 'Haz clic en un píxel para capturar el color · Esc para cancelar',
+    screenCancel: 'Cancelar',
     screenUnsupported:
-      'Tu navegador no admite captura global de colores. Usa Chrome o Edge en escritorio, o captura desde la imagen.',
+      'Tu navegador no admite captura de pantalla. Usa Chrome o Edge en escritorio, o captura desde la imagen.',
     hex: 'HEX',
     rgb: 'RGB',
     hsl: 'HSL',
@@ -209,8 +218,11 @@ export const ColorPickerTool: React.FC<{
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
+  const paintGenerationRef = useRef(0);
+  const paintAbortRef = useRef<AbortController | null>(null);
+  const paletteIdleRef = useRef<number | null>(null);
 
-  const eyeDropperOk = useMemo(() => isEyeDropperSupported(), []);
+  const screenPickOk = isScreenColorPickSupported();
 
   const [mode, setMode] = useState<CaptureMode>('image');
   const [hasImage, setHasImage] = useState(false);
@@ -223,12 +235,35 @@ export const ColorPickerTool: React.FC<{
   const [screenLoading, setScreenLoading] = useState(false);
   const screenPickAbortRef = useRef<AbortController | null>(null);
 
+  const cancelPaletteExtraction = useCallback(() => {
+    if (paletteIdleRef.current != null) {
+      cancelIdleCallback(paletteIdleRef.current);
+      paletteIdleRef.current = null;
+    }
+  }, []);
+
+  const schedulePaletteExtraction = useCallback((generation: number) => {
+    cancelPaletteExtraction();
+    paletteIdleRef.current = requestIdleCallback(
+      () => {
+        paletteIdleRef.current = null;
+        if (paintGenerationRef.current !== generation) return;
+        const live = canvasRef.current;
+        if (!live || live.width < 1 || live.height < 1) return;
+        setDominant(extractDominantColors(live, 5));
+      },
+      { timeout: 1500 }
+    );
+  }, [cancelPaletteExtraction]);
+
   useEffect(() => {
     setHistory(loadHistory());
     return () => {
+      paintAbortRef.current?.abort();
       screenPickAbortRef.current?.abort();
+      cancelPaletteExtraction();
     };
-  }, []);
+  }, [cancelPaletteExtraction]);
 
   const applyColor = useCallback((picked: RgbColor, clearMarker = false) => {
     setColor(picked);
@@ -236,49 +271,49 @@ export const ColorPickerTool: React.FC<{
     const entry = colorEntryFromRgb(picked);
     setHistory((prev) => {
       const next = [entry, ...prev.filter((e) => e.hex !== entry.hex)].slice(0, MAX_HISTORY);
-      saveHistory(next);
+      queueMicrotask(() => saveHistory(next));
       return next;
     });
   }, []);
 
-  /** Pinta no canvas — só chamar quando o elemento canvas já está no DOM. */
-  const paintImageToCanvas = useCallback((img: HTMLImageElement) => {
-    const canvas = canvasRef.current;
-    if (!canvas || img.naturalWidth < 1 || img.naturalHeight < 1) return false;
+  const paintImageToCanvas = useCallback(
+    async (img: HTMLImageElement) => {
+      paintAbortRef.current?.abort();
+      const abort = new AbortController();
+      paintAbortRef.current = abort;
+      const generation = ++paintGenerationRef.current;
 
-    let w = img.naturalWidth;
-    let h = img.naturalHeight;
-    const scale = Math.min(1, MAX_CANVAS_DIM / Math.max(w, h));
-    w = Math.round(w * scale);
-    h = Math.round(h * scale);
+      const canvas = canvasRef.current;
+      if (!canvas) return false;
 
-    canvas.width = w;
-    canvas.height = h;
-    const ctx = canvas.getContext('2d', { willReadFrequently: true });
-    if (!ctx) return false;
+      const painted = await paintImageOnCanvas(canvas, img, {
+        maxDim: MAX_CANVAS_DIM,
+        signal: abort.signal,
+      });
 
-    ctx.clearRect(0, 0, w, h);
-    ctx.drawImage(img, 0, 0, w, h);
-    setColor(null);
-    setMarker(null);
-    // Defer palette extraction so paint stays responsive on large images
-    window.setTimeout(() => {
-      const live = canvasRef.current;
-      if (!live || live.width !== w || live.height !== h) return;
-      setDominant(extractDominantColors(live, 5));
-    }, 0);
-    return true;
-  }, []);
+      if (!painted || paintGenerationRef.current !== generation) {
+        return false;
+      }
 
-  /** Após hasImage=true o canvas monta; useLayoutEffect garante drawImage após o commit. */
-  useLayoutEffect(() => {
+      setColor(null);
+      setMarker(null);
+      schedulePaletteExtraction(generation);
+      return true;
+    },
+    [schedulePaletteExtraction]
+  );
+
+  useEffect(() => {
     if (!hasImage) return;
     const img = imageRef.current;
     if (!img) return;
-    paintImageToCanvas(img);
+    void paintImageToCanvas(img);
   }, [hasImage, paintImageToCanvas]);
 
   const clearImage = useCallback(() => {
+    paintAbortRef.current?.abort();
+    paintGenerationRef.current += 1;
+    cancelPaletteExtraction();
     imageRef.current = null;
     setHasImage(false);
     setColor(null);
@@ -291,7 +326,7 @@ export const ColorPickerTool: React.FC<{
       canvas.width = 0;
       canvas.height = 0;
     }
-  }, []);
+  }, [cancelPaletteExtraction]);
 
   const handleFile = (file: File | undefined) => {
     if (!file || !file.type.startsWith('image/')) return;
@@ -306,12 +341,7 @@ export const ColorPickerTool: React.FC<{
 
     img.onload = () => {
       imageRef.current = img;
-      if (canvasRef.current) {
-        paintImageToCanvas(img);
-        setHasImage(true);
-      } else {
-        setHasImage(true);
-      }
+      setHasImage(true);
       finish();
     };
 
@@ -355,30 +385,21 @@ export const ColorPickerTool: React.FC<{
   };
 
   const pickFromScreen = async () => {
-    if (!eyeDropperOk || screenLoading) return;
+    if (!screenPickOk || screenLoading) return;
     screenPickAbortRef.current?.abort();
     const abort = new AbortController();
     screenPickAbortRef.current = abort;
     setScreenLoading(true);
     try {
-      const result = await Promise.race([
-        openEyeDropper(abort.signal),
-        new Promise<never>((_, reject) => {
-          window.setTimeout(() => {
-            abort.abort();
-            reject(new Error('EYEDROPPER_TIMEOUT'));
-          }, EYEDROPPER_TIMEOUT_MS);
-        }),
-      ]);
-      const picked = hexToRgb(result.sRGBHex);
-      if ([picked.r, picked.g, picked.b].some((n) => Number.isNaN(n))) {
-        throw new Error('INVALID_COLOR');
-      }
+      const picked = await pickColorFromScreen(abort.signal, {
+        hint: t.screenOverlayHint,
+        cancel: t.screenCancel,
+      });
       applyColor(picked, true);
       setMode('screen');
     } catch (err) {
-      if (err instanceof Error && err.message !== 'EYEDROPPER_TIMEOUT' && err.message !== 'INVALID_COLOR') {
-        /* user cancelled — ignore */
+      if (err instanceof ScreenColorPickError && err.code === 'cancelled') {
+        /* user cancelled */
       }
     } finally {
       if (screenPickAbortRef.current === abort) {
@@ -474,7 +495,7 @@ export const ColorPickerTool: React.FC<{
             {!hasImage ? (
               <div
                 className={`premium-dropzone w-full py-16 md:py-24 flex flex-col items-center gap-3 cursor-pointer ${
-                  dragOver ? 'upload-zone-active' : ''
+                  dragOver ? 'premium-dropzone-active' : ''
                 }`}
                 onClick={() => fileRef.current?.click()}
                 onDragOver={(e) => {
@@ -583,7 +604,7 @@ export const ColorPickerTool: React.FC<{
               <p className="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">{t.screenHint}</p>
             </div>
 
-            {eyeDropperOk ? (
+            {screenPickOk ? (
               <button
                 type="button"
                 className="btn-primary px-8 py-3.5 text-sm inline-flex items-center gap-2 mx-auto"

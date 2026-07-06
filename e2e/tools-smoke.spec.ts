@@ -65,16 +65,25 @@ test.describe('Tool pages smoke', () => {
 test.describe('Color picker interactions', () => {
   test.beforeEach(async ({ page }) => {
     await page.addInitScript(() => {
-      class MockEyeDropper {
-        open() {
-          return Promise.resolve({ sRGBHex: '#FF5500' });
+      const makeOrangeFrame = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = 120;
+        canvas.height = 80;
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.fillStyle = '#224466';
+          ctx.fillRect(0, 0, 120, 80);
+          ctx.fillStyle = '#FF5500';
+          ctx.fillRect(40, 20, 40, 40);
         }
-      }
-      Object.defineProperty(window, 'EyeDropper', {
-        configurable: true,
-        writable: true,
-        value: MockEyeDropper,
-      });
+        return canvas;
+      };
+
+      navigator.mediaDevices.getDisplayMedia = async () => {
+        const canvas = makeOrangeFrame();
+        const stream = canvas.captureStream(1);
+        return stream;
+      };
     });
   });
 
@@ -86,6 +95,10 @@ test.describe('Color picker interactions', () => {
     const screenBtn = page.getByRole('button', { name: /Pick Color from Screen|Capturar Cor da Tela/i });
     await expect(screenBtn).toBeEnabled();
     await screenBtn.click();
+
+    const overlayCanvas = page.locator('.screen-color-pick-canvas');
+    await expect(overlayCanvas).toBeVisible({ timeout: 10_000 });
+    await overlayCanvas.click({ position: { x: 60, y: 40 } });
 
     await expect(page.locator('.color-picker-swatch-large')).toBeVisible();
     await expect(page.locator('.color-picker-code-value').first()).toContainText('#FF5500');
@@ -125,6 +138,9 @@ test.describe('Color picker interactions', () => {
 
     await page.getByRole('tab', { name: /From Screen|Capturar da Tela/i }).click();
     await page.getByRole('button', { name: /Pick Color from Screen|Capturar Cor da Tela/i }).click();
+    const overlayCanvas = page.locator('.screen-color-pick-canvas');
+    await expect(overlayCanvas).toBeVisible({ timeout: 10_000 });
+    await overlayCanvas.click({ position: { x: 60, y: 40 } });
     await page.getByRole('button', { name: /Copy RGB|Copiar RGB/i }).click();
     await page.getByRole('tab', { name: /From Image|Capturar da Imagem/i }).click();
     await expect(page.getByRole('tab', { name: /From Image|Capturar da Imagem/i })).toHaveAttribute(

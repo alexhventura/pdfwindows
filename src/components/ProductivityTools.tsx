@@ -339,7 +339,7 @@ export const ProductivityTools: React.FC<{ lang: LanguageType; linkMode?: boolea
               <Link
                 key={tool.id}
                 to={lp(SUITE_PATHS[tool.id])}
-                className="group relative premium-card p-5 text-left cursor-pointer overflow-hidden block"
+                className="group relative tool-card p-5 text-left cursor-pointer overflow-hidden block"
               >
                 {card}
               </Link>
@@ -351,7 +351,7 @@ export const ProductivityTools: React.FC<{ lang: LanguageType; linkMode?: boolea
             key={tool.id}
             type="button"
             onClick={() => setActiveTool(tool.id)}
-            className="group relative premium-card p-5 text-left cursor-pointer overflow-hidden"
+            className="group relative tool-card p-5 text-left cursor-pointer overflow-hidden"
           >
             {card}
           </button>

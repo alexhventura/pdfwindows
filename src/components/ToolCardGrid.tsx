@@ -26,7 +26,7 @@ export function ToolCardGrid({ limit }: { limit?: number }) {
                 : FileText;
 
         return (
-          <Link key={tool.path} to={lp(tool.path)} className="premium-card group p-5 md:p-6 text-left block">
+          <Link key={tool.path} to={lp(tool.path)} className="tool-card group p-5 md:p-6 text-left block">
             <div className="flex items-start justify-between gap-2 mb-4">
               <div className="card-icon-wrap mb-0">
                 <Icon size={20} />
