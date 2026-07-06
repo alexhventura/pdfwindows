@@ -148,7 +148,7 @@ export function ToolLandingBody({ content }: { content: ToolRichContent }) {
         <h2 className="text-lg font-bold text-slate-900 mb-2">{content.cta.heading}</h2>
         <p className="text-sm text-slate-600 max-w-lg mx-auto mb-4 leading-relaxed">{content.cta.body}</p>
         <a
-          href="#tool-workspace"
+          href="#tool-start"
           className="inline-flex items-center justify-center px-6 py-2.5 rounded-xl bg-blue-700 text-white text-sm font-semibold hover:bg-blue-800 transition-colors shadow-sm"
         >
           {content.cta.buttonLabel}

@@ -3,6 +3,8 @@ import { Breadcrumbs } from './Breadcrumbs';
 import { ToolLandingHero, ToolLandingBody } from './ToolLandingPage';
 import { ToolBackNav } from './ToolBackNav';
 import { resolveToolContent } from '../seo/content/resolveToolContent';
+import { useAutoScrollToTool } from '../hooks/useAutoScrollToTool';
+import { TOOL_START_ID } from '../utils/scrollToToolStart';
 import type { LanguageType } from '../types';
 
 const CATALOG_LABEL: Record<LanguageType, string> = {
@@ -29,6 +31,7 @@ export function ToolPageSeoBlocks({
 }) {
   const content = resolveToolContent(toolPath, lang);
   const crumbs = toolBreadcrumbs(lang, content.toolName, toolPath);
+  useAutoScrollToTool(TOOL_START_ID);
 
   return (
     <>
@@ -37,7 +40,10 @@ export function ToolPageSeoBlocks({
         <Breadcrumbs items={crumbs} className="mb-5" />
         <ToolLandingHero content={content} />
       </div>
-      <div id="tool-workspace" className="w-full max-w-4xl mx-auto px-4 sm:px-6 pb-6 scroll-mt-4">
+      <div
+        id={TOOL_START_ID}
+        className="w-full max-w-4xl mx-auto px-4 sm:px-6 pb-6 tool-workspace-anchor"
+      >
         {children}
       </div>
       <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 pb-12">

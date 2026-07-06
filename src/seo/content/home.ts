@@ -9,9 +9,9 @@ export const HOME_RICH_CONTENT: Record<'/' | '/conversor', Record<'en' | 'pt' | 
         'Professional PDF, image, and productivity platform. Local browser processing, total privacy, no mandatory upload. Explore the full tool catalog.',
       keywords:
         'offline pdf tools, pdf converter free, private pdf editor, local image tools, browser pdf suite, pdfwindows',
-      h1: 'PDF & Image Tools — 100% On Your Device',
+      h1: 'PDF & Image',
       intro:
-        'PDFWINDOWS is an offline-first platform that unifies PDF conversion, image processing, document creation, and developer utilities in one privacy-respecting workspace. Every tool runs in your browser — files stay on your device, never on conversion servers. Browse the catalog to merge PDFs, compress scans, extract text with OCR, convert images, generate reports, pick colors, create QR codes, and more. Built for professionals who cannot upload confidential contracts, medical records, or unreleased creative assets to random cloud converters.',
+        'Professional tools for PDF and image. 100% on your device, no upload, total privacy.',
       toolName: 'PDFWINDOWS',
       benefits: [
         'Total privacy — files never leave your device',
@@ -139,9 +139,9 @@ export const HOME_RICH_CONTENT: Record<'/' | '/conversor', Record<'en' | 'pt' | 
         'Plataforma profissional de PDF, imagem e produtividade. Processamento local no navegador, privacidade total, sem upload obrigatório. Explore o catálogo completo.',
       keywords:
         'ferramentas pdf offline, converter pdf gratis, editor pdf privado, ferramentas imagem local, suite pdf navegador, pdfwindows',
-      h1: 'Ferramentas PDF e Imagem — 100% no Seu Dispositivo',
+      h1: 'PDF e Imagem',
       intro:
-        'O PDFWINDOWS é uma plataforma offline-first que unifica conversão de PDF, processamento de imagem, criação de documentos e utilitários para desenvolvedores em um workspace que respeita privacidade. Cada ferramenta roda no navegador — arquivos ficam no dispositivo, nunca em servidores de conversão. Navegue pelo catálogo para mesclar PDFs, comprimir scans, extrair texto com OCR, converter imagens, gerar relatórios, capturar cores, criar QR Codes e muito mais.',
+        'Ferramentas profissionais para PDF e imagem. 100% no seu dispositivo, sem upload e com privacidade total.',
       toolName: 'PDFWINDOWS',
       benefits: [
         'Privacidade total — arquivos não saem do dispositivo',
@@ -186,6 +186,7 @@ export const HOME_RICH_CONTENT: Record<'/' | '/conversor', Record<'en' | 'pt' | 
         'Após o primeiro carregamento, muitas ferramentas funcionam offline.',
         'Explore ferramentas relacionadas no rodapé de cada landing para atalhos de fluxo.',
         'Troque o idioma da interface no cabeçalho — todas as páginas e conteúdo SEO estão em português, inglês e espanhol.',
+        'Ao abrir uma ferramenta, a página posiciona automaticamente a área de trabalho; role para cima para ler a introdução completa e o FAQ.',
       ],
       sections: [
         {
@@ -269,9 +270,9 @@ export const HOME_RICH_CONTENT: Record<'/' | '/conversor', Record<'en' | 'pt' | 
         'Plataforma profesional de PDF, imagen y productividad. Procesamiento local en el navegador, privacidad total, sin subida obligatoria. Explore el catálogo completo.',
       keywords:
         'herramientas pdf offline, convertir pdf gratis, editor pdf privado, herramientas imagen local, suite pdf navegador, pdfwindows',
-      h1: 'Herramientas PDF e Imagen — 100% en Su Dispositivo',
+      h1: 'PDF e Imagen',
       intro:
-        'PDFWINDOWS es una plataforma offline-first que unifica conversión de PDF, procesamiento de imagen, creación de documentos y utilidades para desarrolladores en un workspace que respeta la privacidad. Cada herramienta corre en el navegador — los archivos permanecen en su dispositivo, nunca en servidores de conversión. Navegue el catálogo para unir PDFs, comprimir escaneos, extraer texto con OCR, convertir imágenes, generar informes, capturar colores, crear códigos QR y más.',
+        'Herramientas profesionales para PDF e imagen. 100% en su dispositivo, sin subida y con privacidad total.',
       toolName: 'PDFWINDOWS',
       benefits: [
         'Privacidad total — los archivos no salen del dispositivo',
@@ -316,6 +317,7 @@ export const HOME_RICH_CONTENT: Record<'/' | '/conversor', Record<'en' | 'pt' | 
         'Tras la primera carga, muchas herramientas funcionan sin internet.',
         'Explore herramientas relacionadas al pie de cada landing para atajos de flujo.',
         'Cambie el idioma de la interfaz en el encabezado — todas las páginas y contenido SEO están en español, inglés y portugués.',
+        'Al abrir una herramienta, la página posiciona automáticamente el área de trabajo; desplácese hacia arriba para leer la introducción completa y las preguntas frecuentes.',
       ],
       sections: [
         {
