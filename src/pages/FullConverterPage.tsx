@@ -1,8 +1,8 @@
 import { lazy, Suspense } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { SEO } from '../seo/SEO';
-import { ToolPageSeoBlocks } from '../components/ToolPageLayout';
-import { resolveToolContent, toolBreadcrumbs } from '../components/ToolPageLayout';
+import { ToolPageSeoBlocks, toolBreadcrumbs } from '../components/ToolPageLayout';
+import { getPageCopy, getPageToolName } from '../seo/content/getPageCopy';
 
 const ConverterWorkbench = lazy(() =>
   import('../components/ConverterWorkbench').then((m) => ({ default: m.ConverterWorkbench }))
@@ -10,19 +10,20 @@ const ConverterWorkbench = lazy(() =>
 
 export function FullConverterPage() {
   const { lang } = useLanguage();
-  const content = resolveToolContent('/conversor', lang);
-  const crumbs = toolBreadcrumbs(lang, content.toolName, '/conversor');
+  const copy = getPageCopy('/conversor', lang);
+  const toolName = getPageToolName('/conversor', lang);
+  const crumbs = toolBreadcrumbs(lang, toolName, '/conversor');
 
   return (
     <>
       <SEO
-        title={content.title}
-        description={content.description}
-        keywords={content.keywords}
+        title={copy.title}
+        description={copy.description}
+        keywords={copy.keywords}
         path="/conversor"
         lang={lang}
-        toolName={content.toolName}
-        faq={content.faq}
+        toolName={toolName}
+        faq={copy.faq}
         breadcrumbs={crumbs}
       />
       <ToolPageSeoBlocks toolPath="/conversor" lang={lang}>

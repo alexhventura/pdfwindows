@@ -1,0 +1,151 @@
+import { X } from 'lucide-react';
+import type { LanguageType } from '../../types';
+
+export const modalT: Record<LanguageType, Record<string, string>> = {
+  pt: {
+    suiteTitle: 'Suíte de Produtividade',
+    receiptTitle: 'Gerador de Recibos',
+    qrTitle: 'Gerador de QR Code',
+    cpfTitle: 'Gerador de CPF para Testes',
+    codeTitle: 'Limpador de Código',
+    docTitle: 'Estúdio de Documentos',
+    reportTitle: 'Gerador de Relatórios',
+    reportAuthor: 'Autor',
+    reportSubtitle: 'Subtítulo',
+    reportIntro: 'Introdução',
+    sectionTitle: 'Título da seção',
+    sectionBody: 'Conteúdo da seção',
+    addSection: 'Adicionar seção',
+    generate: 'Gerar',
+    close: 'Fechar',
+    download: 'Baixar',
+    process: 'Processar',
+    issuerName: 'Nome do emissor',
+    issuerDoc: 'CPF/CNPJ do emissor',
+    clientName: 'Nome do cliente',
+    clientDoc: 'CPF/CNPJ do cliente',
+    date: 'Data',
+    useToday: 'Usar data de hoje',
+    serviceDesc: 'Descrição detalhada do serviço',
+    itemDesc: 'Descrição do item',
+    unitPrice: 'Valor unitário (R$)',
+    quantity: 'Quantidade',
+    addItem: 'Adicionar item',
+    paymentMethod: 'Forma de pagamento',
+    notes: 'Observações',
+    signature: 'Assinatura (texto)',
+    city: 'Cidade',
+    total: 'Total',
+    fullName: 'Nome completo',
+    documentId: 'Documento (RG/CPF/CNPJ)',
+    customBody: 'Conteúdo personalizado',
+    template: 'Modelo',
+  },
+  en: {
+    suiteTitle: 'Productivity Suite',
+    receiptTitle: 'Receipt Generator',
+    qrTitle: 'QR Code Generator',
+    cpfTitle: 'CPF Generator for Tests',
+    codeTitle: 'Code Cleaner & Formatter',
+    docTitle: 'Document Studio',
+    reportTitle: 'Report Generator',
+    reportAuthor: 'Author',
+    reportSubtitle: 'Subtitle',
+    reportIntro: 'Introduction',
+    sectionTitle: 'Section title',
+    sectionBody: 'Section content',
+    addSection: 'Add section',
+    generate: 'Generate',
+    close: 'Close',
+    download: 'Download',
+    process: 'Process',
+    issuerName: 'Issuer name',
+    issuerDoc: 'Issuer tax ID',
+    clientName: 'Client name',
+    clientDoc: 'Client tax ID',
+    date: 'Date',
+    useToday: "Use today's date",
+    serviceDesc: 'Detailed service description',
+    itemDesc: 'Item description',
+    unitPrice: 'Unit price',
+    quantity: 'Quantity',
+    addItem: 'Add item',
+    paymentMethod: 'Payment method',
+    notes: 'Notes',
+    signature: 'Signature (text)',
+    city: 'City',
+    total: 'Total',
+    fullName: 'Full name',
+    documentId: 'ID document',
+    customBody: 'Custom content',
+    template: 'Template',
+  },
+  es: {
+    suiteTitle: 'Suite de Productividad',
+    receiptTitle: 'Generador de Recibos',
+    qrTitle: 'Generador de QR Code',
+    cpfTitle: 'Generador de CPF para Pruebas',
+    codeTitle: 'Limpiador de Código',
+    docTitle: 'Estudio de Documentos',
+    reportTitle: 'Generador de Informes',
+    reportAuthor: 'Autor',
+    reportSubtitle: 'Subtítulo',
+    reportIntro: 'Introducción',
+    sectionTitle: 'Título de sección',
+    sectionBody: 'Contenido de sección',
+    addSection: 'Agregar sección',
+    generate: 'Generar',
+    close: 'Cerrar',
+    download: 'Descargar',
+    process: 'Procesar',
+    issuerName: 'Nombre del emisor',
+    issuerDoc: 'ID fiscal del emisor',
+    clientName: 'Nombre del cliente',
+    clientDoc: 'ID fiscal del cliente',
+    date: 'Fecha',
+    useToday: 'Usar fecha de hoy',
+    serviceDesc: 'Descripción detallada del servicio',
+    itemDesc: 'Descripción del ítem',
+    unitPrice: 'Precio unitario',
+    quantity: 'Cantidad',
+    addItem: 'Agregar ítem',
+    paymentMethod: 'Forma de pago',
+    notes: 'Observaciones',
+    signature: 'Firma (texto)',
+    city: 'Ciudad',
+    total: 'Total',
+    fullName: 'Nombre completo',
+    documentId: 'Documento (ID)',
+    customBody: 'Contenido personalizado',
+    template: 'Plantilla',
+  },
+};
+
+export const inputClass = 'premium-input text-xs';
+
+export function ModalHeader({
+  title,
+  onClose,
+  closeLabel = 'Fechar',
+}: {
+  title: string;
+  onClose: () => void;
+  closeLabel?: string;
+}) {
+  return (
+    <div className="px-6 py-4 flex items-center justify-between sticky top-0 z-10 border-b border-slate-100/80 bg-white/80 backdrop-blur-md">
+      <h3 className="text-sm font-semibold text-slate-800 flex items-center gap-2">
+        <span className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-500 to-orange-400" />
+        {title}
+      </h3>
+      <button
+        type="button"
+        onClick={onClose}
+        className="inline-flex items-center gap-1.5 px-3 py-2 hover:bg-slate-100 rounded-xl text-slate-500 hover:text-slate-800 text-xs font-semibold transition-colors"
+      >
+        <X size={16} />
+        {closeLabel}
+      </button>
+    </div>
+  );
+}

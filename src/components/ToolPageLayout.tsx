@@ -1,8 +1,9 @@
 import type { ReactNode } from 'react';
 import { Breadcrumbs } from './Breadcrumbs';
-import { ToolLandingHero, ToolLandingBody } from './ToolLandingPage';
+import { ToolLandingHero } from './ToolLandingPage';
+import { LazyToolLandingBody } from './LazyToolLandingBody';
 import { ToolBackNav } from './ToolBackNav';
-import { resolveToolContent } from '../seo/content/resolveToolContent';
+import { getPageCopy, getPageToolName } from '../seo/content/getPageCopy';
 import { useAutoScrollToTool } from '../hooks/useAutoScrollToTool';
 import { TOOL_START_ID } from '../utils/scrollToToolStart';
 import type { LanguageType } from '../types';
@@ -29,8 +30,9 @@ export function ToolPageSeoBlocks({
   lang: LanguageType;
   children: ReactNode;
 }) {
-  const content = resolveToolContent(toolPath, lang);
-  const crumbs = toolBreadcrumbs(lang, content.toolName, toolPath);
+  const copy = getPageCopy(toolPath, lang);
+  const toolName = getPageToolName(toolPath, lang);
+  const crumbs = toolBreadcrumbs(lang, toolName, toolPath);
   useAutoScrollToTool(TOOL_START_ID);
 
   return (
@@ -38,7 +40,7 @@ export function ToolPageSeoBlocks({
       <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 pt-4">
         <ToolBackNav className="mb-4" />
         <Breadcrumbs items={crumbs} className="mb-5" />
-        <ToolLandingHero content={content} />
+        <ToolLandingHero content={{ ...copy, toolName }} />
       </div>
       <div
         id={TOOL_START_ID}
@@ -47,10 +49,8 @@ export function ToolPageSeoBlocks({
         {children}
       </div>
       <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 pb-12">
-        <ToolLandingBody content={content} />
+        <LazyToolLandingBody path={toolPath} lang={lang} />
       </div>
     </>
   );
 }
-
-export { resolveToolContent };

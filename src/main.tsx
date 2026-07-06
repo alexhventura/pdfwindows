@@ -10,9 +10,15 @@ createRoot(document.getElementById('root')!).render(
 );
 
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
+  const registerSw = () => {
     navigator.serviceWorker.register('/sw.js').catch(() => {
       // Service worker is optional; fail silently in production.
     });
-  });
+  };
+
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(registerSw, { timeout: 4000 });
+  } else {
+    window.addEventListener('load', registerSw, { once: true });
+  }
 }

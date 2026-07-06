@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { 
   Upload, 
   FileText, 
@@ -30,15 +30,17 @@ import { PdfPasswordGateModal } from './PdfPasswordGateModal';
 import { createInitialConverterState } from '../utils/converterDefaults';
 import { PDFDocument } from 'pdf-lib';
 import { motion, AnimatePresence } from 'motion/react';
-import { ProductivityTools } from './ProductivityTools';
 import { conversionDirectory } from '../utils/conversionDirectory';
 import { getAllowedOperations } from '../toolRegistry';
-import { runConversion } from '../toolRunner';
 import {
   validateIncomingFile,
   validationErrorMessage,
   getFileExtension,
 } from '../utils/fileValidation';
+
+const LazyProductivityTools = lazy(() =>
+  import('./ProductivityTools').then((m) => ({ default: m.ProductivityTools }))
+);
 
 function resolveOperationIcon(op: string) {
   if (op.startsWith('img-')) return ImageIcon;
@@ -324,6 +326,7 @@ export function ConverterWorkbench({
     }));
 
     try {
+      const { runConversion } = await import('../toolRunner');
       const outputs = await runConversion({
         files: state.files,
         selectedOperation: state.selectedOperation,
@@ -1333,7 +1336,11 @@ export function ConverterWorkbench({
           )}
         </AnimatePresence>
 
-        {showSuiteSection && <ProductivityTools lang={lang} linkMode={linkMode} />}
+        {showSuiteSection && (
+          <Suspense fallback={null}>
+            <LazyProductivityTools lang={lang} linkMode={linkMode} />
+          </Suspense>
+        )}
 
       </div>
       </div>

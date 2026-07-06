@@ -17,15 +17,21 @@ export default defineConfig(() => {
     build: {
       target: 'es2022',
       sourcemap: false,
+      cssCodeSplit: true,
       rollupOptions: {
         output: {
           manualChunks(id) {
+            if (id.includes('node_modules/react-dom') || id.includes('node_modules/react/')) {
+              return 'react-vendor';
+            }
+            if (id.includes('node_modules/react-router')) return 'router';
             if (id.includes('node_modules/pdfjs-dist')) return 'pdfjs';
             if (id.includes('node_modules/pdf-lib') || id.includes('@pdfsmaller/pdf-encrypt')) return 'pdf-lib';
             if (id.includes('node_modules/tesseract.js')) return 'tesseract';
             if (id.includes('node_modules/prettier')) return 'prettier';
             if (id.includes('node_modules/motion')) return 'motion';
             if (id.includes('node_modules/lucide-react')) return 'icons';
+            if (id.includes('node_modules/qrcode')) return 'qrcode';
           },
         },
       },

@@ -1,7 +1,6 @@
 import { PDFDocument, degrees } from 'pdf-lib';
 import pica from 'pica';
 import imageCompression from 'browser-image-compression';
-import { createWorker } from 'tesseract.js';
 import { loadPdfJS } from './pdfjsLoader';
 import { rowsToCsv } from './csvSecurity';
 import { sanitizePdfText } from './pdfTextSanitizer';
@@ -486,6 +485,7 @@ export async function convertXMLToJSON(file: File): Promise<Blob> {
  * OCR Engine: Image to Text using Tesseract worker
  */
 export async function performOCR(file: File, language: string = 'por+eng'): Promise<Blob> {
+  const { createWorker } = await import('tesseract.js');
   const worker = await createWorker(language);
   const imageUrl = URL.createObjectURL(file);
   const { data: { text } } = await worker.recognize(imageUrl);

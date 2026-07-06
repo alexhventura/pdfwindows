@@ -3,7 +3,8 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { SEO } from '../seo/SEO';
 import { getToolPageByPath } from '../seo/toolCatalog';
-import { ToolPageSeoBlocks, resolveToolContent, toolBreadcrumbs } from '../components/ToolPageLayout';
+import { ToolPageSeoBlocks, toolBreadcrumbs } from '../components/ToolPageLayout';
+import { getPageCopy, getPageToolName } from '../seo/content/getPageCopy';
 import { useLocalizedPath } from '../hooks/useLocalizedPath';
 
 const ConverterWorkbench = lazy(() =>
@@ -20,26 +21,27 @@ export function ConverterToolPage() {
     return <Navigate to={lp('/')} replace />;
   }
 
-  const content = resolveToolContent(tool.path, lang);
-  const crumbs = toolBreadcrumbs(lang, content.toolName, tool.path);
+  const copy = getPageCopy(tool.path, lang);
+  const toolName = getPageToolName(tool.path, lang);
+  const crumbs = toolBreadcrumbs(lang, toolName, tool.path);
 
   return (
     <>
       <SEO
-        title={content.title}
-        description={content.description}
-        keywords={content.keywords}
+        title={copy.title}
+        description={copy.description}
+        keywords={copy.keywords}
         path={tool.path}
         lang={lang}
-        toolName={content.toolName}
-        faq={content.faq}
+        toolName={toolName}
+        faq={copy.faq}
         breadcrumbs={crumbs}
       />
       <ToolPageSeoBlocks toolPath={tool.path} lang={lang}>
         <Suspense
           fallback={
             <div className="workspace-panel py-20 text-center">
-              <img src="/logo.png" alt="" className="w-12 h-12 mx-auto rounded-2xl animate-pulse mb-3 opacity-80" />
+              <img src="/logo.png" alt="PDFWINDOWS" width={48} height={48} className="w-12 h-12 mx-auto rounded-2xl animate-pulse mb-3 opacity-80" />
               <p className="text-xs font-medium text-slate-500">
                 {lang === 'pt' ? 'Abrindo workspace...' : lang === 'es' ? 'Abriendo workspace...' : 'Opening workspace...'}
               </p>
@@ -50,7 +52,7 @@ export function ConverterToolPage() {
             fixedOperation={tool.operation}
             showSuiteSection={false}
             showSideAds={false}
-            pageHeading={content.h1}
+            pageHeading={copy.h1}
             pageSubheading={
               lang === 'pt'
                 ? 'Envie seus arquivos e processe localmente.'
