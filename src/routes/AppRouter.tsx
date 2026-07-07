@@ -4,6 +4,7 @@ import { MainLayout } from '../layouts/MainLayout';
 import { TOOL_PAGES } from '../seo/toolCatalog';
 import { LocaleGate, RootLocaleRedirect } from './LocaleGate';
 import { useLocalizedPath } from '../hooks/useLocalizedPath';
+import { LogoImage } from '../components/LogoImage';
 
 const HomePage = lazy(() => import('../pages/HomePage').then((m) => ({ default: m.HomePage })));
 const ToolsCatalogPage = lazy(() => import('../pages/ToolsCatalogPage').then((m) => ({ default: m.ToolsCatalogPage })));
@@ -16,7 +17,7 @@ function PageLoader() {
   return (
     <div className="flex-1 flex items-center justify-center py-28">
       <div className="flex flex-col items-center gap-4 premium-surface !py-8 !px-10">
-        <img src="/logo.png" alt="PDFWINDOWS" width={56} height={56} className="w-14 h-14 rounded-2xl animate-pulse shadow-md" />
+        <LogoImage size={56} className="w-14 h-14 rounded-2xl shadow-md" pulse />
         <p className="text-xs font-semibold text-slate-500">PDFWINDOWS</p>
       </div>
     </div>

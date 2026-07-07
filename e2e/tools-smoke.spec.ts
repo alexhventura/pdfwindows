@@ -118,7 +118,7 @@ test.describe('Color picker interactions', () => {
     await expect(page.locator('.color-picker-root')).toBeVisible({ timeout: 30_000 });
 
     await page.getByRole('tab', { name: /From Image|Capturar da Imagem/i }).click();
-    const fileInput = page.locator('input[type="file"][accept="image/*"]');
+    const fileInput = page.locator('input[type="file"]');
     await fileInput.setInputFiles({
       name: 'pixel.png',
       mimeType: 'image/png',

@@ -29,9 +29,7 @@ export function HomePage() {
           <p className="text-sm md:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">{copy.intro}</p>
         </header>
         <CatalogDashboard />
-        <div className="mt-10">
-          <LazyToolLandingBody path="/" lang={lang} />
-        </div>
+        <LazyToolLandingBody path="/" lang={lang} />
       </div>
     </>
   );

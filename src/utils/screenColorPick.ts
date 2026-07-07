@@ -7,13 +7,20 @@ const OVERALL_TIMEOUT_MS = 90_000;
 const BODY_LOCK_CLASS = 'screen-color-picking';
 
 /**
- * Screen-share options for color picking. Uses getDisplayMedia only — never getUserMedia / camera.
- * Triggered exclusively from the user's explicit "capture screen" button click.
+ * Screen-share options for color picking.
+ * Uses getDisplayMedia only — never getUserMedia / webcam.
+ * displaySurface restricts the picker to monitor/window surfaces (not camera).
  */
-const DISPLAY_MEDIA_OPTIONS: DisplayMediaStreamOptions = {
-  video: true,
+const DISPLAY_MEDIA_OPTIONS = {
+  video: {
+    displaySurface: 'monitor',
+  },
   audio: false,
-};
+  preferCurrentTab: false,
+  selfBrowserSurface: 'exclude',
+  monitorTypeSurfaces: 'include',
+  windowTypeSurfaces: 'include',
+} as DisplayMediaStreamOptions;
 
 export class ScreenColorPickError extends Error {
   constructor(
@@ -38,7 +45,24 @@ export async function requestDisplayMediaForColorPick(): Promise<MediaStream> {
   if (!isScreenColorPickSupported()) {
     throw new ScreenColorPickError('unsupported', 'unsupported');
   }
-  return navigator.mediaDevices.getDisplayMedia(DISPLAY_MEDIA_OPTIONS);
+
+  const { mediaDevices } = navigator;
+  const getDisplayMedia = mediaDevices.getDisplayMedia.bind(mediaDevices);
+
+  // Hard block: never allow getUserMedia during screen pick (no camera / webcam fallback).
+  const originalGetUserMedia = mediaDevices.getUserMedia?.bind(mediaDevices);
+  if (originalGetUserMedia) {
+    mediaDevices.getUserMedia = () =>
+      Promise.reject(new DOMException('Camera is disabled for PDFWINDOWS color pick.', 'NotAllowedError'));
+  }
+
+  try {
+    return await getDisplayMedia(DISPLAY_MEDIA_OPTIONS);
+  } finally {
+    if (originalGetUserMedia) {
+      mediaDevices.getUserMedia = originalGetUserMedia;
+    }
+  }
 }
 
 function yieldToMain(): Promise<void> {

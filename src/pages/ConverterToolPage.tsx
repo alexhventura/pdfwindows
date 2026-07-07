@@ -6,6 +6,7 @@ import { getToolPageByPath } from '../seo/toolCatalog';
 import { ToolPageSeoBlocks, toolBreadcrumbs } from '../components/ToolPageLayout';
 import { getPageCopy, getPageToolName } from '../seo/content/getPageCopy';
 import { useLocalizedPath } from '../hooks/useLocalizedPath';
+import { LogoImage } from '../components/LogoImage';
 
 const ConverterWorkbench = lazy(() =>
   import('../components/ConverterWorkbench').then((m) => ({ default: m.ConverterWorkbench }))
@@ -41,7 +42,7 @@ export function ConverterToolPage() {
         <Suspense
           fallback={
             <div className="workspace-panel py-20 text-center">
-              <img src="/logo.png" alt="PDFWINDOWS" width={48} height={48} className="w-12 h-12 mx-auto rounded-2xl animate-pulse mb-3 opacity-80" />
+              <LogoImage size={48} className="w-12 h-12 mx-auto rounded-2xl mb-3 opacity-80" pulse />
               <p className="text-xs font-medium text-slate-500">
                 {lang === 'pt' ? 'Abrindo workspace...' : lang === 'es' ? 'Abriendo workspace...' : 'Opening workspace...'}
               </p>

@@ -58,6 +58,14 @@ export interface TranslationDict {
   ocrLangLabel: string;
   watermarkTextLabel: string;
   watermarkImageLabel: string;
+  watermarkOpacityLabel: string;
+  watermarkRotationLabel: string;
+  watermarkScaleLabel: string;
+  watermarkFontSizeLabel: string;
+  watermarkColorLabel: string;
+  watermarkRepeatLabel: string;
+  watermarkSpacingLabel: string;
+  watermarkSmartPositionLabel: string;
   brightnessLabel: string;
   contrastLabel: string;
   grayscaleLabel: string;
@@ -141,6 +149,8 @@ export interface TranslationDict {
   previewLoadedTitle: string;
   previewResultsTitle: string;
   previewInputLabel: string;
+  previewOutputLabel: string;
+  applyPreviewButton: string;
   previewProcessed: string;
   previewQueued: string;
   previewReady: string;
@@ -183,7 +193,8 @@ export interface GeneratedFile {
   name: string;
   url: string;
   size: number;
-  sourceFileId?: string; // Links back to the original FileState for before/after comparison
+  sourceFileId?: string;
+  previewUrl?: string;
 }
 
 export interface ConverterState {
@@ -211,6 +222,14 @@ export interface ConverterState {
     ocrLanguage: string;
     watermarkText?: string;
     watermarkImage?: File;
+    watermarkOpacity: number;
+    watermarkRotation: number;
+    watermarkScale: number;
+    watermarkFontSize: number;
+    watermarkColor: string;
+    watermarkRepeat: boolean;
+    watermarkSpacing: number;
+    watermarkSmartPosition: boolean;
     filterBrightness: number;
     filterContrast: number;
     filterGrayscale: boolean;

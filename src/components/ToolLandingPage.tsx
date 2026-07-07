@@ -65,7 +65,7 @@ export function ToolLandingBody({ content }: { content: ToolRichContent }) {
   const t = LABELS[lang];
 
   return (
-    <article className="w-full max-w-3xl mx-auto space-y-6 mt-10 pb-4">
+    <article className="w-full max-w-3xl mx-auto space-y-6 pb-4">
       {content.sections.map((section) => (
         <section key={section.id} className="premium-surface" aria-labelledby={section.id}>
           {section.level === 2 ? (

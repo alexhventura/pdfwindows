@@ -20,6 +20,14 @@ export function createDefaultConverterOptions(): ConverterState['options'] {
     filterGrayscale: false,
     watermarkText: '',
     watermarkImage: undefined,
+    watermarkOpacity: 0.3,
+    watermarkRotation: 45,
+    watermarkScale: 1,
+    watermarkFontSize: 48,
+    watermarkColor: '#808080',
+    watermarkRepeat: false,
+    watermarkSpacing: 180,
+    watermarkSmartPosition: true,
   };
 }
 

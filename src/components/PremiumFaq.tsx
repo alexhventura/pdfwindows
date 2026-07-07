@@ -65,6 +65,7 @@ function FaqAccordionItem({
 /** Premium collapsible FAQ — accordion style, one panel open at a time */
 export function PremiumFaq({ title, items, className = '' }: PremiumFaqProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const titleId = useId();
 
   const toggle = (index: number) => {
     setOpenIndex((prev) => (prev === index ? null : index));
@@ -73,11 +74,11 @@ export function PremiumFaq({ title, items, className = '' }: PremiumFaqProps) {
   return (
     <section
       className={`w-full max-w-3xl mx-auto ${className}`}
-      aria-labelledby="premium-faq-title"
+      aria-labelledby={titleId}
     >
       <div className="faq-premium-panel">
         <header className="faq-premium-header">
-          <h2 id="premium-faq-title" className="faq-premium-title">
+          <h2 id={titleId} className="faq-premium-title">
             {title}
           </h2>
         </header>

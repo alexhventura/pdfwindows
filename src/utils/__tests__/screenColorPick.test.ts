@@ -19,7 +19,12 @@ describe('requestDisplayMediaForColorPick', () => {
     const stream = await requestDisplayMediaForColorPick();
 
     expect(getDisplayMedia).toHaveBeenCalledOnce();
-    expect(getDisplayMedia).toHaveBeenCalledWith({ video: true, audio: false });
+    expect(getDisplayMedia).toHaveBeenCalledWith(
+      expect.objectContaining({
+        audio: false,
+        video: expect.objectContaining({ displaySurface: 'monitor' }),
+      })
+    );
     expect(getUserMedia).not.toHaveBeenCalled();
     expect(stream).toBeDefined();
   });

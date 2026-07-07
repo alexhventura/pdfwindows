@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { useLocalizedPath } from '../hooks/useLocalizedPath';
+import { LogoImage } from './LogoImage';
 
 export function SiteHeader() {
   const { lang, setLang } = useLanguage();
@@ -10,9 +11,8 @@ export function SiteHeader() {
     <header className="header-glass w-full">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
         <Link to={lp('/')} className="flex items-center gap-3 select-none min-w-0 group">
-          <img
-            src="/logo.png"
-            alt="PDF WINDOWS"
+          <LogoImage
+            size={40}
             className="w-10 h-10 rounded-2xl shadow-md shrink-0 ring-1 ring-white/80 group-hover:scale-[1.03] transition-transform duration-300"
           />
           <span className="font-bold text-[17px] sm:text-lg tracking-tight text-slate-900 leading-none min-w-0">
@@ -26,7 +26,6 @@ export function SiteHeader() {
               key={code}
               type="button"
               onClick={() => setLang(code)}
-              aria-label={code === 'pt' ? 'Português' : code === 'es' ? 'Español' : 'English'}
               className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all duration-200 ${
                 lang === code
                   ? 'bg-white text-blue-800 shadow-sm border border-blue-100/80'

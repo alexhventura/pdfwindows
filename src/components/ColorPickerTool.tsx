@@ -483,7 +483,7 @@ export const ColorPickerTool: React.FC<{
       <input
         ref={fileRef}
         type="file"
-        accept="image/*"
+        accept="image/png,image/jpeg,image/jpg,image/webp,image/gif,image/bmp"
         className="hidden"
         onChange={(e) => {
           handleFile(e.target.files?.[0]);

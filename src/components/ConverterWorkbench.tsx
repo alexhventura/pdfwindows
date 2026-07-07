@@ -37,9 +37,15 @@ import {
   validationErrorMessage,
   getFileExtension,
 } from '../utils/fileValidation';
+import { renderPdfThumbnailUrl } from '../utils/pdfThumbnail';
+import { buildImageFilterCss } from '../utils/imageFilterStyle';
 
 const LazyProductivityTools = lazy(() =>
   import('./ProductivityTools').then((m) => ({ default: m.ProductivityTools }))
+);
+
+const LazyWatermarkPreview = lazy(() =>
+  import('./WatermarkPreview').then((m) => ({ default: m.WatermarkPreview }))
 );
 
 function resolveOperationIcon(op: string) {
@@ -96,7 +102,10 @@ export function ConverterWorkbench({
   };
 
   const revokeWorkspaceUrls = (snapshot: ConverterState) => {
-    snapshot.generatedFiles.forEach((gf) => URL.revokeObjectURL(gf.url));
+    snapshot.generatedFiles.forEach((gf) => {
+      URL.revokeObjectURL(gf.url);
+      if (gf.previewUrl) URL.revokeObjectURL(gf.previewUrl);
+    });
     snapshot.files.forEach((f) => {
       if (f.previewUrl) URL.revokeObjectURL(f.previewUrl);
     });
@@ -210,6 +219,19 @@ export function ConverterWorkbench({
 
     setUploadError(null);
     setProcessingError(null);
+
+    for (const vs of validatedStates) {
+      if (vs.extension === 'pdf') {
+        renderPdfThumbnailUrl(vs.file)
+          .then((previewUrl) => {
+            setState((prev) => ({
+              ...prev,
+              files: prev.files.map((f) => (f.id === vs.id ? { ...f, previewUrl } : f)),
+            }));
+          })
+          .catch(() => undefined);
+      }
+    }
 
     // Capture leading PDF metadata details
     const firstPdf = validatedStates.find(fs => fs.extension === 'pdf');
@@ -857,14 +879,16 @@ export function ConverterWorkbench({
                                         <label className="block text-[10px] font-extrabold text-slate-500 uppercase tracking-wide mb-1">
                                           {t.watermarkTextLabel}
                                         </label>
-                                        <input 
+                                        <input
                                           type="text"
                                           placeholder="Ex: CONFIDENTIAL"
                                           value={state.options.watermarkText || ''}
-                                          onChange={(e) => setState(prev => ({
-                                            ...prev,
-                                            options: { ...prev.options, watermarkText: e.target.value }
-                                          }))}
+                                          onChange={(e) =>
+                                            setState((prev) => ({
+                                              ...prev,
+                                              options: { ...prev.options, watermarkText: e.target.value },
+                                            }))
+                                          }
                                           className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-xs font-bold focus:ring-1 focus:ring-blue-950 outline-none"
                                         />
                                       </div>
@@ -872,18 +896,174 @@ export function ConverterWorkbench({
                                         <label className="block text-[10px] font-extrabold text-slate-500 uppercase tracking-wide mb-1">
                                           {t.watermarkImageLabel}
                                         </label>
-                                        <input 
+                                        <input
                                           type="file"
-                                          accept="image/*"
+                                          accept="image/png,image/jpeg,image/webp"
                                           onChange={(e) => {
                                             const file = e.target.files?.[0];
-                                            if (file) setState(prev => ({
-                                              ...prev,
-                                              options: { ...prev.options, watermarkImage: file }
-                                            }));
+                                            if (file)
+                                              setState((prev) => ({
+                                                ...prev,
+                                                options: { ...prev.options, watermarkImage: file },
+                                              }));
                                           }}
                                           className="w-full text-[10px] file:bg-blue-950 file:text-white file:border-none file:rounded file:px-2 file:py-1 file:mr-2 file:cursor-pointer"
                                         />
+                                        {state.options.watermarkImage && (
+                                          <img
+                                            src={URL.createObjectURL(state.options.watermarkImage)}
+                                            alt=""
+                                            className="mt-2 h-12 w-auto rounded border border-slate-200 object-contain"
+                                            onLoad={(e) => URL.revokeObjectURL((e.target as HTMLImageElement).src)}
+                                          />
+                                        )}
+                                      </div>
+                                      <div className="grid grid-cols-2 gap-3">
+                                        <div>
+                                          <div className="flex justify-between mb-1">
+                                            <label className="text-[10px] font-extrabold text-slate-500 uppercase">{t.watermarkOpacityLabel}</label>
+                                            <span className="text-[10px] font-mono">{Math.round(state.options.watermarkOpacity * 100)}%</span>
+                                          </div>
+                                          <input
+                                            type="range"
+                                            min="5"
+                                            max="100"
+                                            value={Math.round(state.options.watermarkOpacity * 100)}
+                                            onChange={(e) =>
+                                              setState((prev) => ({
+                                                ...prev,
+                                                options: { ...prev.options, watermarkOpacity: Number(e.target.value) / 100 },
+                                              }))
+                                            }
+                                            className="w-full accent-blue-950"
+                                          />
+                                        </div>
+                                        <div>
+                                          <div className="flex justify-between mb-1">
+                                            <label className="text-[10px] font-extrabold text-slate-500 uppercase">{t.watermarkRotationLabel}</label>
+                                            <span className="text-[10px] font-mono">{state.options.watermarkRotation}°</span>
+                                          </div>
+                                          <input
+                                            type="range"
+                                            min="-90"
+                                            max="90"
+                                            value={state.options.watermarkRotation}
+                                            onChange={(e) =>
+                                              setState((prev) => ({
+                                                ...prev,
+                                                options: { ...prev.options, watermarkRotation: Number(e.target.value) },
+                                              }))
+                                            }
+                                            className="w-full accent-blue-950"
+                                          />
+                                        </div>
+                                        <div>
+                                          <div className="flex justify-between mb-1">
+                                            <label className="text-[10px] font-extrabold text-slate-500 uppercase">{t.watermarkScaleLabel}</label>
+                                            <span className="text-[10px] font-mono">{state.options.watermarkScale.toFixed(1)}x</span>
+                                          </div>
+                                          <input
+                                            type="range"
+                                            min="30"
+                                            max="200"
+                                            value={Math.round(state.options.watermarkScale * 100)}
+                                            onChange={(e) =>
+                                              setState((prev) => ({
+                                                ...prev,
+                                                options: { ...prev.options, watermarkScale: Number(e.target.value) / 100 },
+                                              }))
+                                            }
+                                            className="w-full accent-blue-950"
+                                          />
+                                        </div>
+                                        <div>
+                                          <div className="flex justify-between mb-1">
+                                            <label className="text-[10px] font-extrabold text-slate-500 uppercase">{t.watermarkFontSizeLabel}</label>
+                                            <span className="text-[10px] font-mono">{state.options.watermarkFontSize}px</span>
+                                          </div>
+                                          <input
+                                            type="range"
+                                            min="16"
+                                            max="120"
+                                            value={state.options.watermarkFontSize}
+                                            onChange={(e) =>
+                                              setState((prev) => ({
+                                                ...prev,
+                                                options: { ...prev.options, watermarkFontSize: Number(e.target.value) },
+                                              }))
+                                            }
+                                            className="w-full accent-blue-950"
+                                          />
+                                        </div>
+                                      </div>
+                                      <div className="flex items-center gap-2">
+                                        <label className="text-[10px] font-extrabold text-slate-500 uppercase">{t.watermarkColorLabel}</label>
+                                        <input
+                                          type="color"
+                                          value={state.options.watermarkColor}
+                                          onChange={(e) =>
+                                            setState((prev) => ({
+                                              ...prev,
+                                              options: { ...prev.options, watermarkColor: e.target.value },
+                                            }))
+                                          }
+                                          className="h-8 w-12 rounded border border-slate-200 cursor-pointer"
+                                        />
+                                      </div>
+                                      <div className="flex items-center gap-2">
+                                        <input
+                                          type="checkbox"
+                                          id="watermark-repeat"
+                                          checked={state.options.watermarkRepeat}
+                                          onChange={(e) =>
+                                            setState((prev) => ({
+                                              ...prev,
+                                              options: { ...prev.options, watermarkRepeat: e.target.checked },
+                                            }))
+                                          }
+                                          className="w-4 h-4 accent-blue-950"
+                                        />
+                                        <label htmlFor="watermark-repeat" className="text-[10px] font-extrabold text-slate-600 uppercase">
+                                          {t.watermarkRepeatLabel}
+                                        </label>
+                                      </div>
+                                      {state.options.watermarkRepeat && (
+                                        <div>
+                                          <div className="flex justify-between mb-1">
+                                            <label className="text-[10px] font-extrabold text-slate-500 uppercase">{t.watermarkSpacingLabel}</label>
+                                            <span className="text-[10px] font-mono">{state.options.watermarkSpacing}px</span>
+                                          </div>
+                                          <input
+                                            type="range"
+                                            min="80"
+                                            max="320"
+                                            value={state.options.watermarkSpacing}
+                                            onChange={(e) =>
+                                              setState((prev) => ({
+                                                ...prev,
+                                                options: { ...prev.options, watermarkSpacing: Number(e.target.value) },
+                                              }))
+                                            }
+                                            className="w-full accent-blue-950"
+                                          />
+                                        </div>
+                                      )}
+                                      <div className="flex items-center gap-2">
+                                        <input
+                                          type="checkbox"
+                                          id="watermark-smart"
+                                          checked={state.options.watermarkSmartPosition}
+                                          onChange={(e) =>
+                                            setState((prev) => ({
+                                              ...prev,
+                                              options: { ...prev.options, watermarkSmartPosition: e.target.checked },
+                                            }))
+                                          }
+                                          className="w-4 h-4 accent-blue-950"
+                                        />
+                                        <label htmlFor="watermark-smart" className="text-[10px] font-extrabold text-slate-600 uppercase">
+                                          {t.watermarkSmartPositionLabel}
+                                        </label>
                                       </div>
                                     </div>
                                   )}
@@ -1117,8 +1297,8 @@ export function ConverterWorkbench({
                               <ShieldCheck size={16} />
                               {isInitializingEngine 
                                 ? (lang === 'pt' ? 'Iniciando IA (30MB)...' : lang === 'es' ? 'Iniciando IA (30MB)...' : 'Initializing AI (30MB)...')
-                                : isImageOp(state.selectedOperation) 
-                                  ? (lang === 'pt' ? 'Aplicar MudanÃ§as e Visualizar' : lang === 'es' ? 'Aplicar cambios y visualizar' : 'Apply Changes & Preview') 
+                                : isImageOp(state.selectedOperation)
+                                  ? t.applyPreviewButton
                                   : t.processButton}
                             </button>
                           </div>
@@ -1251,6 +1431,16 @@ export function ConverterWorkbench({
               exit={{ opacity: 0, y: 20 }}
               className="space-y-6"
             >
+              {state.selectedOperation === 'pdf-watermark' && state.files[0]?.extension === 'pdf' && (
+                <Suspense fallback={null}>
+                  <LazyWatermarkPreview
+                    file={state.files[0].file}
+                    options={state.options}
+                    lang={lang}
+                  />
+                </Suspense>
+              )}
+
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 bg-win-blue/10 text-win-blue rounded-lg flex items-center justify-center">
@@ -1261,7 +1451,7 @@ export function ConverterWorkbench({
                       {state.isCompleted ? t.previewResultsTitle : t.previewLoadedTitle}
                     </h3>
                     <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">
-                      {t.previewInputLabel}
+                      {state.isCompleted ? t.previewOutputLabel : t.previewInputLabel}
                     </p>
                   </div>
                 </div>
@@ -1279,11 +1469,12 @@ export function ConverterWorkbench({
                       <div className="flex-1 bg-slate-50 min-h-[260px] flex items-center justify-center p-6 relative">
                         {state.isCompleted && generated ? (
                           <div className="w-full h-full flex flex-col items-center justify-center gap-4">
-                            {generated.name.match(/\.(jpg|jpeg|png|gif|webp|bmp)$/i) ? (
-                              <img 
-                                src={generated.url} 
-                                className="max-w-full max-h-full object-contain rounded shadow-lg border border-white" 
-                                alt={generated.name} 
+                            {generated.previewUrl ||
+                            generated.name.match(/\.(jpg|jpeg|png|gif|webp|bmp)$/i) ? (
+                              <img
+                                src={generated.previewUrl ?? generated.url}
+                                className="max-w-full max-h-full object-contain rounded shadow-lg border border-white"
+                                alt={generated.name}
                               />
                             ) : (
                               <div className="flex flex-col items-center gap-2 text-win-blue">
@@ -1301,7 +1492,22 @@ export function ConverterWorkbench({
                         ) : (
                           <>
                             {file.previewUrl ? (
-                              <img src={file.previewUrl} className="max-w-full max-h-full object-contain rounded shadow-sm" alt={file.name} />
+                              <img
+                                src={file.previewUrl}
+                                className="max-w-full max-h-full object-contain rounded shadow-sm"
+                                alt={file.name}
+                                style={
+                                  state.selectedOperation === 'img-filter' && !state.isCompleted
+                                    ? {
+                                        filter: buildImageFilterCss({
+                                          brightness: state.options.filterBrightness,
+                                          contrast: state.options.filterContrast,
+                                          grayscale: state.options.filterGrayscale,
+                                        }),
+                                      }
+                                    : undefined
+                                }
+                              />
                             ) : (
                               <div className="flex flex-col items-center gap-2 text-slate-300">
                                 {file.extension === 'pdf' ? <FileText size={64} /> : <ImageIcon size={64} />}

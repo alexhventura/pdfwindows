@@ -1,41 +1,37 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { useEffect, useState, type ComponentType } from 'react';
 import type { LanguageType } from '../types';
 import type { ToolRichContent } from '../seo/content/types';
 import { loadRichContent } from '../seo/content/lazyRichContent';
+import { useNearViewport } from '../hooks/useNearViewport';
 
-const ToolLandingBody = lazy(() =>
-  import('./ToolLandingPage').then((m) => ({ default: m.ToolLandingBody }))
-);
-
-function SeoBodyPlaceholder() {
-  return (
-    <div
-      className="w-full max-w-3xl mx-auto mt-10 pb-4 min-h-[28rem] rounded-2xl bg-slate-100/40 animate-pulse"
-      aria-hidden="true"
-    />
-  );
-}
-
+/** Below-the-fold SEO article — loaded only when scrolled near to protect LCP/CLS. */
 export function LazyToolLandingBody({ path, lang }: { path: string; lang: LanguageType }) {
+  const { ref, isNear } = useNearViewport('480px');
   const [content, setContent] = useState<ToolRichContent | null>(null);
+  const [Body, setBody] = useState<ComponentType<{ content: ToolRichContent }> | null>(null);
 
   useEffect(() => {
+    if (!isNear) return;
+
     let cancelled = false;
-    loadRichContent(path, lang).then((rich) => {
-      if (!cancelled) setContent(rich);
+    Promise.all([loadRichContent(path, lang), import('./ToolLandingPage')]).then(([rich, mod]) => {
+      if (!cancelled) {
+        setContent(rich);
+        setBody(() => mod.ToolLandingBody);
+      }
     });
     return () => {
       cancelled = true;
     };
-  }, [path, lang]);
-
-  if (!content) {
-    return <SeoBodyPlaceholder />;
-  }
+  }, [isNear, path, lang]);
 
   return (
-    <Suspense fallback={<SeoBodyPlaceholder />}>
-      <ToolLandingBody content={content} />
-    </Suspense>
+    <div
+      ref={ref}
+      className="w-full max-w-3xl mx-auto mt-10 pb-4"
+      style={Body ? undefined : { contentVisibility: 'auto', containIntrinsicSize: '0 1200px' }}
+    >
+      {content && Body ? <Body content={content} /> : null}
+    </div>
   );
 }

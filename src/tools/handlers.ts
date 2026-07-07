@@ -16,7 +16,9 @@ import {
   addWatermarkToPDF,
   applyImageFilters,
   compressPDFLocal,
+  watermarkSettingsFromOptions,
 } from '../utils/converterEngine';
+import { renderPdfThumbnailUrl } from '../utils/pdfThumbnail';
 import { buildSearchablePdfFromFile } from '../engines/pdfOcr';
 import { getToolStubMessage } from '../toolRegistry';
 import { baseName, createProgressRunner } from './progress';
@@ -74,6 +76,7 @@ async function runImgToPdf(ctx: RunToolsContext): Promise<GeneratedFile[]> {
     name: `${baseName(files[0].name, 'images')}_gallery.pdf`,
     url: URL.createObjectURL(pdfBlob),
     size: pdfBlob.size,
+    sourceFileId: files[0]?.id,
   });
   tick();
   finish();
@@ -125,6 +128,8 @@ async function runPdfToImg(ctx: RunToolsContext): Promise<GeneratedFile[]> {
       name: `${rawBase}_page_${idx + 1}.png`,
       url: URL.createObjectURL(blob),
       size: blob.size,
+      sourceFileId: p.id,
+      previewUrl: URL.createObjectURL(blob),
     });
   });
   tick();
@@ -152,11 +157,14 @@ async function runPdfMerge(ctx: RunToolsContext): Promise<GeneratedFile[]> {
   const { outputs, tick, finish } = createProgressRunner(ctx);
   const rawBase = baseName(files[0].name, 'pdf');
   const mergedBlob = await mergeMultiplePDFs(files.map((f) => f.file));
-  outputs.push({
-    name: `${rawBase}_merged_bundle.pdf`,
-    url: URL.createObjectURL(mergedBlob),
-    size: mergedBlob.size,
-  });
+  outputs.push(
+    await attachPdfPreview({
+      name: `${rawBase}_merged_bundle.pdf`,
+      url: URL.createObjectURL(mergedBlob),
+      size: mergedBlob.size,
+      sourceFileId: files[0]?.id,
+    })
+  );
   tick();
   finish();
   return outputs;
@@ -169,11 +177,14 @@ async function runPdfSplit(ctx: RunToolsContext): Promise<GeneratedFile[]> {
   const from = options.splitFromPage || 1;
   const to = options.splitToPage || 1;
   const splitBlob = await splitPDFPages(files[0].file, from, to);
-  outputs.push({
-    name: `${rawBase}_sliced_${from}_to_${to}.pdf`,
-    url: URL.createObjectURL(splitBlob),
-    size: splitBlob.size,
-  });
+  outputs.push(
+    await attachPdfPreview({
+      name: `${rawBase}_sliced_${from}_to_${to}.pdf`,
+      url: URL.createObjectURL(splitBlob),
+      size: splitBlob.size,
+      sourceFileId: files[0].id,
+    })
+  );
   tick();
   finish();
   return outputs;
@@ -185,11 +196,14 @@ async function runPdfPassword(ctx: RunToolsContext): Promise<GeneratedFile[]> {
   const rawBase = baseName(files[0].name, 'pdf');
   if (!options.pdfPassword?.trim()) throw new Error('PASSWORD_REQUIRED');
   const lockedBlob = await addPasswordProtectionToPDF(files[0].file, options.pdfPassword);
-  outputs.push({
-    name: `${rawBase}_protected.pdf`,
-    url: URL.createObjectURL(lockedBlob),
-    size: lockedBlob.size,
-  });
+  outputs.push(
+    await attachPdfPreview({
+      name: `${rawBase}_protected.pdf`,
+      url: URL.createObjectURL(lockedBlob),
+      size: lockedBlob.size,
+      sourceFileId: files[0].id,
+    })
+  );
   tick();
   finish();
   return outputs;
@@ -227,12 +241,12 @@ async function runPdfOcr(ctx: RunToolsContext): Promise<GeneratedFile[]> {
     );
     onProgress?.(100);
     return [
-      {
+      await attachPdfPreview({
         name: `${rawBase}_searchable.pdf`,
         url: URL.createObjectURL(outBlob),
         size: outBlob.size,
         sourceFileId: files[0].id,
-      },
+      }),
     ];
   } catch (err) {
     if (err instanceof DOMException && err.name === 'AbortError') throw err;
@@ -241,22 +255,32 @@ async function runPdfOcr(ctx: RunToolsContext): Promise<GeneratedFile[]> {
   }
 }
 
+async function attachPdfPreview(output: GeneratedFile): Promise<GeneratedFile> {
+  try {
+    const response = await fetch(output.url);
+    const blob = await response.blob();
+    const previewUrl = await renderPdfThumbnailUrl(blob);
+    return { ...output, previewUrl };
+  } catch {
+    return output;
+  }
+}
+
 async function runPdfWatermark(ctx: RunToolsContext): Promise<GeneratedFile[]> {
   const { files, options } = ctx;
   const { outputs, tick, guardAbort, finish } = createProgressRunner(ctx);
+  const settings = watermarkSettingsFromOptions(options);
 
   for (const fs of files) {
     guardAbort();
-    const outBlob = await addWatermarkToPDF(
-      fs.file,
-      options.watermarkText,
-      options.watermarkImage
-    );
-    outputs.push({
+    const outBlob = await addWatermarkToPDF(fs.file, settings);
+    const entry: GeneratedFile = {
       name: `${baseName(fs.name, fs.name)}_watermarked.pdf`,
       url: URL.createObjectURL(outBlob),
       size: outBlob.size,
-    });
+      sourceFileId: fs.id,
+    };
+    outputs.push(await attachPdfPreview(entry));
     tick();
   }
   finish();
@@ -293,12 +317,13 @@ async function runPdfCompress(ctx: RunToolsContext): Promise<GeneratedFile[]> {
   for (const fs of files) {
     guardAbort();
     const outBlob = await compressPDFLocal(fs.file);
-    outputs.push({
+    const entry: GeneratedFile = {
       name: `${baseName(fs.name, fs.name)}_optimized.pdf`,
       url: URL.createObjectURL(outBlob),
       size: outBlob.size,
       sourceFileId: fs.id,
-    });
+    };
+    outputs.push(await attachPdfPreview(entry));
     tick();
   }
   finish();
@@ -310,11 +335,13 @@ async function runPdfRotate(ctx: RunToolsContext): Promise<GeneratedFile[]> {
   const { outputs, tick, finish } = createProgressRunner(ctx);
   const rawBase = baseName(files[0].name, 'pdf');
   const rotatedBlob = await rotatePDFPages(files[0].file, options.rotateAngle);
-  outputs.push({
+  const entry: GeneratedFile = {
     name: `${rawBase}_rotated_${options.rotateAngle}deg.pdf`,
     url: URL.createObjectURL(rotatedBlob),
     size: rotatedBlob.size,
-  });
+    sourceFileId: files[0].id,
+  };
+  outputs.push(await attachPdfPreview(entry));
   tick();
   finish();
   return outputs;

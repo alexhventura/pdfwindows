@@ -48,7 +48,7 @@ export function ToolPageSeoBlocks({
       >
         {children}
       </div>
-      <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 pb-12">
+      <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 pb-12 seo-body-slot">
         <LazyToolLandingBody path={toolPath} lang={lang} />
       </div>
     </>

@@ -4,6 +4,19 @@ import imageCompression from 'browser-image-compression';
 import { loadPdfJS } from './pdfjsLoader';
 import { rowsToCsv } from './csvSecurity';
 import { sanitizePdfText } from './pdfTextSanitizer';
+import {
+  applyWatermarksToPdfPage,
+  bakeTextWatermarkForPdf,
+  bakeWatermarkImageForPdf,
+  detectContentBoundsFromImageData,
+  watermarkSettingsFromOptions,
+  type NormalizedBounds,
+  type WatermarkSettings,
+  type WatermarkStamp,
+} from './watermarkEngine';
+
+export type { WatermarkSettings } from './watermarkEngine';
+export { watermarkSettingsFromOptions } from './watermarkEngine';
 
 export { loadPdfJS } from './pdfjsLoader';
 
@@ -497,39 +510,107 @@ export async function performOCR(file: File, language: string = 'por+eng'): Prom
 }
 
 /**
- * Watermark PDF
+ * Detect per-page content bounds for smart watermark placement.
  */
-export async function addWatermarkToPDF(file: File, text?: string, image?: File): Promise<Blob> {
+async function detectPdfPageBounds(file: File, pageCount: number): Promise<(NormalizedBounds | null)[]> {
+  const pdfjsLib = await loadPdfJS();
+  const arrayBuffer = await readFileAsArrayBuffer(file);
+  const data = new Uint8Array(arrayBuffer).slice();
+  const pdf = await pdfjsLib.getDocument({ data }).promise;
+  const bounds: (NormalizedBounds | null)[] = [];
+
+  for (let i = 1; i <= pageCount; i++) {
+    const page = await pdf.getPage(i);
+    const viewport = page.getViewport({ scale: 1 });
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.ceil(viewport.width);
+    canvas.height = Math.ceil(viewport.height);
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      bounds.push(null);
+      continue;
+    }
+    await page.render({ canvasContext: ctx, viewport, canvas }).promise;
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    bounds.push(detectContentBoundsFromImageData(imageData));
+  }
+
+  return bounds;
+}
+
+/**
+ * Watermark PDF — preview and export share placement logic via watermarkEngine.
+ */
+export async function addWatermarkToPDF(
+  file: File,
+  settingsInput: WatermarkSettings | string | undefined,
+  legacyImage?: File
+): Promise<Blob> {
+  const settings: WatermarkSettings =
+    typeof settingsInput === 'string' || settingsInput === undefined
+      ? {
+          text: typeof settingsInput === 'string' ? settingsInput : undefined,
+          image: legacyImage ?? null,
+          opacity: 0.3,
+          rotation: 45,
+          scale: 1,
+          fontSize: 48,
+          color: '#808080',
+          repeat: false,
+          spacing: 180,
+          smartPosition: true,
+        }
+      : settingsInput;
+
+  if (!settings.text && !settings.image) {
+    throw new Error('WATERMARK_EMPTY');
+  }
+
   const arrayBuffer = await readFileAsArrayBuffer(file);
   const pdfDoc = await PDFDocument.load(arrayBuffer);
   const pages = pdfDoc.getPages();
-  const { degrees, rgb } = await import('pdf-lib');
 
-  let embeddedImage: any;
-  if (image) {
-    const buf = await readFileAsArrayBuffer(image);
-    embeddedImage = image.type === 'image/png' ? await pdfDoc.embedPng(buf) : await pdfDoc.embedJpg(buf);
+  const stamps: WatermarkStamp[] = [];
+
+  if (settings.text) {
+    const bakedText = await bakeTextWatermarkForPdf(settings.text, settings);
+    const textImg = await pdfDoc.embedPng(bakedText.bytes);
+    stamps.push({
+      pdfImage: textImg,
+      drawWidth: bakedText.width,
+      drawHeight: bakedText.height,
+    });
   }
 
-  for (const page of pages) {
-    const { width, height } = page.getSize();
-    if (text) {
-      page.drawText(sanitizePdfText(text), {
-        x: 50,
-        y: 50,
-        size: 50,
-        opacity: 0.3,
-        rotate: degrees(45),
-        color: rgb(0.5, 0.5, 0.5),
-      });
-    }
-    if (embeddedImage) {
-      const dims = embeddedImage.scale(0.5);
-      page.drawImage(embeddedImage, { x: width/2 - dims.width/2, y: height/2 - dims.height/2, width: dims.width, height: dims.height, opacity: 0.2 });
-    }
+  if (settings.image) {
+    const baked = await bakeWatermarkImageForPdf(
+      settings.image,
+      settings.scale,
+      settings.rotation
+    );
+    const img = await pdfDoc.embedPng(baked.bytes);
+    stamps.push({
+      pdfImage: img,
+      drawWidth: baked.width,
+      drawHeight: baked.height,
+    });
   }
+
+  const pageBounds = settings.smartPosition
+    ? await detectPdfPageBounds(file, pages.length)
+    : pages.map(() => null);
+
+  for (let i = 0; i < pages.length; i++) {
+    await applyWatermarksToPdfPage(
+      pages[i],
+      settings,
+      pageBounds[i] ?? null,
+      stamps
+    );
+  }
+
   const pdfBytes = await pdfDoc.save();
-  return new Blob([pdfBytes], { type: 'application/pdf' });
+  return new Blob([pdfBytes as BlobPart], { type: 'application/pdf' });
 }
 
 /**
