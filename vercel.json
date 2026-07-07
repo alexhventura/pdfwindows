@@ -17,7 +17,7 @@
     }
   ],
   "rewrites": [
-    { "source": "/((?!assets|logo(-\\d+)?\\.webp|logo\\.png|logo-banner\\.png|icon\\.svg|manifest\\.json|robots\\.txt|sitemap\\.xml|sw\\.js).*)", "destination": "/index.html" }
+    { "source": "/:path*", "destination": "/index.html" }
   ],
   "headers": [
     {
@@ -62,10 +62,28 @@
       ]
     },
     {
-      "source": "/(logo(-\\d+)?\\.webp|logo\\.png|logo-banner\\.png|icon\\.svg|manifest\\.json|sw\\.js)",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=86400" }
-      ]
+      "source": "/logo.png",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
+    },
+    {
+      "source": "/logo-banner.png",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
+    },
+    {
+      "source": "/icon.svg",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
+    },
+    {
+      "source": "/manifest.json",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
+    },
+    {
+      "source": "/sw.js",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
+    },
+    {
+      "source": "/logo-:size.webp",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
     }
   ]
 }
