@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pdf-windows-v5';
+const CACHE_NAME = 'pdf-windows-v6';
 const SHELL_URL = '/index.html';
 const PRECACHE_URLS = [SHELL_URL, '/manifest.json', '/icon.svg', '/logo-80.webp', '/logo.png'];
 const BYPASS_PATHS = new Set(['/sitemap.xml', '/robots.txt']);

@@ -2023,7 +2023,7 @@ export const HOME_COPY: Record<LanguageType, ToolPageCopy> = {
   pt: {
     title: 'PDFWINDOWS — Ferramentas para PDF e Imagens',
     description:
-      'Converta, edite, organize e proteja arquivos PDF e imagens diretamente no navegador. Seus arquivos permanecem no seu dispositivo.',
+      'Converta, edite, organize e proteja arquivos PDF e imagens diretamente no navegador. Seus arquivos permanecem no seu dispositivo, garantindo mais privacidade, segurança e velocidade.',
     keywords: 'ferramentas pdf gratis, mesclar pdf, comprimir pdf, converter pdf, proteger pdf',
     h1: 'Ferramentas para PDF e Imagens',
     intro:
