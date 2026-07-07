@@ -9,6 +9,7 @@ import {
   type NormalizedBounds,
 } from '../utils/watermarkEngine';
 import type { ConverterState } from '../types';
+import { translations } from '../utils/translations';
 
 const PREVIEW_MAX_WIDTH = 520;
 const DEBOUNCE_MS = 120;
@@ -18,12 +19,6 @@ interface WatermarkPreviewProps {
   options: ConverterState['options'];
   lang: 'pt' | 'en' | 'es';
 }
-
-const LABELS = {
-  pt: { title: 'Pré-visualização em tempo real', page: 'Página', loading: 'Gerando prévia...' },
-  en: { title: 'Live preview', page: 'Page', loading: 'Rendering preview...' },
-  es: { title: 'Vista previa en tiempo real', page: 'Página', loading: 'Generando vista previa...' },
-};
 
 function useDebouncedValue<T>(value: T, delay: number): T {
   const [debounced, setDebounced] = useState(value);
@@ -39,13 +34,12 @@ export const WatermarkPreview = memo(function WatermarkPreview({
   options,
   lang,
 }: WatermarkPreviewProps) {
+  const t = translations[lang];
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [pageCount, setPageCount] = useState(1);
   const [pageIndex, setPageIndex] = useState(1);
   const [loading, setLoading] = useState(true);
-  const [bounds, setBounds] = useState<NormalizedBounds | null>(null);
   const renderToken = useRef(0);
-  const t = LABELS[lang];
 
   const settings = watermarkSettingsFromOptions(options);
   const debouncedSettings = useDebouncedValue(settings, DEBOUNCE_MS);
@@ -120,7 +114,6 @@ export const WatermarkPreview = memo(function WatermarkPreview({
         ctx?.drawImage(offscreen, 0, 0);
       }
 
-      setBounds(detected);
       setLoading(false);
     })().catch(() => {
       if (!cancelled) setLoading(false);
@@ -136,10 +129,10 @@ export const WatermarkPreview = memo(function WatermarkPreview({
   return (
     <div className="rounded-xl border border-slate-200 bg-white overflow-hidden">
       <div className="flex items-center justify-between gap-2 px-3 py-2 border-b border-slate-100 bg-slate-50/80">
-        <span className="text-[10px] font-extrabold uppercase tracking-wide text-slate-500">{t.title}</span>
+        <span className="text-[10px] font-extrabold uppercase tracking-wide text-slate-500">{t.watermarkPreviewTitle}</span>
         {pageCount > 1 && (
           <label className="flex items-center gap-1.5 text-[10px] font-semibold text-slate-500">
-            {t.page}
+            {t.watermarkPreviewPage}
             <select
               value={pageIndex}
               onChange={(e) => setPageIndex(Number(e.target.value))}
@@ -157,30 +150,20 @@ export const WatermarkPreview = memo(function WatermarkPreview({
       <div className="relative bg-slate-100 flex items-center justify-center min-h-[200px] max-h-[min(70vh,520px)] p-3">
         {!hasWatermark && (
           <p className="absolute inset-0 flex items-center justify-center text-[10px] font-semibold text-slate-400 px-4 text-center pointer-events-none">
-            {lang === 'pt'
-              ? 'Digite um texto ou selecione uma imagem para ver a prévia.'
-              : lang === 'es'
-                ? 'Escriba un texto o seleccione una imagen para ver la vista previa.'
-                : 'Enter text or select an image to see the preview.'}
+            {t.watermarkPreviewEmpty}
           </p>
         )}
         {loading && hasWatermark && (
-          <p className="absolute text-[10px] font-semibold text-slate-400 animate-pulse">{t.loading}</p>
+          <p className="absolute text-[10px] font-semibold text-slate-400 animate-pulse">{t.watermarkPreviewLoading}</p>
         )}
         <canvas
           ref={canvasRef}
           className="max-w-full max-h-[min(68vh,500px)] w-auto h-auto object-contain rounded shadow-sm bg-white"
-          aria-label={t.title}
+          aria-label={t.watermarkPreviewTitle}
         />
       </div>
-      {settings.smartPosition && bounds && (
-        <p className="px-3 py-1.5 text-[9px] text-slate-400 border-t border-slate-100">
-          {lang === 'pt'
-            ? 'Posição inteligente: centro do conteúdo detectado.'
-            : lang === 'es'
-              ? 'Posición inteligente: centro del contenido detectado.'
-              : 'Smart position: centered on detected content area.'}
-        </p>
+      {settings.smartPosition && (
+        <p className="px-3 py-1.5 text-[9px] text-slate-400 border-t border-slate-100">{t.watermarkSmartHint}</p>
       )}
     </div>
   );

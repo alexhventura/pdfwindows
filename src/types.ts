@@ -156,6 +156,39 @@ export interface TranslationDict {
   previewReady: string;
   confirmSave: string;
   newFiles: string;
+
+  // Workspace UI (page setup, selection, loading)
+  opSelected: string;
+  opClickToSelect: string;
+  incompatibleMixWarning: string;
+  pageSetupTitle: string;
+  orientationLabel: string;
+  portraitLabel: string;
+  landscapeLabel: string;
+  marginsLabel: string;
+  marginNoneLabel: string;
+  marginNarrowLabel: string;
+  marginStandardLabel: string;
+  fittingLabel: string;
+  fitCenterLabel: string;
+  fitPageLabel: string;
+  fitOriginalLabel: string;
+  initAiLabel: string;
+  cancelProcessLabel: string;
+  openingWorkspace: string;
+  loadingConverter: string;
+  watermarkPreviewTitle: string;
+  watermarkPreviewPage: string;
+  watermarkPreviewLoading: string;
+  watermarkPreviewEmpty: string;
+  watermarkSmartHint: string;
+  widthPlaceholder: string;
+  heightPlaceholder: string;
+  watermarkTextPlaceholder: string;
+  homeLabel: string;
+  relatedToolsTitle: string;
+  faqSectionTitle: string;
+  catalogBannerAlt: string;
 }
 
 export interface FileState {

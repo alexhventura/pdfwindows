@@ -22,7 +22,7 @@ export default function CodeCleanerSuiteTool({ onClose, lang }: { onClose: () =>
       });
       setCode(formatted);
     } catch {
-      alert(lang === 'pt' ? 'Erro ao formatar. Verifique a sintaxe.' : 'Formatting error. Check syntax.');
+      alert(t.formatError);
     }
   };
 

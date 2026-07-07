@@ -72,7 +72,7 @@ function ReceiptGeneratorPanel({ lang }: { lang: LanguageType }) {
       y -= size + 8;
     };
 
-    draw(lang === 'pt' ? 'RECIBO' : lang === 'es' ? 'RECIBO' : 'RECEIPT', 18, true);
+    draw(t.receiptDocHeading, 18, true);
     draw(`${t.issuerName}: ${form.issuerName} (${form.issuerDoc})`, 10);
     draw(`${t.clientName}: ${form.clientName} (${form.clientDoc})`, 10);
     draw(`${t.date}: ${effectiveDate}`, 10);
@@ -97,7 +97,7 @@ function ReceiptGeneratorPanel({ lang }: { lang: LanguageType }) {
       draw(`${t.signature}: ${form.signature}`, 10);
     }
 
-    pdfDoc.getPages().forEach((p) => drawPdfWindowsFooter(p, font, width, 28));
+    pdfDoc.getPages().forEach((p) => drawPdfWindowsFooter(p, font, width, 28, lang));
 
     const pdfBytes = await pdfDoc.save();
     const blob = new Blob([pdfBytes], { type: 'application/pdf' });
@@ -191,8 +191,8 @@ export default function ReportSuiteTool({ onClose, lang }: { onClose: () => void
     URL.revokeObjectURL(url);
   };
 
-  const tabReport = lang === 'pt' ? 'Relatório' : lang === 'es' ? 'Informe' : 'Report';
-  const tabReceipt = lang === 'pt' ? 'Recibo' : lang === 'es' ? 'Recibo' : 'Receipt';
+  const tabReport = t.tabReport;
+  const tabReceipt = t.tabReceipt;
 
   return (
     <>
@@ -223,21 +223,21 @@ export default function ReportSuiteTool({ onClose, lang }: { onClose: () => void
         </div>
       ) : (
         <div className="p-6 space-y-4">
-          <input className={inputClass} placeholder={lang === 'pt' ? 'Título do relatório' : lang === 'es' ? 'Título del informe' : 'Report title'} value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} />
+          <input className={inputClass} placeholder={t.reportTitlePlaceholder} value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} />
           <input className={inputClass} placeholder={t.reportSubtitle} value={form.subtitle} onChange={(e) => setForm({ ...form, subtitle: e.target.value })} />
           <input className={inputClass} placeholder={t.reportAuthor} value={form.author} onChange={(e) => setForm({ ...form, author: e.target.value })} />
           <div>
             <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-wide mb-2">{t.reportIntro}</p>
-            <RichTextEditor value={form.intro} onChange={(intro) => setForm({ ...form, intro })} placeholder={t.reportIntro} minHeight={100} />
+            <RichTextEditor value={form.intro} onChange={(intro) => setForm({ ...form, intro })} placeholder={t.reportIntro} minHeight={100} lang={lang} />
           </div>
           <div className="space-y-3">
             {sections.map((section) => (
               <div key={section.id} className="p-4 border border-slate-200/80 rounded-2xl space-y-3 bg-white/60">
                 <input className={inputClass} placeholder={t.sectionTitle} value={section.title} onChange={(e) => setSections(sections.map((s) => (s.id === section.id ? { ...s, title: e.target.value } : s)))} />
-                <RichTextEditor value={section.body} onChange={(body) => setSections(sections.map((s) => (s.id === section.id ? { ...s, body } : s)))} placeholder={t.sectionBody} minHeight={120} />
+                <RichTextEditor value={section.body} onChange={(body) => setSections(sections.map((s) => (s.id === section.id ? { ...s, body } : s)))} placeholder={t.sectionBody} minHeight={120} lang={lang} />
                 {sections.length > 1 && (
                   <button type="button" className="text-xs font-bold text-rose-600 flex items-center gap-1" onClick={() => setSections(sections.filter((s) => s.id !== section.id))}>
-                    <Trash2 size={14} /> {lang === 'pt' ? 'Remover seção' : lang === 'es' ? 'Eliminar sección' : 'Remove section'}
+                    <Trash2 size={14} /> {t.removeSection}
                   </button>
                 )}
               </div>

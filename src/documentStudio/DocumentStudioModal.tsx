@@ -45,6 +45,7 @@ const studioT: Record<LanguageType, Record<string, string>> = {
     smartFill: 'Preencher com dados recentes',
     persistLabel: 'Salvar rascunhos localmente (opcional)',
     clearData: 'Limpar dados locais',
+    clearDataConfirm: 'Limpar todos os dados locais do Estúdio de Documentos?',
     saveDraft: 'Salvar rascunho',
     exportPdf: 'Exportar PDF',
     requiredHint: 'Preencha os campos obrigatórios:',
@@ -64,6 +65,7 @@ const studioT: Record<LanguageType, Record<string, string>> = {
     smartFill: 'Fill with recent data',
     persistLabel: 'Save drafts locally (optional)',
     clearData: 'Clear local data',
+    clearDataConfirm: 'Clear all local Document Studio data?',
     saveDraft: 'Save draft',
     exportPdf: 'Export PDF',
     requiredHint: 'Fill required fields:',
@@ -83,6 +85,7 @@ const studioT: Record<LanguageType, Record<string, string>> = {
     smartFill: 'Rellenar con datos recientes',
     persistLabel: 'Guardar borradores localmente (opcional)',
     clearData: 'Borrar datos locales',
+    clearDataConfirm: '¿Borrar todos los datos locales del Estudio de Documentos?',
     saveDraft: 'Guardar borrador',
     exportPdf: 'Exportar PDF',
     requiredHint: 'Complete los campos obligatorios:',
@@ -173,7 +176,7 @@ export const DocumentStudioModal: React.FC<DocumentStudioModalProps> = ({ lang, 
   };
 
   const handleClearData = () => {
-    if (!window.confirm(lang === 'pt' ? 'Limpar todos os dados locais do Estúdio de Documentos?' : lang === 'es' ? '¿Borrar todos los datos locales del Estudio de Documentos?' : 'Clear all local Document Studio data?')) {
+    if (!window.confirm(t.clearDataConfirm)) {
       return;
     }
     clearAllLocalData();
@@ -279,6 +282,7 @@ export const DocumentStudioModal: React.FC<DocumentStudioModalProps> = ({ lang, 
           onChange={(html) => updateField(fieldId, html)}
           placeholder={placeholder}
           minHeight={100}
+          lang={lang}
         />
       );
     }

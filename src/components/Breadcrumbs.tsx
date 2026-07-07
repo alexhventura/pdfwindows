@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ChevronRight, Home } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../utils/translations';
 import { useLocalizedPath } from '../hooks/useLocalizedPath';
 
 export interface BreadcrumbItem {
@@ -14,6 +16,8 @@ interface BreadcrumbsProps {
 
 export function Breadcrumbs({ items, className = '' }: BreadcrumbsProps) {
   const lp = useLocalizedPath();
+  const { lang } = useLanguage();
+  const homeLabel = translations[lang].homeLabel;
 
   return (
     <nav aria-label="Breadcrumb" className={`text-xs text-slate-500 ${className}`}>
@@ -24,7 +28,7 @@ export function Breadcrumbs({ items, className = '' }: BreadcrumbsProps) {
             className="inline-flex items-center gap-1 hover:text-blue-700 transition-colors font-medium"
           >
             <Home size={13} aria-hidden />
-            <span className="sr-only sm:not-sr-only">Home</span>
+            <span className="sr-only sm:not-sr-only">{homeLabel}</span>
           </Link>
         </li>
         {items.map((item, index) => {

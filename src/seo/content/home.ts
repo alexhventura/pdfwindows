@@ -141,7 +141,7 @@ export const HOME_RICH_CONTENT: Record<'/' | '/conversor', Record<'en' | 'pt' | 
         'ferramentas pdf offline, converter pdf gratis, editor pdf privado, ferramentas imagem local, suite pdf navegador, pdfwindows',
       h1: 'PDF e Imagem',
       intro:
-        'Ferramentas profissionais para PDF e imagem. Processamento rápido no navegador, sem cadastro.',
+        'Ferramentas profissionais para PDF e imagem. Processamento rápido no navegador, sem cadastro e com total privacidade.',
       toolName: 'PDFWINDOWS',
       benefits: [
 
@@ -261,7 +261,7 @@ export const HOME_RICH_CONTENT: Record<'/' | '/conversor', Record<'en' | 'pt' | 
       relatedTools: ['/pdf-merge', '/pdf-compress', '/estudio-documentos', '/conversor'],
       cta: {
         heading: 'Explore o catálogo completo',
-        body: 'Escolha qualquer ferramenta e processe seu primeiro arquivo em segundos — rápido e gratuito.',
+        body: 'Escolha qualquer ferramenta, processe no navegador e baixe o resultado em segundos — rápido, privado e gratuito.',
         buttonLabel: 'Ver ferramentas',
       },
     },
@@ -273,7 +273,7 @@ export const HOME_RICH_CONTENT: Record<'/' | '/conversor', Record<'en' | 'pt' | 
         'herramientas pdf offline, convertir pdf gratis, editor pdf privado, herramientas imagen local, suite pdf navegador, pdfwindows',
       h1: 'PDF e Imagen',
       intro:
-        'Herramientas profesionales para PDF e imagen. Procesamiento rápido en el navegador, sin registro.',
+        'Herramientas profesionales para PDF e imagen. Procesamiento rápido en el navegador, sin registro y con total privacidad.',
       toolName: 'PDFWINDOWS',
       benefits: [
 
@@ -393,7 +393,7 @@ export const HOME_RICH_CONTENT: Record<'/' | '/conversor', Record<'en' | 'pt' | 
       relatedTools: ['/pdf-merge', '/pdf-compress', '/estudio-documentos', '/conversor'],
       cta: {
         heading: 'Explore el catálogo completo',
-        body: 'Elija cualquier herramienta y procese su primer archivo en segundos — rápido y gratuito.',
+        body: 'Elija cualquier herramienta, procese en el navegador y descargue el resultado en segundos — rápido, privado y gratuito.',
         buttonLabel: 'Ver herramientas',
       },
     },
@@ -533,7 +533,7 @@ export const HOME_RICH_CONTENT: Record<'/' | '/conversor', Record<'en' | 'pt' | 
         'conversor pdf completo, conversor pdf lote offline, conversor imagem completo, fila conversao local, conversor pdfwindows',
       h1: 'Conversor Completo — Processamento Local em Lote',
       intro:
-        'O Conversor Completo do PDFWINDOWS é o workbench para usuários avançados que expõe todas as operações de conversão em uma interface orientada por fila. Adicione vários PDFs e imagens, atribua operações como mesclar, comprimir, OCR ou conversão de formato, e processe o lote inteiro localmente sem upload para workers na nuvem. Esta página preserva a experiência clássica do PDFWINDOWS para quem prefere um workspace único em vez de saltar entre landing pages — mantendo a mesma arquitetura offline-first.',
+        'O Conversor Completo do PDFWINDOWS é o workbench para usuários avançados que expõe todas as operações de conversão em uma interface orientada por fila. Adicione vários PDFs e imagens, atribua operações como mesclar, comprimir, OCR ou conversão de formato, e processe o lote inteiro localmente com segurança e privacidade — sem upload para workers na nuvem. Esta página preserva a experiência clássica do PDFWINDOWS para quem prefere um workspace único em vez de saltar entre landing pages — mantendo a mesma arquitetura offline-first.',
       toolName: 'Conversor Completo',
       benefits: [
         'Fila única para operações mistas de PDF e imagem',
@@ -660,7 +660,7 @@ export const HOME_RICH_CONTENT: Record<'/' | '/conversor', Record<'en' | 'pt' | 
         'conversor pdf completo, conversor pdf lote offline, conversor imagen completo, cola conversion local, conversor pdfwindows',
       h1: 'Conversor Completo — Procesamiento Local por Lotes',
       intro:
-        'El Conversor Completo de PDFWINDOWS es el workbench para usuarios avanzados que expone todas las operaciones de conversión en una interfaz orientada por cola. Añada varios PDFs e imágenes, asigne operaciones como unir, comprimir, OCR o conversión de formato, y procese el lote entero localmente sin subir a workers en la nube. Esta página preserva la experiencia clásica de PDFWINDOWS para quien prefiere un workspace único en lugar de saltar entre landing pages — manteniendo la misma arquitectura offline-first.',
+        'El Conversor Completo de PDFWINDOWS es el workbench para usuarios avanzados que expone todas las operaciones de conversión en una interfaz orientada por cola. Añada varios PDFs e imágenes, asigne operaciones como unir, comprimir, OCR o conversión de formato, y procese el lote entero localmente con total privacidad — sin subir a workers en la nube. Esta página preserva la experiencia clásica de PDFWINDOWS para quien prefiere un workspace único en lugar de saltar entre landing pages — manteniendo la misma arquitectura offline-first.',
       toolName: 'Conversor Completo',
       benefits: [
         'Cola única para operaciones mixtas de PDF e imagen',

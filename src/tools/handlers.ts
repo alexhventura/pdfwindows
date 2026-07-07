@@ -237,7 +237,8 @@ async function runPdfOcr(ctx: RunToolsContext): Promise<GeneratedFile[]> {
       files[0].file,
       options.ocrLanguage,
       ({ page, total }) => onProgress?.(Math.round((page / total) * 100)),
-      signal
+      signal,
+      lang
     );
     onProgress?.(100);
     return [

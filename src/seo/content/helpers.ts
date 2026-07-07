@@ -6,35 +6,47 @@ export function privacyFaq(lang: LanguageType): FaqItem[] {
   if (lang === 'pt') {
     return [
       {
-        q: 'Meus arquivos são enviados para algum servidor?',
-        a: 'Não. Todo o processamento ocorre no seu navegador. Os arquivos permanecem no seu dispositivo e nunca são transmitidos para servidores de conversão.',
+        q: 'Meus arquivos estão seguros?',
+        a: 'Sim. Todo o processamento acontece no seu navegador. Seus arquivos não são enviados para servidores.',
       },
       {
-        q: 'Preciso criar conta ou instalar software?',
-        a: 'Não. O PDFWINDOWS funciona diretamente no navegador moderno, sem cadastro, sem instalação e sem upload obrigatório para a nuvem.',
+        q: 'Meus arquivos saem do meu computador?',
+        a: 'Não. Os documentos permanecem no seu dispositivo durante todo o processo.',
+      },
+      {
+        q: 'Posso usar o PDFWINDOWS gratuitamente?',
+        a: 'Sim. As ferramentas são gratuitas e não exigem cadastro.',
       },
     ];
   }
   if (lang === 'es') {
     return [
       {
-        q: '¿Se suben mis archivos a un servidor?',
-        a: 'No. Todo el procesamiento ocurre en su navegador. Los archivos permanecen en su dispositivo y nunca se envían a servidores de conversión.',
+        q: '¿Mis archivos están seguros?',
+        a: 'Sí. Todo el procesamiento ocurre en tu navegador. Tus archivos no se envían a servidores.',
       },
       {
-        q: '¿Necesito crear una cuenta o instalar software?',
-        a: 'No. PDFWINDOWS funciona directamente en el navegador moderno, sin registro, sin instalación y sin subida obligatoria a la nube.',
+        q: '¿Mis archivos salen de mi computadora?',
+        a: 'No. Los documentos permanecen en tu dispositivo durante todo el proceso.',
+      },
+      {
+        q: '¿Puedo usar PDFWINDOWS gratis?',
+        a: 'Sí. Las herramientas son gratuitas y no requieren registro.',
       },
     ];
   }
   return [
     {
-      q: 'Are my files uploaded to a server?',
-      a: 'No. All processing runs in your browser. Files stay on your device and are never sent to conversion servers.',
+      q: 'Are my files secure?',
+      a: 'Yes. All processing runs in your browser. Your files are not uploaded to servers.',
     },
     {
-      q: 'Do I need an account or software installation?',
-      a: 'No. PDFWINDOWS runs directly in a modern browser with no signup, no installation, and no mandatory cloud upload.',
+      q: 'Do my files leave my computer?',
+      a: 'No. Your documents stay on your device throughout the entire process.',
+    },
+    {
+      q: 'Can I use PDFWINDOWS for free?',
+      a: 'Yes. The tools are free and do not require an account.',
     },
   ];
 }
@@ -43,20 +55,20 @@ export function defaultCta(lang: LanguageType, toolLabel: string): ToolRichConte
   if (lang === 'pt') {
     return {
       heading: `Pronto para usar ${toolLabel}?`,
-      body: 'Envie seus arquivos, processe no navegador e baixe o resultado em segundos.',
-      buttonLabel: 'Começar agora',
+      body: 'Escolha seus arquivos, processe no navegador e baixe o resultado em segundos.',
+      buttonLabel: 'Começar',
     };
   }
   if (lang === 'es') {
     return {
       heading: `¿Listo para usar ${toolLabel}?`,
-      body: 'Suba sus archivos, procese en el navegador y descargue el resultado en segundos.',
-      buttonLabel: 'Empezar ahora',
+      body: 'Elige tus archivos, procesa en el navegador y descarga el resultado en segundos.',
+      buttonLabel: 'Empezar',
     };
   }
   return {
     heading: `Ready to use ${toolLabel}?`,
-    body: 'Upload your files, process in your browser, and download results in seconds.',
-    buttonLabel: 'Start now',
+    body: 'Choose your files, process in your browser, and download your results in seconds.',
+    buttonLabel: 'Start',
   };
 }

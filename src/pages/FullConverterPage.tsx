@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../utils/translations';
 import { SEO } from '../seo/SEO';
 import { ToolPageSeoBlocks, toolBreadcrumbs } from '../components/ToolPageLayout';
 import { getPageCopy, getPageToolName } from '../seo/content/getPageCopy';
@@ -30,7 +31,7 @@ export function FullConverterPage() {
         <Suspense
           fallback={
             <div className="py-20 text-center text-xs font-bold text-slate-500 uppercase tracking-widest">
-              {lang === 'pt' ? 'Carregando conversor...' : lang === 'es' ? 'Cargando conversor...' : 'Loading converter...'}
+              {translations[lang].loadingConverter}
             </div>
           }
         >

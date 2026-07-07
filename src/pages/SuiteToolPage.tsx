@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../utils/translations';
 import { SEO } from '../seo/SEO';
 import { getToolPageByPath } from '../seo/toolCatalog';
 import { ToolPageSeoBlocks, toolBreadcrumbs } from '../components/ToolPageLayout';
@@ -44,7 +45,7 @@ export function SuiteToolPage() {
             <div className="workspace-panel py-20 text-center">
               <LogoImage size={48} className="w-12 h-12 mx-auto rounded-2xl mb-3 opacity-80" pulse />
               <p className="text-xs font-medium text-slate-500">
-                {lang === 'pt' ? 'Abrindo workspace...' : lang === 'es' ? 'Abriendo workspace...' : 'Opening workspace...'}
+                {translations[lang].openingWorkspace}
               </p>
             </div>
           }

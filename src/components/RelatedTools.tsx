@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../utils/translations';
 import { useLocalizedPath } from '../hooks/useLocalizedPath';
 import { getToolPageByPath } from '../seo/toolCatalog';
 
@@ -19,13 +20,7 @@ export function RelatedTools({ paths, title }: RelatedToolsProps) {
 
   if (tools.length === 0) return null;
 
-  const heading =
-    title ??
-    (lang === 'pt'
-      ? 'Ferramentas relacionadas'
-      : lang === 'es'
-        ? 'Herramientas relacionadas'
-        : 'Related tools');
+  const heading = title ?? translations[lang].relatedToolsTitle;
 
   return (
     <section className="premium-surface" aria-labelledby="related-tools-heading">

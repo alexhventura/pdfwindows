@@ -697,7 +697,7 @@ export function ConverterWorkbench({
                                   <div className="min-w-0">
                                     <p className="text-xs font-extrabold text-slate-900 leading-snug">{op.label}</p>
                                     <p className="text-[10px] text-slate-500 font-medium mt-0.5 uppercase tracking-wide">
-                                      {selected ? (lang === 'pt' ? 'Selecionado' : lang === 'es' ? 'Seleccionado' : 'Selected') : (lang === 'pt' ? 'Clique para selecionar' : lang === 'es' ? 'Clic para seleccionar' : 'Click to select')}
+                                      {selected ? t.opSelected : t.opClickToSelect}
                                     </p>
                                   </div>
                                 </button>
@@ -709,11 +709,7 @@ export function ConverterWorkbench({
 
                           {fixedOperation && state.files.length > 0 && visibleOps.length === 0 && (
                             <p className="text-xs font-bold text-amber-700 bg-amber-50 border border-amber-200 rounded-xl p-3">
-                              {lang === 'pt'
-                                ? 'Os arquivos enviados não são compatíveis com esta ferramenta. Verifique o tipo exigido.'
-                                : lang === 'es'
-                                  ? 'Los archivos subidos no son compatibles con esta herramienta.'
-                                  : 'Uploaded files are not compatible with this tool. Check the required file type.'}
+                              {t.unsupportedType}
                             </p>
                           )}
 
@@ -799,7 +795,7 @@ export function ConverterWorkbench({
                                             min="0"
                                             max="9000"
                                             value={state.options.imageWidth || ''}
-                                            placeholder="Ex: 1920"
+                                            placeholder={t.widthPlaceholder}
                                             onChange={(e) => setState(prev => ({
                                               ...prev,
                                               options: { ...prev.options, imageWidth: Math.max(0, parseInt(e.target.value) || 0) }
@@ -816,7 +812,7 @@ export function ConverterWorkbench({
                                             min="0"
                                             max="9000"
                                             value={state.options.imageHeight || ''}
-                                            placeholder="Ex: 1080"
+                                            placeholder={t.heightPlaceholder}
                                             onChange={(e) => setState(prev => ({
                                               ...prev,
                                               options: { ...prev.options, imageHeight: Math.max(0, parseInt(e.target.value) || 0) }
@@ -881,7 +877,7 @@ export function ConverterWorkbench({
                                         </label>
                                         <input
                                           type="text"
-                                          placeholder="Ex: CONFIDENTIAL"
+                                          placeholder={t.watermarkTextPlaceholder}
                                           value={state.options.watermarkText || ''}
                                           onChange={(e) =>
                                             setState((prev) => ({
@@ -1178,7 +1174,7 @@ export function ConverterWorkbench({
                                       <div className="flex items-center gap-1.5 mb-1 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200/60">
                                         <Sliders size={13} className="text-[#0F172A]" />
                                         <span className="text-[10px] font-extrabold text-slate-800 uppercase tracking-wider">
-                                          {lang === 'pt' ? 'ConfiguraÃ§Ãµes de ImpressÃ£o Local (PDF)' : lang === 'es' ? 'ImpresiÃ³n y DiagramaciÃ³n Local' : 'Page setup & Print layout options'}
+                                          {t.pageSetupTitle}
                                         </span>
                                       </div>
 
@@ -1188,7 +1184,7 @@ export function ConverterWorkbench({
                                         {/* A. ORIENTATION */}
                                         <div className="space-y-1.5">
                                           <label className="block text-[10px] font-extrabold text-slate-500 uppercase tracking-wide">
-                                            {lang === 'pt' ? 'OrientaÃ§Ã£o' : lang === 'es' ? 'OrientaciÃ³n' : 'Orientation'}
+                                            {t.orientationLabel}
                                           </label>
                                           <div className="flex gap-1 bg-slate-100 p-0.5 rounded-lg border border-slate-200">
                                             {(['portrait', 'landscape'] as const).map(mode => (
@@ -1205,9 +1201,7 @@ export function ConverterWorkbench({
                                                     : 'text-slate-500 hover:text-slate-800'
                                                 }`}
                                               >
-                                                {mode === 'portrait' 
-                                                  ? (lang === 'pt' ? 'Retrato' : lang === 'es' ? 'Retrato' : 'Portrait') 
-                                                  : (lang === 'pt' ? 'Paisagem' : lang === 'es' ? 'Apaisado' : 'Landscape')}
+                                                {mode === 'portrait' ? t.portraitLabel : t.landscapeLabel}
                                               </button>
                                             ))}
                                           </div>
@@ -1216,7 +1210,7 @@ export function ConverterWorkbench({
                                         {/* B. MARGINS */}
                                         <div className="space-y-1.5">
                                           <label className="block text-[10px] font-extrabold text-slate-500 uppercase tracking-wide">
-                                            {lang === 'pt' ? 'Margens' : lang === 'es' ? 'MÃ¡rgenes' : 'Page Margins'}
+                                            {t.marginsLabel}
                                           </label>
                                           <div className="flex gap-1 bg-slate-100 p-0.5 rounded-lg border border-slate-200">
                                             {(['none', 'narrow', 'standard'] as const).map(margin => (
@@ -1233,11 +1227,11 @@ export function ConverterWorkbench({
                                                     : 'text-slate-500 hover:text-slate-800'
                                                 }`}
                                               >
-                                                {margin === 'none' 
-                                                  ? (lang === 'pt' ? 'Nenhuma' : lang === 'es' ? 'Ninguna' : 'None') 
-                                                  : margin === 'narrow' 
-                                                  ? (lang === 'pt' ? 'Estreita' : lang === 'es' ? 'Estrecha' : 'Narrow') 
-                                                  : (lang === 'pt' ? 'PadrÃ£o' : lang === 'es' ? 'EstÃ¡ndar' : 'Standard')}
+                                                {margin === 'none'
+                                                  ? t.marginNoneLabel
+                                                  : margin === 'narrow'
+                                                    ? t.marginNarrowLabel
+                                                    : t.marginStandardLabel}
                                               </button>
                                             ))}
                                           </div>
@@ -1246,7 +1240,7 @@ export function ConverterWorkbench({
                                         {/* C. POSITIONING / SCALING */}
                                         <div className="space-y-1.5">
                                           <label className="block text-[10px] font-extrabold text-slate-500 uppercase tracking-wide">
-                                            {lang === 'pt' ? 'Posicionamento e Escala' : lang === 'es' ? 'Escala y Ajuste' : 'Fitting & Scaling'}
+                                            {t.fittingLabel}
                                           </label>
                                           <div className="flex gap-1 bg-slate-100 p-0.5 rounded-lg border border-slate-200">
                                             {(['center', 'fit', 'original'] as const).map(positioning => (
@@ -1263,11 +1257,11 @@ export function ConverterWorkbench({
                                                     : 'text-slate-500 hover:text-slate-800'
                                                 }`}
                                               >
-                                                {positioning === 'center' 
-                                                  ? (lang === 'pt' ? 'Centralizar' : lang === 'es' ? 'Centrado' : 'Center') 
-                                                  : positioning === 'fit' 
-                                                  ? (lang === 'pt' ? 'Ajustar' : lang === 'es' ? 'Ajustar' : 'Fit Page') 
-                                                  : (lang === 'pt' ? 'Original' : lang === 'es' ? 'Original' : 'Original')}
+                                                {positioning === 'center'
+                                                  ? t.fitCenterLabel
+                                                  : positioning === 'fit'
+                                                    ? t.fitPageLabel
+                                                    : t.fitOriginalLabel}
                                               </button>
                                             ))}
                                           </div>
@@ -1296,7 +1290,7 @@ export function ConverterWorkbench({
                             >
                               <ShieldCheck size={16} />
                               {isInitializingEngine 
-                                ? (lang === 'pt' ? 'Iniciando IA (30MB)...' : lang === 'es' ? 'Iniciando IA (30MB)...' : 'Initializing AI (30MB)...')
+                                ? t.initAiLabel
                                 : isImageOp(state.selectedOperation)
                                   ? t.applyPreviewButton
                                   : t.processButton}
@@ -1352,7 +1346,7 @@ export function ConverterWorkbench({
                       onClick={cancelProcessing}
                       className="px-4 py-1.5 border border-slate-300 hover:border-slate-400 bg-white text-slate-500 hover:text-slate-700 rounded-lg text-xs font-bold transition-colors cursor-pointer"
                     >
-                      {lang === 'pt' ? 'Cancelar Processo' : lang === 'es' ? 'Cancelar Proceso' : 'Cancel Process'}
+                      {t.cancelProcessLabel}
                     </button>
                   </div>
 

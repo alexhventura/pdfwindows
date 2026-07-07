@@ -1,4 +1,5 @@
 import { PDFDocument, StandardFonts, rgb, type PDFPage, type PDFFont } from 'pdf-lib';
+import type { LanguageType } from '../types';
 import { sanitizePdfText } from '../utils/pdfTextSanitizer';
 import { createWorker, type Worker } from 'tesseract.js';
 import type { PDFPageProxy } from 'pdfjs-dist';
@@ -158,7 +159,8 @@ export async function buildSearchablePdfFromFile(
   file: File,
   language: string,
   onProgress?: (p: PdfOcrProgress) => void,
-  signal?: AbortSignal
+  signal?: AbortSignal,
+  uiLang: LanguageType = 'en'
 ): Promise<Blob> {
   const arrayBuffer = await file.arrayBuffer();
   const srcDoc = await PDFDocument.load(arrayBuffer.slice(0), { ignoreEncryption: true });
@@ -218,7 +220,7 @@ export async function buildSearchablePdfFromFile(
   const footerFont = await outDoc.embedFont(StandardFonts.Helvetica);
   outDoc.getPages().forEach((p) => {
     const { width } = p.getSize();
-    drawPdfWindowsFooter(p, footerFont, width, 22);
+    drawPdfWindowsFooter(p, footerFont, width, 22, uiLang);
   });
 
   return new Blob([await outDoc.save()], { type: 'application/pdf' });

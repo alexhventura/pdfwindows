@@ -27,12 +27,10 @@ export default function CpfSuiteTool({ onClose, lang }: { onClose: () => void; l
           {cpf || '000.000.000-00'}
         </div>
         <button type="button" onClick={generateCPF} className="btn-primary px-10 py-3 text-xs">
-          {lang === 'pt' ? 'Gerar novo CPF válido' : 'Generate new CPF'}
+          {t.cpfGenerate}
         </button>
         <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest text-center max-w-xs">
-          {lang === 'pt'
-            ? 'Uso exclusivo para testes. Não representa pessoas reais.'
-            : 'For testing only. Not real individuals.'}
+          {t.cpfDisclaimer}
         </p>
       </div>
     </>

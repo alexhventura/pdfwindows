@@ -1,5 +1,6 @@
 import { PDFDocument, StandardFonts } from 'pdf-lib';
 import type { LanguageType } from '../types';
+import { modalT } from '../components/suite/shared';
 import { sanitizePdfText } from './pdfTextSanitizer';
 import { drawPdfWindowsFooter } from './pdfFooter';
 import { drawHtmlToPdf, htmlToPlainText } from './richTextToPdf';
@@ -45,8 +46,9 @@ export async function exportReportPdf(input: ReportExportInput): Promise<Uint8Ar
     pages,
   };
 
-  const reportLabel = lang === 'pt' ? 'RELATORIO' : lang === 'es' ? 'INFORME' : 'REPORT';
-  page.drawText(sanitizePdfText(reportLabel), {
+  const labels = modalT[lang];
+
+  page.drawText(sanitizePdfText(labels.reportDocHeading), {
     x: MARGIN_X,
     y,
     size: 10,
@@ -74,8 +76,7 @@ export async function exportReportPdf(input: ReportExportInput): Promise<Uint8Ar
   }
 
   if (author) {
-    const authorLabel = lang === 'pt' ? 'Autor' : lang === 'es' ? 'Autor' : 'Author';
-    page.drawText(sanitizePdfText(`${authorLabel}: ${author}`), { x: MARGIN_X, y, size: 10, font });
+    page.drawText(sanitizePdfText(`${labels.reportAuthor}: ${author}`), { x: MARGIN_X, y, size: 10, font });
     y -= 16;
     ctx.y = y;
   }
@@ -88,8 +89,7 @@ export async function exportReportPdf(input: ReportExportInput): Promise<Uint8Ar
   ctx.y = y;
 
   if (htmlToPlainText(introHtml)) {
-    const introLabel = lang === 'pt' ? 'Introducao' : lang === 'es' ? 'Introduccion' : 'Introduction';
-    page.drawText(sanitizePdfText(introLabel), { x: MARGIN_X, y, size: 11, font: fontBold });
+    page.drawText(sanitizePdfText(labels.reportIntroHeading), { x: MARGIN_X, y, size: 11, font: fontBold });
     y -= 18;
     ctx.y = y;
     ctx.page = page;
@@ -124,7 +124,7 @@ export async function exportReportPdf(input: ReportExportInput): Promise<Uint8Ar
     ctx.y -= 6;
   });
 
-  pages.forEach((p) => drawPdfWindowsFooter(p, font, PAGE_WIDTH, 28));
+  pages.forEach((p) => drawPdfWindowsFooter(p, font, PAGE_WIDTH, 28, lang));
 
   return pdfDoc.save();
 }

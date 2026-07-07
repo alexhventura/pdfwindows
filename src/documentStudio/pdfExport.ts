@@ -109,7 +109,7 @@ export async function exportDocumentPdf(
     }
   }
 
-  pages.forEach((p) => drawPdfWindowsFooter(p, font, PAGE_WIDTH, 28));
+  pages.forEach((p) => drawPdfWindowsFooter(p, font, PAGE_WIDTH, 28, lang));
 
   return pdfDoc.save();
 }

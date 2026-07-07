@@ -22,7 +22,7 @@ export default function QrCodeSuiteTool({ onClose, lang }: { onClose: () => void
           <input
             type="text"
             className={`${inputClass} flex-1`}
-            placeholder={lang === 'pt' ? 'Link ou texto...' : 'Link or text...'}
+            placeholder={t.qrPlaceholder}
             value={text}
             onChange={(e) => setText(e.target.value)}
           />

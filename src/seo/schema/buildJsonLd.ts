@@ -18,6 +18,12 @@ export interface ToolSchemaInput {
   breadcrumbs: BreadcrumbItem[];
 }
 
+const FEATURE_LIST: Record<LanguageType, string> = {
+  pt: 'Ferramentas de PDF e imagem no navegador, conversão rápida, sem cadastro',
+  en: 'Browser-based PDF and image tools, fast conversion, no account required',
+  es: 'Herramientas de PDF e imagen en el navegador, conversión rápida, sin registro',
+};
+
 export function buildToolPageJsonLd(input: ToolSchemaInput): Record<string, unknown> {
   const { lang, barePath, title, description, toolName, faq, breadcrumbs } = input;
   const pageUrl = `${SITE_ORIGIN}${localizedPath(lang, barePath)}`;
@@ -56,7 +62,7 @@ export function buildToolPageJsonLd(input: ToolSchemaInput): Record<string, unkn
     description,
     url: pageUrl,
     image: `${SITE_ORIGIN}/logo.png`,
-    featureList: 'Browser-based PDF and image tools, fast conversion, no account required',
+    featureList: FEATURE_LIST[lang],
     provider: {
       '@type': 'Organization',
       name: 'PDFWINDOWS',
