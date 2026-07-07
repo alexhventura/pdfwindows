@@ -2,6 +2,20 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "pdfwindows.app" }],
+      "destination": "https://www.pdfwindows.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "pdfwindows.com" }],
+      "destination": "https://www.pdfwindows.com/:path*",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     { "source": "/((?!assets|logo(-\\d+)?\\.webp|logo\\.png|logo-banner\\.png|icon\\.svg|manifest\\.json|robots\\.txt|sitemap\\.xml|sw\\.js).*)", "destination": "/index.html" }
   ],

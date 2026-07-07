@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.pdfwindows.com/en/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://www.pdfwindows.com/en</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
   <url><loc>https://www.pdfwindows.com/en/ferramentas</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://www.pdfwindows.com/en/conversor</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://www.pdfwindows.com/en/pdf-merge</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
@@ -27,7 +27,7 @@
   <url><loc>https://www.pdfwindows.com/en/gerador-qr-code</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.pdfwindows.com/en/gerador-cpf</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.pdfwindows.com/en/limpador-codigo</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.pdfwindows.com/pt/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://www.pdfwindows.com/pt</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
   <url><loc>https://www.pdfwindows.com/pt/ferramentas</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://www.pdfwindows.com/pt/conversor</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://www.pdfwindows.com/pt/pdf-merge</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
@@ -54,7 +54,7 @@
   <url><loc>https://www.pdfwindows.com/pt/gerador-qr-code</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.pdfwindows.com/pt/gerador-cpf</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.pdfwindows.com/pt/limpador-codigo</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.pdfwindows.com/es/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://www.pdfwindows.com/es</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
   <url><loc>https://www.pdfwindows.com/es/ferramentas</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://www.pdfwindows.com/es/conversor</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://www.pdfwindows.com/es/pdf-merge</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>

@@ -4,7 +4,7 @@ import { localizedPath, stripLocalePrefix } from '../i18n/routes';
 import type { FaqItem } from './toolCatalog';
 import type { BreadcrumbItem } from '../components/Breadcrumbs';
 import { buildToolPageJsonLd } from './schema/buildJsonLd';
-import { SITE_ORIGIN } from './siteOrigin';
+import { getSiteOrigin } from './siteOrigin';
 
 export interface SEOProps {
   title: string;
@@ -79,10 +79,11 @@ export function SEO({
   breadcrumbs = [],
 }: SEOProps) {
   const barePath = stripLocalePrefix(path.startsWith('/') ? path : `/${path}`);
-  const canonical = `${SITE_ORIGIN}${localizedPath(lang, barePath)}`;
   const locale = lang === 'pt' ? 'pt_BR' : lang === 'es' ? 'es_ES' : 'en_US';
 
   useEffect(() => {
+    const siteOrigin = getSiteOrigin();
+    const canonical = `${siteOrigin}${localizedPath(lang, barePath)}`;
     document.title = title;
     document.documentElement.lang = lang === 'pt' ? 'pt-BR' : lang === 'es' ? 'es' : 'en';
 
@@ -95,18 +96,18 @@ export function SEO({
     upsertMeta('og:url', canonical, 'property');
     upsertMeta('og:locale', locale, 'property');
     upsertMeta('og:site_name', 'PDFWINDOWS', 'property');
-    upsertMeta('og:image', `${SITE_ORIGIN}/logo.png`, 'property');
+    upsertMeta('og:image', `${siteOrigin}/logo.png`, 'property');
     upsertMeta('og:image:alt', 'PDFWINDOWS logo', 'property');
     upsertMeta('twitter:card', 'summary_large_image');
     upsertMeta('twitter:title', title);
     upsertMeta('twitter:description', description);
-    upsertMeta('twitter:image', `${SITE_ORIGIN}/logo.png`);
+    upsertMeta('twitter:image', `${siteOrigin}/logo.png`);
     upsertCanonical(canonical);
 
-    upsertHreflang('en', `${SITE_ORIGIN}${localizedPath('en', barePath)}`);
-    upsertHreflang('pt-BR', `${SITE_ORIGIN}${localizedPath('pt', barePath)}`);
-    upsertHreflang('es', `${SITE_ORIGIN}${localizedPath('es', barePath)}`);
-    upsertHreflang('x-default', `${SITE_ORIGIN}${localizedPath('en', barePath)}`);
+    upsertHreflang('en', `${siteOrigin}${localizedPath('en', barePath)}`);
+    upsertHreflang('pt-BR', `${siteOrigin}${localizedPath('pt', barePath)}`);
+    upsertHreflang('es', `${siteOrigin}${localizedPath('es', barePath)}`);
+    upsertHreflang('x-default', `${siteOrigin}${localizedPath('en', barePath)}`);
 
     const schemaBreadcrumbs = breadcrumbs.map((b) => ({
       name: b.label,
@@ -123,6 +124,7 @@ export function SEO({
           toolName,
           faq,
           breadcrumbs: schemaBreadcrumbs,
+          siteOrigin,
         })
       );
     } else {
@@ -131,8 +133,8 @@ export function SEO({
         '@graph': [
           {
             '@type': 'WebSite',
-            '@id': `${SITE_ORIGIN}/#website`,
-            url: SITE_ORIGIN,
+            '@id': `${siteOrigin}/#website`,
+            url: siteOrigin,
             name: 'PDFWINDOWS',
           },
           {
@@ -142,27 +144,14 @@ export function SEO({
             name: title,
             description,
             inLanguage: lang === 'pt' ? 'pt-BR' : lang === 'es' ? 'es' : 'en',
-            isPartOf: { '@id': `${SITE_ORIGIN}/#website` },
+            isPartOf: { '@id': `${siteOrigin}/#website` },
           },
         ],
       });
     }
-  }, [
-    title,
-    description,
-    keywords,
-    canonical,
-    locale,
-    ogType,
-    noindex,
-    lang,
-    barePath,
-    toolName,
-    faq,
-    breadcrumbs,
-  ]);
+  }, [title, description, keywords, locale, ogType, noindex, lang, barePath, toolName, faq, breadcrumbs]);
 
   return null;
 }
 
-export { SITE_ORIGIN };
+export { getSiteOrigin } from './siteOrigin';

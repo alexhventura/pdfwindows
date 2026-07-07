@@ -1,6 +1,5 @@
 import type { LanguageType } from '../../types';
 import type { FaqItem } from '../toolCatalog';
-import { SITE_ORIGIN } from '../siteOrigin';
 import { localizedPath } from '../../i18n/routes';
 
 export interface BreadcrumbItem {
@@ -16,6 +15,7 @@ export interface ToolSchemaInput {
   toolName: string;
   faq: FaqItem[];
   breadcrumbs: BreadcrumbItem[];
+  siteOrigin: string;
 }
 
 const FEATURE_LIST: Record<LanguageType, string> = {
@@ -25,8 +25,8 @@ const FEATURE_LIST: Record<LanguageType, string> = {
 };
 
 export function buildToolPageJsonLd(input: ToolSchemaInput): Record<string, unknown> {
-  const { lang, barePath, title, description, toolName, faq, breadcrumbs } = input;
-  const pageUrl = `${SITE_ORIGIN}${localizedPath(lang, barePath)}`;
+  const { lang, barePath, title, description, toolName, faq, breadcrumbs, siteOrigin } = input;
+  const pageUrl = `${siteOrigin}${localizedPath(lang, barePath)}`;
   const inLanguage = lang === 'pt' ? 'pt-BR' : lang === 'es' ? 'es' : 'en';
 
   const breadcrumbList = {
@@ -36,7 +36,7 @@ export function buildToolPageJsonLd(input: ToolSchemaInput): Record<string, unkn
       '@type': 'ListItem',
       position: index + 1,
       name: crumb.name,
-      item: `${SITE_ORIGIN}${localizedPath(lang, crumb.path)}`,
+      item: `${siteOrigin}${localizedPath(lang, crumb.path)}`,
     })),
   };
 
@@ -47,7 +47,7 @@ export function buildToolPageJsonLd(input: ToolSchemaInput): Record<string, unkn
     name: title,
     description,
     inLanguage,
-    isPartOf: { '@id': `${SITE_ORIGIN}/#website` },
+    isPartOf: { '@id': `${siteOrigin}/#website` },
     breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
     about: { '@id': `${pageUrl}#software` },
   };
@@ -61,12 +61,12 @@ export function buildToolPageJsonLd(input: ToolSchemaInput): Record<string, unkn
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
     description,
     url: pageUrl,
-    image: `${SITE_ORIGIN}/logo.png`,
+    image: `${siteOrigin}/logo.png`,
     featureList: FEATURE_LIST[lang],
     provider: {
       '@type': 'Organization',
       name: 'PDFWINDOWS',
-      url: SITE_ORIGIN,
+      url: siteOrigin,
     },
   };
 
@@ -85,8 +85,8 @@ export function buildToolPageJsonLd(input: ToolSchemaInput): Record<string, unkn
 
   const website = {
     '@type': 'WebSite',
-    '@id': `${SITE_ORIGIN}/#website`,
-    url: SITE_ORIGIN,
+    '@id': `${siteOrigin}/#website`,
+    url: siteOrigin,
     name: 'PDFWINDOWS',
     publisher: { '@type': 'Organization', name: 'PDFWINDOWS' },
   };

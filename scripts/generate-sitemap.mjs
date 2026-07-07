@@ -1,58 +1,63 @@
 import { writeFileSync } from 'node:fs';
+import { extractPublicBarePaths } from './extract-public-paths.mjs';
+import { normalizeOrigin, originHost, resolveSiteOrigin } from './resolve-site-origin.mjs';
 
-const SITE_ORIGIN = (process.env.VITE_SITE_ORIGIN || process.env.SITE_ORIGIN || 'https://www.pdfwindows.com').replace(
-  /\/$/,
-  ''
-);
-
-const bare = [
-  '/',
-  '/ferramentas',
-  '/conversor',
-  '/pdf-merge',
-  '/pdf-compress',
-  '/pdf-password',
-  '/pdf-ocr',
-  '/pdf-split',
-  '/pdf-rotate',
-  '/pdf-watermark',
-  '/pdf-to-image',
-  '/pdf-extract-text',
-  '/image-converter',
-  '/image-to-pdf',
-  '/image-resize',
-  '/image-ocr',
-  '/image-filters',
-  '/csv-to-json',
-  '/json-to-csv',
-  '/xml-to-json',
-  '/txt-to-pdf',
-  '/estudio-documentos',
-  '/capturador-de-cores',
-  '/gerador-relatorios',
-  '/gerador-qr-code',
-  '/gerador-cpf',
-  '/limpador-codigo',
-];
-
+const SITE_ORIGIN = resolveSiteOrigin();
+const SITEMAP_HOST = originHost(SITE_ORIGIN);
 const locales = ['en', 'pt', 'es'];
-const lines = [
-  '<?xml version="1.0" encoding="UTF-8"?>',
-  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-];
+const barePaths = extractPublicBarePaths();
 
+function buildLocalizedPath(locale, barePath) {
+  if (barePath === '/') return `/${locale}`;
+  return `/${locale}${barePath}`;
+}
+
+function buildAbsoluteUrl(locale, barePath) {
+  return `${SITE_ORIGIN}${buildLocalizedPath(locale, barePath)}`;
+}
+
+function escapeXml(value) {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+}
+
+const urls = [];
 for (const locale of locales) {
-  for (const path of bare) {
-    const suffix = path === '/' ? '/' : path;
-    const loc = `${SITE_ORIGIN}/${locale}${suffix === '/' ? '/' : suffix}`;
-    const priority = path === '/' ? '1.0' : path === '/ferramentas' || path === '/conversor' ? '0.9' : '0.8';
-    const freq = path === '/' || path === '/ferramentas' || path === '/conversor' ? 'weekly' : 'monthly';
-    lines.push(`  <url><loc>${loc}</loc><changefreq>${freq}</changefreq><priority>${priority}</priority></url>`);
+  for (const barePath of barePaths) {
+    const loc = buildAbsoluteUrl(locale, barePath);
+    const parsed = new URL(loc);
+
+    if (parsed.protocol !== 'https:') {
+      throw new Error(`Sitemap URL must use HTTPS: ${loc}`);
+    }
+    if (parsed.host !== SITEMAP_HOST) {
+      throw new Error(
+        `Sitemap host mismatch: <loc> host "${parsed.host}" does not match sitemap origin host "${SITEMAP_HOST}" (${loc})`
+      );
+    }
+
+    const priority = barePath === '/' ? '1.0' : barePath === '/ferramentas' || barePath === '/conversor' ? '0.9' : '0.8';
+    const changefreq = barePath === '/' || barePath === '/ferramentas' || barePath === '/conversor' ? 'weekly' : 'monthly';
+    urls.push({ loc, priority, changefreq });
   }
 }
 
-lines.push('</urlset>');
-writeFileSync('public/sitemap.xml', `${lines.join('\n')}\n`);
+const lines = [
+  '<?xml version="1.0" encoding="UTF-8"?>',
+  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+  ...urls.map(
+    ({ loc, changefreq, priority }) =>
+      `  <url><loc>${escapeXml(loc)}</loc><changefreq>${changefreq}</changefreq><priority>${priority}</priority></url>`
+  ),
+  '</urlset>',
+  '',
+];
+
+writeFileSync('public/sitemap.xml', lines.join('\n'));
 
 writeFileSync(
   'public/robots.txt',
@@ -63,4 +68,7 @@ Sitemap: ${SITE_ORIGIN}/sitemap.xml
 `
 );
 
-console.log(`Generated sitemap.xml and robots.txt for ${SITE_ORIGIN} (${locales.length * bare.length} URLs)`);
+console.log(`Generated sitemap.xml and robots.txt`);
+console.log(`  Origin: ${SITE_ORIGIN}`);
+console.log(`  Sitemap: ${SITE_ORIGIN}/sitemap.xml`);
+console.log(`  URLs: ${urls.length} (${locales.length} locales × ${barePaths.length} pages)`);
