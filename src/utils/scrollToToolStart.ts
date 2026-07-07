@@ -1,4 +1,5 @@
 export const TOOL_START_ID = 'tool-start';
+export const TOOL_CATALOG_ID = 'tool-catalog';
 
 const HEADER_SELECTOR = 'header.header-glass';
 const SCROLL_CUSHION_PX = 8;
@@ -27,16 +28,25 @@ export function getToolStartScrollTop(targetId = TOOL_START_ID): number | null {
   return Math.max(0, el.getBoundingClientRect().top + window.scrollY - offset);
 }
 
-export function scrollToToolStart(targetId = TOOL_START_ID): boolean {
+export function scrollToAnchor(
+  targetId: string,
+  options: { behavior?: ScrollBehavior } = {}
+): boolean {
   const top = getToolStartScrollTop(targetId);
   if (top === null) return false;
 
+  const behavior = options.behavior ?? 'smooth';
+
   try {
-    window.scrollTo({ top, left: 0, behavior: 'instant' });
+    window.scrollTo({ top, left: 0, behavior });
   } catch {
     window.scrollTo(0, top);
   }
   return true;
+}
+
+export function scrollToToolStart(targetId = TOOL_START_ID): boolean {
+  return scrollToAnchor(targetId, { behavior: 'instant' });
 }
 
 export type RouterNavigationType = 'POP' | 'PUSH' | 'REPLACE';

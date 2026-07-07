@@ -3,7 +3,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { PremiumFaq } from './PremiumFaq';
 import { RelatedTools } from './RelatedTools';
 import type { ToolRichContent } from '../seo/content/types';
-import { scrollToToolStart } from '../utils/scrollToToolStart';
+import { scrollToAnchor, TOOL_CATALOG_ID, TOOL_START_ID } from '../utils/scrollToToolStart';
 
 const LABELS = {
   en: {
@@ -61,9 +61,20 @@ export function ToolLandingHero({ content }: { content: ToolRichContent }) {
 }
 
 /** Full SEO body below the tool workspace */
-export function ToolLandingBody({ content }: { content: ToolRichContent }) {
+export function ToolLandingBody({
+  content,
+  ctaTargetId = TOOL_START_ID,
+}: {
+  content: ToolRichContent;
+  ctaTargetId?: string;
+}) {
   const { lang } = useLanguage();
   const t = LABELS[lang];
+
+  const handleCtaClick = () => {
+    scrollToAnchor(ctaTargetId, { behavior: 'smooth' });
+    window.history.replaceState(null, '', `#${ctaTargetId}`);
+  };
 
   return (
     <article className="w-full max-w-3xl mx-auto space-y-6 pb-4">
@@ -148,17 +159,13 @@ export function ToolLandingBody({ content }: { content: ToolRichContent }) {
       <section className="premium-surface text-center !py-8 bg-gradient-to-br from-blue-50/80 to-orange-50/40 border-blue-100/60">
         <h2 className="text-lg font-bold text-slate-900 mb-2">{content.cta.heading}</h2>
         <p className="text-sm text-slate-600 max-w-lg mx-auto mb-4 leading-relaxed">{content.cta.body}</p>
-        <a
-          href="#tool-start"
-          onClick={(event) => {
-            if (scrollToToolStart()) {
-              event.preventDefault();
-            }
-          }}
+        <button
+          type="button"
+          onClick={handleCtaClick}
           className="inline-flex items-center justify-center px-6 py-2.5 rounded-xl bg-blue-700 text-white text-sm font-semibold hover:bg-blue-800 transition-colors shadow-sm"
         >
           {content.cta.buttonLabel}
-        </a>
+        </button>
       </section>
     </article>
   );

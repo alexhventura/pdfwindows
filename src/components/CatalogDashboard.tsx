@@ -1,5 +1,5 @@
 import { ToolCardGrid } from './ToolCardGrid';
-import { TOOL_START_ID } from '../utils/scrollToToolStart';
+import { TOOL_CATALOG_ID } from '../utils/scrollToToolStart';
 
 interface CatalogDashboardProps {
   heading: string;
@@ -24,7 +24,7 @@ export function CatalogDashboard({ heading, intro }: CatalogDashboardProps) {
         />
       </header>
 
-      <div id={TOOL_START_ID} className="scroll-mt-24">
+      <div id={TOOL_CATALOG_ID} className="scroll-mt-24" tabIndex={-1}>
         <ToolCardGrid />
       </div>
     </div>

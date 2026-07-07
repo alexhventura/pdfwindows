@@ -261,7 +261,7 @@ export const HOME_RICH_CONTENT: Record<'/' | '/conversor', Record<'en' | 'pt' | 
       relatedTools: ['/pdf-merge', '/pdf-compress', '/estudio-documentos', '/conversor'],
       cta: {
         heading: 'Explore o catálogo completo',
-        body: 'Escolha qualquer ferramenta, processe no navegador e baixe o resultado em segundos — rápido, privado e gratuito.',
+        body: 'Escolha qualquer ferramenta e processe seu primeiro arquivo localmente em segundos — privado, rápido e gratuito.',
         buttonLabel: 'Ver ferramentas',
       },
     },

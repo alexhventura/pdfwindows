@@ -1,14 +1,27 @@
+import { useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { SEO } from '../seo/SEO';
 import { CatalogDashboard } from '../components/CatalogDashboard';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { LazyToolLandingBody } from '../components/LazyToolLandingBody';
 import { getPageCopy, getPageToolName } from '../seo/content/getPageCopy';
+import { scrollToAnchor, TOOL_CATALOG_ID, TOOL_START_ID } from '../utils/scrollToToolStart';
 
 export function HomePage() {
   const { lang } = useLanguage();
   const copy = getPageCopy('/', lang);
   const toolName = getPageToolName('/', lang);
+
+  useEffect(() => {
+    const hash = window.location.hash.replace(/^#/, '');
+    if (hash !== TOOL_CATALOG_ID && hash !== TOOL_START_ID) return;
+
+    const timer = window.setTimeout(() => {
+      scrollToAnchor(TOOL_CATALOG_ID, { behavior: 'smooth' });
+    }, 0);
+
+    return () => window.clearTimeout(timer);
+  }, []);
 
   return (
     <>
