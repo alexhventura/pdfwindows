@@ -163,7 +163,7 @@ test.describe('Suite tool primary buttons', () => {
   test('QR generator generate button', async ({ page }) => {
     await page.goto('/en/gerador-qr-code');
     await expect(page.locator('.workspace-panel')).toBeVisible({ timeout: 30_000 });
-    await page.getByPlaceholder(/Link or text|Link ou texto/i).fill('https://pdfwindows.app');
+    await page.getByPlaceholder(/Link or text|Link ou texto/i).fill('https://www.pdfwindows.com');
     await page.getByRole('button', { name: /^Generate$|^Gerar$/i }).click();
     await expect(page.locator('img[alt="QR Code"]')).toBeVisible();
   });

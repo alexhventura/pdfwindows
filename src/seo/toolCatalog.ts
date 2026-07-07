@@ -1,5 +1,6 @@
 import type { LanguageType, OperationType } from '../types';
 import { localizedPath, stripLocalePrefix } from '../i18n/routes';
+import { getPublicBarePaths, PUBLIC_LOCALES } from './publicBarePaths';
 
 export type SuiteToolId =
   | 'document-studio'
@@ -2105,7 +2106,8 @@ export function getToolPageByPath(path: string): ToolPageDefinition | undefined 
 }
 
 export function getAllPublicPaths(): string[] {
-  const barePaths = ['/', '/ferramentas', '/conversor', ...TOOL_PAGES.map((p) => p.path)];
-  const locales: LanguageType[] = ['en', 'pt', 'es'];
-  return locales.flatMap((lang) => barePaths.map((p) => localizedPath(lang, p)));
+  const barePaths = getPublicBarePaths();
+  return PUBLIC_LOCALES.flatMap((lang) =>
+    barePaths.map((bare) => localizedPath(lang as LanguageType, bare))
+  );
 }

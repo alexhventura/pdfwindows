@@ -1,7 +1,12 @@
 /**
  * Canonical site origin for sitemap, robots.txt, and build-time SEO.
- * Must match the Google Search Console property host exactly (scheme + host).
+ * This project uses exactly https://www.pdfwindows.com in production.
  */
+export const CANONICAL_ORIGIN = 'https://www.pdfwindows.com';
+export const CANONICAL_HOST = 'www.pdfwindows.com';
+
+const ALLOWED_HOSTS = new Set(['www.pdfwindows.com', 'pdfwindows.com']);
+
 export function normalizeOrigin(origin) {
   const trimmed = origin.trim().replace(/\/+$/, '');
   if (!/^https:\/\//i.test(trimmed)) {
@@ -12,6 +17,17 @@ export function normalizeOrigin(origin) {
 
 export function originHost(origin) {
   return new URL(origin).host;
+}
+
+function toCanonicalOrigin(origin) {
+  const normalized = normalizeOrigin(origin);
+  const host = originHost(normalized);
+
+  if (host === 'pdfwindows.app' || ALLOWED_HOSTS.has(host) || host.endsWith('.vercel.app')) {
+    return CANONICAL_ORIGIN;
+  }
+
+  throw new Error(`Refusing non-canonical site origin "${normalized}". Expected ${CANONICAL_ORIGIN}.`);
 }
 
 function productionOriginFromVercel(env) {
@@ -29,23 +45,15 @@ function productionOriginFromVercel(env) {
 }
 
 export function resolveSiteOrigin(env = process.env) {
-  const productionOrigin = productionOriginFromVercel(env);
   const explicit = env.VITE_SITE_ORIGIN || env.SITE_ORIGIN;
-
   if (explicit) {
-    const normalizedExplicit = normalizeOrigin(explicit);
-    if (productionOrigin && originHost(normalizedExplicit) !== originHost(productionOrigin)) {
-      console.warn(
-        `[sitemap] VITE_SITE_ORIGIN (${normalizedExplicit}) differs from Vercel production domain (${productionOrigin}). Using production domain.`
-      );
-      return productionOrigin;
-    }
-    return normalizedExplicit;
+    return toCanonicalOrigin(explicit);
   }
 
+  const productionOrigin = productionOriginFromVercel(env);
   if (productionOrigin) {
-    return productionOrigin;
+    return toCanonicalOrigin(productionOrigin);
   }
 
-  return 'https://www.pdfwindows.com';
+  return CANONICAL_ORIGIN;
 }
