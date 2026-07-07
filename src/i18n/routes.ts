@@ -1,4 +1,5 @@
 import type { LanguageType } from '../types';
+import { getLocalizedPublicPath, resolveCanonicalPath } from '../seo/pathLocalization';
 import { isValidLocale } from './language';
 
 /** Strip `/en`, `/pt`, or `/es` prefix and return the bare app path (always starts with `/`). */
@@ -14,23 +15,14 @@ export function parseLocaleFromPath(pathname: string): LanguageType | null {
   return isValidLocale(candidate) ? candidate : null;
 }
 
-/** Build a localized path, e.g. localizedPath('pt', '/conversor') → '/pt/conversor'. */
+/** Build a localized path, e.g. localizedPath('pt', '/pdf-merge') → '/pt/juntar-pdf'. */
 export function localizedPath(lang: LanguageType, path: string = '/'): string {
-  const bare = stripLocalePrefix(path.startsWith('/') ? path : `/${path}`);
-  if (bare === '/') return `/${lang}`;
-  return `/${lang}${bare}`;
+  const normalized = path.startsWith('/') ? path : `/${path}`;
+  const bare = stripLocalePrefix(normalized);
+  const canonical = resolveCanonicalPath(bare, lang) ?? bare;
+  return getLocalizedPublicPath(lang, canonical);
 }
 
 export function getAllLocalizedPublicPaths(): string[] {
-  const barePaths = ['/', '/ferramentas', '/conversor'];
-  const locales: LanguageType[] = ['en', 'pt', 'es'];
-  const paths: string[] = [];
-
-  for (const locale of locales) {
-    for (const bare of barePaths) {
-      paths.push(localizedPath(locale, bare));
-    }
-  }
-
-  return paths;
+  return [];
 }

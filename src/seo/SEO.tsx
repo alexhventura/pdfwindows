@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import type { LanguageType } from '../types';
-import { localizedPath, stripLocalePrefix } from '../i18n/routes';
+import { localizedPath } from '../i18n/routes';
 import type { FaqItem } from './toolCatalog';
 import type { BreadcrumbItem } from '../components/Breadcrumbs';
-import { buildToolPageJsonLd } from './schema/buildJsonLd';
+import { buildHomePageJsonLd, buildToolPageJsonLd } from './schema/buildJsonLd';
 import { getSiteOrigin } from './siteOrigin';
 
 export interface SEOProps {
@@ -66,6 +66,24 @@ function upsertHreflang(hreflang: string, href: string) {
   el.href = href;
 }
 
+function upsertOgLocaleAlternates(currentLocale: string) {
+  const alternates =
+    currentLocale === 'pt_BR'
+      ? ['en_US', 'es_ES']
+      : currentLocale === 'es_ES'
+        ? ['en_US', 'pt_BR']
+        : ['pt_BR', 'es_ES'];
+
+  document.querySelectorAll('meta[property="og:locale:alternate"]').forEach((node) => node.remove());
+
+  for (const locale of alternates) {
+    const el = document.createElement('meta');
+    el.setAttribute('property', 'og:locale:alternate');
+    el.setAttribute('content', locale);
+    document.head.appendChild(el);
+  }
+}
+
 export function SEO({
   title,
   description,
@@ -78,12 +96,11 @@ export function SEO({
   faq = [],
   breadcrumbs = [],
 }: SEOProps) {
-  const barePath = stripLocalePrefix(path.startsWith('/') ? path : `/${path}`);
   const locale = lang === 'pt' ? 'pt_BR' : lang === 'es' ? 'es_ES' : 'en_US';
 
   useEffect(() => {
     const siteOrigin = getSiteOrigin();
-    const canonical = `${siteOrigin}${localizedPath(lang, barePath)}`;
+    const canonical = `${siteOrigin}${localizedPath(lang, path)}`;
     document.title = title;
     document.documentElement.lang = lang === 'pt' ? 'pt-BR' : lang === 'es' ? 'es' : 'en';
 
@@ -95,6 +112,7 @@ export function SEO({
     upsertMeta('og:type', ogType, 'property');
     upsertMeta('og:url', canonical, 'property');
     upsertMeta('og:locale', locale, 'property');
+    upsertOgLocaleAlternates(locale);
     upsertMeta('og:site_name', 'PDFWINDOWS', 'property');
     upsertMeta('og:image', `${siteOrigin}/logo.png`, 'property');
     upsertMeta('og:image:alt', 'PDFWINDOWS logo', 'property');
@@ -104,21 +122,21 @@ export function SEO({
     upsertMeta('twitter:image', `${siteOrigin}/logo.png`);
     upsertCanonical(canonical);
 
-    upsertHreflang('en', `${siteOrigin}${localizedPath('en', barePath)}`);
-    upsertHreflang('pt-BR', `${siteOrigin}${localizedPath('pt', barePath)}`);
-    upsertHreflang('es', `${siteOrigin}${localizedPath('es', barePath)}`);
-    upsertHreflang('x-default', `${siteOrigin}${localizedPath('en', barePath)}`);
+    upsertHreflang('en', `${siteOrigin}${localizedPath('en', path)}`);
+    upsertHreflang('pt-BR', `${siteOrigin}${localizedPath('pt', path)}`);
+    upsertHreflang('es', `${siteOrigin}${localizedPath('es', path)}`);
+    upsertHreflang('x-default', `${siteOrigin}${localizedPath('en', path)}`);
 
     const schemaBreadcrumbs = breadcrumbs.map((b) => ({
       name: b.label,
-      path: b.path ?? barePath,
+      path: b.path ?? path,
     }));
 
     if (toolName && breadcrumbs.length > 0) {
       upsertJsonLd(
         buildToolPageJsonLd({
           lang,
-          barePath,
+          canonicalPath: path,
           title,
           description,
           toolName,
@@ -128,28 +146,17 @@ export function SEO({
         })
       );
     } else {
-      upsertJsonLd({
-        '@context': 'https://schema.org',
-        '@graph': [
-          {
-            '@type': 'WebSite',
-            '@id': `${siteOrigin}/#website`,
-            url: siteOrigin,
-            name: 'PDFWINDOWS',
-          },
-          {
-            '@type': 'WebPage',
-            '@id': `${canonical}#webpage`,
-            url: canonical,
-            name: title,
-            description,
-            inLanguage: lang === 'pt' ? 'pt-BR' : lang === 'es' ? 'es' : 'en',
-            isPartOf: { '@id': `${siteOrigin}/#website` },
-          },
-        ],
-      });
+      upsertJsonLd(
+        buildHomePageJsonLd({
+          lang,
+          canonicalPath: path,
+          title,
+          description,
+          siteOrigin,
+        })
+      );
     }
-  }, [title, description, keywords, locale, ogType, noindex, lang, barePath, toolName, faq, breadcrumbs]);
+  }, [title, description, keywords, locale, ogType, noindex, lang, path, toolName, faq, breadcrumbs]);
 
   return null;
 }

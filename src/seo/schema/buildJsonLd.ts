@@ -9,12 +9,20 @@ export interface BreadcrumbItem {
 
 export interface ToolSchemaInput {
   lang: LanguageType;
-  barePath: string;
+  canonicalPath: string;
   title: string;
   description: string;
   toolName: string;
   faq: FaqItem[];
   breadcrumbs: BreadcrumbItem[];
+  siteOrigin: string;
+}
+
+export interface HomeSchemaInput {
+  lang: LanguageType;
+  canonicalPath: string;
+  title: string;
+  description: string;
   siteOrigin: string;
 }
 
@@ -24,10 +32,71 @@ const FEATURE_LIST: Record<LanguageType, string> = {
   es: 'Herramientas de PDF e imagen en el navegador, conversión rápida, sin registro',
 };
 
+function inLanguage(lang: LanguageType): string {
+  return lang === 'pt' ? 'pt-BR' : lang === 'es' ? 'es' : 'en';
+}
+
+function buildOrganization(siteOrigin: string) {
+  return {
+    '@type': 'Organization',
+    '@id': `${siteOrigin}/#organization`,
+    name: 'PDFWINDOWS',
+    url: siteOrigin,
+    logo: `${siteOrigin}/logo.png`,
+  };
+}
+
+function buildWebsite(siteOrigin: string) {
+  return {
+    '@type': 'WebSite',
+    '@id': `${siteOrigin}/#website`,
+    url: siteOrigin,
+    name: 'PDFWINDOWS',
+    publisher: { '@id': `${siteOrigin}/#organization` },
+    inLanguage: ['en', 'pt-BR', 'es'],
+  };
+}
+
+export function buildHomePageJsonLd(input: HomeSchemaInput): Record<string, unknown> {
+  const { lang, canonicalPath, title, description, siteOrigin } = input;
+  const pageUrl = `${siteOrigin}${localizedPath(lang, canonicalPath)}`;
+
+  const organization = buildOrganization(siteOrigin);
+  const website = buildWebsite(siteOrigin);
+
+  const webPage = {
+    '@type': 'WebPage',
+    '@id': `${pageUrl}#webpage`,
+    url: pageUrl,
+    name: title,
+    description,
+    inLanguage: inLanguage(lang),
+    isPartOf: { '@id': `${siteOrigin}/#website` },
+    about: { '@id': `${siteOrigin}/#webapp` },
+  };
+
+  const webApp = {
+    '@type': 'WebApplication',
+    '@id': `${siteOrigin}/#webapp`,
+    name: 'PDFWINDOWS',
+    url: siteOrigin,
+    applicationCategory: 'UtilitiesApplication',
+    operatingSystem: 'Web Browser',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    description: FEATURE_LIST[lang],
+    image: `${siteOrigin}/logo.png`,
+    provider: { '@id': `${siteOrigin}/#organization` },
+  };
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [organization, website, webPage, webApp],
+  };
+}
+
 export function buildToolPageJsonLd(input: ToolSchemaInput): Record<string, unknown> {
-  const { lang, barePath, title, description, toolName, faq, breadcrumbs, siteOrigin } = input;
-  const pageUrl = `${siteOrigin}${localizedPath(lang, barePath)}`;
-  const inLanguage = lang === 'pt' ? 'pt-BR' : lang === 'es' ? 'es' : 'en';
+  const { lang, canonicalPath, title, description, toolName, faq, breadcrumbs, siteOrigin } = input;
+  const pageUrl = `${siteOrigin}${localizedPath(lang, canonicalPath)}`;
 
   const breadcrumbList = {
     '@type': 'BreadcrumbList',
@@ -46,7 +115,7 @@ export function buildToolPageJsonLd(input: ToolSchemaInput): Record<string, unkn
     url: pageUrl,
     name: title,
     description,
-    inLanguage,
+    inLanguage: inLanguage(lang),
     isPartOf: { '@id': `${siteOrigin}/#website` },
     breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
     about: { '@id': `${pageUrl}#software` },
@@ -63,11 +132,7 @@ export function buildToolPageJsonLd(input: ToolSchemaInput): Record<string, unkn
     url: pageUrl,
     image: `${siteOrigin}/logo.png`,
     featureList: FEATURE_LIST[lang],
-    provider: {
-      '@type': 'Organization',
-      name: 'PDFWINDOWS',
-      url: siteOrigin,
-    },
+    provider: { '@id': `${siteOrigin}/#organization` },
   };
 
   const faqPage =
@@ -83,15 +148,10 @@ export function buildToolPageJsonLd(input: ToolSchemaInput): Record<string, unkn
         }
       : null;
 
-  const website = {
-    '@type': 'WebSite',
-    '@id': `${siteOrigin}/#website`,
-    url: siteOrigin,
-    name: 'PDFWINDOWS',
-    publisher: { '@type': 'Organization', name: 'PDFWINDOWS' },
-  };
+  const organization = buildOrganization(siteOrigin);
+  const website = buildWebsite(siteOrigin);
 
-  const graph = [website, webPage, breadcrumbList, software, ...(faqPage ? [faqPage] : [])];
+  const graph = [organization, website, webPage, breadcrumbList, software, ...(faqPage ? [faqPage] : [])];
 
   return { '@context': 'https://schema.org', '@graph': graph };
 }

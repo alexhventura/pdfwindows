@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { discoverPublicBarePaths, NON_INDEXABLE_ROUTER_SEGMENTS } from '../../../scripts/extract-public-paths.mjs';
+import { buildLocalizedPath } from '../../../scripts/sitemap-lib.mjs';
 import { CANONICAL_ORIGIN, resolveSiteOrigin } from '../../../scripts/resolve-site-origin.mjs';
 import {
   buildHreflangAlternates,
@@ -13,8 +14,8 @@ import {
 import { getAllPublicPaths } from '../../seo/toolCatalog';
 import { getPublicBarePaths, NON_INDEXABLE_BARE_PATHS } from '../../seo/publicBarePaths';
 
-function localizedPathFromBare(locale: string, bare: string): string {
-  return bare === '/' ? `/${locale}` : `/${locale}${bare}`;
+function localizedPathFromCanonical(locale: string, canonical: string): string {
+  return buildLocalizedPath(locale, canonical);
 }
 
 describe('sitemap generation', () => {
@@ -23,7 +24,7 @@ describe('sitemap generation', () => {
     const registry = getPublicBarePaths();
 
     expect(discovered.sort()).toEqual(registry.sort());
-    expect(discovered.length).toBeGreaterThanOrEqual(27);
+    expect(discovered.length).toBeGreaterThanOrEqual(26);
   });
 
   it('lists the same localized paths as the app registry', () => {
@@ -31,7 +32,9 @@ describe('sitemap generation', () => {
     const registryPaths = getAllPublicPaths();
     const locales = ['en', 'pt', 'es'];
 
-    const expected = locales.flatMap((locale) => barePaths.map((bare) => localizedPathFromBare(locale, bare)));
+    const expected = locales.flatMap((locale) =>
+      barePaths.map((canonical) => localizedPathFromCanonical(locale, canonical))
+    );
 
     expect(registryPaths.sort()).toEqual(expected.sort());
   });
@@ -58,7 +61,7 @@ describe('sitemap generation', () => {
     expect(robotsValidation.valid, robotsValidation.errors.join('; ')).toBe(true);
 
     const locs = parseSitemapLocs(xml);
-    expect(locs.length).toBe(81);
+    expect(locs.length).toBe(78);
 
     for (const loc of locs) {
       expect(loc).not.toMatch(/pdfwindows\.app/i);
@@ -91,10 +94,10 @@ describe('sitemap generation', () => {
     const alternates = buildHreflangAlternates(CANONICAL_ORIGIN, barePaths[0]);
 
     expect(alternates).toEqual([
-      { hreflang: 'en', href: `${CANONICAL_ORIGIN}/en/pdf-merge` },
-      { hreflang: 'pt-BR', href: `${CANONICAL_ORIGIN}/pt/pdf-merge` },
-      { hreflang: 'es', href: `${CANONICAL_ORIGIN}/es/pdf-merge` },
-      { hreflang: 'x-default', href: `${CANONICAL_ORIGIN}/en/pdf-merge` },
+      { hreflang: 'en', href: `${CANONICAL_ORIGIN}/en/merge-pdf` },
+      { hreflang: 'pt-BR', href: `${CANONICAL_ORIGIN}/pt/juntar-pdf` },
+      { hreflang: 'es', href: `${CANONICAL_ORIGIN}/es/unir-pdf` },
+      { hreflang: 'x-default', href: `${CANONICAL_ORIGIN}/en/merge-pdf` },
     ]);
   });
 
@@ -104,7 +107,7 @@ describe('sitemap generation', () => {
     expect(new Set(locs).size).toBe(locs.length);
   });
 
-  it('generates 27 pages per locale (81 total)', () => {
+  it('generates 26 pages per locale (78 total)', () => {
     const xml = readFileSync('public/sitemap.xml', 'utf8');
     const locs = parseSitemapLocs(xml);
 
@@ -119,10 +122,10 @@ describe('sitemap generation', () => {
       es: locs.filter((loc) => localeSegment(loc, 'es')),
     };
 
-    expect(byLocale.en.length).toBe(27);
-    expect(byLocale.pt.length).toBe(27);
-    expect(byLocale.es.length).toBe(27);
-    expect(locs.length).toBe(81);
+    expect(byLocale.en.length).toBe(26);
+    expect(byLocale.pt.length).toBe(26);
+    expect(byLocale.es.length).toBe(26);
+    expect(locs.length).toBe(78);
   });
 
   it('build entries use git or build date for lastmod', () => {

@@ -126,7 +126,7 @@ export const PDF_MERGE_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = {
   pt: {
     title: 'Mesclar PDF Online Grátis e Offline | PDFWINDOWS',
     description:
-      'Combine vários arquivos PDF em um único documento diretamente no navegador. Sem upload, sem servidores — mescle PDFs localmente. e controle da ordem.',
+      'Combine vários PDFs em um único arquivo no navegador. Sem upload — mescle localmente com privacidade total, controle da ordem e download imediato do resultado.',
     keywords:
       'mesclar pdf, juntar pdf, combinar pdf offline, merge pdf gratis, unir arquivos pdf navegador',
     h1: 'Mesclar PDF Online',
@@ -247,7 +247,7 @@ export const PDF_MERGE_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = {
   es: {
     title: 'Unir PDF Online Gratis y Offline | PDFWINDOWS',
     description:
-      'Combine varios archivos PDF en un solo documento directamente en el navegador. Sin subida, sin servidores — una PDF localmente. y control del orden.',
+      'Combine varios PDF en un solo archivo en el navegador. Sin subida — une localmente con privacidad total, control del orden y descarga inmediata del resultado.',
     keywords:
       'unir pdf, combinar pdf offline, juntar pdf gratis, fusionar pdf navegador, merge pdf local',
     h1: 'Unir PDF Online',

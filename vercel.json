@@ -6,50 +6,936 @@
   "redirects": [
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "pdfwindows.app" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "pdfwindows.app"
+        }
+      ],
       "destination": "https://www.pdfwindows.com/:path*",
       "permanent": true
     },
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "pdfwindows.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "pdfwindows.com"
+        }
+      ],
       "destination": "https://www.pdfwindows.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/en/conversor",
+      "destination": "/en/converter",
+      "permanent": true
+    },
+    {
+      "source": "/en/pdf-merge",
+      "destination": "/en/merge-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pdf-merge",
+      "destination": "/pt/juntar-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/pdf-merge",
+      "destination": "/es/unir-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/pdf-compress",
+      "destination": "/en/compress-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pdf-compress",
+      "destination": "/pt/comprimir-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/pdf-compress",
+      "destination": "/es/comprimir-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/pdf-password",
+      "destination": "/en/protect-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pdf-password",
+      "destination": "/pt/proteger-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/pdf-password",
+      "destination": "/es/proteger-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pdf-ocr",
+      "destination": "/pt/ocr-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/pdf-ocr",
+      "destination": "/es/ocr-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/pdf-split",
+      "destination": "/en/split-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pdf-split",
+      "destination": "/pt/dividir-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/pdf-split",
+      "destination": "/es/dividir-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/pdf-rotate",
+      "destination": "/en/rotate-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pdf-rotate",
+      "destination": "/pt/girar-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/pdf-rotate",
+      "destination": "/es/rotar-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/pdf-watermark",
+      "destination": "/en/watermark-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pdf-watermark",
+      "destination": "/pt/marca-dagua-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/pdf-watermark",
+      "destination": "/es/marca-de-agua-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pdf-to-image",
+      "destination": "/pt/pdf-para-imagem",
+      "permanent": true
+    },
+    {
+      "source": "/es/pdf-to-image",
+      "destination": "/es/pdf-a-imagen",
+      "permanent": true
+    },
+    {
+      "source": "/en/pdf-extract-text",
+      "destination": "/en/extract-pdf-text",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pdf-extract-text",
+      "destination": "/pt/extrair-texto-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/pdf-extract-text",
+      "destination": "/es/extraer-texto-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/image-converter",
+      "destination": "/pt/conversor-de-imagem",
+      "permanent": true
+    },
+    {
+      "source": "/es/image-converter",
+      "destination": "/es/conversor-de-imagen",
+      "permanent": true
+    },
+    {
+      "source": "/pt/image-to-pdf",
+      "destination": "/pt/imagem-para-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/image-to-pdf",
+      "destination": "/es/imagen-a-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/image-resize",
+      "destination": "/en/resize-image",
+      "permanent": true
+    },
+    {
+      "source": "/pt/image-resize",
+      "destination": "/pt/redimensionar-imagem",
+      "permanent": true
+    },
+    {
+      "source": "/es/image-resize",
+      "destination": "/es/redimensionar-imagen",
+      "permanent": true
+    },
+    {
+      "source": "/pt/image-ocr",
+      "destination": "/pt/ocr-imagem",
+      "permanent": true
+    },
+    {
+      "source": "/es/image-ocr",
+      "destination": "/es/ocr-imagen",
+      "permanent": true
+    },
+    {
+      "source": "/pt/image-filters",
+      "destination": "/pt/filtros-de-imagem",
+      "permanent": true
+    },
+    {
+      "source": "/es/image-filters",
+      "destination": "/es/filtros-de-imagen",
+      "permanent": true
+    },
+    {
+      "source": "/pt/csv-to-json",
+      "destination": "/pt/csv-para-json",
+      "permanent": true
+    },
+    {
+      "source": "/es/csv-to-json",
+      "destination": "/es/csv-a-json",
+      "permanent": true
+    },
+    {
+      "source": "/pt/json-to-csv",
+      "destination": "/pt/json-para-csv",
+      "permanent": true
+    },
+    {
+      "source": "/es/json-to-csv",
+      "destination": "/es/json-a-csv",
+      "permanent": true
+    },
+    {
+      "source": "/pt/xml-to-json",
+      "destination": "/pt/xml-para-json",
+      "permanent": true
+    },
+    {
+      "source": "/es/xml-to-json",
+      "destination": "/es/xml-a-json",
+      "permanent": true
+    },
+    {
+      "source": "/pt/txt-to-pdf",
+      "destination": "/pt/txt-para-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/txt-to-pdf",
+      "destination": "/es/txt-a-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/estudio-documentos",
+      "destination": "/en/document-studio",
+      "permanent": true
+    },
+    {
+      "source": "/en/capturador-de-cores",
+      "destination": "/en/color-picker",
+      "permanent": true
+    },
+    {
+      "source": "/es/capturador-de-cores",
+      "destination": "/es/capturador-de-colores",
+      "permanent": true
+    },
+    {
+      "source": "/en/gerador-relatorios",
+      "destination": "/en/report-generator",
+      "permanent": true
+    },
+    {
+      "source": "/pt/gerador-relatorios",
+      "destination": "/pt/gerador-de-relatorios",
+      "permanent": true
+    },
+    {
+      "source": "/es/gerador-relatorios",
+      "destination": "/es/generador-de-informes",
+      "permanent": true
+    },
+    {
+      "source": "/en/gerador-qr-code",
+      "destination": "/en/qr-code-generator",
+      "permanent": true
+    },
+    {
+      "source": "/es/gerador-qr-code",
+      "destination": "/es/generador-qr",
+      "permanent": true
+    },
+    {
+      "source": "/en/gerador-cpf",
+      "destination": "/en/cpf-generator",
+      "permanent": true
+    },
+    {
+      "source": "/es/gerador-cpf",
+      "destination": "/es/generador-cpf",
+      "permanent": true
+    },
+    {
+      "source": "/en/limpador-codigo",
+      "destination": "/en/code-cleaner",
+      "permanent": true
+    },
+    {
+      "source": "/pt/limpador-codigo",
+      "destination": "/pt/limpador-de-codigo",
+      "permanent": true
+    },
+    {
+      "source": "/es/limpador-codigo",
+      "destination": "/es/limpiador-de-codigo",
+      "permanent": true
+    },
+    {
+      "source": "/pt/converter",
+      "destination": "/pt/conversor",
+      "permanent": true
+    },
+    {
+      "source": "/es/converter",
+      "destination": "/es/conversor",
+      "permanent": true
+    },
+    {
+      "source": "/en/ferramentas",
+      "destination": "/en/tools",
+      "permanent": true
+    },
+    {
+      "source": "/en/herramientas",
+      "destination": "/en/tools",
+      "permanent": true
+    },
+    {
+      "source": "/pt/tools",
+      "destination": "/pt/ferramentas",
+      "permanent": true
+    },
+    {
+      "source": "/pt/herramientas",
+      "destination": "/pt/ferramentas",
+      "permanent": true
+    },
+    {
+      "source": "/es/tools",
+      "destination": "/es/herramientas",
+      "permanent": true
+    },
+    {
+      "source": "/es/ferramentas",
+      "destination": "/es/herramientas",
+      "permanent": true
+    },
+    {
+      "source": "/en/juntar-pdf",
+      "destination": "/en/merge-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/unir-pdf",
+      "destination": "/en/merge-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/merge-pdf",
+      "destination": "/pt/juntar-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/unir-pdf",
+      "destination": "/pt/juntar-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/merge-pdf",
+      "destination": "/es/unir-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/juntar-pdf",
+      "destination": "/es/unir-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/comprimir-pdf",
+      "destination": "/en/compress-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/compress-pdf",
+      "destination": "/pt/comprimir-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/compress-pdf",
+      "destination": "/es/comprimir-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/proteger-pdf",
+      "destination": "/en/protect-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/protect-pdf",
+      "destination": "/pt/proteger-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/protect-pdf",
+      "destination": "/es/proteger-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/ocr-pdf",
+      "destination": "/en/pdf-ocr",
+      "permanent": true
+    },
+    {
+      "source": "/en/dividir-pdf",
+      "destination": "/en/split-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/split-pdf",
+      "destination": "/pt/dividir-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/split-pdf",
+      "destination": "/es/dividir-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/girar-pdf",
+      "destination": "/en/rotate-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/rotar-pdf",
+      "destination": "/en/rotate-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/rotate-pdf",
+      "destination": "/pt/girar-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/rotar-pdf",
+      "destination": "/pt/girar-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/rotate-pdf",
+      "destination": "/es/rotar-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/girar-pdf",
+      "destination": "/es/rotar-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/marca-dagua-pdf",
+      "destination": "/en/watermark-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/marca-de-agua-pdf",
+      "destination": "/en/watermark-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/watermark-pdf",
+      "destination": "/pt/marca-dagua-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/marca-de-agua-pdf",
+      "destination": "/pt/marca-dagua-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/watermark-pdf",
+      "destination": "/es/marca-de-agua-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/marca-dagua-pdf",
+      "destination": "/es/marca-de-agua-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/pdf-para-imagem",
+      "destination": "/en/pdf-to-image",
+      "permanent": true
+    },
+    {
+      "source": "/en/pdf-a-imagen",
+      "destination": "/en/pdf-to-image",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pdf-a-imagen",
+      "destination": "/pt/pdf-para-imagem",
+      "permanent": true
+    },
+    {
+      "source": "/es/pdf-para-imagem",
+      "destination": "/es/pdf-a-imagen",
+      "permanent": true
+    },
+    {
+      "source": "/en/extrair-texto-pdf",
+      "destination": "/en/extract-pdf-text",
+      "permanent": true
+    },
+    {
+      "source": "/en/extraer-texto-pdf",
+      "destination": "/en/extract-pdf-text",
+      "permanent": true
+    },
+    {
+      "source": "/pt/extract-pdf-text",
+      "destination": "/pt/extrair-texto-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/extraer-texto-pdf",
+      "destination": "/pt/extrair-texto-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/extract-pdf-text",
+      "destination": "/es/extraer-texto-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/extrair-texto-pdf",
+      "destination": "/es/extraer-texto-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/conversor-de-imagem",
+      "destination": "/en/image-converter",
+      "permanent": true
+    },
+    {
+      "source": "/en/conversor-de-imagen",
+      "destination": "/en/image-converter",
+      "permanent": true
+    },
+    {
+      "source": "/pt/conversor-de-imagen",
+      "destination": "/pt/conversor-de-imagem",
+      "permanent": true
+    },
+    {
+      "source": "/es/conversor-de-imagem",
+      "destination": "/es/conversor-de-imagen",
+      "permanent": true
+    },
+    {
+      "source": "/en/imagem-para-pdf",
+      "destination": "/en/image-to-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/imagen-a-pdf",
+      "destination": "/en/image-to-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/imagen-a-pdf",
+      "destination": "/pt/imagem-para-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/imagem-para-pdf",
+      "destination": "/es/imagen-a-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/redimensionar-imagem",
+      "destination": "/en/resize-image",
+      "permanent": true
+    },
+    {
+      "source": "/en/redimensionar-imagen",
+      "destination": "/en/resize-image",
+      "permanent": true
+    },
+    {
+      "source": "/pt/resize-image",
+      "destination": "/pt/redimensionar-imagem",
+      "permanent": true
+    },
+    {
+      "source": "/pt/redimensionar-imagen",
+      "destination": "/pt/redimensionar-imagem",
+      "permanent": true
+    },
+    {
+      "source": "/es/resize-image",
+      "destination": "/es/redimensionar-imagen",
+      "permanent": true
+    },
+    {
+      "source": "/es/redimensionar-imagem",
+      "destination": "/es/redimensionar-imagen",
+      "permanent": true
+    },
+    {
+      "source": "/en/ocr-imagem",
+      "destination": "/en/image-ocr",
+      "permanent": true
+    },
+    {
+      "source": "/en/ocr-imagen",
+      "destination": "/en/image-ocr",
+      "permanent": true
+    },
+    {
+      "source": "/pt/ocr-imagen",
+      "destination": "/pt/ocr-imagem",
+      "permanent": true
+    },
+    {
+      "source": "/es/ocr-imagem",
+      "destination": "/es/ocr-imagen",
+      "permanent": true
+    },
+    {
+      "source": "/en/filtros-de-imagem",
+      "destination": "/en/image-filters",
+      "permanent": true
+    },
+    {
+      "source": "/en/filtros-de-imagen",
+      "destination": "/en/image-filters",
+      "permanent": true
+    },
+    {
+      "source": "/pt/filtros-de-imagen",
+      "destination": "/pt/filtros-de-imagem",
+      "permanent": true
+    },
+    {
+      "source": "/es/filtros-de-imagem",
+      "destination": "/es/filtros-de-imagen",
+      "permanent": true
+    },
+    {
+      "source": "/en/csv-para-json",
+      "destination": "/en/csv-to-json",
+      "permanent": true
+    },
+    {
+      "source": "/en/csv-a-json",
+      "destination": "/en/csv-to-json",
+      "permanent": true
+    },
+    {
+      "source": "/pt/csv-a-json",
+      "destination": "/pt/csv-para-json",
+      "permanent": true
+    },
+    {
+      "source": "/es/csv-para-json",
+      "destination": "/es/csv-a-json",
+      "permanent": true
+    },
+    {
+      "source": "/en/json-para-csv",
+      "destination": "/en/json-to-csv",
+      "permanent": true
+    },
+    {
+      "source": "/en/json-a-csv",
+      "destination": "/en/json-to-csv",
+      "permanent": true
+    },
+    {
+      "source": "/pt/json-a-csv",
+      "destination": "/pt/json-para-csv",
+      "permanent": true
+    },
+    {
+      "source": "/es/json-para-csv",
+      "destination": "/es/json-a-csv",
+      "permanent": true
+    },
+    {
+      "source": "/en/xml-para-json",
+      "destination": "/en/xml-to-json",
+      "permanent": true
+    },
+    {
+      "source": "/en/xml-a-json",
+      "destination": "/en/xml-to-json",
+      "permanent": true
+    },
+    {
+      "source": "/pt/xml-a-json",
+      "destination": "/pt/xml-para-json",
+      "permanent": true
+    },
+    {
+      "source": "/es/xml-para-json",
+      "destination": "/es/xml-a-json",
+      "permanent": true
+    },
+    {
+      "source": "/en/txt-para-pdf",
+      "destination": "/en/txt-to-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/txt-a-pdf",
+      "destination": "/en/txt-to-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/txt-a-pdf",
+      "destination": "/pt/txt-para-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/txt-para-pdf",
+      "destination": "/es/txt-a-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/document-studio",
+      "destination": "/pt/estudio-documentos",
+      "permanent": true
+    },
+    {
+      "source": "/es/document-studio",
+      "destination": "/es/estudio-documentos",
+      "permanent": true
+    },
+    {
+      "source": "/en/capturador-de-colores",
+      "destination": "/en/color-picker",
+      "permanent": true
+    },
+    {
+      "source": "/pt/color-picker",
+      "destination": "/pt/capturador-de-cores",
+      "permanent": true
+    },
+    {
+      "source": "/pt/capturador-de-colores",
+      "destination": "/pt/capturador-de-cores",
+      "permanent": true
+    },
+    {
+      "source": "/es/color-picker",
+      "destination": "/es/capturador-de-colores",
+      "permanent": true
+    },
+    {
+      "source": "/en/gerador-de-relatorios",
+      "destination": "/en/report-generator",
+      "permanent": true
+    },
+    {
+      "source": "/en/generador-de-informes",
+      "destination": "/en/report-generator",
+      "permanent": true
+    },
+    {
+      "source": "/pt/report-generator",
+      "destination": "/pt/gerador-de-relatorios",
+      "permanent": true
+    },
+    {
+      "source": "/pt/generador-de-informes",
+      "destination": "/pt/gerador-de-relatorios",
+      "permanent": true
+    },
+    {
+      "source": "/es/report-generator",
+      "destination": "/es/generador-de-informes",
+      "permanent": true
+    },
+    {
+      "source": "/es/gerador-de-relatorios",
+      "destination": "/es/generador-de-informes",
+      "permanent": true
+    },
+    {
+      "source": "/en/generador-qr",
+      "destination": "/en/qr-code-generator",
+      "permanent": true
+    },
+    {
+      "source": "/pt/qr-code-generator",
+      "destination": "/pt/gerador-qr-code",
+      "permanent": true
+    },
+    {
+      "source": "/pt/generador-qr",
+      "destination": "/pt/gerador-qr-code",
+      "permanent": true
+    },
+    {
+      "source": "/es/qr-code-generator",
+      "destination": "/es/generador-qr",
+      "permanent": true
+    },
+    {
+      "source": "/en/generador-cpf",
+      "destination": "/en/cpf-generator",
+      "permanent": true
+    },
+    {
+      "source": "/pt/cpf-generator",
+      "destination": "/pt/gerador-cpf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/generador-cpf",
+      "destination": "/pt/gerador-cpf",
+      "permanent": true
+    },
+    {
+      "source": "/es/cpf-generator",
+      "destination": "/es/generador-cpf",
+      "permanent": true
+    },
+    {
+      "source": "/en/limpador-de-codigo",
+      "destination": "/en/code-cleaner",
+      "permanent": true
+    },
+    {
+      "source": "/en/limpiador-de-codigo",
+      "destination": "/en/code-cleaner",
+      "permanent": true
+    },
+    {
+      "source": "/pt/code-cleaner",
+      "destination": "/pt/limpador-de-codigo",
+      "permanent": true
+    },
+    {
+      "source": "/pt/limpiador-de-codigo",
+      "destination": "/pt/limpador-de-codigo",
+      "permanent": true
+    },
+    {
+      "source": "/es/code-cleaner",
+      "destination": "/es/limpiador-de-codigo",
+      "permanent": true
+    },
+    {
+      "source": "/es/limpador-de-codigo",
+      "destination": "/es/limpiador-de-codigo",
       "permanent": true
     }
   ],
   "rewrites": [
-    { "source": "/:path*", "destination": "/index.html" }
+    {
+      "source": "/:path*",
+      "destination": "/index.html"
+    }
   ],
   "headers": [
     {
       "source": "/sitemap.xml",
       "headers": [
-        { "key": "Content-Type", "value": "application/xml; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=3600" }
+        {
+          "key": "Content-Type",
+          "value": "application/xml; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
       ]
     },
     {
       "source": "/robots.txt",
       "headers": [
-        { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=3600" }
+        {
+          "key": "Content-Type",
+          "value": "text/plain; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
       ]
     },
     {
       "source": "/index.html",
       "headers": [
-        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
       ]
     },
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
-        { "key": "Cross-Origin-Opener-Policy", "value": "same-origin" },
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "DENY" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(), display-capture=(self)" },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(), display-capture=(self)"
+        },
         {
           "key": "Content-Security-Policy",
           "value": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self' blob: https://cdn.jsdelivr.net; worker-src 'self' blob:; manifest-src 'self'"
@@ -59,32 +945,65 @@
     {
       "source": "/assets/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     },
     {
       "source": "/logo.png",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
+      ]
     },
     {
       "source": "/logo-banner.png",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
+      ]
     },
     {
       "source": "/icon.svg",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
+      ]
     },
     {
       "source": "/manifest.json",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
+      ]
     },
     {
       "source": "/sw.js",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
+      ]
     },
     {
       "source": "/logo-:size.webp",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
+      ]
     }
   ]
 }

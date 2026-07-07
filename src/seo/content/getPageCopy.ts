@@ -1,10 +1,32 @@
 import type { LanguageType } from '../../types';
 import type { ToolPageCopy } from '../toolCatalog';
 import { HOME_COPY, TOOL_PAGES } from '../toolCatalog';
+import { getRichContent } from './registry';
+import { applyMetaDescriptionOverride } from '../metaDescriptions';
 
-/** Lightweight sync copy for SEO meta, hero, and schema — no rich article bundle. */
+function richToPageCopy(
+  path: string,
+  lang: LanguageType,
+  rich: NonNullable<ReturnType<typeof getRichContent>>
+): ToolPageCopy {
+  return {
+    title: rich.title,
+    description: applyMetaDescriptionOverride(path, lang, rich.description),
+    keywords: rich.keywords,
+    h1: rich.h1,
+    intro: rich.intro,
+    benefits: rich.benefits,
+    howItWorks: rich.howItWorks,
+    faq: rich.faq,
+  };
+}
+
+/** Lightweight sync copy for SEO meta, hero, and schema — prefers rich localized content. */
 export function getPageCopy(path: string, lang: LanguageType): ToolPageCopy {
   const normalized = path.startsWith('/') ? path : `/${path}`;
+
+  const rich = getRichContent(normalized, lang);
+  if (rich) return richToPageCopy(normalized, lang, rich);
 
   if (normalized === '/') {
     return HOME_COPY[lang];
@@ -38,6 +60,7 @@ export function getPageCopy(path: string, lang: LanguageType): ToolPageCopy {
 }
 
 export function getPageToolName(path: string, lang: LanguageType): string {
-  const copy = getPageCopy(path, lang);
-  return copy.h1.split('—')[0]?.trim() ?? copy.h1;
+  const rich = getRichContent(path.startsWith('/') ? path : `/${path}`, lang);
+  if (rich?.toolName) return rich.toolName;
+  return getPageCopy(path, lang).h1.split('—')[0]?.trim() ?? getPageCopy(path, lang).h1;
 }

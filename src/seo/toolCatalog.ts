@@ -1,5 +1,6 @@
 import type { LanguageType, OperationType } from '../types';
-import { localizedPath, stripLocalePrefix } from '../i18n/routes';
+import { parseLocaleFromPath, stripLocalePrefix } from '../i18n/routes';
+import { getLocalizedPublicPath, resolveCanonicalPath } from './pathLocalization';
 import { getPublicBarePaths, PUBLIC_LOCALES } from './publicBarePaths';
 
 export type SuiteToolId =
@@ -2101,13 +2102,16 @@ export const HOME_COPY: Record<LanguageType, ToolPageCopy> = {
 };
 
 export function getToolPageByPath(path: string): ToolPageDefinition | undefined {
-  const normalized = stripLocalePrefix(path.startsWith('/') ? path : `/${path}`);
-  return TOOL_PAGES.find((p) => p.path === normalized);
+  const normalized = path.startsWith('/') ? path : `/${path}`;
+  const lang = parseLocaleFromPath(normalized);
+  const bare = stripLocalePrefix(normalized);
+  const canonical = resolveCanonicalPath(normalized, lang ?? undefined) ?? bare;
+  return TOOL_PAGES.find((p) => p.path === canonical);
 }
 
 export function getAllPublicPaths(): string[] {
   const barePaths = getPublicBarePaths();
   return PUBLIC_LOCALES.flatMap((lang) =>
-    barePaths.map((bare) => localizedPath(lang as LanguageType, bare))
+    barePaths.map((bare) => getLocalizedPublicPath(lang as LanguageType, bare))
   );
 }

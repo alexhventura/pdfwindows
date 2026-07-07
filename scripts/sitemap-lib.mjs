@@ -1,6 +1,7 @@
 import { execSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { CANONICAL_HOST, CANONICAL_ORIGIN } from './resolve-site-origin.mjs';
+import localizedPaths from '../src/seo/localizedPaths.json' with { type: 'json' };
 
 export const LOCALES = ['en', 'pt', 'es'];
 
@@ -10,6 +11,8 @@ export const HREFLANG_BY_LOCALE = {
   es: 'es',
 };
 
+const NON_INDEXABLE_CANONICAL_PATHS = new Set(['/ferramentas', '/gerador-recibos', '/capturador-cores']);
+
 const STATIC_PAGE_SOURCES = {
   '/': ['src/pages/HomePage.tsx', 'src/seo/content/home.ts'],
   '/ferramentas': ['src/pages/ToolsCatalogPage.tsx'],
@@ -18,13 +21,16 @@ const STATIC_PAGE_SOURCES = {
 
 const gitLastModCache = new Map();
 
-export function buildLocalizedPath(locale, barePath) {
-  if (barePath === '/') return `/${locale}`;
-  return `/${locale}${barePath}`;
+/** Build localized public path from canonical internal path. */
+export function buildLocalizedPath(locale, canonicalPath) {
+  if (canonicalPath === '/') return `/${locale}`;
+  const entry = localizedPaths[canonicalPath];
+  const localized = entry?.[locale] ?? canonicalPath;
+  return `/${locale}${localized}`;
 }
 
-export function buildAbsoluteUrl(origin, locale, barePath) {
-  return `${origin}${buildLocalizedPath(locale, barePath)}`;
+export function buildAbsoluteUrl(origin, locale, canonicalPath) {
+  return `${origin}${buildLocalizedPath(locale, canonicalPath)}`;
 }
 
 export function escapeXml(value) {

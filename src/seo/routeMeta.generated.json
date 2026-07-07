@@ -1,0 +1,470 @@
+{
+  "/en": {
+    "lang": "en",
+    "title": "PDFWINDOWS",
+    "description": "Free PDF and image tools that run in your browser. Merge, compress, convert, and protect files locally — fast, private, and no signup required.",
+    "canonical": "https://www.pdfwindows.com/en"
+  },
+  "/pt": {
+    "lang": "pt-BR",
+    "title": "PDFWINDOWS — Ferramentas para PDF e Imagens",
+    "description": "Ferramentas gratuitas de PDF e imagem no navegador. Junte, comprima, converta e proteja arquivos localmente — rápido, privado e sem cadastro.",
+    "canonical": "https://www.pdfwindows.com/pt"
+  },
+  "/es": {
+    "lang": "es",
+    "title": "PDFWINDOWS — Herramientas PDF e Imagen",
+    "description": "Herramientas gratis de PDF e imagen en el navegador. Une, comprime, convierte y protege archivos localmente — rápido, privado y sin registro.",
+    "canonical": "https://www.pdfwindows.com/es"
+  },
+  "/en/converter": {
+    "lang": "en",
+    "title": "Full PDF & Image Converter Workbench | PDFWINDOWS",
+    "description": "All-in-one PDF and image converter workbench. Queue batch jobs, pick operations, and process files locally in your browser — no upload required.",
+    "canonical": "https://www.pdfwindows.com/en/converter"
+  },
+  "/pt/conversor": {
+    "lang": "pt-BR",
+    "title": "Conversor Completo PDF e Imagem | PDFWINDOWS",
+    "description": "Workbench conversor tudo-em-um para operações em lote de PDF e imagem. Enfileire arquivos, escolha operações, processe localmente — sem upload.",
+    "canonical": "https://www.pdfwindows.com/pt/conversor"
+  },
+  "/es/conversor": {
+    "lang": "es",
+    "title": "Conversor Completo PDF e Imagen | PDFWINDOWS",
+    "description": "Workbench conversor todo-en-uno para operaciones por lotes de PDF e imagen. Encole archivos, elija operaciones, procese localmente — sin subida.",
+    "canonical": "https://www.pdfwindows.com/es/conversor"
+  },
+  "/en/merge-pdf": {
+    "lang": "en",
+    "title": "Merge PDF Online Free & Offline | PDFWINDOWS",
+    "description": "Combine multiple PDF files into one document directly in your browser. No upload, no servers — merge PDFs locally with full privacy and control over file order.",
+    "canonical": "https://www.pdfwindows.com/en/merge-pdf"
+  },
+  "/pt/juntar-pdf": {
+    "lang": "pt-BR",
+    "title": "Mesclar PDF Online Grátis e Offline | PDFWINDOWS",
+    "description": "Combine vários PDFs em um único arquivo no navegador. Sem upload — mescle localmente com privacidade total, controle da ordem e download imediato do resultado.",
+    "canonical": "https://www.pdfwindows.com/pt/juntar-pdf"
+  },
+  "/es/unir-pdf": {
+    "lang": "es",
+    "title": "Unir PDF Online Gratis y Offline | PDFWINDOWS",
+    "description": "Combine varios PDF en un solo archivo en el navegador. Sin subida — une localmente con privacidad total, control del orden y descarga inmediata del resultado.",
+    "canonical": "https://www.pdfwindows.com/es/unir-pdf"
+  },
+  "/en/compress-pdf": {
+    "lang": "en",
+    "title": "Compress PDF Online Free & Offline | PDFWINDOWS",
+    "description": "Reduce PDF file size in your browser without uploading to cloud servers. Shrink documents for email attachments while keeping readable quality",
+    "canonical": "https://www.pdfwindows.com/en/compress-pdf"
+  },
+  "/pt/comprimir-pdf": {
+    "lang": "pt-BR",
+    "title": "Comprimir PDF Online Grátis e Offline | PDFWINDOWS",
+    "description": "Reduza o tamanho de PDFs no navegador sem enviar para servidores na nuvem. Diminua documentos para anexos de e-mail mantendo qualidade legível",
+    "canonical": "https://www.pdfwindows.com/pt/comprimir-pdf"
+  },
+  "/es/comprimir-pdf": {
+    "lang": "es",
+    "title": "Comprimir PDF Online Gratis y Offline | PDFWINDOWS",
+    "description": "Reduzca el tamaño de PDF en el navegador sin subir a servidores en la nube. Achique documentos para adjuntos de correo manteniendo calidad legible",
+    "canonical": "https://www.pdfwindows.com/es/comprimir-pdf"
+  },
+  "/en/protect-pdf": {
+    "lang": "en",
+    "title": "Password Protect PDF Online & Offline | PDFWINDOWS",
+    "description": "Protect PDF files with a password in your browser. Add open permissions locally, keep contracts private, and download a secured PDF — free, no upload.",
+    "canonical": "https://www.pdfwindows.com/en/protect-pdf"
+  },
+  "/pt/proteger-pdf": {
+    "lang": "pt-BR",
+    "title": "Proteger PDF com Senha Online e Offline | PDFWINDOWS",
+    "description": "Proteja PDFs com senha no navegador. Defina permissões localmente, mantenha contratos privados e baixe o arquivo seguro — grátis, sem upload.",
+    "canonical": "https://www.pdfwindows.com/pt/proteger-pdf"
+  },
+  "/es/proteger-pdf": {
+    "lang": "es",
+    "title": "Proteger PDF con Contraseña Online y Offline | PDFWINDOWS",
+    "description": "Protege PDFs con contraseña en el navegador. Define permisos localmente, mantén contratos privados y descarga el archivo seguro — gratis, sin subir.",
+    "canonical": "https://www.pdfwindows.com/es/proteger-pdf"
+  },
+  "/en/pdf-ocr": {
+    "lang": "en",
+    "title": "PDF OCR Online Offline | PDFWINDOWS",
+    "description": "Extract searchable text from scanned PDFs in your browser with local OCR. Turn image-only pages into editable, copyable content — no cloud upload, full privacy.",
+    "canonical": "https://www.pdfwindows.com/en/pdf-ocr"
+  },
+  "/pt/ocr-pdf": {
+    "lang": "pt-BR",
+    "title": "OCR de PDF Online Offline | PDFWINDOWS",
+    "description": "Extraia texto de PDFs escaneados com OCR no navegador. Reconheça páginas digitalizadas localmente, edite o resultado e exporte — grátis e sem upload.",
+    "canonical": "https://www.pdfwindows.com/pt/ocr-pdf"
+  },
+  "/es/ocr-pdf": {
+    "lang": "es",
+    "title": "OCR PDF en Línea Gratis | PDFWINDOWS",
+    "description": "Extraiga texto buscable de PDF escaneados en el navegador con OCR local. Convierta páginas solo-imagen en contenido editable — sin subida, privacidad total.",
+    "canonical": "https://www.pdfwindows.com/es/ocr-pdf"
+  },
+  "/en/split-pdf": {
+    "lang": "en",
+    "title": "Split PDF Online Free & Offline | PDFWINDOWS",
+    "description": "Extract page ranges from PDF files in your browser. Split large documents locally without upload — precise control over start and end pages with full privacy.",
+    "canonical": "https://www.pdfwindows.com/en/split-pdf"
+  },
+  "/pt/dividir-pdf": {
+    "lang": "pt-BR",
+    "title": "Dividir PDF Online Grátis e Offline | PDFWINDOWS",
+    "description": "Extraia intervalos de páginas de PDFs no navegador. Divida documentos grandes localmente sem upload — controle preciso de páginas inicial e final.",
+    "canonical": "https://www.pdfwindows.com/pt/dividir-pdf"
+  },
+  "/es/dividir-pdf": {
+    "lang": "es",
+    "title": "Dividir PDF Online Gratis y Offline | PDFWINDOWS",
+    "description": "Extraiga rangos de páginas de archivos PDF en el navegador. Divida documentos grandes localmente sin subida — control preciso de páginas inicial y final.",
+    "canonical": "https://www.pdfwindows.com/es/dividir-pdf"
+  },
+  "/en/rotate-pdf": {
+    "lang": "en",
+    "title": "Rotate PDF Online Offline | PDFWINDOWS",
+    "description": "Rotate PDF pages online in your browser. Fix scanned orientation, flip individual pages, and download a corrected document — free, fast, and fully local.",
+    "canonical": "https://www.pdfwindows.com/en/rotate-pdf"
+  },
+  "/pt/girar-pdf": {
+    "lang": "pt-BR",
+    "title": "Rotacionar PDF Online Offline | PDFWINDOWS",
+    "description": "Gire páginas de PDF em 90°, 180° ou 270° no navegador. Corrija scans de lado e exportações erradas localmente — sem upload, download imediato.",
+    "canonical": "https://www.pdfwindows.com/pt/girar-pdf"
+  },
+  "/es/rotar-pdf": {
+    "lang": "es",
+    "title": "Rotar PDF Online Offline | PDFWINDOWS",
+    "description": "Gire páginas de PDF 90°, 180° o 270° en el navegador. Corrija escaneos de lado y exportaciones erróneas localmente — sin subida, descarga inmediata.",
+    "canonical": "https://www.pdfwindows.com/es/rotar-pdf"
+  },
+  "/en/watermark-pdf": {
+    "lang": "en",
+    "title": "PDF Watermark Online Offline | PDFWINDOWS",
+    "description": "Add text or image watermarks to PDF files in your browser. Mark drafts, confidential copies, and internal docs locally — no upload, live preview.",
+    "canonical": "https://www.pdfwindows.com/en/watermark-pdf"
+  },
+  "/pt/marca-dagua-pdf": {
+    "lang": "pt-BR",
+    "title": "Marca d'Água em PDF Online Offline | PDFWINDOWS",
+    "description": "Adicione marcas d'água de texto ou imagem em PDFs no navegador. Marque rascunhos e cópias confidenciais localmente — sem upload, preview ao vivo.",
+    "canonical": "https://www.pdfwindows.com/pt/marca-dagua-pdf"
+  },
+  "/es/marca-de-agua-pdf": {
+    "lang": "es",
+    "title": "Marca de Agua en PDF Online Offline | PDFWINDOWS",
+    "description": "Añada marcas de agua de texto o imagen a archivos PDF en el navegador. Marque borradores y copias confidenciales localmente — sin subida, vista previa en vivo.",
+    "canonical": "https://www.pdfwindows.com/es/marca-de-agua-pdf"
+  },
+  "/en/pdf-to-image": {
+    "lang": "en",
+    "title": "PDF to Image Online Offline | PDFWINDOWS",
+    "description": "Convert PDF pages to JPG or PNG in your browser. Export slides, scans, or graphics locally with sharp quality — free, private, and no upload required.",
+    "canonical": "https://www.pdfwindows.com/en/pdf-to-image"
+  },
+  "/pt/pdf-para-imagem": {
+    "lang": "pt-BR",
+    "title": "PDF para Imagem Online Offline | PDFWINDOWS",
+    "description": "Converta páginas PDF em JPG ou PNG no navegador. Exporte slides, scans ou gráficos localmente com qualidade nítida — grátis, privado e sem upload.",
+    "canonical": "https://www.pdfwindows.com/pt/pdf-para-imagem"
+  },
+  "/es/pdf-a-imagen": {
+    "lang": "es",
+    "title": "PDF a Imagen Online Offline | PDFWINDOWS",
+    "description": "Convierte páginas PDF a JPG o PNG en el navegador. Exporta diapositivas, escaneos o gráficos localmente con calidad nítida — gratis, privado y sin subir.",
+    "canonical": "https://www.pdfwindows.com/es/pdf-a-imagen"
+  },
+  "/en/extract-pdf-text": {
+    "lang": "en",
+    "title": "Extract Text from PDF Online Offline | PDFWINDOWS",
+    "description": "Pull selectable text from native PDFs in your browser. Fast plain-text export for editing, search, and data pipelines — no upload, full privacy.",
+    "canonical": "https://www.pdfwindows.com/en/extract-pdf-text"
+  },
+  "/pt/extrair-texto-pdf": {
+    "lang": "pt-BR",
+    "title": "Extrair Texto de PDF Online Offline | PDFWINDOWS",
+    "description": "Extraia texto de PDFs no navegador. Copie conteúdo de relatórios e contratos localmente, sem enviar arquivos a servidores — rápido, grátis e privado.",
+    "canonical": "https://www.pdfwindows.com/pt/extrair-texto-pdf"
+  },
+  "/es/extraer-texto-pdf": {
+    "lang": "es",
+    "title": "Extraer Texto de PDF Online Offline | PDFWINDOWS",
+    "description": "Extraiga texto seleccionable de PDF nativos en su navegador. Exportación rápida en texto plano para edición y búsqueda — sin subida, privacidad total.",
+    "canonical": "https://www.pdfwindows.com/es/extraer-texto-pdf"
+  },
+  "/en/image-converter": {
+    "lang": "en",
+    "title": "Image Converter Online Offline | PDFWINDOWS",
+    "description": "Convert images between JPG, PNG, and WebP in your browser. Resize, optimize, and download locally — fast batch conversion with no upload required.",
+    "canonical": "https://www.pdfwindows.com/en/image-converter"
+  },
+  "/pt/conversor-de-imagem": {
+    "lang": "pt-BR",
+    "title": "Conversor de Imagens Online Offline | PDFWINDOWS",
+    "description": "Converta imagens entre JPG, PNG e WebP no navegador. Redimensione, otimize e baixe localmente — conversão em lote rápida, privada e sem upload.",
+    "canonical": "https://www.pdfwindows.com/pt/conversor-de-imagem"
+  },
+  "/es/conversor-de-imagen": {
+    "lang": "es",
+    "title": "Conversor de Imágenes Online Offline | PDFWINDOWS",
+    "description": "Convierte imágenes entre JPG, PNG y WebP en el navegador. Redimensiona, optimiza y descarga localmente — conversión rápida por lotes, sin subir.",
+    "canonical": "https://www.pdfwindows.com/es/conversor-de-imagen"
+  },
+  "/en/image-to-pdf": {
+    "lang": "en",
+    "title": "Image to PDF Online Offline | PDFWINDOWS",
+    "description": "Turn JPG and PNG images into a PDF in your browser. Build photo albums or scan packs locally, reorder pages, and download — free with no upload.",
+    "canonical": "https://www.pdfwindows.com/en/image-to-pdf"
+  },
+  "/pt/imagem-para-pdf": {
+    "lang": "pt-BR",
+    "title": "Imagem para PDF Online Offline | PDFWINDOWS",
+    "description": "Transforme imagens JPG e PNG em PDF no navegador. Monte álbuns ou pacotes de scans localmente, reordene páginas e baixe — grátis, sem upload.",
+    "canonical": "https://www.pdfwindows.com/pt/imagem-para-pdf"
+  },
+  "/es/imagen-a-pdf": {
+    "lang": "es",
+    "title": "Imagen a PDF Online Offline | PDFWINDOWS",
+    "description": "Convierte imágenes JPG y PNG en PDF en el navegador. Crea álbumes o paquetes de escaneos localmente, reordena páginas y descarga — gratis, sin subir.",
+    "canonical": "https://www.pdfwindows.com/es/imagen-a-pdf"
+  },
+  "/en/resize-image": {
+    "lang": "en",
+    "title": "Resize Image Online Offline | PDFWINDOWS",
+    "description": "Resize and compress images in your browser. Set exact pixel dimensions, lock aspect ratio, and download optimized files without uploading to any server.",
+    "canonical": "https://www.pdfwindows.com/en/resize-image"
+  },
+  "/pt/redimensionar-imagem": {
+    "lang": "pt-BR",
+    "title": "Redimensionar Imagem Online Offline | PDFWINDOWS",
+    "description": "Redimensione imagens no navegador. Ajuste largura, altura e proporção localmente para web, e-mail ou impressão — rápido, grátis e sem upload.",
+    "canonical": "https://www.pdfwindows.com/pt/redimensionar-imagem"
+  },
+  "/es/redimensionar-imagen": {
+    "lang": "es",
+    "title": "Redimensionar Imagen Online Offline | PDFWINDOWS",
+    "description": "Redimensione y comprima imágenes en su navegador. Defina píxeles exactos, bloquee la proporción y descargue archivos optimizados sin subirlos a servidores.",
+    "canonical": "https://www.pdfwindows.com/es/redimensionar-imagen"
+  },
+  "/en/image-ocr": {
+    "lang": "en",
+    "title": "Image OCR Online Offline | PDFWINDOWS",
+    "description": "Extract text from images with OCR in your browser. Digitize receipts, screenshots, and scans locally, then copy or export — free and no upload.",
+    "canonical": "https://www.pdfwindows.com/en/image-ocr"
+  },
+  "/pt/ocr-imagem": {
+    "lang": "pt-BR",
+    "title": "OCR de Imagem Online Offline | PDFWINDOWS",
+    "description": "Extraia texto de fotos e scans com OCR local no navegador. Digitalize documentos com privacidade — sem upload nem servidores de reconhecimento na nuvem.",
+    "canonical": "https://www.pdfwindows.com/pt/ocr-imagem"
+  },
+  "/es/ocr-imagen": {
+    "lang": "es",
+    "title": "OCR de Imagen Online Offline | PDFWINDOWS",
+    "description": "Extraiga texto de fotos y escaneos con OCR local en su navegador. Digitalice documentos con privacidad — sin subida ni servidores de reconocimiento en la nube.",
+    "canonical": "https://www.pdfwindows.com/es/ocr-imagen"
+  },
+  "/en/image-filters": {
+    "lang": "en",
+    "title": "Image Filters Online Offline | PDFWINDOWS",
+    "description": "Adjust brightness, contrast, grayscale, and more in your browser. Edit images locally with instant preview — no upload, no account required.",
+    "canonical": "https://www.pdfwindows.com/en/image-filters"
+  },
+  "/pt/filtros-de-imagem": {
+    "lang": "pt-BR",
+    "title": "Filtros de Imagem Online Offline | PDFWINDOWS",
+    "description": "Aplique filtros em imagens no navegador. Ajuste brilho, contraste e efeitos localmente para redes sociais ou impressão — grátis e sem upload.",
+    "canonical": "https://www.pdfwindows.com/pt/filtros-de-imagem"
+  },
+  "/es/filtros-de-imagen": {
+    "lang": "es",
+    "title": "Filtros de Imagen Online Offline | PDFWINDOWS",
+    "description": "Ajuste brillo, contraste, escala de grises y más en su navegador. Edite imágenes localmente con vista previa instantánea — sin subida ni registro.",
+    "canonical": "https://www.pdfwindows.com/es/filtros-de-imagen"
+  },
+  "/en/csv-to-json": {
+    "lang": "en",
+    "title": "CSV to JSON Online Offline | PDFWINDOWS",
+    "description": "Convert CSV to JSON in your browser. Parse spreadsheets locally, preview structured output, and download clean JSON — free, private, no upload.",
+    "canonical": "https://www.pdfwindows.com/en/csv-to-json"
+  },
+  "/pt/csv-para-json": {
+    "lang": "pt-BR",
+    "title": "CSV para JSON Online Offline | PDFWINDOWS",
+    "description": "Converta planilhas CSV em JSON estruturado no navegador. Analise dados delimitados localmente para APIs e scripts — sem upload nem cadastro.",
+    "canonical": "https://www.pdfwindows.com/pt/csv-para-json"
+  },
+  "/es/csv-a-json": {
+    "lang": "es",
+    "title": "CSV a JSON Online Offline | PDFWINDOWS",
+    "description": "Convierte CSV a JSON en el navegador. Analiza hojas de cálculo localmente, previsualiza la salida y descarga JSON limpio — gratis, privado y sin subir.",
+    "canonical": "https://www.pdfwindows.com/es/csv-a-json"
+  },
+  "/en/json-to-csv": {
+    "lang": "en",
+    "title": "JSON to CSV Online Offline | PDFWINDOWS",
+    "description": "Convert JSON to CSV in your browser. Flatten API payloads or config files locally and download spreadsheet-ready output — free, fast, no upload.",
+    "canonical": "https://www.pdfwindows.com/en/json-to-csv"
+  },
+  "/pt/json-para-csv": {
+    "lang": "pt-BR",
+    "title": "JSON para CSV Online Offline | PDFWINDOWS",
+    "description": "Converta JSON para CSV no navegador. Achate payloads de API ou configs localmente e baixe saída pronta para planilhas — grátis, rápido, sem upload.",
+    "canonical": "https://www.pdfwindows.com/pt/json-para-csv"
+  },
+  "/es/json-a-csv": {
+    "lang": "es",
+    "title": "JSON a CSV Online Offline | PDFWINDOWS",
+    "description": "Convierte JSON a CSV en el navegador. Aplana payloads de API o configs localmente y descarga salida lista para hojas de cálculo — gratis, sin subir.",
+    "canonical": "https://www.pdfwindows.com/es/json-a-csv"
+  },
+  "/en/xml-to-json": {
+    "lang": "en",
+    "title": "XML to JSON Online Offline | PDFWINDOWS",
+    "description": "Convert XML to JSON in your browser. Transform feeds, configs, and API responses locally with a clear preview — free, private, and no upload.",
+    "canonical": "https://www.pdfwindows.com/en/xml-to-json"
+  },
+  "/pt/xml-para-json": {
+    "lang": "pt-BR",
+    "title": "XML para JSON Online Offline | PDFWINDOWS",
+    "description": "Converta XML para JSON no navegador. Transforme feeds, configs e respostas de API localmente com prévia clara — grátis, privado e sem upload.",
+    "canonical": "https://www.pdfwindows.com/pt/xml-para-json"
+  },
+  "/es/xml-a-json": {
+    "lang": "es",
+    "title": "XML a JSON Online Offline | PDFWINDOWS",
+    "description": "Convierte XML a JSON en el navegador. Transforma feeds, configs y respuestas de API localmente con vista previa clara — gratis, privado y sin subir.",
+    "canonical": "https://www.pdfwindows.com/es/xml-a-json"
+  },
+  "/en/txt-to-pdf": {
+    "lang": "en",
+    "title": "TXT to PDF Online Offline | PDFWINDOWS",
+    "description": "Convert plain text to PDF in your browser. Format notes, logs, or scripts locally and download a print-ready document — free, fast, no upload.",
+    "canonical": "https://www.pdfwindows.com/en/txt-to-pdf"
+  },
+  "/pt/txt-para-pdf": {
+    "lang": "pt-BR",
+    "title": "TXT para PDF Online Offline | PDFWINDOWS",
+    "description": "Converta arquivos de texto puro em PDFs legíveis no navegador. Crie PDFs compartilháveis a partir de .txt localmente — sem upload, layout limpo.",
+    "canonical": "https://www.pdfwindows.com/pt/txt-para-pdf"
+  },
+  "/es/txt-a-pdf": {
+    "lang": "es",
+    "title": "TXT a PDF Online Offline | PDFWINDOWS",
+    "description": "Convierte texto plano a PDF en el navegador. Formatea notas, logs o scripts localmente y descarga un documento listo para imprimir — gratis y sin subir.",
+    "canonical": "https://www.pdfwindows.com/es/txt-a-pdf"
+  },
+  "/en/document-studio": {
+    "lang": "en",
+    "title": "Document Studio Online Offline | PDFWINDOWS",
+    "description": "Create and edit documents in your browser with Document Studio. Draft letters, contracts, and reports offline, then export PDF — free, no upload.",
+    "canonical": "https://www.pdfwindows.com/en/document-studio"
+  },
+  "/pt/estudio-documentos": {
+    "lang": "pt-BR",
+    "title": "Estúdio de Documentos Online Offline | PDFWINDOWS",
+    "description": "Crie e edite documentos no navegador com o Estúdio de Documentos. Redija cartas, contratos e relatórios offline e exporte PDF — grátis, sem upload.",
+    "canonical": "https://www.pdfwindows.com/pt/estudio-documentos"
+  },
+  "/es/estudio-documentos": {
+    "lang": "es",
+    "title": "Estudio de Documentos Online Offline | PDFWINDOWS",
+    "description": "Crea y edita documentos en el navegador con Estudio de Documentos. Redacta cartas, contratos e informes offline y exporta PDF — gratis, sin subir.",
+    "canonical": "https://www.pdfwindows.com/es/estudio-documentos"
+  },
+  "/en/color-picker": {
+    "lang": "en",
+    "title": "Online Color Picker — HEX, RGB & HSL | PDFWINDOWS",
+    "description": "Pick colors from your screen in the browser. Capture hex and RGB values from any pixel locally for design, CSS, and branding work — free, no upload.",
+    "canonical": "https://www.pdfwindows.com/en/color-picker"
+  },
+  "/pt/capturador-de-cores": {
+    "lang": "pt-BR",
+    "title": "Capturador de Cores Online — HEX, RGB e HSL | PDFWINDOWS",
+    "description": "Capture cores da tela no navegador. Obtenha valores hex e RGB de qualquer pixel localmente para design, CSS e branding — grátis, sem upload.",
+    "canonical": "https://www.pdfwindows.com/pt/capturador-de-cores"
+  },
+  "/es/capturador-de-colores": {
+    "lang": "es",
+    "title": "Capturador de Colores Online — HEX, RGB y HSL | PDFWINDOWS",
+    "description": "Captura colores de la pantalla en el navegador. Obtén valores hex y RGB de cualquier píxel localmente para diseño, CSS y branding — gratis, sin subir.",
+    "canonical": "https://www.pdfwindows.com/es/capturador-de-colores"
+  },
+  "/en/report-generator": {
+    "lang": "en",
+    "title": "Report & Receipt Generator Online Offline | PDFWINDOWS",
+    "description": "Generate professional reports and receipts in your browser. Build PDF summaries locally from templates — free for freelancers and small businesses.",
+    "canonical": "https://www.pdfwindows.com/en/report-generator"
+  },
+  "/pt/gerador-de-relatorios": {
+    "lang": "pt-BR",
+    "title": "Gerador de Relatórios e Recibos Online Offline | PDFWINDOWS",
+    "description": "Gere relatórios e recibos profissionais no navegador. Monte resumos em PDF localmente a partir de modelos — grátis para freelancers e pequenas empresas.",
+    "canonical": "https://www.pdfwindows.com/pt/gerador-de-relatorios"
+  },
+  "/es/generador-de-informes": {
+    "lang": "es",
+    "title": "Generador de Informes y Recibos Online Offline | PDFWINDOWS",
+    "description": "Genera informes y recibos profesionales en el navegador. Crea resúmenes PDF localmente desde plantillas — gratis para freelancers, pymes y autónomos.",
+    "canonical": "https://www.pdfwindows.com/es/generador-de-informes"
+  },
+  "/en/qr-code-generator": {
+    "lang": "en",
+    "title": "QR Code Generator Online Offline | PDFWINDOWS",
+    "description": "Create QR codes in your browser. Generate links, Wi-Fi, and contact codes locally, customize size, and download PNG — free with no upload required.",
+    "canonical": "https://www.pdfwindows.com/en/qr-code-generator"
+  },
+  "/pt/gerador-qr-code": {
+    "lang": "pt-BR",
+    "title": "Gerador de QR Code Online Offline | PDFWINDOWS",
+    "description": "Crie QR Codes no navegador. Gere links, Wi-Fi e contatos localmente, personalize tamanho e cores, e baixe PNG — grátis, privado e sem upload.",
+    "canonical": "https://www.pdfwindows.com/pt/gerador-qr-code"
+  },
+  "/es/generador-qr": {
+    "lang": "es",
+    "title": "Generador de Código QR Online Offline | PDFWINDOWS",
+    "description": "Crea códigos QR en el navegador. Genera enlaces, Wi-Fi y contactos localmente, personaliza tamaño y color, y descarga PNG — gratis, privado y sin subir.",
+    "canonical": "https://www.pdfwindows.com/es/generador-qr"
+  },
+  "/en/cpf-generator": {
+    "lang": "en",
+    "title": "CPF Generator for Software Testing | PDFWINDOWS",
+    "description": "Generate valid-format CPF numbers for testing in your browser. Create mock Brazilian tax IDs locally for QA and dev — free, private, no upload.",
+    "canonical": "https://www.pdfwindows.com/en/cpf-generator"
+  },
+  "/pt/gerador-cpf": {
+    "lang": "pt-BR",
+    "title": "Gerador de CPF para Testes de Software | PDFWINDOWS",
+    "description": "Gere CPFs válidos para testes no navegador. Crie documentos fictícios localmente para QA, desenvolvimento e homologação — grátis, privado e sem upload.",
+    "canonical": "https://www.pdfwindows.com/pt/gerador-cpf"
+  },
+  "/es/generador-cpf": {
+    "lang": "es",
+    "title": "Generador de CPF para Pruebas de Software | PDFWINDOWS",
+    "description": "Genera CPF válidos para pruebas en el navegador. Crea documentos ficticios localmente para QA, desarrollo y homologación — gratis, privado y sin subir.",
+    "canonical": "https://www.pdfwindows.com/es/generador-cpf"
+  },
+  "/en/code-cleaner": {
+    "lang": "en",
+    "title": "Code Formatter & Minifier Online Offline | PDFWINDOWS",
+    "description": "Clean and format code in your browser. Beautify JSON, HTML, CSS, and snippets locally with Prettier — free developer utility, private, no upload.",
+    "canonical": "https://www.pdfwindows.com/en/code-cleaner"
+  },
+  "/pt/limpador-de-codigo": {
+    "lang": "pt-BR",
+    "title": "Formatador e Minificador de Código Online Offline | PDFWINDOWS",
+    "description": "Limpe e formate código no navegador. Embeleze JSON, HTML, CSS e snippets localmente com Prettier — utilitário grátis para devs, privado e sem upload.",
+    "canonical": "https://www.pdfwindows.com/pt/limpador-de-codigo"
+  },
+  "/es/limpiador-de-codigo": {
+    "lang": "es",
+    "title": "Formateador y Minificador de Código Online Offline | PDFWINDOWS",
+    "description": "Limpia y formatea código en el navegador. Embellece JSON, HTML, CSS y snippets localmente con Prettier — utilidad gratis para devs, sin subir.",
+    "canonical": "https://www.pdfwindows.com/es/limpiador-de-codigo"
+  }
+}

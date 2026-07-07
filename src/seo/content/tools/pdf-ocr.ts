@@ -267,7 +267,7 @@ export const PDF_OCR_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = {
     cta: defaultCta('pt', 'OCR de PDF'),
   },
   es: {
-    title: 'OCR de PDF Online Offline | PDFWINDOWS',
+    title: 'OCR PDF en Línea Gratis | PDFWINDOWS',
     description:
       'Extraiga texto buscable de PDF escaneados en el navegador con OCR local. Convierta páginas solo-imagen en contenido editable — sin subida, privacidad total.',
     keywords:

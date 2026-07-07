@@ -40,3 +40,5 @@ blob-report/
 *.tmp
 *.temp
 .cache/
+
+.vercel
