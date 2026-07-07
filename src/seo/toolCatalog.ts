@@ -2024,9 +2024,9 @@ export const HOME_COPY: Record<LanguageType, ToolPageCopy> = {
     description:
       'Ferramentas profissionais de PDF e imagem no navegador. Rápido, seguro e privado — seus arquivos nunca saem do seu computador.',
     keywords: 'ferramentas pdf gratis, mesclar pdf, comprimir pdf, converter pdf, proteger pdf',
-    h1: 'Ferramentas PDF e Imagem',
+    h1: 'Ferramentas para PDF e Imagens',
     intro:
-      'Converta, edite e proteja seus documentos com ferramentas rápidas e seguras. Tudo funciona diretamente no navegador — sem cadastro, sem upload e sem instalação.',
+      'Converta, edite, organize e proteja arquivos PDF e imagens diretamente no navegador. Seus arquivos permanecem no seu dispositivo, garantindo mais privacidade, segurança e velocidade.',
     benefits: [
       'Processamento rápido no navegador',
       'Seus arquivos ficam no seu dispositivo',
