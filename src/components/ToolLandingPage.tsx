@@ -3,6 +3,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { PremiumFaq } from './PremiumFaq';
 import { RelatedTools } from './RelatedTools';
 import type { ToolRichContent } from '../seo/content/types';
+import { scrollToToolStart } from '../utils/scrollToToolStart';
 
 const LABELS = {
   en: {
@@ -149,6 +150,11 @@ export function ToolLandingBody({ content }: { content: ToolRichContent }) {
         <p className="text-sm text-slate-600 max-w-lg mx-auto mb-4 leading-relaxed">{content.cta.body}</p>
         <a
           href="#tool-start"
+          onClick={(event) => {
+            if (scrollToToolStart()) {
+              event.preventDefault();
+            }
+          }}
           className="inline-flex items-center justify-center px-6 py-2.5 rounded-xl bg-blue-700 text-white text-sm font-semibold hover:bg-blue-800 transition-colors shadow-sm"
         >
           {content.cta.buttonLabel}
