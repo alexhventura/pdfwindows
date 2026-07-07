@@ -4,8 +4,7 @@ import { localizedPath, stripLocalePrefix } from '../i18n/routes';
 import type { FaqItem } from './toolCatalog';
 import type { BreadcrumbItem } from '../components/Breadcrumbs';
 import { buildToolPageJsonLd } from './schema/buildJsonLd';
-
-const SITE_ORIGIN = 'https://pdfwindows.app';
+import { SITE_ORIGIN } from './siteOrigin';
 
 export interface SEOProps {
   title: string;

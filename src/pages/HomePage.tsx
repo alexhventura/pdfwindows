@@ -14,7 +14,7 @@ export function HomePage() {
     <>
       <SEO
         title={copy.title}
-        description={copy.description}
+        description={copy.intro}
         keywords={copy.keywords}
         path="/"
         lang={lang}
@@ -24,11 +24,7 @@ export function HomePage() {
       />
       <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 pt-6">
         <Breadcrumbs items={[{ label: copy.h1 }]} className="mb-4" />
-        <header className="text-center mb-8">
-          <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-gradient-brand mb-3">{copy.h1}</h1>
-          <p className="text-sm md:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">{copy.intro}</p>
-        </header>
-        <CatalogDashboard />
+        <CatalogDashboard heading={copy.h1} intro={copy.intro} />
         <LazyToolLandingBody path="/" lang={lang} />
       </div>
     </>

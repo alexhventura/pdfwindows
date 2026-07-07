@@ -134,9 +134,9 @@ export const HOME_RICH_CONTENT: Record<'/' | '/conversor', Record<'en' | 'pt' | 
       },
     },
     pt: {
-      title: 'PDFWINDOWS — Ferramentas PDF e Imagem',
+      title: 'PDFWINDOWS — Ferramentas para PDF e Imagens',
       description:
-        'Plataforma profissional de PDF, imagem e produtividade. Ferramentas no navegador, sem cadastro. Explore o catálogo completo.',
+        'Converta, edite, organize e proteja arquivos PDF e imagens diretamente no navegador. Seus arquivos permanecem no seu dispositivo.',
       keywords:
         'ferramentas pdf offline, converter pdf gratis, editor pdf privado, ferramentas imagem local, suite pdf navegador, pdfwindows',
       h1: 'Ferramentas para PDF e Imagens',

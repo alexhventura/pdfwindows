@@ -2020,9 +2020,9 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
 
 export const HOME_COPY: Record<LanguageType, ToolPageCopy> = {
   pt: {
-    title: 'PDFWINDOWS — Ferramentas PDF Grátis e Seguras',
+    title: 'PDFWINDOWS — Ferramentas para PDF e Imagens',
     description:
-      'Ferramentas profissionais de PDF e imagem no navegador. Rápido, seguro e privado — seus arquivos nunca saem do seu computador.',
+      'Converta, edite, organize e proteja arquivos PDF e imagens diretamente no navegador. Seus arquivos permanecem no seu dispositivo.',
     keywords: 'ferramentas pdf gratis, mesclar pdf, comprimir pdf, converter pdf, proteger pdf',
     h1: 'Ferramentas para PDF e Imagens',
     intro:

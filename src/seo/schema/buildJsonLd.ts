@@ -1,6 +1,6 @@
 import type { LanguageType } from '../../types';
 import type { FaqItem } from '../toolCatalog';
-import { SITE_ORIGIN } from '../SEO';
+import { SITE_ORIGIN } from '../siteOrigin';
 import { localizedPath } from '../../i18n/routes';
 
 export interface BreadcrumbItem {

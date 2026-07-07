@@ -1,5 +1,10 @@
 import { writeFileSync } from 'node:fs';
 
+const SITE_ORIGIN = (process.env.VITE_SITE_ORIGIN || process.env.SITE_ORIGIN || 'https://www.pdfwindows.com').replace(
+  /\/$/,
+  ''
+);
+
 const bare = [
   '/',
   '/ferramentas',
@@ -38,7 +43,8 @@ const lines = [
 
 for (const locale of locales) {
   for (const path of bare) {
-    const loc = `https://pdfwindows.app/${locale}${path === '/' ? '' : path}`;
+    const suffix = path === '/' ? '/' : path;
+    const loc = `${SITE_ORIGIN}/${locale}${suffix === '/' ? '/' : suffix}`;
     const priority = path === '/' ? '1.0' : path === '/ferramentas' || path === '/conversor' ? '0.9' : '0.8';
     const freq = path === '/' || path === '/ferramentas' || path === '/conversor' ? 'weekly' : 'monthly';
     lines.push(`  <url><loc>${loc}</loc><changefreq>${freq}</changefreq><priority>${priority}</priority></url>`);
@@ -47,3 +53,14 @@ for (const locale of locales) {
 
 lines.push('</urlset>');
 writeFileSync('public/sitemap.xml', `${lines.join('\n')}\n`);
+
+writeFileSync(
+  'public/robots.txt',
+  `User-agent: *
+Allow: /
+
+Sitemap: ${SITE_ORIGIN}/sitemap.xml
+`
+);
+
+console.log(`Generated sitemap.xml and robots.txt for ${SITE_ORIGIN} (${locales.length * bare.length} URLs)`);

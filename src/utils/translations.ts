@@ -5,7 +5,7 @@ export const translations: Record<LanguageType, TranslationDict> = {
   pt: {
     logoName: "PDF WINDOWS",
     title: "PDF WINDOWS | Gratuito",
-    subtitle: "Professional, sem custos, ferramentas no navegador.",
+    subtitle: "Converta, edite, organize e proteja arquivos PDF e imagens diretamente no navegador. Seus arquivos permanecem no seu dispositivo.",
     selectFileButton: "Escolher arquivos",
     dragDropText: "Solte seus arquivos aqui",
     orText: "ou",
