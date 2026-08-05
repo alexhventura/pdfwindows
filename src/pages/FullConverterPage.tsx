@@ -4,6 +4,7 @@ import { translations } from '../utils/translations';
 import { SEO } from '../seo/SEO';
 import { ToolPageSeoBlocks, toolBreadcrumbs } from '../components/ToolPageLayout';
 import { getPageCopy, getPageToolName } from '../seo/content/getPageCopy';
+import { WorkspaceFallback } from '../components/RouteFallback';
 
 const ConverterWorkbench = lazy(() =>
   import('../components/ConverterWorkbench').then((m) => ({ default: m.ConverterWorkbench }))
@@ -11,8 +12,21 @@ const ConverterWorkbench = lazy(() =>
 
 export function FullConverterPage() {
   const { lang } = useLanguage();
-  const copy = getPageCopy('/conversor', lang);
-  const toolName = getPageToolName('/conversor', lang);
+  const t = translations[lang];
+
+  let copy;
+  let toolName: string;
+  try {
+    copy = getPageCopy('/conversor', lang);
+    toolName = getPageToolName('/conversor', lang);
+  } catch {
+    return (
+      <div className="flex-1 flex items-center justify-center py-28 px-4" role="alert">
+        <p className="text-sm text-slate-500">{t.toolUnavailable}</p>
+      </div>
+    );
+  }
+
   const crumbs = toolBreadcrumbs(lang, toolName, '/conversor');
 
   return (
@@ -28,13 +42,7 @@ export function FullConverterPage() {
         breadcrumbs={crumbs}
       />
       <ToolPageSeoBlocks toolPath="/conversor" lang={lang}>
-        <Suspense
-          fallback={
-            <div className="py-20 text-center text-xs font-bold text-slate-500 uppercase tracking-widest">
-              {translations[lang].loadingConverter}
-            </div>
-          }
-        >
+        <Suspense fallback={<WorkspaceFallback message={t.loadingConverter} />}>
           <ConverterWorkbench showSuiteSection linkMode />
         </Suspense>
       </ToolPageSeoBlocks>

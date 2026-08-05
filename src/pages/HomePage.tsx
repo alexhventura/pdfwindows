@@ -27,7 +27,7 @@ export function HomePage() {
     <>
       <SEO
         title={copy.title}
-        description={copy.intro}
+        description={copy.description}
         keywords={copy.keywords}
         path="/"
         lang={lang}

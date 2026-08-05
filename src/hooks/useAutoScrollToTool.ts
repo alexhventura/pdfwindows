@@ -20,9 +20,17 @@ if (typeof window !== 'undefined') {
   );
 }
 
+function clampScrollToDocument() {
+  const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+  if (window.scrollY > maxScroll) {
+    window.scrollTo(0, maxScroll);
+  }
+}
+
 /**
  * On tool pages, positions the viewport at the workspace on direct entry or forward navigation.
  * Skips browser back/forward and native scroll restoration.
+ * Always clamps scroll so a tall homepage cannot leave the next page scrolled into empty space.
  */
 export function useAutoScrollToTool(targetId: string = TOOL_START_ID) {
   const { pathname } = useLocation();
@@ -54,15 +62,29 @@ export function useAutoScrollToTool(targetId: string = TOOL_START_ID) {
     backForwardCacheRef.current = false;
 
     if (!allowScroll) {
+      clampScrollToDocument();
       return;
     }
 
     // Avoid duplicate scroll on the same path when React re-renders without navigation.
     if (navigationType === 'POP' && lastScrollPathRef.current === pathname) {
+      clampScrollToDocument();
       return;
     }
 
-    scrollToToolStart(targetId);
+    const scrolled = scrollToToolStart(targetId);
+    if (!scrolled) {
+      // Element not painted yet (lazy route) — retry once, then fall back to top.
+      requestAnimationFrame(() => {
+        if (!scrollToToolStart(targetId)) {
+          window.scrollTo(0, 0);
+        }
+        clampScrollToDocument();
+      });
+    } else {
+      clampScrollToDocument();
+    }
+
     lastScrollPathRef.current = pathname;
   }, [pathname, navigationType, targetId]);
 }

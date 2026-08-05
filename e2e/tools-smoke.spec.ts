@@ -62,6 +62,34 @@ test.describe('Tool pages smoke', () => {
   }
 });
 
+test.describe('SPA navigation from home', () => {
+  test('converter tool loads workspace on first click without reload', async ({ page }) => {
+    const errors = await trackPageErrors(page);
+    await page.goto('/en/');
+    await expect(page.locator('.tool-card').first()).toBeVisible({ timeout: 30_000 });
+
+    await page.locator('.tool-card').first().click();
+    await expect(page).not.toHaveURL(/\/en\/?$/);
+    await expect(page.locator('.workspace-panel').first()).toBeVisible({ timeout: 30_000 });
+    await expect(page.locator('#tool-start')).toBeVisible();
+    expect(errors, errors.join('\n')).toEqual([]);
+  });
+
+  test('suite tool loads workspace on first click without reload', async ({ page }) => {
+    const errors = await trackPageErrors(page);
+    await page.goto('/en/');
+    await expect(page.locator('.tool-card').first()).toBeVisible({ timeout: 30_000 });
+
+    // Last cards are suite tools in the catalog order.
+    const suiteCard = page.locator('.tool-card').nth(20);
+    await suiteCard.scrollIntoViewIfNeeded();
+    await suiteCard.click();
+    await expect(page).not.toHaveURL(/\/en\/?$/);
+    await expect(page.locator('.workspace-panel').first()).toBeVisible({ timeout: 30_000 });
+    expect(errors, errors.join('\n')).toEqual([]);
+  });
+});
+
 test.describe('Color picker interactions', () => {
   test.beforeEach(async ({ page }) => {
     await page.addInitScript(() => {

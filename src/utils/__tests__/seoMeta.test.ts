@@ -44,7 +44,9 @@ describe('SEO meta uniqueness and quality', () => {
   });
 
   it('provides FAQ content for every indexable tool page', () => {
-    const paths = getPublicBarePaths().filter((path) => path !== '/' && path !== '/conversor');
+    const paths = getPublicBarePaths().filter(
+      (path) => path !== '/' && path !== '/conversor' && path !== '/privacy' && path !== '/terms'
+    );
     let faqCount = 0;
 
     for (const path of paths) {

@@ -23,6 +23,9 @@ describe('route meta registry', () => {
       expect(entry.description.length).toBeGreaterThanOrEqual(140);
       expect(entry.description.length).toBeLessThanOrEqual(160);
       expect(entry.canonical).toBe(`${CANONICAL_ORIGIN}${path}`);
+      expect(Array.isArray(entry.alternates)).toBe(true);
+      expect(entry.alternates.length).toBe(4);
+      expect(entry.keywords?.length ?? 0).toBeGreaterThan(0);
 
       const locale = path.split('/')[1];
       const expectedLang = locale === 'pt' ? 'pt-BR' : locale === 'es' ? 'es' : 'en';

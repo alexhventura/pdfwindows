@@ -45,7 +45,7 @@ export function ToolLandingHero({ content }: { content: ToolRichContent }) {
           {t.benefits}
         </h2>
         <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-left">
-          {content.benefits.map((item) => (
+          {(content.benefits ?? []).map((item) => (
             <li
               key={item}
               className="flex items-start gap-2 text-xs sm:text-sm text-slate-600 font-medium premium-surface !py-3 !px-4"

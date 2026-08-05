@@ -100,7 +100,8 @@ export function SEO({
 
   useEffect(() => {
     const siteOrigin = getSiteOrigin();
-    const canonical = `${siteOrigin}${localizedPath(lang, path)}`;
+    const localized = localizedPath(lang, path).replace(/\/+$/, '') || `/${lang}`;
+    const canonical = `${siteOrigin}${localized}`;
     document.title = title;
     document.documentElement.lang = lang === 'pt' ? 'pt-BR' : lang === 'es' ? 'es' : 'en';
 
@@ -122,10 +123,12 @@ export function SEO({
     upsertMeta('twitter:image', `${siteOrigin}/logo.png`);
     upsertCanonical(canonical);
 
-    upsertHreflang('en', `${siteOrigin}${localizedPath('en', path)}`);
-    upsertHreflang('pt-BR', `${siteOrigin}${localizedPath('pt', path)}`);
-    upsertHreflang('es', `${siteOrigin}${localizedPath('es', path)}`);
-    upsertHreflang('x-default', `${siteOrigin}${localizedPath('en', path)}`);
+    const hrefFor = (l: LanguageType) =>
+      `${siteOrigin}${localizedPath(l, path).replace(/\/+$/, '') || `/${l}`}`;
+    upsertHreflang('en', hrefFor('en'));
+    upsertHreflang('pt-BR', hrefFor('pt'));
+    upsertHreflang('es', hrefFor('es'));
+    upsertHreflang('x-default', hrefFor('en'));
 
     const schemaBreadcrumbs = breadcrumbs.map((b) => ({
       name: b.label,

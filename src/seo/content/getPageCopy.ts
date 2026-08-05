@@ -3,6 +3,7 @@ import type { ToolPageCopy } from '../toolCatalog';
 import { HOME_COPY, TOOL_PAGES } from '../toolCatalog';
 import { getRichContent } from './registry';
 import { applyMetaDescriptionOverride } from '../metaDescriptions';
+import { LEGAL_COPY } from './legalCopy';
 
 function richToPageCopy(
   path: string,
@@ -30,6 +31,10 @@ export function getPageCopy(path: string, lang: LanguageType): ToolPageCopy {
 
   if (normalized === '/') {
     return HOME_COPY[lang];
+  }
+
+  if (normalized === '/privacy' || normalized === '/terms') {
+    return LEGAL_COPY[normalized][lang];
   }
 
   if (normalized === '/conversor') {

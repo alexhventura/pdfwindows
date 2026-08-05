@@ -1,34 +1,31 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { BookOpen, X } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { useLocalizedPath } from '../hooks/useLocalizedPath';
 import { translations } from '../utils/translations';
 import { conversionDirectory } from '../utils/conversionDirectory';
 
-type FooterModalId = 'terms' | 'privacy' | 'manual' | 'directory' | 'cookies';
+type FooterModalId = 'manual' | 'directory' | 'cookies';
 
 export function SiteFooter() {
   const { lang } = useLanguage();
+  const lp = useLocalizedPath();
   const t = translations[lang];
   const [activeModal, setActiveModal] = useState<FooterModalId | null>(null);
 
-  const links: { id: FooterModalId; label: string }[] = [
-    { id: 'terms', label: t.footerTerms },
-    { id: 'privacy', label: t.footerPrivacy },
+  const modalLinks: { id: FooterModalId; label: string }[] = [
     { id: 'manual', label: t.footerManual },
     { id: 'directory', label: t.directoryButton },
     { id: 'cookies', label: t.footerCookies },
   ];
 
   const modalTitle =
-    activeModal === 'terms'
-      ? t.termsTitle
-      : activeModal === 'privacy'
-        ? t.privacyTitle
-        : activeModal === 'manual'
-          ? t.manualTitle
-          : activeModal === 'cookies'
-            ? t.cookiesTitle
-            : t.directoryButton;
+    activeModal === 'manual'
+      ? t.manualTitle
+      : activeModal === 'cookies'
+        ? t.cookiesTitle
+        : t.directoryButton;
 
   return (
     <>
@@ -45,7 +42,13 @@ export function SiteFooter() {
               className="flex flex-wrap items-center justify-center md:justify-end gap-x-4 gap-y-2 text-xs font-medium"
               aria-label="Footer"
             >
-              {links.map((link) => (
+              <Link to={lp('/terms')} className="text-slate-400 hover:text-white transition-colors whitespace-nowrap">
+                {t.footerTerms}
+              </Link>
+              <Link to={lp('/privacy')} className="text-slate-400 hover:text-white transition-colors whitespace-nowrap">
+                {t.footerPrivacy}
+              </Link>
+              {modalLinks.map((link) => (
                 <button
                   key={link.id}
                   type="button"
@@ -78,20 +81,6 @@ export function SiteFooter() {
             </div>
 
             <div className="p-6 overflow-y-auto max-h-[60vh] text-xs leading-relaxed text-slate-600 space-y-4 custom-scrollbar">
-              {activeModal === 'terms' && (
-                <div className="space-y-4">
-                  {t.termsBody.map((paragraph, idx) => (
-                    <p key={idx}>{paragraph}</p>
-                  ))}
-                </div>
-              )}
-              {activeModal === 'privacy' && (
-                <div className="space-y-4">
-                  {t.privacyBody.map((paragraph, idx) => (
-                    <p key={idx}>{paragraph}</p>
-                  ))}
-                </div>
-              )}
               {activeModal === 'manual' && (
                 <div className="space-y-4">
                   {t.manualBody.map((paragraph, idx) => (
@@ -120,35 +109,18 @@ export function SiteFooter() {
                       )}
                     </div>
                   ))}
-                  <p className="font-semibold text-slate-800 text-[13px] pt-2 border-t border-slate-100">
-                    {t.cookiesClosing}
-                  </p>
                 </div>
               )}
               {activeModal === 'directory' && (
-                <div className="space-y-5 text-slate-700">
-                  <p className="text-[13px] text-slate-600 border-b border-slate-100 pb-3">{conversionDirectory[lang].intro}</p>
-                  {conversionDirectory[lang].sections.map((section) => (
-                    <div key={section.title} className="premium-surface !p-4">
-                      <h3 className="font-semibold text-slate-800 text-xs mb-3">{section.title}</h3>
-                      <ul className="space-y-2">
-                        {section.items.map((item) => (
-                          <li key={item.name} className="text-[11px]">
-                            <p className="font-semibold text-slate-800">{item.name}</p>
-                            <p className="text-slate-500 mt-0.5">{item.description}</p>
-                          </li>
-                        ))}
-                      </ul>
+                <div className="space-y-3">
+                  {conversionDirectory[lang].map((item) => (
+                    <div key={item.title} className="rounded-xl border border-slate-100 bg-slate-50/80 px-3 py-2">
+                      <p className="font-semibold text-slate-800 text-[11px]">{item.title}</p>
+                      <p className="text-slate-500 mt-1">{item.description}</p>
                     </div>
                   ))}
                 </div>
               )}
-            </div>
-
-            <div className="px-6 py-3 border-t border-slate-200/80 flex justify-end">
-              <button type="button" onClick={() => setActiveModal(null)} className="btn-primary text-xs py-2 px-4">
-                {t.modalClose}
-              </button>
             </div>
           </div>
         </div>

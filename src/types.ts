@@ -177,6 +177,10 @@ export interface TranslationDict {
   cancelProcessLabel: string;
   openingWorkspace: string;
   loadingConverter: string;
+  toolUnavailable: string;
+  routeErrorTitle: string;
+  routeErrorDescription: string;
+  routeErrorRetry: string;
   watermarkPreviewTitle: string;
   watermarkPreviewPage: string;
   watermarkPreviewLoading: string;

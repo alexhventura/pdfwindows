@@ -7,7 +7,7 @@ import { getToolPageByPath } from '../seo/toolCatalog';
 import { ToolPageSeoBlocks, toolBreadcrumbs } from '../components/ToolPageLayout';
 import { getPageCopy, getPageToolName } from '../seo/content/getPageCopy';
 import { useLocalizedPath } from '../hooks/useLocalizedPath';
-import { LogoImage } from '../components/LogoImage';
+import { WorkspaceFallback } from '../components/RouteFallback';
 
 const ConverterWorkbench = lazy(() =>
   import('../components/ConverterWorkbench').then((m) => ({ default: m.ConverterWorkbench }))
@@ -18,13 +18,33 @@ export function ConverterToolPage() {
   const { pathname } = useLocation();
   const lp = useLocalizedPath();
   const tool = getToolPageByPath(pathname);
+  const t = translations[lang];
 
-  if (!tool || !tool.operation) {
+  if (!tool) {
+    return (
+      <div className="flex-1 flex items-center justify-center py-28 px-4" role="status">
+        <p className="text-sm text-slate-500">{t.toolUnavailable}</p>
+      </div>
+    );
+  }
+
+  if (!tool.operation) {
     return <Navigate to={lp('/')} replace />;
   }
 
-  const copy = getPageCopy(tool.path, lang);
-  const toolName = getPageToolName(tool.path, lang);
+  let copy;
+  let toolName: string;
+  try {
+    copy = getPageCopy(tool.path, lang);
+    toolName = getPageToolName(tool.path, lang);
+  } catch {
+    return (
+      <div className="flex-1 flex items-center justify-center py-28 px-4" role="alert">
+        <p className="text-sm text-slate-500">{t.toolUnavailable}</p>
+      </div>
+    );
+  }
+
   const crumbs = toolBreadcrumbs(lang, toolName, tool.path);
 
   return (
@@ -40,16 +60,7 @@ export function ConverterToolPage() {
         breadcrumbs={crumbs}
       />
       <ToolPageSeoBlocks toolPath={tool.path} lang={lang}>
-        <Suspense
-          fallback={
-            <div className="workspace-panel py-20 text-center">
-              <LogoImage size={48} className="w-12 h-12 mx-auto rounded-2xl mb-3 opacity-80" pulse />
-              <p className="text-xs font-medium text-slate-500">
-                {translations[lang].openingWorkspace}
-              </p>
-            </div>
-          }
-        >
+        <Suspense fallback={<WorkspaceFallback message={t.openingWorkspace} />}>
           <ConverterWorkbench
             fixedOperation={tool.operation}
             showSuiteSection={false}

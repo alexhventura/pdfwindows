@@ -1,4 +1,4 @@
-import { lazy, Suspense, useMemo } from 'react';
+import { lazy, useMemo } from 'react';
 import { BrowserRouter, Navigate, useRoutes } from 'react-router-dom';
 import type { LanguageType } from '../types';
 import { MainLayout } from '../layouts/MainLayout';
@@ -9,7 +9,6 @@ import {
 } from '../seo/pathLocalization';
 import { LocaleGate, RootLocaleRedirect } from './LocaleGate';
 import { useLocalizedPath } from '../hooks/useLocalizedPath';
-import { LogoImage } from '../components/LogoImage';
 
 const HomePage = lazy(() => import('../pages/HomePage').then((m) => ({ default: m.HomePage })));
 const ToolsCatalogPage = lazy(() => import('../pages/ToolsCatalogPage').then((m) => ({ default: m.ToolsCatalogPage })));
@@ -17,19 +16,10 @@ const ConverterToolPage = lazy(() => import('../pages/ConverterToolPage').then((
 const SuiteToolPage = lazy(() => import('../pages/SuiteToolPage').then((m) => ({ default: m.SuiteToolPage })));
 const FullConverterPage = lazy(() => import('../pages/FullConverterPage').then((m) => ({ default: m.FullConverterPage })));
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage').then((m) => ({ default: m.NotFoundPage })));
+const PrivacyPage = lazy(() => import('../pages/LegalPages').then((m) => ({ default: m.PrivacyPage })));
+const TermsPage = lazy(() => import('../pages/LegalPages').then((m) => ({ default: m.TermsPage })));
 
 const LOCALES: LanguageType[] = ['en', 'pt', 'es'];
-
-function PageLoader() {
-  return (
-    <div className="flex-1 flex items-center justify-center py-28">
-      <div className="flex flex-col items-center gap-4 premium-surface !py-8 !px-10">
-        <LogoImage size={56} className="w-14 h-14 rounded-2xl shadow-md" pulse />
-        <p className="text-xs font-semibold text-slate-500">PDFWINDOWS</p>
-      </div>
-    </div>
-  );
-}
 
 function LocalizedRedirect({ to, hash }: { to: string; hash?: string }) {
   const lp = useLocalizedPath();
@@ -80,6 +70,16 @@ function LocalizedRoutes() {
     []
   );
 
+  const privacySegments = useMemo(
+    () => [...new Set(LOCALES.map((lang) => getLocalizedSlug(lang, '/privacy')).filter(Boolean))],
+    []
+  );
+
+  const termsSegments = useMemo(
+    () => [...new Set(LOCALES.map((lang) => getLocalizedSlug(lang, '/terms')).filter(Boolean))],
+    []
+  );
+
   const legacyRedirects = useMemo(
     () =>
       getLegacySlugSegments().map(({ segment, canonical }) => ({
@@ -111,6 +111,14 @@ function LocalizedRoutes() {
                 path,
                 element: <FullConverterPage />,
               })),
+              ...privacySegments.map((path) => ({
+                path,
+                element: <PrivacyPage />,
+              })),
+              ...termsSegments.map((path) => ({
+                path,
+                element: <TermsPage />,
+              })),
               {
                 path: 'gerador-recibos',
                 element: <LocalizedRedirect to="/gerador-relatorios" hash="#recibo" />,
@@ -128,7 +136,7 @@ function LocalizedRoutes() {
         ],
       },
     ],
-    [catalogSegments, converterSegments, converterRoutes, legacyRedirects, suiteRoutes]
+    [catalogSegments, converterSegments, converterRoutes, legacyRedirects, privacySegments, suiteRoutes, termsSegments]
   );
 
   return useRoutes(routes);
@@ -137,9 +145,7 @@ function LocalizedRoutes() {
 export default function App() {
   return (
     <BrowserRouter>
-      <Suspense fallback={<PageLoader />}>
-        <LocalizedRoutes />
-      </Suspense>
+      <LocalizedRoutes />
     </BrowserRouter>
   );
 }

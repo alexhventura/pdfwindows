@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import type { LanguageType } from '../types';
 import { getInitialLocale, isValidLocale, saveStoredLanguage } from '../i18n/language';
@@ -20,6 +20,9 @@ interface LanguageProviderProps {
 export function LanguageProvider({ children, localeFromRoute }: LanguageProviderProps) {
   const navigate = useNavigate();
   const location = useLocation();
+  const locationRef = useRef(location);
+  locationRef.current = location;
+
   const localeFromPath = parseLocaleFromPath(location.pathname);
   const [lang, setLangState] = useState<LanguageType>(localeFromRoute ?? localeFromPath ?? getInitialLocale());
 
@@ -28,17 +31,19 @@ export function LanguageProvider({ children, localeFromRoute }: LanguageProvider
     if (resolved) setLangState(resolved);
   }, [localeFromRoute, localeFromPath]);
 
+  // Keep setLang stable across pathname changes so consumers do not remount lazy trees.
   const setLang = useCallback(
     (next: LanguageType) => {
       saveStoredLanguage(next);
       setLangState(next);
-      const bare = stripLocalePrefix(location.pathname);
-      const target = localizedPath(next, bare) + location.search + location.hash;
-      if (target !== location.pathname + location.search + location.hash) {
+      const loc = locationRef.current;
+      const bare = stripLocalePrefix(loc.pathname);
+      const target = localizedPath(next, bare) + loc.search + loc.hash;
+      if (target !== loc.pathname + loc.search + loc.hash) {
         navigate(target, { replace: true });
       }
     },
-    [location.hash, location.pathname, location.search, navigate]
+    [navigate]
   );
 
   const value = useMemo(() => ({ lang, setLang }), [lang, setLang]);

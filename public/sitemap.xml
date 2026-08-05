@@ -577,6 +577,54 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/watermark-pdf"/>
   </url>
   <url>
+    <loc>https://www.pdfwindows.com/en/privacy</loc>
+    <lastmod>2026-07-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/privacidade"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/privacidad"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/privacy"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/pt/privacidade</loc>
+    <lastmod>2026-07-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/privacidade"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/privacidad"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/privacy"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/es/privacidad</loc>
+    <lastmod>2026-07-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/privacidade"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/privacidad"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/privacy"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/en/terms</loc>
+    <lastmod>2026-07-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/terms"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/termos"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/terminos"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/terms"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/pt/termos</loc>
+    <lastmod>2026-07-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/terms"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/termos"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/terminos"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/terms"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/es/terminos</loc>
+    <lastmod>2026-07-07</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/terms"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/termos"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/terminos"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/terms"/>
+  </url>
+  <url>
     <loc>https://www.pdfwindows.com/en/txt-to-pdf</loc>
     <lastmod>2026-07-07</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/txt-to-pdf"/>

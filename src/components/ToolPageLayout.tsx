@@ -30,17 +30,34 @@ export function ToolPageSeoBlocks({
   lang: LanguageType;
   children: ReactNode;
 }) {
-  const copy = getPageCopy(toolPath, lang);
-  const toolName = getPageToolName(toolPath, lang);
-  const crumbs = toolBreadcrumbs(lang, toolName, toolPath);
   useAutoScrollToTool(TOOL_START_ID);
+
+  let copy;
+  let toolName: string;
+  try {
+    copy = getPageCopy(toolPath, lang);
+    toolName = getPageToolName(toolPath, lang);
+  } catch {
+    return (
+      <div
+        id={TOOL_START_ID}
+        className="w-full max-w-4xl mx-auto px-4 sm:px-6 py-20 text-center tool-workspace-anchor"
+        role="alert"
+      >
+        <p className="text-sm text-slate-500">Unavailable</p>
+        {children}
+      </div>
+    );
+  }
+
+  const crumbs = toolBreadcrumbs(lang, toolName, toolPath);
 
   return (
     <>
       <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 pt-4">
         <ToolBackNav className="mb-4" />
         <Breadcrumbs items={crumbs} className="mb-5" />
-        <ToolLandingHero content={{ ...copy, toolName }} />
+        <ToolLandingHero content={{ ...copy, toolName, benefits: copy.benefits ?? [] }} />
       </div>
       <div
         id={TOOL_START_ID}

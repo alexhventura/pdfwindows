@@ -25,5 +25,7 @@
   "/gerador-relatorios": { "en": "/report-generator", "pt": "/gerador-de-relatorios", "es": "/generador-de-informes" },
   "/gerador-qr-code": { "en": "/qr-code-generator", "pt": "/gerador-qr-code", "es": "/generador-qr" },
   "/gerador-cpf": { "en": "/cpf-generator", "pt": "/gerador-cpf", "es": "/generador-cpf" },
-  "/limpador-codigo": { "en": "/code-cleaner", "pt": "/limpador-de-codigo", "es": "/limpiador-de-codigo" }
+  "/limpador-codigo": { "en": "/code-cleaner", "pt": "/limpador-de-codigo", "es": "/limpiador-de-codigo" },
+  "/privacy": { "en": "/privacy", "pt": "/privacidade", "es": "/privacidad" },
+  "/terms": { "en": "/terms", "pt": "/termos", "es": "/terminos" }
 }
