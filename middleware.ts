@@ -138,7 +138,9 @@ function injectRouteMeta(html: string, meta: RouteMetaEntry): string {
 }
 
 export const config = {
-  matcher: ['/((?!assets/|logo|icon|manifest|sw\\.js|sitemap\\.xml|robots\\.txt|.*\\.[a-zA-Z0-9]+$).*)'],
+  matcher: [
+    '/((?!assets/|logo|icon|manifest|sw\\.js|sitemap\\.xml|robots\\.txt|ads\\.txt|.*\\.[a-zA-Z0-9]+$).*)',
+  ],
 };
 
 export default async function middleware(request: Request) {
