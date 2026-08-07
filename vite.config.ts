@@ -37,6 +37,7 @@ export default defineConfig(() => {
             if (id.includes('node_modules/prettier')) return 'prettier';
             if (id.includes('node_modules/motion')) return 'motion';
             if (id.includes('node_modules/lucide-react')) return 'icons';
+            if (id.includes('node_modules/docx') || id.includes('node_modules/jszip')) return 'docx';
             if (id.includes('node_modules/qrcode')) return 'qrcode';
           },
         },

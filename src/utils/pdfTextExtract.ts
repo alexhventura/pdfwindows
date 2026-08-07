@@ -2,6 +2,7 @@ import type { PDFPageProxy } from 'pdfjs-dist';
 import { loadPdfJS } from './pdfjsLoader';
 import { createLocalOcrWorker } from './tesseractLoader';
 import { sanitizePdfText } from './pdfTextSanitizer';
+import { textToDocxBlob } from './textToDocx';
 import {
   buildTextFromPdfContentItems,
   countMeaningfulChars,
@@ -9,6 +10,7 @@ import {
 } from './pdfTextLayerParse';
 
 export const PDF_TEXT_EXTRACT_MAX_PAGES = 30;
+export type PdfTextExportFormat = 'txt' | 'docx';
 
 /**
  * PDF.js pode transferir o buffer para o worker (detach). Sempre passar uma cópia
@@ -114,14 +116,21 @@ function buildOutputHeader(
   ].join('\n');
 }
 
+export interface ExtractedPdfText {
+  text: string;
+  method: 'text-layer' | 'ocr';
+  pagesRead: number;
+  totalPages: number;
+}
+
 /**
  * Extrai texto legível de PDFs digitais (getTextContent) ou escaneados (OCR).
  * Nunca decodifica o binário do PDF como string.
  */
-export async function extractTextFromPDF(
+export async function extractPdfTextContent(
   file: File,
   ocrLanguage: string = 'por+eng'
-): Promise<Blob> {
+): Promise<ExtractedPdfText> {
   const arrayBuffer = await readFileAsArrayBuffer(file);
   const maxPages = PDF_TEXT_EXTRACT_MAX_PAGES;
 
@@ -147,7 +156,23 @@ export async function extractTextFromPDF(
   }
 
   const header = buildOutputHeader(file, method, pagesRead, totalPages);
-  const output = header + sanitizePdfText(body.trim());
+  const text = header + sanitizePdfText(body.trim());
+  return { text, method, pagesRead, totalPages };
+}
 
-  return new Blob([output], { type: 'text/plain;charset=utf-8' });
+/**
+ * Extrai texto e exporta como TXT ou DOCX (Word), 100% local no navegador.
+ */
+export async function extractTextFromPDF(
+  file: File,
+  ocrLanguage: string = 'por+eng',
+  exportFormat: PdfTextExportFormat = 'txt'
+): Promise<Blob> {
+  const { text } = await extractPdfTextContent(file, ocrLanguage);
+
+  if (exportFormat === 'docx') {
+    return textToDocxBlob(text, `${file.name.replace(/\.pdf$/i, '')} — texto`);
+  }
+
+  return new Blob([text], { type: 'text/plain;charset=utf-8' });
 }

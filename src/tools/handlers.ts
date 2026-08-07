@@ -141,9 +141,14 @@ async function runPdfTxt(ctx: RunToolsContext): Promise<GeneratedFile[]> {
   const { files, options } = ctx;
   const { outputs, tick, finish } = createProgressRunner(ctx);
   const rawBase = baseName(files[0].name, 'pdf');
-  const outBlob = await extractTextFromPDF(files[0].file, options.ocrLanguage);
+  const outBlob = await extractTextFromPDF(
+    files[0].file,
+    options.ocrLanguage,
+    options.textExportFormat || 'txt'
+  );
+  const ext = options.textExportFormat === 'docx' ? 'docx' : 'txt';
   outputs.push({
-    name: `${rawBase}_extracted_text.txt`,
+    name: `${rawBase}_extracted_text.${ext}`,
     url: URL.createObjectURL(outBlob),
     size: outBlob.size,
   });

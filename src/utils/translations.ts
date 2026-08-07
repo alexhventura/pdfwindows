@@ -27,7 +27,7 @@ export const translations: Record<LanguageType, TranslationDict> = {
     
     // PDF ops
     pdfToImgLabel: "Converter PDF em Imagens (Renderizar páginas individuais)",
-    extractText: "Extrair Texto do PDF (Converter para TXT)",
+    extractText: "Extrair Texto do PDF (TXT ou Word/DOCX)",
     addPassword: "Proteger PDF",
     splitPDF: "Dividir PDF",
     mergePDFLabel: "Mesclar PDFs",
@@ -52,6 +52,9 @@ export const translations: Record<LanguageType, TranslationDict> = {
     
     ocrLangLabel: "Selecione o Idioma do OCR",
     watermarkTextLabel: "Texto da Marca d'Água",
+    textExportFormatLabel: "Formato de saída do texto",
+    textExportTxt: "TXT (texto simples)",
+    textExportDocx: "Word (DOCX)",
     watermarkImageLabel: "Ou selecione uma imagem de Logo",
     watermarkOpacityLabel: "Transparência",
     watermarkRotationLabel: "Rotação",
@@ -308,7 +311,7 @@ export const translations: Record<LanguageType, TranslationDict> = {
     
     // PDF ops
     pdfToImgLabel: "Convert PDF to Images (Render individual pages)",
-    extractText: "Extract PDF Text (Export to TXT)",
+    extractText: "Extract PDF Text (TXT or Word/DOCX)",
     addPassword: "Protect PDF",
     splitPDF: "Split PDF",
     mergePDFLabel: "Merge PDFs",
@@ -333,6 +336,9 @@ export const translations: Record<LanguageType, TranslationDict> = {
     
     ocrLangLabel: "Select OCR Language",
     watermarkTextLabel: "Watermark Text",
+    textExportFormatLabel: "Text output format",
+    textExportTxt: "TXT (plain text)",
+    textExportDocx: "Word (DOCX)",
     watermarkImageLabel: "Or select a Logo image",
     watermarkOpacityLabel: "Opacity",
     watermarkRotationLabel: "Rotation",
@@ -589,7 +595,7 @@ export const translations: Record<LanguageType, TranslationDict> = {
     
     // PDF ops
     pdfToImgLabel: "Convertir PDF a Imágenes (Renderizar páginas individuales)",
-    extractText: "Extraer Texto del PDF (Exportar a TXT)",
+    extractText: "Extraer Texto del PDF (TXT o Word/DOCX)",
     addPassword: "Proteger PDF",
     splitPDF: "Dividir PDF",
     mergePDFLabel: "Unir PDF",
@@ -614,6 +620,9 @@ export const translations: Record<LanguageType, TranslationDict> = {
     
     ocrLangLabel: "Seleccionar Idioma OCR",
     watermarkTextLabel: "Texto de Marca de Agua",
+    textExportFormatLabel: "Formato de salida del texto",
+    textExportTxt: "TXT (texto simple)",
+    textExportDocx: "Word (DOCX)",
     watermarkImageLabel: "O seleccione una imagen de Logo",
     watermarkOpacityLabel: "Transparencia",
     watermarkRotationLabel: "Rotación",

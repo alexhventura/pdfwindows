@@ -57,6 +57,9 @@ export interface TranslationDict {
   
   ocrLangLabel: string;
   watermarkTextLabel: string;
+  textExportFormatLabel: string;
+  textExportTxt: string;
+  textExportDocx: string;
   watermarkImageLabel: string;
   watermarkOpacityLabel: string;
   watermarkRotationLabel: string;
@@ -257,6 +260,7 @@ export interface ConverterState {
     pdfPositioning: 'center' | 'fit' | 'original';
     // New Advanced Options
     ocrLanguage: string;
+    textExportFormat: 'txt' | 'docx';
     watermarkText?: string;
     watermarkImage?: File;
     watermarkOpacity: number;

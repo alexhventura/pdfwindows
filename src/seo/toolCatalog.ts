@@ -740,7 +740,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
       title: 'Extrair Texto de PDF Online | PDFWINDOWS',
       description:
         'Extraia o conteúdo textual de PDFs nativos no navegador. Rápido, gratuito e sem upload.',
-      keywords: 'extrair texto pdf, pdf para txt, copiar texto pdf, texto de pdf',
+      keywords: 'extrair texto pdf, pdf para txt, pdf para word, pdf para docx, copiar texto pdf, texto de pdf',
       h1: 'Extrair Texto de PDF',
       intro:
         'Obtenha o texto de PDFs com conteúdo nativo — contratos, artigos e relatórios. Processamento instantâneo no seu dispositivo.',
