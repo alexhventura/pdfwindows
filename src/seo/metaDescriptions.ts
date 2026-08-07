@@ -29,7 +29,9 @@ export const META_DESCRIPTION_OVERRIDES: Partial<
     es: 'Convierte páginas PDF a JPG o PNG en el navegador. Exporta diapositivas, escaneos o gráficos localmente con calidad nítida — gratis, privado y sin subir.',
   },
   '/pdf-extract-text': {
-    pt: 'Extraia texto de PDFs no navegador. Copie conteúdo de relatórios e contratos localmente, sem enviar arquivos a servidores — rápido, grátis e privado.',
+    en: 'Extract text from PDFs in your browser and export as TXT or editable Word (DOCX). 100% local processing — free, private, and no upload required.',
+    pt: 'Extraia texto de PDFs no navegador e exporte em TXT ou Word (DOCX) editável. Processamento 100% local — grátis, privado e sem enviar arquivos.',
+    es: 'Extrae texto de PDFs en el navegador y exporta a TXT o Word (DOCX) editable. Procesamiento 100% local — gratis, privado y sin subir archivos.',
   },
   '/image-converter': {
     en: 'Convert images between JPG, PNG, and WebP in your browser. Resize, optimize, and download locally — fast batch conversion with no upload required.',

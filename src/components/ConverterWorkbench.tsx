@@ -847,6 +847,65 @@ export function ConverterWorkbench({
                                     </div>
                                   )}
 
+                                  {/* PDF extract text: output format (TXT / Word DOCX) + OCR language */}
+                                  {state.selectedOperation === 'pdf-txt' && (
+                                    <div className="space-y-4 text-left">
+                                      <div className="space-y-2">
+                                        <label className="block text-[10px] font-extrabold text-slate-500 uppercase tracking-wide">
+                                          {t.textExportFormatLabel}
+                                        </label>
+                                        <div className="grid grid-cols-2 gap-2">
+                                          {([
+                                            { id: 'txt' as const, label: t.textExportTxt },
+                                            { id: 'docx' as const, label: t.textExportDocx },
+                                          ]).map((fmt) => (
+                                            <button
+                                              key={fmt.id}
+                                              type="button"
+                                              onClick={() =>
+                                                setState((prev) => ({
+                                                  ...prev,
+                                                  options: { ...prev.options, textExportFormat: fmt.id },
+                                                }))
+                                              }
+                                              className={`py-2.5 px-3 rounded-xl text-[10px] font-black uppercase tracking-wide border transition-all ${
+                                                (state.options.textExportFormat || 'txt') === fmt.id
+                                                  ? 'bg-blue-950 text-white border-blue-950 shadow-sm'
+                                                  : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
+                                              }`}
+                                            >
+                                              {fmt.label}
+                                            </button>
+                                          ))}
+                                        </div>
+                                        <p className="text-[10px] text-slate-500 font-medium leading-relaxed">
+                                          {t.textExportHint}
+                                        </p>
+                                      </div>
+                                      <div className="space-y-2 border-t border-slate-100 pt-3">
+                                        <label className="block text-[10px] font-extrabold text-slate-500 uppercase tracking-wide">
+                                          {t.ocrLangLabel}
+                                        </label>
+                                        <select
+                                          value={state.options.ocrLanguage}
+                                          onChange={(e) =>
+                                            setState((prev) => ({
+                                              ...prev,
+                                              options: { ...prev.options, ocrLanguage: e.target.value },
+                                            }))
+                                          }
+                                          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-xs font-bold focus:ring-1 focus:ring-blue-950 outline-none"
+                                        >
+                                          <option value="por">Português</option>
+                                          <option value="eng">English</option>
+                                          <option value="spa">Español</option>
+                                          <option value="por+eng">Português + English</option>
+                                          <option value="spa+eng">Español + English</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                  )}
+
                                   {/* 7. OCR Settings */}
                                   {(state.selectedOperation === 'img-ocr' || state.selectedOperation === 'pdf-ocr') && (
                                     <div className="space-y-2 text-left">
@@ -861,9 +920,11 @@ export function ConverterWorkbench({
                                         }))}
                                         className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-xs font-bold focus:ring-1 focus:ring-blue-950 outline-none"
                                       >
+                                        <option value="por">Português (mais rápido)</option>
+                                        <option value="eng">English (faster)</option>
+                                        <option value="spa">Español (más rápido)</option>
                                         <option value="por+eng">Português + English</option>
                                         <option value="spa+eng">Español + English</option>
-                                        <option value="eng">English Only</option>
                                       </select>
                                     </div>
                                   )}
@@ -1275,8 +1336,6 @@ export function ConverterWorkbench({
                               )}
                             </div>
                           )}
-
-
 
                           {/* Action start workflow CTA trigger */}
                           <div className="pt-2">

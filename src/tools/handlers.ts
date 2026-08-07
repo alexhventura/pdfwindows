@@ -138,18 +138,23 @@ async function runPdfToImg(ctx: RunToolsContext): Promise<GeneratedFile[]> {
 }
 
 async function runPdfTxt(ctx: RunToolsContext): Promise<GeneratedFile[]> {
-  const { files, options } = ctx;
-  const { outputs, tick, finish } = createProgressRunner(ctx);
+  const { files, options, onProgress } = ctx;
   const rawBase = baseName(files[0].name, 'pdf');
-  const outBlob = await extractTextFromPDF(files[0].file, options.ocrLanguage);
-  outputs.push({
-    name: `${rawBase}_extracted_text.txt`,
-    url: URL.createObjectURL(outBlob),
-    size: outBlob.size,
-  });
-  tick();
-  finish();
-  return outputs;
+  const outBlob = await extractTextFromPDF(
+    files[0].file,
+    options.ocrLanguage,
+    options.textExportFormat || 'txt',
+    ({ page, total }) => onProgress?.(Math.min(99, Math.round((page / Math.max(1, total)) * 100)))
+  );
+  const ext = options.textExportFormat === 'docx' ? 'docx' : 'txt';
+  onProgress?.(100);
+  return [
+    {
+      name: `${rawBase}_extracted_text.${ext}`,
+      url: URL.createObjectURL(outBlob),
+      size: outBlob.size,
+    },
+  ];
 }
 
 async function runPdfMerge(ctx: RunToolsContext): Promise<GeneratedFile[]> {

@@ -6,10 +6,17 @@ import type { PDFPageProxy } from 'pdfjs-dist';
 import { loadPdfJS } from '../utils/pdfjsLoader';
 import { drawPdfWindowsFooter } from '../utils/pdfFooter';
 import { createLocalOcrWorker } from '../utils/tesseractLoader';
+import {
+  OCR_MAX_PAGES,
+  adaptiveOcrScale,
+  canvasToOcrJpegBlob,
+  renderPdfPageForOcr,
+  yieldToUi,
+} from '../utils/ocrPageRender';
 
-export const PDF_OCR_MAX_PAGES = 30;
-/** Render scale for OCR input (paired with user_defined_dpi below) */
-export const PDF_RENDER_SCALE = 2;
+export const PDF_OCR_MAX_PAGES = OCR_MAX_PAGES;
+/** @deprecated use adaptiveOcrScale — kept for imports that expect a constant */
+export const PDF_RENDER_SCALE = 1.35;
 
 export interface PdfOcrProgress {
   page: number;
@@ -51,19 +58,6 @@ function extractWords(data: {
   return out;
 }
 
-async function renderPageToCanvas(
-  pdfjsPage: PDFPageProxy
-): Promise<{ canvas: HTMLCanvasElement; viewport: { width: number; height: number } }> {
-  const viewport = pdfjsPage.getViewport({ scale: PDF_RENDER_SCALE });
-  const canvas = document.createElement('canvas');
-  canvas.width = Math.floor(viewport.width);
-  canvas.height = Math.floor(viewport.height);
-  const ctx = canvas.getContext('2d');
-  if (!ctx) throw new Error('Canvas 2D unavailable');
-  await pdfjsPage.render({ canvasContext: ctx, viewport, canvas }).promise;
-  return { canvas, viewport: { width: viewport.width, height: viewport.height } };
-}
-
 /**
  * Tesseract TessPDFRenderer — background image + invisible text layer
  * (Ctrl+F, word selection, copy/paste in Adobe/Chrome).
@@ -73,8 +67,9 @@ async function recognizeCanvasToSearchablePdf(
   canvas: HTMLCanvasElement,
   pageLabel: string
 ): Promise<Uint8Array> {
+  const jpeg = await canvasToOcrJpegBlob(canvas, 0.78);
   const { data } = await worker.recognize(
-    canvas.toDataURL('image/png'),
+    jpeg,
     {
       pdfTitle: pageLabel,
       pdfTextOnly: false,
@@ -141,7 +136,8 @@ async function addFallbackPage(
   const page = outDoc.addPage(copied);
   const { width: pageWidth, height: pageHeight } = page.getSize();
 
-  const { data } = await worker.recognize(canvas.toDataURL('image/png'), {}, { blocks: true, pdf: false });
+  const jpeg = await canvasToOcrJpegBlob(canvas, 0.78);
+  const { data } = await worker.recognize(jpeg, {}, { blocks: true, pdf: false });
   drawSearchableTextLayer(
     page,
     overlayFont,
@@ -169,6 +165,7 @@ export async function buildSearchablePdfFromFile(
   const pdfBytes = new Uint8Array(arrayBuffer).slice();
   const pdfjsDoc = await pdfjsLib.getDocument({ data: pdfBytes }).promise;
   const total = Math.min(pdfjsDoc.numPages, PDF_OCR_MAX_PAGES, srcDoc.getPageCount());
+  const renderScale = adaptiveOcrScale(total);
 
   const outDoc = await PDFDocument.create();
   const worker: Worker = await createLocalOcrWorker(language);
@@ -176,7 +173,8 @@ export async function buildSearchablePdfFromFile(
 
   await worker.setParameters({
     preserve_interword_spaces: '1',
-    user_defined_dpi: String(Math.round(72 * PDF_RENDER_SCALE)),
+    tessedit_pageseg_mode: '6',
+    user_defined_dpi: String(Math.round(72 * renderScale)),
   });
 
   let tessPdfAvailable = true;
@@ -188,8 +186,9 @@ export async function buildSearchablePdfFromFile(
       }
       onProgress?.({ page: i, total });
 
-      const pdfjsPage = await pdfjsDoc.getPage(i);
-      const { canvas, viewport } = await renderPageToCanvas(pdfjsPage);
+      const pdfjsPage: PDFPageProxy = await pdfjsDoc.getPage(i);
+      const { canvas } = await renderPdfPageForOcr(pdfjsPage, renderScale);
+      const viewport = { width: canvas.width, height: canvas.height };
 
       let added = false;
 
@@ -213,6 +212,10 @@ export async function buildSearchablePdfFromFile(
       if (!added) {
         await addFallbackPage(worker, outDoc, srcDoc, overlayFont, i - 1, canvas, viewport);
       }
+
+      canvas.width = 0;
+      canvas.height = 0;
+      await yieldToUi();
     }
   } finally {
     await worker.terminate();

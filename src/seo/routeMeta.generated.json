@@ -752,8 +752,8 @@
   "/en/extract-pdf-text": {
     "lang": "en",
     "title": "Extract Text from PDF Online Offline | PDFWINDOWS",
-    "description": "Pull selectable text from native PDFs in your browser. Fast plain-text export for editing, search, and data pipelines — no upload, full privacy.",
-    "keywords": "extract text pdf, pdf to txt, copy pdf text offline, get text from pdf browser, pdf text extractor free",
+    "description": "Extract text from PDFs in your browser and export as TXT or editable Word (DOCX). 100% local processing — free, private, and no upload required.",
+    "keywords": "extract text pdf, pdf to txt, pdf to word, pdf to docx, copy pdf text offline, get text from pdf browser, pdf text extractor free",
     "canonical": "https://www.pdfwindows.com/en/extract-pdf-text",
     "alternates": [
       {
@@ -777,8 +777,8 @@
   "/pt/extrair-texto-pdf": {
     "lang": "pt-BR",
     "title": "Extrair Texto de PDF Online Offline | PDFWINDOWS",
-    "description": "Extraia texto de PDFs no navegador. Copie conteúdo de relatórios e contratos localmente, sem enviar arquivos a servidores — rápido, grátis e privado.",
-    "keywords": "extrair texto pdf, pdf para txt, copiar texto pdf offline, texto de pdf navegador, extrator texto pdf gratis",
+    "description": "Extraia texto de PDFs no navegador e exporte em TXT ou Word (DOCX) editável. Processamento 100% local — grátis, privado e sem enviar arquivos.",
+    "keywords": "extrair texto pdf, pdf para txt, pdf para word, pdf para docx, copiar texto pdf offline, extrator texto pdf gratis",
     "canonical": "https://www.pdfwindows.com/pt/extrair-texto-pdf",
     "alternates": [
       {
@@ -802,8 +802,8 @@
   "/es/extraer-texto-pdf": {
     "lang": "es",
     "title": "Extraer Texto de PDF Online Offline | PDFWINDOWS",
-    "description": "Extraiga texto seleccionable de PDF nativos en su navegador. Exportación rápida en texto plano para edición y búsqueda — sin subida, privacidad total.",
-    "keywords": "extraer texto pdf, pdf a txt, copiar texto pdf offline, texto de pdf navegador, extractor texto pdf gratis",
+    "description": "Extrae texto de PDFs en el navegador y exporta a TXT o Word (DOCX) editable. Procesamiento 100% local — gratis, privado y sin subir archivos.",
+    "keywords": "extraer texto pdf, pdf a txt, pdf a word, pdf a docx, copiar texto pdf offline, extractor texto pdf gratis",
     "canonical": "https://www.pdfwindows.com/es/extraer-texto-pdf",
     "alternates": [
       {
