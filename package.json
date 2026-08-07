@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
-    "build": "node scripts/generate-sitemap.mjs && npx tsx scripts/generate-route-meta.ts && vite build",
+    "postinstall": "node scripts/vendor-tesseract.mjs",
+    "vendor:tesseract": "node scripts/vendor-tesseract.mjs",
+    "build": "node scripts/vendor-tesseract.mjs && node scripts/generate-sitemap.mjs && npx tsx scripts/generate-route-meta.ts && vite build",
     "preview": "vite preview",
     "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
     "lint": "tsc --noEmit",

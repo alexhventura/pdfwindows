@@ -199,7 +199,7 @@ test.describe('Suite tool primary buttons', () => {
   test('CPF generator button', async ({ page }) => {
     await page.goto('/en/gerador-cpf');
     await expect(page.locator('.workspace-panel')).toBeVisible({ timeout: 30_000 });
-    await page.getByRole('button', { name: /Generate new CPF|Gerar novo CPF/i }).click();
+    await page.getByRole('button', { name: /Generate test CPF|Gerar CPF de teste|Generate new CPF|Gerar novo CPF/i }).click();
     await expect(page.locator('.font-mono').filter({ hasText: /\d{3}\.\d{3}\.\d{3}-\d{2}/ })).toBeVisible();
   });
 

@@ -1,6 +1,6 @@
 import type { PDFPageProxy } from 'pdfjs-dist';
-import { createWorker } from 'tesseract.js';
 import { loadPdfJS } from './pdfjsLoader';
+import { createLocalOcrWorker } from './tesseractLoader';
 import { sanitizePdfText } from './pdfTextSanitizer';
 import {
   buildTextFromPdfContentItems,
@@ -61,7 +61,7 @@ async function extractTextViaOcr(
   const data = clonePdfDataForPdfJs(arrayBuffer);
   const pdf = await pdfjsLib.getDocument({ data }).promise;
   const total = Math.min(pdf.numPages, maxPages);
-  const worker = await createWorker(language);
+  const worker = await createLocalOcrWorker(language);
   const blocks: string[] = [];
 
   try {

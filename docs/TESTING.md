@@ -29,4 +29,4 @@ Run: `npm test`
 
 ## OCR note
 
-Tesseract.js may download language data on first OCR use unless language packs are bundled locally. For air-gapped deployments, pre-cache worker/lang assets in `public/` and configure `createWorker` paths accordingly.
+Tesseract worker, WASM core, and language packs (`eng`, `por`, `spa`) are vendored under `public/tesseract/` by `npm run vendor:tesseract` (also runs on `postinstall` / `build`). OCR must not request `cdn.jsdelivr.net` at runtime.

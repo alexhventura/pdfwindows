@@ -1,10 +1,11 @@
 import { PDFDocument, StandardFonts, rgb, type PDFPage, type PDFFont } from 'pdf-lib';
 import type { LanguageType } from '../types';
 import { sanitizePdfText } from '../utils/pdfTextSanitizer';
-import { createWorker, type Worker } from 'tesseract.js';
+import type { Worker } from 'tesseract.js';
 import type { PDFPageProxy } from 'pdfjs-dist';
 import { loadPdfJS } from '../utils/pdfjsLoader';
 import { drawPdfWindowsFooter } from '../utils/pdfFooter';
+import { createLocalOcrWorker } from '../utils/tesseractLoader';
 
 export const PDF_OCR_MAX_PAGES = 30;
 /** Render scale for OCR input (paired with user_defined_dpi below) */
@@ -170,7 +171,7 @@ export async function buildSearchablePdfFromFile(
   const total = Math.min(pdfjsDoc.numPages, PDF_OCR_MAX_PAGES, srcDoc.getPageCount());
 
   const outDoc = await PDFDocument.create();
-  const worker: Worker = await createWorker(language);
+  const worker: Worker = await createLocalOcrWorker(language);
   const overlayFont = await outDoc.embedFont(StandardFonts.Helvetica);
 
   await worker.setParameters({
