@@ -49,5 +49,12 @@ export async function textToDocxBlob(
     ],
   });
 
-  return Packer.toBlob(doc);
+  const blob = await Packer.toBlob(doc);
+  // Ensure browsers download with the correct Word MIME type
+  if (blob.type && blob.type.includes('wordprocessingml')) {
+    return blob;
+  }
+  return new Blob([await blob.arrayBuffer()], {
+    type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  });
 }
