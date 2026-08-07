@@ -1303,12 +1303,6 @@ export function ConverterWorkbench({
                             </div>
                           )}
 
-
-
-                          )}
-
-
-
                           {/* Primary export format for PDF text extract — always visible (not buried in advanced) */}
                           {state.selectedOperation === 'pdf-txt' && (
                             <div className="rounded-xl border-2 border-blue-950/15 bg-white p-4 space-y-3 text-left shadow-sm">
