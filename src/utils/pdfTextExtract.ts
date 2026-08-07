@@ -184,7 +184,7 @@ export async function extractPdfTextContent(
  */
 export async function extractTextFromPDF(
   file: File,
-  ocrLanguage: string = 'por+eng',
+  ocrLanguage: string = 'por',
   exportFormat: PdfTextExportFormat = 'txt',
   onProgress?: (p: ExtractProgress) => void
 ): Promise<Blob> {
