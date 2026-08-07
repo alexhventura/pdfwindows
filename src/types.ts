@@ -60,6 +60,7 @@ export interface TranslationDict {
   textExportFormatLabel: string;
   textExportTxt: string;
   textExportDocx: string;
+  textExportHint: string;
   watermarkImageLabel: string;
   watermarkOpacityLabel: string;
   watermarkRotationLabel: string;

@@ -847,55 +847,28 @@ export function ConverterWorkbench({
                                     </div>
                                   )}
 
-                                  {/* Text export format (TXT / DOCX) */}
+                                  {/* OCR language for extract (format chooser is outside advanced panel) */}
                                   {state.selectedOperation === 'pdf-txt' && (
                                     <div className="space-y-2 text-left">
                                       <label className="block text-[10px] font-extrabold text-slate-500 uppercase tracking-wide">
-                                        {t.textExportFormatLabel}
+                                        {t.ocrLangLabel}
                                       </label>
-                                      <div className="grid grid-cols-2 gap-2">
-                                        {([
-                                          { id: 'txt' as const, label: t.textExportTxt },
-                                          { id: 'docx' as const, label: t.textExportDocx },
-                                        ]).map((fmt) => (
-                                          <button
-                                            key={fmt.id}
-                                            type="button"
-                                            onClick={() =>
-                                              setState((prev) => ({
-                                                ...prev,
-                                                options: { ...prev.options, textExportFormat: fmt.id },
-                                              }))
-                                            }
-                                            className={`py-2.5 px-3 rounded-xl text-[10px] font-black uppercase tracking-wide border transition-all ${
-                                              (state.options.textExportFormat || 'txt') === fmt.id
-                                                ? 'bg-blue-950 text-white border-blue-950 shadow-sm'
-                                                : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
-                                            }`}
-                                          >
-                                            {fmt.label}
-                                          </button>
-                                        ))}
-                                      </div>
-                                      <div className="space-y-2 pt-1">
-                                        <label className="block text-[10px] font-extrabold text-slate-500 uppercase tracking-wide">
-                                          {t.ocrLangLabel}
-                                        </label>
-                                        <select
-                                          value={state.options.ocrLanguage}
-                                          onChange={(e) =>
-                                            setState((prev) => ({
-                                              ...prev,
-                                              options: { ...prev.options, ocrLanguage: e.target.value },
-                                            }))
-                                          }
-                                          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-xs font-bold focus:ring-1 focus:ring-blue-950 outline-none"
-                                        >
-                                          <option value="por+eng">Português + English</option>
-                                          <option value="spa+eng">Español + English</option>
-                                          <option value="eng">English Only</option>
-                                        </select>
-                                      </div>
+                                      <select
+                                        value={state.options.ocrLanguage}
+                                        onChange={(e) =>
+                                          setState((prev) => ({
+                                            ...prev,
+                                            options: { ...prev.options, ocrLanguage: e.target.value },
+                                          }))
+                                        }
+                                        className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-xs font-bold focus:ring-1 focus:ring-blue-950 outline-none"
+                                      >
+                                        <option value="por">Português</option>
+                                        <option value="eng">English</option>
+                                        <option value="spa">Español</option>
+                                        <option value="por+eng">Português + English</option>
+                                        <option value="spa+eng">Español + English</option>
+                                      </select>
                                     </div>
                                   )}
 
@@ -913,9 +886,11 @@ export function ConverterWorkbench({
                                         }))}
                                         className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-xs font-bold focus:ring-1 focus:ring-blue-950 outline-none"
                                       >
+                                        <option value="por">Português (mais rápido)</option>
+                                        <option value="eng">English (faster)</option>
+                                        <option value="spa">Español (más rápido)</option>
                                         <option value="por+eng">Português + English</option>
                                         <option value="spa+eng">Español + English</option>
-                                        <option value="eng">English Only</option>
                                       </select>
                                     </div>
                                   )}
@@ -1329,6 +1304,46 @@ export function ConverterWorkbench({
                           )}
 
 
+
+                          )}
+
+
+
+                          {/* Primary export format for PDF text extract — always visible (not buried in advanced) */}
+                          {state.selectedOperation === 'pdf-txt' && (
+                            <div className="rounded-xl border-2 border-blue-950/15 bg-white p-4 space-y-3 text-left shadow-sm">
+                              <label className="block text-xs font-extrabold text-blue-950 uppercase tracking-widest">
+                                {t.textExportFormatLabel}
+                              </label>
+                              <div className="grid grid-cols-2 gap-2">
+                                {([
+                                  { id: 'txt' as const, label: t.textExportTxt },
+                                  { id: 'docx' as const, label: t.textExportDocx },
+                                ]).map((fmt) => (
+                                  <button
+                                    key={fmt.id}
+                                    type="button"
+                                    onClick={() =>
+                                      setState((prev) => ({
+                                        ...prev,
+                                        options: { ...prev.options, textExportFormat: fmt.id },
+                                      }))
+                                    }
+                                    className={`py-3 px-3 rounded-xl text-[11px] font-black uppercase tracking-wide border-2 transition-all ${
+                                      (state.options.textExportFormat || 'txt') === fmt.id
+                                        ? 'bg-blue-950 text-white border-blue-950 shadow-md'
+                                        : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100 hover:border-slate-300'
+                                    }`}
+                                  >
+                                    {fmt.label}
+                                  </button>
+                                ))}
+                              </div>
+                              <p className="text-[10px] text-slate-500 font-medium leading-relaxed">
+                                {t.textExportHint}
+                              </p>
+                            </div>
+                          )}
 
                           {/* Action start workflow CTA trigger */}
                           <div className="pt-2">

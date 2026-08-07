@@ -14,7 +14,7 @@ export function createDefaultConverterOptions(): ConverterState['options'] {
     pdfOrientation: 'portrait',
     pdfMargins: 'standard',
     pdfPositioning: 'fit',
-    ocrLanguage: 'por+eng',
+    ocrLanguage: 'por',
     textExportFormat: 'txt',
     filterBrightness: 100,
     filterContrast: 100,
