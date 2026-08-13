@@ -20,6 +20,8 @@ export interface FontFinding {
   confidencePercent: number;
   occurrences?: number;
   pages?: number[];
+  /** Short text excerpt from the document that used this font. */
+  sampleText?: string;
 }
 
 export interface FontIdentifierResult {
@@ -176,8 +178,9 @@ async function identifyPdfFonts(file: File): Promise<FontIdentifierResult> {
   const pdfjs = await loadPdfJS();
   const pdf = await pdfjs.getDocument({ data: buffer.slice(0) }).promise;
 
-  type Agg = { count: number; pages: Set<number>; sizes: number[] };
+  type Agg = { count: number; pages: Set<number>; sizes: number[]; sample: string };
   const usage = new Map<string, Agg>();
+  const SAMPLE_MAX = 96;
 
   const pageLimit = Math.min(pdf.numPages, 40);
   for (let i = 1; i <= pageLimit; i++) {
@@ -190,10 +193,16 @@ async function identifyPdfFonts(file: File): Promise<FontIdentifierResult> {
         ? Math.abs((item as { transform: number[] }).transform[0] || 0)
         : 0;
       const key = fontName;
-      const prev = usage.get(key) || { count: 0, pages: new Set<number>(), sizes: [] };
+      const prev = usage.get(key) || { count: 0, pages: new Set<number>(), sizes: [], sample: '' };
       prev.count += item.str.length;
       prev.pages.add(i);
       if (size) prev.sizes.push(size);
+      if (prev.sample.length < SAMPLE_MAX) {
+        const piece = String(item.str).replace(/\s+/g, ' ').trim();
+        if (piece) {
+          prev.sample = `${prev.sample}${prev.sample ? ' ' : ''}${piece}`.slice(0, SAMPLE_MAX);
+        }
+      }
       usage.set(key, prev);
     }
   }
@@ -230,6 +239,7 @@ async function identifyPdfFonts(file: File): Promise<FontIdentifierResult> {
         confidencePercent: 100,
         occurrences: agg?.count,
         pages: agg ? [...agg.pages].sort((a, b) => a - b) : undefined,
+        sampleText: agg?.sample?.trim() || undefined,
       });
     } else {
       const alts = estimateAlternatives(family);
@@ -249,6 +259,7 @@ async function identifyPdfFonts(file: File): Promise<FontIdentifierResult> {
         confidencePercent: sim,
         occurrences: agg?.count,
         pages: agg ? [...agg.pages].sort((a, b) => a - b) : undefined,
+        sampleText: agg?.sample?.trim() || undefined,
       });
     }
   }
@@ -259,9 +270,15 @@ async function identifyPdfFonts(file: File): Promise<FontIdentifierResult> {
     const key = `${f.element}|${f.primary.name}|${f.primary.weightStyle || ''}`;
     const prev = dedup.get(key);
     if (!prev || f.confidencePercent > prev.confidencePercent) dedup.set(key, f);
+    else if (prev && !prev.sampleText && f.sampleText) dedup.set(key, { ...prev, sampleText: f.sampleText });
   }
 
-  return { format: 'pdf', findings: [...dedup.values()], notes };
+  const sorted = [...dedup.values()].sort((a, b) => {
+    if (b.confidencePercent !== a.confidencePercent) return b.confidencePercent - a.confidencePercent;
+    return (b.occurrences || 0) - (a.occurrences || 0);
+  });
+
+  return { format: 'pdf', findings: sorted, notes };
 }
 
 function extractXmlAttrFonts(xml: string): string[] {
@@ -293,14 +310,29 @@ async function identifyDocxFonts(file: File): Promise<FontIdentifierResult> {
   const bodyFonts = extractXmlAttrFonts(document);
   const all = [...new Set([...tableFonts, ...styleFonts, ...bodyFonts])];
 
+  const samples = new Map<string, string>();
+  const runRe = /<w:r\b[\s\S]*?<\/w:r>/gi;
+  let runMatch: RegExpExecArray | null;
+  while ((runMatch = runRe.exec(document))) {
+    const run = runMatch[0];
+    const fontM = run.match(/w:(?:ascii|hAnsi)="([^"]+)"/i);
+    const texts = [...run.matchAll(/<w:t\b[^>]*>([^<]*)<\/w:t>/gi)].map((m) => m[1]);
+    const text = texts.join('').replace(/\s+/g, ' ').trim();
+    if (!fontM || !text) continue;
+    const family = splitWeight(normalizeFontName(fontM[1])).family.toLowerCase();
+    const prev = samples.get(family) || '';
+    if (prev.length < 96) samples.set(family, `${prev}${prev ? ' ' : ''}${text}`.slice(0, 96));
+  }
+
   const findings: FontFinding[] = [];
   for (const name of all) {
     const { family, weightStyle } = splitWeight(name);
     const fromTable = tableFonts.some((t) => splitWeight(t).family.toLowerCase() === family.toLowerCase());
     const element =
-      /heading|titulo|title|heading/i.test(name) || styleFonts.includes(name) && /Heading/i.test(styles)
+      /heading|titulo|title|heading/i.test(name) || (styleFonts.includes(name) && /Heading/i.test(styles))
         ? classifyElement(name, 16)
         : 'body';
+    const sampleText = samples.get(family.toLowerCase());
 
     if (fromTable || isKnownExact(family)) {
       findings.push({
@@ -310,6 +342,7 @@ async function identifyDocxFonts(file: File): Promise<FontIdentifierResult> {
         method: 'document',
         confidenceLabel: 'high',
         confidencePercent: 100,
+        sampleText,
       });
     } else {
       const alts = estimateAlternatives(family);
@@ -322,14 +355,15 @@ async function identifyDocxFonts(file: File): Promise<FontIdentifierResult> {
         method: 'similarity',
         confidenceLabel: 'estimated',
         confidencePercent: sim,
+        sampleText,
       });
     }
   }
 
-  // Prefer mapping common Word styles when present
-  if (/w:styleId="Title"/i.test(styles) || /w:name w:val="Title"/i.test(styles)) {
-    // keep findings as-is; element classification already applied
-  }
+  findings.sort((a, b) => {
+    if (b.confidencePercent !== a.confidencePercent) return b.confidencePercent - a.confidencePercent;
+    return (b.occurrences || 0) - (a.occurrences || 0);
+  });
 
   return {
     format: 'docx',

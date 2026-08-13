@@ -3,17 +3,32 @@ import { PDFDocument, StandardFonts } from 'pdf-lib';
 import { encryptPDF } from '@pdfsmaller/pdf-encrypt';
 import { encryptPdfWithPassword } from '../pdfPasswordProtection';
 
+function bufferHasEncrypt(data: unknown): boolean {
+  try {
+    let bytes: Uint8Array | null = null;
+    if (data instanceof Uint8Array) bytes = data;
+    else if (data instanceof ArrayBuffer) bytes = new Uint8Array(data);
+    else if (ArrayBuffer.isView(data)) bytes = new Uint8Array(data.buffer);
+    if (!bytes) return false;
+    const head = new TextDecoder('latin1').decode(bytes.subarray(0, Math.min(bytes.byteLength, 200_000)));
+    return /\/Encrypt\b/.test(head);
+  } catch {
+    return false;
+  }
+}
+
 vi.mock('../pdfjsLoader', () => ({
   loadPdfJS: async () => ({
-    getDocument: (opts: { password?: string }) => ({
+    getDocument: (opts: { data?: unknown; password?: string }) => ({
       promise: (async () => {
+        const locked = bufferHasEncrypt(opts.data);
         const pwd = opts.password?.trim();
-        if (!pwd) {
+        if (locked && !pwd) {
           const err = new Error('No password given');
           (err as Error & { name: string }).name = 'PasswordException';
           throw err;
         }
-        if (pwd !== 'correct-pass') {
+        if (locked && pwd && pwd !== 'correct-pass') {
           const err = new Error('Incorrect password');
           (err as Error & { name: string }).name = 'PasswordException';
           throw err;

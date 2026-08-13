@@ -102,6 +102,14 @@ export interface TranslationDict {
   footerManual: string;
   footerCookies: string;
   footerCopyright: string;
+  footerTrustTitle: string;
+  footerTrustHttpsTitle: string;
+  footerTrustHttpsDesc: string;
+  footerTrustLocalTitle: string;
+  footerTrustLocalDesc: string;
+  footerTrustLgpdTitle: string;
+  footerTrustLgpdDesc: string;
+  footerTrustNote: string;
   advancedOptionsLabel: string;
   modalClose: string;
   

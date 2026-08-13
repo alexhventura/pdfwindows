@@ -121,6 +121,7 @@ async function assertHasPageOps(blob: Blob): Promise<boolean> {
 /**
  * True binary decrypt (RC4 / AES) via @pdfsmaller/pdf-decrypt.
  * Empty password unlocks owner/permission locks (empty user password) — no prompt needed.
+ * Rejects "unlocked" outputs that still have blank pages (failed stream decrypt).
  */
 async function tryBinaryDecrypt(
   bytes: Uint8Array,
@@ -130,10 +131,15 @@ async function tryBinaryDecrypt(
     const out = await decryptPDF(bytes, password);
     const stillLocked = await isEncrypted(out).catch(() => ({ encrypted: true }));
     if (stillLocked.encrypted) return null;
+
+    const blob = new Blob([out], { type: 'application/pdf' });
+    if (!(await assertNoOpenPassword(blob))) return null;
+    if (!(await assertHasPageOps(blob))) return null;
+
     const doc = await PDFDocument.load(out, { updateMetadata: false });
     const pages = doc.getPageCount();
     if (pages < 1) return null;
-    return { blob: new Blob([out], { type: 'application/pdf' }), pages };
+    return { blob, pages };
   } catch {
     return null;
   }
@@ -327,7 +333,7 @@ export async function unlockPdfFile(
     };
   }
 
-  // 2) Typed password → binary decrypt first (best quality)
+  // 2) Typed password → binary decrypt first; if streams stay blank, rebuild via pdf.js
   if (trimmed) {
     onProgress?.({ phase: 'decrypting', page: 0, total: 0 });
     const withPwd = await tryBinaryDecrypt(bytes, trimmed);
@@ -342,12 +348,15 @@ export async function unlockPdfFile(
       };
     }
 
-    // Fallback: pdf.js may open formats decryptPDF rejects
+    // Fallback: pdf.js decrypts correctly even when binary strip leaves empty pages (AES quirks)
     try {
       const pdf = await openWithPdfJs(buffer, trimmed);
       try {
         const { blob, pagesProcessed } = await rebuildUnlockedFromPdfJs(pdf, onProgress);
         await pdf.destroy?.();
+        if (!(await assertHasPageOps(blob))) {
+          return { status: 'unsupported', messageKey: 'unsupported', encryption };
+        }
         return {
           status: 'unlocked',
           blob,

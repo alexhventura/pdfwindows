@@ -13,7 +13,9 @@ export type SuiteToolId =
   | 'font-identifier'
   | 'remove-restrictions'
   | 'unlock-pdf'
-  | 'file-xray';
+  | 'file-xray'
+  | 'organize-pdf'
+  | 'redact-pdf';
 
 export interface FaqItem {
   q: string;
@@ -2350,6 +2352,172 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
         {
           q: '¿La herramienta inventa metadatos?',
           a: 'No. Solo mostramos lo que está en el archivo. Si falta un dato, indicamos que no está disponible.',
+        },
+      ],
+    },
+  }),
+  page('/organizar-paginas-pdf', 'suite', undefined, 'organize-pdf', {
+    pt: {
+      title: 'Organizar Páginas PDF Online Grátis | PDFWINDOWS',
+      description:
+        'Exclua, reordene e extraia páginas de PDF no navegador. Gere uma cópia organizada localmente—sem upload na nuvem.',
+      keywords:
+        'organizar páginas pdf, excluir páginas pdf, reordenar pdf, extrair páginas pdf, organizar pdf gratis',
+      h1: 'Organizar Páginas PDF',
+      intro:
+        'Reorganize seu PDF: exclua páginas indesejadas, altere a ordem e baixe uma cópia nova. Tudo no navegador, no seu dispositivo.',
+      benefits: [
+        'Excluir e reordenar páginas visualmente',
+        'Pré-visualização por miniatura',
+        'Sempre gera uma nova cópia local',
+      ],
+      howItWorks: [
+        'Envie o PDF.',
+        'Selecione, exclua ou reordene as páginas.',
+        'Baixe o PDF organizado.',
+      ],
+      faq: [
+        ...privacyFaq('pt'),
+        {
+          q: 'O arquivo original é alterado?',
+          a: 'Não. Geramos uma cópia nova com a ordem escolhida. O original permanece intacto.',
+        },
+      ],
+    },
+    en: {
+      title: 'Organize PDF Pages Online Free | PDFWINDOWS',
+      description:
+        'Delete, reorder, and extract PDF pages in your browser. Download an organized copy locally—no cloud upload.',
+      keywords:
+        'organize pdf pages, delete pdf pages, reorder pdf, extract pdf pages, organize pdf free',
+      h1: 'Organize PDF Pages',
+      intro:
+        'Reorganize your PDF: remove unwanted pages, change order, and download a new copy. Everything runs in your browser on your device.',
+      benefits: [
+        'Delete and reorder pages visually',
+        'Thumbnail preview for each page',
+        'Always generates a new local copy',
+      ],
+      howItWorks: [
+        'Upload the PDF.',
+        'Select, delete, or reorder pages.',
+        'Download the organized PDF.',
+      ],
+      faq: [
+        ...privacyFaq('en'),
+        {
+          q: 'Is the original file changed?',
+          a: 'No. We generate a new copy with your chosen order. The original stays intact.',
+        },
+      ],
+    },
+    es: {
+      title: 'Organizar Páginas PDF Online Gratis | PDFWINDOWS',
+      description:
+        'Elimine, reordene y extraiga páginas PDF en el navegador. Descargue una copia organizada localmente—sin subida a la nube.',
+      keywords:
+        'organizar páginas pdf, eliminar páginas pdf, reordenar pdf, extraer páginas pdf, organizar pdf gratis',
+      h1: 'Organizar Páginas PDF',
+      intro:
+        'Reorganice su PDF: elimine páginas, cambie el orden y descargue una copia nueva. Todo en el navegador, en su dispositivo.',
+      benefits: [
+        'Eliminar y reordenar páginas visualmente',
+        'Miniaturas por página',
+        'Siempre genera una copia local nueva',
+      ],
+      howItWorks: [
+        'Suba el PDF.',
+        'Seleccione, elimine o reordene páginas.',
+        'Descargue el PDF organizado.',
+      ],
+      faq: [
+        ...privacyFaq('es'),
+        {
+          q: '¿Se modifica el archivo original?',
+          a: 'No. Generamos una copia nueva con el orden elegido. El original permanece intacto.',
+        },
+      ],
+    },
+  }),
+  page('/redacao-pdf', 'suite', undefined, 'redact-pdf', {
+    pt: {
+      title: 'Redação PDF Online Grátis | PDFWINDOWS',
+      description:
+        'Tape CPF, valores e dados sensíveis em PDF no navegador. Gere uma cópia redigida localmente—sem enviar o arquivo para a nuvem.',
+      keywords:
+        'redação pdf, ocultar dados pdf, blackout pdf, tapar cpf pdf, redação documento gratis',
+      h1: 'Redação PDF',
+      intro:
+        'Cubra trechos sensíveis com preto antes de compartilhar. Desenhe as áreas na página e baixe uma cópia redigida — processamento 100% local.',
+      benefits: [
+        'Desenhe áreas de blackout por página',
+        'Ideal antes de enviar a terceiros',
+        'Cópia nova; original intacto',
+      ],
+      howItWorks: [
+        'Envie o PDF.',
+        'Arraste sobre os trechos a ocultar.',
+        'Baixe o PDF redigido.',
+      ],
+      faq: [
+        ...privacyFaq('pt'),
+        {
+          q: 'A redação remove o texto por baixo?',
+          a: 'Aplicamos cobertura visual opaca na cópia. Revise o arquivo antes de compartilhar informações críticas.',
+        },
+      ],
+    },
+    en: {
+      title: 'Redact PDF Online Free | PDFWINDOWS',
+      description:
+        'Black out IDs, amounts, and sensitive data in PDFs in your browser. Download a redacted copy locally—no cloud upload.',
+      keywords:
+        'redact pdf, blackout pdf, hide sensitive data pdf, pdf redaction free, cover text pdf',
+      h1: 'Redact PDF',
+      intro:
+        'Cover sensitive regions with black before sharing. Draw areas on each page and download a redacted copy — 100% local processing.',
+      benefits: [
+        'Draw blackout areas per page',
+        'Useful before sending to third parties',
+        'New copy; original stays intact',
+      ],
+      howItWorks: [
+        'Upload the PDF.',
+        'Drag over areas to hide.',
+        'Download the redacted PDF.',
+      ],
+      faq: [
+        ...privacyFaq('en'),
+        {
+          q: 'Does redaction remove the underlying text?',
+          a: 'We apply an opaque visual cover on the copy. Review the file before sharing critical information.',
+        },
+      ],
+    },
+    es: {
+      title: 'Redacción PDF Online Gratis | PDFWINDOWS',
+      description:
+        'Tape datos sensibles en PDF en el navegador. Descargue una copia redactada localmente—sin subir el archivo a la nube.',
+      keywords:
+        'redacción pdf, ocultar datos pdf, blackout pdf, tapar texto pdf, redacción documento gratis',
+      h1: 'Redacción PDF',
+      intro:
+        'Cubra zonas sensibles con negro antes de compartir. Dibuje áreas en cada página y descargue una copia redactada — procesamiento 100% local.',
+      benefits: [
+        'Dibuje áreas de blackout por página',
+        'Útil antes de enviar a terceros',
+        'Copia nueva; original intacto',
+      ],
+      howItWorks: [
+        'Suba el PDF.',
+        'Arrastre sobre las zonas a ocultar.',
+        'Descargue el PDF redactado.',
+      ],
+      faq: [
+        ...privacyFaq('es'),
+        {
+          q: '¿La redacción elimina el texto de debajo?',
+          a: 'Aplicamos una cobertura visual opaca en la copia. Revise el archivo antes de compartir información crítica.',
         },
       ],
     },

@@ -40,6 +40,9 @@ const RICH_LOADERS: Record<string, RichLoader> = {
     (await import('./tools/desbloquear-pdf')).DESBLOQUEAR_PDF_CONTENT[lang],
   '/raio-x-de-arquivo': async (lang) =>
     (await import('./tools/raio-x-de-arquivo')).RAIO_X_ARQUIVO_CONTENT[lang],
+  '/organizar-paginas-pdf': async (lang) =>
+    (await import('./tools/organizar-paginas-pdf')).ORGANIZAR_PAGINAS_PDF_CONTENT[lang],
+  '/redacao-pdf': async (lang) => (await import('./tools/redacao-pdf')).REDACAO_PDF_CONTENT[lang],
 };
 
 function legacyToRich(path: string, lang: LanguageType): ToolRichContent {

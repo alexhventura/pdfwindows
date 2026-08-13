@@ -99,6 +99,15 @@ export const translations: Record<LanguageType, TranslationDict> = {
     footerManual: "Manual do Usuário",
     footerCookies: "Uso de cookies",
     footerCopyright: "© 2026 — Todos os direitos reservados",
+    footerTrustTitle: "Por que o PDFWINDOWS é seguro",
+    footerTrustHttpsTitle: "Conexão HTTPS",
+    footerTrustHttpsDesc: "O site é servido com criptografia TLS. A navegação e o carregamento da página usam canal seguro.",
+    footerTrustLocalTitle: "Processamento local",
+    footerTrustLocalDesc: "Arquivos de PDF e imagens são tratados no seu navegador. O conteúdo dos documentos não é enviado aos nossos servidores para conversão.",
+    footerTrustLgpdTitle: "Alinhado à LGPD",
+    footerTrustLgpdDesc: "Desenhado para minimizar dados pessoais: documentos ficam no seu dispositivo. Veja a Política de Privacidade para detalhes.",
+    footerTrustNote:
+      "Indicadores de prática e arquitetura do produto — não são selos de auditoria ISO 27001 nem de associação PDF Association.",
     advancedOptionsLabel: "Definições locais avançadas",
     modalClose: "Entendido e Fechar",
     
@@ -384,6 +393,15 @@ export const translations: Record<LanguageType, TranslationDict> = {
     footerManual: "User Manual",
     footerCookies: "Cookie usage",
     footerCopyright: "© 2026 — All rights reserved",
+    footerTrustTitle: "Why PDFWINDOWS is secure",
+    footerTrustHttpsTitle: "HTTPS connection",
+    footerTrustHttpsDesc: "The site is served with TLS encryption. Browsing and page loading use a secure channel.",
+    footerTrustLocalTitle: "Local processing",
+    footerTrustLocalDesc: "PDF and image files are handled in your browser. Document contents are not uploaded to our servers for conversion.",
+    footerTrustLgpdTitle: "Privacy-first (LGPD-aligned)",
+    footerTrustLgpdDesc: "Built to minimize personal data: documents stay on your device. See the Privacy Policy for details.",
+    footerTrustNote:
+      "These describe product practices and architecture — not ISO 27001 audit seals or PDF Association membership marks.",
     advancedOptionsLabel: "Advanced local options",
     modalClose: "Understood & Close",
     
@@ -669,6 +687,15 @@ export const translations: Record<LanguageType, TranslationDict> = {
     footerManual: "Manual de Usuario",
     footerCookies: "Uso de cookies",
     footerCopyright: "© 2026 — Todos los derechos reservados",
+    footerTrustTitle: "Por qué PDFWINDOWS es seguro",
+    footerTrustHttpsTitle: "Conexión HTTPS",
+    footerTrustHttpsDesc: "El sitio se sirve con cifrado TLS. La navegación y la carga de la página usan un canal seguro.",
+    footerTrustLocalTitle: "Procesamiento local",
+    footerTrustLocalDesc: "Los PDF e imágenes se tratan en su navegador. El contenido de los documentos no se envía a nuestros servidores para conversión.",
+    footerTrustLgpdTitle: "Alineado con la privacidad (LGPD)",
+    footerTrustLgpdDesc: "Diseñado para minimizar datos personales: los documentos permanecen en su dispositivo. Consulte la Política de Privacidad.",
+    footerTrustNote:
+      "Indicadores de práctica y arquitectura del producto — no son sellos de auditoría ISO 27001 ni de membresía PDF Association.",
     advancedOptionsLabel: "Opciones locales avanzadas",
     modalClose: "Entendido y Cerrar",
     

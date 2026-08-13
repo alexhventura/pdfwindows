@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, X } from 'lucide-react';
+import { BookOpen, X, Lock, HardDrive, Scale } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useLocalizedPath } from '../hooks/useLocalizedPath';
 import { translations } from '../utils/translations';
@@ -27,11 +27,63 @@ export function SiteFooter() {
         ? t.cookiesTitle
         : t.directoryButton;
 
+  const trustItems = [
+    {
+      icon: Lock,
+      title: t.footerTrustHttpsTitle,
+      desc: t.footerTrustHttpsDesc,
+    },
+    {
+      icon: HardDrive,
+      title: t.footerTrustLocalTitle,
+      desc: t.footerTrustLocalDesc,
+    },
+    {
+      icon: Scale,
+      title: t.footerTrustLgpdTitle,
+      desc: t.footerTrustLgpdDesc,
+    },
+  ];
+
   return (
     <>
       <footer className="footer-premium w-full text-slate-400 mt-auto">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 space-y-8">
+          <section aria-labelledby="footer-trust-heading" className="space-y-4">
+            <h2 id="footer-trust-heading" className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 text-center md:text-left">
+              {t.footerTrustTitle}
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {trustItems.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={item.title}
+                    className="rounded-xl border border-slate-700/80 bg-slate-900/40 px-4 py-3.5"
+                  >
+                    <div className="flex items-start gap-3">
+                      <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                        <Icon size={15} aria-hidden />
+                      </span>
+                      <div className="min-w-0 space-y-1">
+                        <p className="text-[12px] font-semibold text-slate-200 leading-snug">{item.title}</p>
+                        <p className="text-[10px] leading-relaxed text-slate-500">{item.desc}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            <p className="text-[10px] leading-relaxed text-slate-600 text-center md:text-left max-w-3xl">
+              {t.footerTrustNote}{' '}
+              <Link to={lp('/privacy')} className="text-slate-400 hover:text-white underline-offset-2 hover:underline">
+                {t.footerPrivacy}
+              </Link>
+              .
+            </p>
+          </section>
+
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 border-t border-slate-700/60 pt-6">
             <div className="text-center md:text-left text-[11px] leading-relaxed">
               <span className="font-bold text-slate-200 tracking-wide block sm:inline">PDFWINDOWS</span>
               <span className="hidden sm:inline text-slate-600 mx-2">·</span>

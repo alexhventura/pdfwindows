@@ -46,6 +46,16 @@
     "pt": "/raio-x-de-arquivo",
     "es": "/rayos-x-de-archivo"
   },
+  "/organizar-paginas-pdf": {
+    "en": "/organize-pdf-pages",
+    "pt": "/organizar-paginas-pdf",
+    "es": "/organizar-paginas-pdf"
+  },
+  "/redacao-pdf": {
+    "en": "/redact-pdf",
+    "pt": "/redacao-pdf",
+    "es": "/redaccion-pdf"
+  },
   "/privacy": { "en": "/privacy", "pt": "/privacidade", "es": "/privacidad" },
   "/terms": { "en": "/terms", "pt": "/termos", "es": "/terminos" }
 }

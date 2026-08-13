@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, FileText, Image as ImageIcon, FileSpreadsheet, LayoutTemplate, Droplet, Type, Unlock, FileKey2, ScanSearch } from 'lucide-react';
+import { ArrowUpRight, FileText, Image as ImageIcon, FileSpreadsheet, LayoutTemplate, Droplet, Type, Unlock, FileKey2, ScanSearch, Layers, SquareStack } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { TOOL_PAGES } from '../seo/toolCatalog';
 
@@ -25,6 +25,10 @@ export function ToolCardGrid({ limit }: { limit?: number }) {
                   ? FileKey2
                   : tool.suiteId === 'file-xray'
                     ? ScanSearch
+                    : tool.suiteId === 'organize-pdf'
+                      ? Layers
+                      : tool.suiteId === 'redact-pdf'
+                        ? SquareStack
                     : tool.kind === 'suite'
                     ? LayoutTemplate
                     : tool.operation?.startsWith('img-')

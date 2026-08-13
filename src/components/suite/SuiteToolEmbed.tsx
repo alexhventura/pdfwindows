@@ -34,6 +34,8 @@ const SUITE_LAZY_TOOLS: Record<string, SuiteLazyTool> = {
   'remove-restrictions': lazy(() => import('./tools/RemoveRestrictionsSuiteTool')),
   'unlock-pdf': lazy(() => import('./tools/UnlockPdfSuiteTool')),
   'file-xray': lazy(() => import('./tools/FileXraySuiteTool')),
+  'organize-pdf': lazy(() => import('./tools/OrganizePdfSuiteTool')),
+  'redact-pdf': lazy(() => import('./tools/RedactPdfSuiteTool')),
 };
 
 function SuiteToolLoader({

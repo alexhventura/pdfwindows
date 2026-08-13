@@ -13,6 +13,8 @@ import {
   Unlock,
   FileKey2,
   ScanSearch,
+  Layers,
+  SquareStack,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import type { LanguageType } from '../types';
@@ -139,6 +141,28 @@ const tools: Tool[] = [
     icon: <ScanSearch size={24} />,
     color: 'bg-sky-600',
   },
+  {
+    id: 'organize-pdf',
+    name: { pt: 'Organizar Páginas PDF', en: 'Organize PDF Pages', es: 'Organizar Páginas PDF' },
+    description: {
+      pt: 'Exclua, reordene e extraia páginas com pré-visualização local.',
+      en: 'Delete, reorder, and extract pages with local thumbnails.',
+      es: 'Elimine, reordene y extraiga páginas con miniaturas locales.',
+    },
+    icon: <Layers size={24} />,
+    color: 'bg-teal-600',
+  },
+  {
+    id: 'redact-pdf',
+    name: { pt: 'Redação PDF', en: 'Redact PDF', es: 'Redacción PDF' },
+    description: {
+      pt: 'Tape dados sensíveis com preto antes de compartilhar o PDF.',
+      en: 'Black out sensitive data before sharing the PDF.',
+      es: 'Tape datos sensibles con negro antes de compartir el PDF.',
+    },
+    icon: <SquareStack size={24} />,
+    color: 'bg-slate-700',
+  },
 ];
 
 const SUITE_PATHS: Record<string, string> = {
@@ -152,6 +176,8 @@ const SUITE_PATHS: Record<string, string> = {
   'remove-restrictions': '/remover-restricoes',
   'unlock-pdf': '/desbloquear-pdf',
   'file-xray': '/raio-x-de-arquivo',
+  'organize-pdf': '/organizar-paginas-pdf',
+  'redact-pdf': '/redacao-pdf',
 };
 
 export const ProductivityTools = ({
