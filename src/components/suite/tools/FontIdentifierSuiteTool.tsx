@@ -47,7 +47,7 @@ const copy: Record<LanguageType, Record<string, string>> = {
     footerEl: 'Rodapé',
     captionEl: 'Legenda',
     headerEl: 'Cabeçalho',
-    sample: 'Exemplo no documento',
+    sample: 'Texto com esta fonte',
     showMore: 'Ver mais fontes ({n})',
     showLess: 'Mostrar menos',
     occurrences: 'Ocorrências',
@@ -87,7 +87,7 @@ const copy: Record<LanguageType, Record<string, string>> = {
     footerEl: 'Footer',
     captionEl: 'Caption',
     headerEl: 'Header',
-    sample: 'Sample from document',
+    sample: 'Text using this font',
     showMore: 'Show more fonts ({n})',
     showLess: 'Show less',
     occurrences: 'Occurrences',
@@ -127,7 +127,7 @@ const copy: Record<LanguageType, Record<string, string>> = {
     footerEl: 'Pie de página',
     captionEl: 'Leyenda',
     headerEl: 'Encabezado',
-    sample: 'Ejemplo del documento',
+    sample: 'Texto con esta fuente',
     showMore: 'Ver más fuentes ({n})',
     showLess: 'Mostrar menos',
     occurrences: 'Ocurrencias',
@@ -180,11 +180,11 @@ function FontCard({ f, t }: { f: FontFinding; t: Record<string, string> }) {
       <p className="text-xs font-semibold text-slate-600">
         {isDirect ? t.confidenceHigh : `${t.similarity}: ${f.confidencePercent}%`}
       </p>
-      {f.sampleText && (
+      {f.sampleText ? (
         <div className="rounded-xl bg-slate-50 border border-slate-100 px-3 py-2.5">
           <p className="text-[9px] font-semibold uppercase tracking-wide text-slate-400 mb-1.5">{t.sample}</p>
           <p
-            className="text-sm text-slate-800 leading-snug line-clamp-3"
+            className="text-[13px] text-slate-800 leading-relaxed line-clamp-3"
             style={{
               fontFamily: familyCss,
               fontWeight: weight,
@@ -192,11 +192,11 @@ function FontCard({ f, t }: { f: FontFinding; t: Record<string, string> }) {
             }}
             title={f.sampleText}
           >
-            {f.sampleText}
-            {f.sampleText.length >= 90 ? '…' : ''}
+            “{f.sampleText}
+            {f.sampleText.length >= 100 ? '…' : ''}”
           </p>
         </div>
-      )}
+      ) : null}
       {!isDirect && f.alternatives.length > 0 && (
         <div>
           <p className="text-[10px] font-semibold text-slate-400 uppercase mb-1">{t.alternatives}</p>
@@ -323,7 +323,9 @@ export default function FontIdentifierSuiteTool({
               <>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {visible.map((f, i) => (
-                    <FontCard key={`${f.primary.name}-${f.element}-${i}`} f={f} t={t} />
+                    <div key={`${f.primary.name}-${f.element}-${i}`}>
+                      <FontCard f={f} t={t} />
+                    </div>
                   ))}
                 </div>
                 {hiddenCount > 0 && (
