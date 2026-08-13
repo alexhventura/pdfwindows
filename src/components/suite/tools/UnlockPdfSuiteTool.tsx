@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Download, RefreshCw, ShieldCheck, AlertCircle, Lock } from 'lucide-react';
+import { Download, RefreshCw, ShieldCheck, AlertCircle, Lock, Eye, EyeOff } from 'lucide-react';
 import type { LanguageType } from '../../../types';
 import {
   unlockPdfFile,
@@ -29,6 +29,7 @@ const copy: Record<LanguageType, Record<string, string>> = {
     tooLarge: 'Arquivo acima do limite de 100 MB.',
     analyzing: 'Analisando PDF...',
     unlocking: 'Desbloqueando PDF...',
+    decrypting: 'Removendo proteção…',
     unlockingPage: 'Gerando cópia desbloqueada… página {page} de {total}',
     finalizing: 'Finalizando PDF desbloqueado…',
     success: 'Cópia desbloqueada pronta',
@@ -36,8 +37,10 @@ const copy: Record<LanguageType, Record<string, string>> = {
     download: 'Baixar PDF desbloqueado',
     again: 'Desbloquear outro PDF',
     needPassword:
-      'Este PDF exige senha de abertura. Informe a senha legítima para criar uma cópia nova sem proteção.',
+      'Este PDF exige senha de abertura. Informe a senha para gerar a cópia desbloqueada no seu navegador.',
     password: 'Senha do PDF',
+    showPassword: 'Mostrar senha',
+    hidePassword: 'Ocultar senha',
     unlock: 'Criar cópia desbloqueada',
     wrongPassword: 'Senha incorreta. Tente novamente.',
     corrupt: 'Não foi possível ler este PDF. O arquivo pode estar corrompido.',
@@ -45,13 +48,16 @@ const copy: Record<LanguageType, Record<string, string>> = {
     privacy:
       '100% no navegador. A senha e o arquivo não saem do seu dispositivo. Geramos uma cópia nova; o original permanece intacto.',
     howTitle: 'Como funciona',
-    how1: 'PDFs com restrições de permissão (que abrem sem senha) são regravados em uma cópia sem o dicionário de restrições — texto e vetores preservados.',
-    how2: 'PDFs com senha de abertura pedem a senha; com ela, descriptografamos localmente e gravamos um PDF novo sem /Encrypt.',
-    how3:
-      'Quando a criptografia impede a regravação binária, reconstruímos páginas com qualidade adaptativa e camada de texto pesquisável (quando o PDF já tem texto). Avisamos o método usado.',
+    how1: 'Restrições de permissão (imprimir/copiar) são removidas automaticamente — sem pedir senha — com cópia preservando texto e vetores.',
+    how2: 'Com senha de abertura, use a senha do documento; descriptografamos localmente e geramos um PDF novo sem proteção.',
+    how3: 'Processamento local e imediato sempre que a remoção automática for possível.',
     methodStrip: 'Cópia estrutural (texto/vetores preservados)',
+    methodBinary: 'Cópia descriptografada (texto/vetores preservados)',
     methodRaster: 'Cópia reconstruída (páginas + texto pesquisável quando disponível)',
     pageCap: `Documentos com mais de ${UNLOCK_MAX_PAGES} páginas são processados até o limite para manter o navegador responsivo.`,
+    encAes: 'Proteção AES-256',
+    encRc4: 'Proteção RC4',
+    pagesLabel: '{n} páginas',
   },
   en: {
     title: 'Unlock PDF',
@@ -66,6 +72,7 @@ const copy: Record<LanguageType, Record<string, string>> = {
     tooLarge: 'File exceeds the 100 MB limit.',
     analyzing: 'Analyzing PDF...',
     unlocking: 'Unlocking PDF...',
+    decrypting: 'Removing protection…',
     unlockingPage: 'Building unlocked copy… page {page} of {total}',
     finalizing: 'Finalizing unlocked PDF…',
     success: 'Unlocked copy ready',
@@ -73,8 +80,10 @@ const copy: Record<LanguageType, Record<string, string>> = {
     download: 'Download unlocked PDF',
     again: 'Unlock another PDF',
     needPassword:
-      'This PDF requires an open password. Enter the legitimate password to create a new unprotected copy.',
+      'This PDF requires an open password. Enter it to generate an unlocked copy in your browser.',
     password: 'PDF password',
+    showPassword: 'Show password',
+    hidePassword: 'Hide password',
     unlock: 'Create unlocked copy',
     wrongPassword: 'Incorrect password. Try again.',
     corrupt: 'Could not read this PDF. The file may be corrupted.',
@@ -82,13 +91,16 @@ const copy: Record<LanguageType, Record<string, string>> = {
     privacy:
       '100% in-browser. Password and file never leave your device. We generate a new copy; your original stays intact.',
     howTitle: 'How it works',
-    how1: 'PDFs with permission restrictions (that open without a password) are rewritten into a copy without the restriction dictionary — text and vectors preserved.',
-    how2: 'PDFs with an open password ask for it; with the password we decrypt locally and write a new PDF without /Encrypt.',
-    how3:
-      'When encryption blocks a binary rewrite, we rebuild pages at adaptive quality with a searchable text layer when the PDF already has text. We disclose the method used.',
+    how1: 'Permission restrictions (print/copy) are removed automatically — no password prompt — with a copy that keeps text and vectors.',
+    how2: 'With an open password, enter the document password; we decrypt locally and write a new unprotected PDF.',
+    how3: 'Local processing runs immediately whenever automatic removal is possible.',
     methodStrip: 'Structural copy (text/vectors preserved)',
+    methodBinary: 'Decrypted copy (text/vectors preserved)',
     methodRaster: 'Rebuilt copy (pages + searchable text when available)',
     pageCap: `Documents over ${UNLOCK_MAX_PAGES} pages are processed up to that limit to keep the browser responsive.`,
+    encAes: 'AES-256 protection',
+    encRc4: 'RC4 protection',
+    pagesLabel: '{n} pages',
   },
   es: {
     title: 'Desbloquear PDF',
@@ -103,6 +115,7 @@ const copy: Record<LanguageType, Record<string, string>> = {
     tooLarge: 'El archivo supera el límite de 100 MB.',
     analyzing: 'Analizando PDF...',
     unlocking: 'Desbloqueando PDF...',
+    decrypting: 'Quitando protección…',
     unlockingPage: 'Generando copia desbloqueada… página {page} de {total}',
     finalizing: 'Finalizando PDF desbloqueado…',
     success: 'Copia desbloqueada lista',
@@ -110,8 +123,10 @@ const copy: Record<LanguageType, Record<string, string>> = {
     download: 'Descargar PDF desbloqueado',
     again: 'Desbloquear otro PDF',
     needPassword:
-      'Este PDF exige contraseña de apertura. Indique la clave legítima para crear una copia nueva sin protección.',
+      'Este PDF exige contraseña de apertura. Indíquela para generar la copia desbloqueada en su navegador.',
     password: 'Contraseña del PDF',
+    showPassword: 'Mostrar contraseña',
+    hidePassword: 'Ocultar contraseña',
     unlock: 'Crear copia desbloqueada',
     wrongPassword: 'Contraseña incorrecta. Inténtelo de nuevo.',
     corrupt: 'No se pudo leer este PDF. El archivo puede estar corrupto.',
@@ -119,23 +134,32 @@ const copy: Record<LanguageType, Record<string, string>> = {
     privacy:
       '100% en el navegador. La contraseña y el archivo no salen de su dispositivo. Generamos una copia nueva; el original permanece intacto.',
     howTitle: 'Cómo funciona',
-    how1: 'Los PDF con restricciones de permiso (que se abren sin contraseña) se reescriben en una copia sin el diccionario de restricciones — texto y vectores preservados.',
-    how2: 'Los PDF con contraseña de apertura la piden; con ella desciframos en local y grabamos un PDF nuevo sin /Encrypt.',
-    how3:
-      'Cuando el cifrado impide la reescritura binaria, reconstruimos páginas con calidad adaptativa y capa de texto buscable si el PDF ya tiene texto. Indicamos el método usado.',
+    how1: 'Las restricciones de permiso (imprimir/copiar) se quitan automáticamente — sin pedir clave — con una copia que conserva texto y vectores.',
+    how2: 'Con contraseña de apertura, indique la clave del documento; desciframos en local y generamos un PDF nuevo sin protección.',
+    how3: 'Procesamiento local e inmediato siempre que la eliminación automática sea posible.',
     methodStrip: 'Copia estructural (texto/vectores preservados)',
+    methodBinary: 'Copia descifrada (texto/vectores preservados)',
     methodRaster: 'Copia reconstruida (páginas + texto buscable cuando hay)',
     pageCap: `Los documentos de más de ${UNLOCK_MAX_PAGES} páginas se procesan hasta ese límite para mantener el navegador responsivo.`,
+    encAes: 'Protección AES-256',
+    encRc4: 'Protección RC4',
+    pagesLabel: '{n} páginas',
   },
 };
 
 function busyLabel(t: Record<string, string>, progress: UnlockProgress | null, unlocking: boolean): string {
   if (!progress) return unlocking ? t.unlocking : t.analyzing;
   if (progress.phase === 'finalizing') return t.finalizing;
+  if (progress.phase === 'decrypting') return t.decrypting;
   if (progress.phase === 'rebuilding' && progress.total > 0) {
     return t.unlockingPage.replace('{page}', String(progress.page)).replace('{total}', String(progress.total));
   }
   return t.unlocking;
+}
+
+function progressPercent(progress: UnlockProgress | null): number | null {
+  if (!progress || progress.phase !== 'rebuilding' || progress.total < 1) return null;
+  return Math.min(100, Math.round((progress.page / progress.total) * 100));
 }
 
 export default function UnlockPdfSuiteTool({
@@ -153,21 +177,22 @@ export default function UnlockPdfSuiteTool({
   const [progress, setProgress] = useState<UnlockProgress | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [needPassword, setNeedPassword] = useState(false);
   const [result, setResult] = useState<UnlockPdfResult | null>(null);
   const [outputUrl, setOutputUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const reset = () => {
+  const startOver = () => {
     if (outputUrl) URL.revokeObjectURL(outputUrl);
     setFile(null);
     setPassword('');
+    setShowPassword(false);
     setNeedPassword(false);
     setResult(null);
     setOutputUrl(null);
     setError(null);
     setProgress(null);
-    onClose();
   };
 
   const applyResult = (res: UnlockPdfResult) => {
@@ -193,6 +218,8 @@ export default function UnlockPdfSuiteTool({
     setOutputUrl(URL.createObjectURL(res.blob));
     setNeedPassword(false);
     setError(null);
+    setPassword('');
+    setShowPassword(false);
   };
 
   const run = async (f: File, pwd?: string) => {
@@ -218,6 +245,14 @@ export default function UnlockPdfSuiteTool({
     a.download = result.fileName;
     a.click();
   };
+
+  const pct = progressPercent(progress);
+  const encLabel =
+    result?.encryption?.algorithm === 'AES-256'
+      ? t.encAes
+      : result?.encryption?.algorithm === 'RC4'
+        ? t.encRc4
+        : null;
 
   return (
     <SuiteWorkspaceShell
@@ -246,31 +281,63 @@ export default function UnlockPdfSuiteTool({
           />
         )}
 
-        {busy && <ToolBusyState label={busyLabel(t, progress, Boolean(needPassword || password))} />}
+        {busy && (
+          <div className="space-y-3">
+            <ToolBusyState label={busyLabel(t, progress, Boolean(needPassword || password))} />
+            {pct != null && (
+              <div className="max-w-xs mx-auto" aria-hidden>
+                <div className="h-1.5 rounded-full bg-slate-100 overflow-hidden">
+                  <div className="h-full bg-win-blue transition-[width] duration-200" style={{ width: `${pct}%` }} />
+                </div>
+                <p className="text-[10px] font-semibold text-slate-400 text-center mt-1.5">{pct}%</p>
+              </div>
+            )}
+          </div>
+        )}
 
         {needPassword && !busy && !outputUrl && (
           <form
             className="space-y-4 p-4 border border-slate-200/80 rounded-2xl bg-white/60"
             onSubmit={(e) => {
               e.preventDefault();
-              if (file) run(file, password);
+              if (file && password.trim()) run(file, password);
             }}
           >
             <div className="flex items-start gap-2 text-xs font-semibold text-slate-700">
               <Lock size={16} className="text-rose-500 shrink-0 mt-0.5" />
               <p>{t.needPassword}</p>
             </div>
-            {file && <p className="text-[11px] font-semibold text-slate-400 truncate">{file.name}</p>}
+            <div className="flex flex-wrap items-center gap-2 text-[11px] font-semibold text-slate-400">
+              {file && <span className="truncate max-w-[220px]">{file.name}</span>}
+              {encLabel && (
+                <span className="rounded-md bg-slate-100 px-1.5 py-0.5 text-[10px] uppercase tracking-wide text-slate-500">
+                  {encLabel}
+                </span>
+              )}
+            </div>
             <label className="block">
               <span className="text-[10px] font-semibold uppercase tracking-wide text-slate-500">{t.password}</span>
-              <input
-                type="password"
-                autoFocus
-                autoComplete="current-password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className={inputClass + ' mt-1 w-full'}
-              />
+              <div className="relative mt-1">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  autoFocus
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    if (error) setError(null);
+                  }}
+                  className={inputClass + ' w-full pr-10'}
+                />
+                <button
+                  type="button"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-slate-400 hover:text-slate-600"
+                  aria-label={showPassword ? t.hidePassword : t.showPassword}
+                  onClick={() => setShowPassword((v) => !v)}
+                >
+                  {showPassword ? <EyeOff size={14} /> : <Eye size={14} />}
+                </button>
+              </div>
             </label>
             {error && (
               <p role="alert" className="text-[11px] font-semibold text-rose-600 flex items-center gap-1.5">
@@ -280,7 +347,7 @@ export default function UnlockPdfSuiteTool({
             <button type="submit" disabled={!password.trim()} className="w-full btn-primary py-3.5 disabled:opacity-50">
               {t.unlock}
             </button>
-            <button type="button" onClick={reset} className="w-full text-xs font-semibold text-slate-500">
+            <button type="button" onClick={startOver} className="w-full text-xs font-semibold text-slate-500">
               {t.again}
             </button>
           </form>
@@ -289,7 +356,7 @@ export default function UnlockPdfSuiteTool({
         {error && !needPassword && !outputUrl && !busy && (
           <div role="alert" className="bg-rose-50 border border-rose-100 text-rose-700 rounded-xl px-4 py-3 text-xs font-semibold">
             {error}
-            <button type="button" onClick={reset} className="block mt-2 text-win-blue font-semibold">
+            <button type="button" onClick={startOver} className="block mt-2 text-win-blue font-semibold">
               {t.again}
             </button>
           </div>
@@ -304,7 +371,16 @@ export default function UnlockPdfSuiteTool({
             <p className="text-xs text-slate-500 max-w-sm mx-auto">{t.successHint}</p>
             {result.method && (
               <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">
-                {result.method === 'permissions-strip' ? t.methodStrip : t.methodRaster}
+                {result.method === 'decrypt-binary'
+                  ? t.methodBinary
+                  : result.method === 'permissions-strip'
+                    ? t.methodStrip
+                    : t.methodRaster}
+              </p>
+            )}
+            {typeof result.pagesProcessed === 'number' && result.pagesProcessed > 0 && (
+              <p className="text-[10px] font-semibold text-slate-400">
+                {t.pagesLabel.replace('{n}', String(result.pagesProcessed))}
               </p>
             )}
             {result.method === 'decrypt-rebuild' &&
@@ -318,13 +394,17 @@ export default function UnlockPdfSuiteTool({
             {result.fileName && (
               <p className="text-[10px] font-semibold text-slate-400 truncate">{result.fileName}</p>
             )}
-            <button type="button" onClick={reset} className="text-xs font-semibold text-win-blue flex items-center justify-center gap-1.5 mx-auto">
+            <button
+              type="button"
+              onClick={startOver}
+              className="text-xs font-semibold text-win-blue flex items-center justify-center gap-1.5 mx-auto"
+            >
               <RefreshCw size={12} /> {t.again}
             </button>
           </div>
         )}
 
-        {!busy && !outputUrl && (
+        {!busy && !outputUrl && !needPassword && (
           <div className="rounded-2xl border border-slate-100 bg-slate-50/80 px-4 py-3 space-y-2">
             <p className="text-[10px] font-semibold uppercase tracking-wide text-slate-400">{t.howTitle}</p>
             <ul className="text-[11px] text-slate-600 space-y-1.5 list-disc pl-4">
