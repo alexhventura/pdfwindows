@@ -1,12 +1,13 @@
 import { useCallback, useRef, useState, type DragEvent, type ReactNode } from 'react';
-import { Upload, Loader2, AlertCircle, X } from 'lucide-react';
+import { Upload, Loader2, AlertCircle, X, Plus } from 'lucide-react';
 import type { LanguageType } from '../../types';
+import { ModalHeader } from './shared';
 
 export type DocToolAccept = 'pdf' | 'pdf-docx' | 'file-xray';
 
 interface Labels {
   dropTitle: string;
-  dropHint: string;
+  orText: string;
   browse: string;
   formats: string;
   dropActive: string;
@@ -24,6 +25,44 @@ interface DocumentToolDropzoneProps {
   onFile: (file: File) => void;
   children?: ReactNode;
 }
+
+/** Shared page/modal chrome matching ConverterWorkbench workspace title + padding. */
+export function SuiteWorkspaceShell({
+  title,
+  subtitle,
+  showHeader = false,
+  onClose,
+  closeLabel,
+  children,
+}: {
+  title: string;
+  subtitle: string;
+  showHeader?: boolean;
+  onClose: () => void;
+  closeLabel: string;
+  children: ReactNode;
+}) {
+  return (
+    <>
+      {showHeader ? <ModalHeader title={title} onClose={onClose} closeLabel={closeLabel} /> : null}
+      <div className="p-6 md:p-8">
+        {!showHeader ? (
+          <div className="text-center mb-8 select-none">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 mb-2">{title}</h2>
+            <p className="text-sm text-slate-500 max-w-lg mx-auto leading-relaxed font-medium">{subtitle}</p>
+          </div>
+        ) : null}
+        {children}
+      </div>
+    </>
+  );
+}
+
+export const SUITE_UPLOAD_SUBTITLE: Record<LanguageType, string> = {
+  pt: 'Envie seus arquivos e processe localmente.',
+  en: 'Upload your files and process locally.',
+  es: 'Suba sus archivos y procese localmente.',
+};
 
 const XRAY_EXTS = new Set([
   'pdf',
@@ -110,6 +149,11 @@ export function DocumentToolDropzone({
         ? '.pdf,.docx,.xlsx,.pptx,.jpg,.jpeg,.png,.webp,.gif,.csv,.txt,.zip'
         : '.pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document';
 
+  const chips = labels.formats
+    .split(/[•·|,]/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+
   return (
     <div className="space-y-3">
       <div
@@ -127,27 +171,41 @@ export function DocumentToolDropzone({
         onDragLeave={onDrag}
         onDrop={onDrop}
         onClick={() => !disabled && inputRef.current?.click()}
-        className={`premium-dropzone w-full py-16 md:py-24 flex flex-col items-center gap-3 ${
-          dragActive ? 'premium-dropzone-active' : ''
-        } ${disabled ? 'opacity-50 pointer-events-none' : ''}`}
+        className={`premium-dropzone ${dragActive ? 'premium-dropzone-active' : ''} ${
+          disabled ? 'opacity-50 pointer-events-none' : ''
+        }`}
       >
         <input
           ref={inputRef}
           type="file"
-          className="sr-only"
+          className="hidden"
           accept={acceptAttr}
           disabled={disabled}
           onChange={(e) => handleFiles(e.target.files)}
         />
         <div className="premium-dropzone-icon" aria-hidden>
-          <Upload size={28} />
+          <Upload size={26} strokeWidth={1.75} />
         </div>
-        <span className="text-sm font-semibold text-slate-800">
+        <p className="text-base font-semibold text-slate-800 mb-1">
           {dragActive ? labels.dropActive : labels.dropTitle}
-        </span>
-        <span className="text-[11px] text-slate-500 max-w-sm text-center px-4">{labels.dropHint}</span>
-        <span className="btn-primary text-xs pointer-events-none">{labels.browse}</span>
-        <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">{labels.formats}</span>
+        </p>
+        <p className="text-sm text-slate-500 font-medium mb-6">{labels.orText}</p>
+        <button type="button" className="btn-secondary text-xs pointer-events-none">
+          {labels.browse}
+          <Plus size={14} className="pointer-events-none" aria-hidden />
+        </button>
+        {chips.length > 0 ? (
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
+            {chips.map((label) => (
+              <span
+                key={label}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/70 border border-slate-200/80 text-[10px] font-medium text-slate-500"
+              >
+                {label}
+              </span>
+            ))}
+          </div>
+        ) : null}
       </div>
 
       {error && (

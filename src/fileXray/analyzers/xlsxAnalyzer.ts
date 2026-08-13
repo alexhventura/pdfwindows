@@ -183,7 +183,6 @@ export async function analyzeXlsx(
   if (formulaFn.size) {
     result.content.formulaBreakdown = [...formulaFn.entries()]
       .sort((a, b) => b[1] - a[1])
-      .slice(0, 30)
       .map(([fn, count]) => ({ fn, count }));
   }
   if (hiddenSheets) {

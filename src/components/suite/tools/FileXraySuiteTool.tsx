@@ -15,18 +15,22 @@ import {
   exportAnalysisPdf,
   type AnalysisResult,
 } from '../../../fileXray';
-import { DocumentToolDropzone, ToolBusyState } from '../DocumentToolDropzone';
-import { ModalHeader, modalT } from '../shared';
+import {
+  DocumentToolDropzone,
+  ToolBusyState,
+  SuiteWorkspaceShell,
+  SUITE_UPLOAD_SUBTITLE,
+} from '../DocumentToolDropzone';
 
-type ViewLevel = 'summary' | 'details' | 'advanced';
+type ViewLevel = 'summary' | 'complete';
 
 const copy: Record<LanguageType, Record<string, string>> = {
   pt: {
     title: 'Raio X de Arquivo',
     hero: 'Descubra os dados técnicos, estrutura, metadados e informações adicionais presentes em seus arquivos.',
-    dropTitle: 'Arraste seu arquivo aqui',
-    dropHint: 'ou selecione um arquivo do seu dispositivo',
-    browse: 'Selecionar arquivo',
+    dropTitle: 'Solte seus arquivos aqui',
+    orText: 'ou',
+    browse: 'Escolher arquivos',
     formats: 'PDF • DOCX • XLSX • PPTX • JPG • PNG • WEBP • GIF • CSV • TXT • ZIP',
     dropActive: 'Solte o arquivo aqui',
     invalidFile: 'Formato não suportado para Raio X.',
@@ -38,8 +42,7 @@ const copy: Record<LanguageType, Record<string, string>> = {
     privacy:
       'Seu arquivo é analisado no seu dispositivo e não é enviado para nossos servidores.',
     summary: 'Resumo',
-    details: 'Detalhes',
-    advanced: 'Avançado',
+    complete: 'Completa',
     copy: 'Copiar',
     copied: 'Copiado.',
     export: 'Exportar relatório',
@@ -58,6 +61,7 @@ const copy: Record<LanguageType, Record<string, string>> = {
     dates: 'Datas',
     authorship: 'Autoria e origem',
     statistics: 'Estatísticas',
+    content: 'Conteúdo',
     fonts: 'Fontes',
     structure: 'Estrutura',
     metadata: 'Metadados',
@@ -74,9 +78,9 @@ const copy: Record<LanguageType, Record<string, string>> = {
   en: {
     title: 'File X-Ray',
     hero: 'Discover technical data, structure, metadata, and additional information inside your files.',
-    dropTitle: 'Drag your file here',
-    dropHint: 'or select a file from your device',
-    browse: 'Select file',
+    dropTitle: 'Drop your files here',
+    orText: 'or',
+    browse: 'Choose files',
     formats: 'PDF • DOCX • XLSX • PPTX • JPG • PNG • WEBP • GIF • CSV • TXT • ZIP',
     dropActive: 'Drop the file here',
     invalidFile: 'Unsupported format for File X-Ray.',
@@ -87,8 +91,7 @@ const copy: Record<LanguageType, Record<string, string>> = {
     again: 'Analyze another file',
     privacy: 'Your file is analyzed on your device and is not uploaded to our servers.',
     summary: 'Summary',
-    details: 'Details',
-    advanced: 'Advanced',
+    complete: 'Complete',
     copy: 'Copy',
     copied: 'Copied.',
     export: 'Export report',
@@ -107,6 +110,7 @@ const copy: Record<LanguageType, Record<string, string>> = {
     dates: 'Dates',
     authorship: 'Authorship & origin',
     statistics: 'Statistics',
+    content: 'Content',
     fonts: 'Fonts',
     structure: 'Structure',
     metadata: 'Metadata',
@@ -123,9 +127,9 @@ const copy: Record<LanguageType, Record<string, string>> = {
   es: {
     title: 'Rayos X de Archivo',
     hero: 'Descubra datos técnicos, estructura, metadatos e información adicional de sus archivos.',
-    dropTitle: 'Arrastre su archivo aquí',
-    dropHint: 'o seleccione un archivo de su dispositivo',
-    browse: 'Seleccionar archivo',
+    dropTitle: 'Suelta tus archivos aquí',
+    orText: 'o',
+    browse: 'Elegir archivos',
     formats: 'PDF • DOCX • XLSX • PPTX • JPG • PNG • WEBP • GIF • CSV • TXT • ZIP',
     dropActive: 'Suelte el archivo aquí',
     invalidFile: 'Formato no compatible con Rayos X.',
@@ -136,8 +140,7 @@ const copy: Record<LanguageType, Record<string, string>> = {
     again: 'Analizar otro archivo',
     privacy: 'Su archivo se analiza en su dispositivo y no se envía a nuestros servidores.',
     summary: 'Resumen',
-    details: 'Detalles',
-    advanced: 'Avanzado',
+    complete: 'Completa',
     copy: 'Copiar',
     copied: 'Copiado.',
     export: 'Exportar informe',
@@ -156,6 +159,7 @@ const copy: Record<LanguageType, Record<string, string>> = {
     dates: 'Fechas',
     authorship: 'Autoría y origen',
     statistics: 'Estadísticas',
+    content: 'Contenido',
     fonts: 'Fuentes',
     structure: 'Estructura',
     metadata: 'Metadatos',
@@ -243,7 +247,7 @@ export default function FileXraySuiteTool({
   showHeader?: boolean;
 }) {
   const t = copy[lang];
-  const closeLabel = modalT[lang].close;
+  const closeLabel = lang === 'pt' ? 'Fechar' : lang === 'es' ? 'Cerrar' : 'Close';
   const [busy, setBusy] = useState(false);
   const [stage, setStage] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -275,8 +279,7 @@ export default function FileXraySuiteTool({
 
   const id = result?.identification;
   const stats = result?.statistics;
-  const showDetails = level !== 'summary';
-  const showAdvanced = level === 'advanced';
+  const showComplete = level === 'complete';
 
   const summaryCards: Array<{ label: string; value: string }> = [];
   if (result && id && stats) {
@@ -305,9 +308,14 @@ export default function FileXraySuiteTool({
   }
 
   return (
-    <>
-      {showHeader ? <ModalHeader title={t.title} onClose={onClose} closeLabel={closeLabel} /> : null}
-      <div className="p-6 space-y-6">
+    <SuiteWorkspaceShell
+      title={t.title}
+      subtitle={SUITE_UPLOAD_SUBTITLE[lang]}
+      showHeader={showHeader}
+      onClose={onClose}
+      closeLabel={closeLabel}
+    >
+      <div className="space-y-6">
         {busy && <ToolBusyState label={stage || t.analyzing} />}
 
         {!busy && !result && (
@@ -317,7 +325,7 @@ export default function FileXraySuiteTool({
               accept="file-xray"
               labels={{
                 dropTitle: t.dropTitle,
-                dropHint: t.dropHint,
+                orText: t.orText,
                 browse: t.browse,
                 formats: t.formats,
                 dropActive: t.dropActive,
@@ -357,8 +365,7 @@ export default function FileXraySuiteTool({
             <div className="flex flex-wrap gap-1 p-1 bg-slate-100 rounded-xl w-fit" role="tablist" aria-label={t.summary}>
               {([
                 ['summary', t.summary],
-                ['details', t.details],
-                ['advanced', t.advanced],
+                ['complete', t.complete],
               ] as const).map(([idLevel, label]) => (
                 <button
                   key={idLevel}
@@ -428,7 +435,7 @@ export default function FileXraySuiteTool({
               <FieldRow label={lang === 'en' ? 'Signature' : 'Assinatura'} value={id.magicSignature} origin="magic bytes" t={t} onCopy={() => undefined} />
             </section>
 
-            {showDetails ? (
+            {showComplete ? (
               <>
                 <section className="p-4 border border-slate-200/80 rounded-2xl bg-white/60 space-y-1">
                   <h3 className="text-sm font-semibold text-slate-900 mb-2">{t.authorship}</h3>
@@ -445,6 +452,9 @@ export default function FileXraySuiteTool({
                   ) : null}
                   {result.authorship.application ? (
                     <FieldRow label="Application" value={result.authorship.application.value} origin={result.authorship.application.origin} t={t} onCopy={() => undefined} />
+                  ) : null}
+                  {result.authorship.applicationVersion ? (
+                    <FieldRow label="App version" value={result.authorship.applicationVersion.value} origin={result.authorship.applicationVersion.origin} t={t} onCopy={() => undefined} />
                   ) : null}
                   {result.authorship.company ? (
                     <FieldRow label="Company" value={result.authorship.company.value} origin={result.authorship.company.origin} t={t} onCopy={() => undefined} />
@@ -468,7 +478,12 @@ export default function FileXraySuiteTool({
                   {result.dates.contentModified ? (
                     <FieldRow label="Content modified" value={result.dates.contentModified.value} origin={result.dates.contentModified.origin} t={t} onCopy={() => undefined} />
                   ) : null}
-                  {!result.dates.created && !result.dates.modified && !result.dates.contentCreated && !result.dates.contentModified ? (
+                  {result.dates.other.map((d) => (
+                    <div key={`${d.label}-${d.origin}`}>
+                      <FieldRow label={d.label} value={d.value} origin={d.origin} t={t} onCopy={() => undefined} />
+                    </div>
+                  ))}
+                  {!result.dates.created && !result.dates.modified && !result.dates.contentCreated && !result.dates.contentModified && result.dates.other.length === 0 ? (
                     <p className="text-xs text-slate-500 py-2">{t.na}</p>
                   ) : null}
                 </section>
@@ -478,11 +493,14 @@ export default function FileXraySuiteTool({
                   {stats.pages ? <FieldRow label="Pages" value={String(stats.pages.value)} origin={stats.pages.origin} estimated={stats.pages.estimated} t={t} onCopy={() => undefined} /> : null}
                   {stats.words ? <FieldRow label="Words" value={String(stats.words.value)} origin={stats.words.origin} estimated={stats.words.estimated} t={t} onCopy={() => undefined} /> : null}
                   {stats.characters ? <FieldRow label="Characters" value={String(stats.characters.value)} origin={stats.characters.origin} estimated={stats.characters.estimated} t={t} onCopy={() => undefined} /> : null}
+                  {stats.charactersNoSpaces ? <FieldRow label="Characters (no spaces)" value={String(stats.charactersNoSpaces.value)} origin={stats.charactersNoSpaces.origin} estimated={stats.charactersNoSpaces.estimated} t={t} onCopy={() => undefined} /> : null}
                   {stats.images ? <FieldRow label="Images" value={String(stats.images.value)} origin={stats.images.origin} estimated={stats.images.estimated} t={t} onCopy={() => undefined} /> : null}
                   {stats.fonts ? <FieldRow label="Fonts" value={String(stats.fonts.value)} origin={stats.fonts.origin} t={t} onCopy={() => undefined} /> : null}
                   {stats.sheets ? <FieldRow label="Sheets" value={String(stats.sheets.value)} origin={stats.sheets.origin} t={t} onCopy={() => undefined} /> : null}
                   {stats.formulas ? <FieldRow label="Formulas" value={String(stats.formulas.value)} origin={stats.formulas.origin} t={t} onCopy={() => undefined} /> : null}
+                  {stats.cellsFilled ? <FieldRow label="Filled cells" value={String(stats.cellsFilled.value)} origin={stats.cellsFilled.origin} t={t} onCopy={() => undefined} /> : null}
                   {stats.slides ? <FieldRow label="Slides" value={String(stats.slides.value)} origin={stats.slides.origin} t={t} onCopy={() => undefined} /> : null}
+                  {stats.entries ? <FieldRow label="Entries" value={String(stats.entries.value)} origin={stats.entries.origin} t={t} onCopy={() => undefined} /> : null}
                   {stats.width ? <FieldRow label="Width" value={String(stats.width.value)} origin={stats.width.origin} t={t} onCopy={() => undefined} /> : null}
                   {stats.height ? <FieldRow label="Height" value={String(stats.height.value)} origin={stats.height.origin} t={t} onCopy={() => undefined} /> : null}
                   {stats.custom.map((c) => (
@@ -492,23 +510,59 @@ export default function FileXraySuiteTool({
                   ))}
                 </section>
 
+                {(result.content.notes.length > 0 ||
+                  result.content.pagesWithText != null ||
+                  result.content.links != null ||
+                  result.content.comments != null ||
+                  result.content.tables != null ||
+                  result.content.textPreview) ? (
+                  <section className="p-4 border border-slate-200/80 rounded-2xl bg-white/60 space-y-1">
+                    <h3 className="text-sm font-semibold text-slate-900 mb-2">{t.content}</h3>
+                    {result.content.pagesWithText != null ? (
+                      <FieldRow label="Pages with text" value={String(result.content.pagesWithText)} origin="pdf.js / textContent" t={t} onCopy={() => undefined} />
+                    ) : null}
+                    {result.content.pagesWithoutText != null ? (
+                      <FieldRow label="Pages without text" value={String(result.content.pagesWithoutText)} origin="pdf.js / textContent" t={t} onCopy={() => undefined} />
+                    ) : null}
+                    {result.content.links != null ? (
+                      <FieldRow label="Links" value={String(result.content.links)} origin="content scan" t={t} onCopy={() => undefined} />
+                    ) : null}
+                    {result.content.comments != null ? (
+                      <FieldRow label="Comments" value={String(result.content.comments)} origin="content scan" t={t} onCopy={() => undefined} />
+                    ) : null}
+                    {result.content.tables != null ? (
+                      <FieldRow label="Tables" value={String(result.content.tables)} origin="content scan" t={t} onCopy={() => undefined} />
+                    ) : null}
+                    {result.content.textPreview ? (
+                      <FieldRow label="Text preview" value={result.content.textPreview} origin="content extract" t={t} onCopy={() => undefined} />
+                    ) : null}
+                    {result.content.notes.map((n) => (
+                      <p key={n} className="text-xs text-slate-600 py-1">{n}</p>
+                    ))}
+                  </section>
+                ) : null}
+
                 {result.fonts.length > 0 ? (
                   <section className="p-4 border border-slate-200/80 rounded-2xl bg-white/60">
                     <h3 className="text-sm font-semibold text-slate-900 mb-2">{t.fonts}</h3>
-                    <div className="overflow-x-auto">
+                    <div className="overflow-x-auto max-h-80 overflow-y-auto">
                       <table className="w-full text-left text-[11px]">
                         <thead>
                           <tr className="text-slate-400 uppercase tracking-wider">
                             <th className="py-1 pr-2">Name</th>
+                            <th className="py-1 pr-2">Internal</th>
                             <th className="py-1 pr-2">Subset</th>
+                            <th className="py-1 pr-2">Occurrences</th>
                             <th className="py-1">Origin</th>
                           </tr>
                         </thead>
                         <tbody>
-                          {result.fonts.slice(0, 40).map((f) => (
+                          {result.fonts.map((f) => (
                             <tr key={f.internalName || f.name} className="border-t border-slate-100">
                               <td className="py-1.5 pr-2 font-semibold text-slate-800">{f.name}</td>
+                              <td className="py-1.5 pr-2 text-slate-500">{f.internalName || '—'}</td>
                               <td className="py-1.5 pr-2">{f.subset ? 'yes' : '—'}</td>
+                              <td className="py-1.5 pr-2">{f.occurrences ?? '—'}</td>
                               <td className="py-1.5 text-slate-400">{f.origin}</td>
                             </tr>
                           ))}
@@ -532,15 +586,17 @@ export default function FileXraySuiteTool({
                 {result.metadata.length > 0 ? (
                   <section className="p-4 border border-slate-200/80 rounded-2xl bg-white/60 space-y-1">
                     <h3 className="text-sm font-semibold text-slate-900 mb-2">{t.metadata}</h3>
-                    {result.metadata.slice(0, level === 'details' ? 40 : 200).map((m) => (
-                      <div key={`${m.key}-${m.value}`}>
-                        <FieldRow label={m.key} value={m.value} origin={m.origin} t={t} onCopy={() => undefined} />
-                      </div>
-                    ))}
+                    <div className="max-h-96 overflow-y-auto space-y-1">
+                      {result.metadata.map((m) => (
+                        <div key={`${m.key}-${m.value}-${m.origin}`}>
+                          <FieldRow label={m.key} value={m.value} origin={m.origin} t={t} onCopy={() => undefined} />
+                        </div>
+                      ))}
+                    </div>
                   </section>
                 ) : null}
 
-                {(result.security.encrypted != null || result.security.notes.length > 0) && (
+                {(result.security.encrypted != null || result.security.notes.length > 0 || (result.security.permissions && result.security.permissions.length > 0)) && (
                   <section className="p-4 border border-slate-200/80 rounded-2xl bg-white/60 space-y-2">
                     <h3 className="text-sm font-semibold text-slate-900 mb-2">{t.security}</h3>
                     {result.security.encrypted != null ? (
@@ -552,6 +608,20 @@ export default function FileXraySuiteTool({
                         onCopy={() => undefined}
                       />
                     ) : null}
+                    {result.security.openPassword != null ? (
+                      <FieldRow
+                        label="Open password"
+                        value={result.security.openPassword ? 'Required' : 'Not required'}
+                        origin="analyzer"
+                        t={t}
+                        onCopy={() => undefined}
+                      />
+                    ) : null}
+                    {result.security.permissions?.map((p) => (
+                      <div key={p.label}>
+                        <FieldRow label={p.label} value={p.status} origin={p.origin} t={t} onCopy={() => undefined} />
+                      </div>
+                    ))}
                     {result.security.notes.map((n) => (
                       <p key={n} className="text-xs text-slate-600">
                         {n}
@@ -570,6 +640,22 @@ export default function FileXraySuiteTool({
                       t={t}
                       onCopy={() => undefined}
                     />
+                    {result.image.gps.altitude != null ? (
+                      <FieldRow label="Altitude" value={String(result.image.gps.altitude)} origin={result.image.gps.origin} t={t} onCopy={() => undefined} />
+                    ) : null}
+                  </section>
+                ) : null}
+
+                {result.image?.exif && result.image.exif.length > 0 ? (
+                  <section className="p-4 border border-slate-200/80 rounded-2xl bg-white/60 space-y-1">
+                    <h3 className="text-sm font-semibold text-slate-900 mb-2">EXIF</h3>
+                    <div className="max-h-96 overflow-y-auto space-y-1">
+                      {result.image.exif.map((m) => (
+                        <div key={`${m.key}-${m.value}`}>
+                          <FieldRow label={m.key} value={m.value} origin={m.origin} t={t} onCopy={() => undefined} />
+                        </div>
+                      ))}
+                    </div>
                   </section>
                 ) : null}
 
@@ -603,31 +689,34 @@ export default function FileXraySuiteTool({
                     ) : null}
                   </section>
                 ) : null}
-              </>
-            ) : null}
 
-            {showAdvanced ? (
-              <>
                 {result.embedded.length > 0 ? (
                   <section className="p-4 border border-slate-200/80 rounded-2xl bg-white/60">
                     <h3 className="text-sm font-semibold text-slate-900 mb-2">{t.embedded}</h3>
-                    <ul className="text-[11px] space-y-1 max-h-48 overflow-y-auto">
-                      {result.embedded.slice(0, 100).map((e) => (
+                    <ul className="text-[11px] space-y-1 max-h-72 overflow-y-auto">
+                      {result.embedded.map((e) => (
                         <li key={e.name} className="text-slate-600">
-                          {e.name} <span className="text-slate-400">({e.kind})</span>
+                          {e.name}{' '}
+                          <span className="text-slate-400">
+                            ({e.kind}
+                            {e.size != null ? `, ${formatBytes(e.size)}` : ''})
+                          </span>
                         </li>
                       ))}
                     </ul>
                   </section>
                 ) : null}
+
                 {result.advanced.length > 0 ? (
                   <section className="p-4 border border-slate-200/80 rounded-2xl bg-white/60 space-y-1">
                     <h3 className="text-sm font-semibold text-slate-900 mb-2">{t.advancedData}</h3>
-                    {result.advanced.slice(0, 150).map((a) => (
-                      <div key={`${a.key}-${a.value}`}>
-                        <FieldRow label={a.key} value={a.value} origin={a.origin} t={t} onCopy={() => undefined} />
-                      </div>
-                    ))}
+                    <div className="max-h-96 overflow-y-auto space-y-1">
+                      {result.advanced.map((a) => (
+                        <div key={`${a.key}-${a.value}-${a.origin}`}>
+                          <FieldRow label={a.key} value={a.value} origin={a.origin} t={t} onCopy={() => undefined} />
+                        </div>
+                      ))}
+                    </div>
                   </section>
                 ) : null}
               </>
@@ -664,6 +753,6 @@ export default function FileXraySuiteTool({
           </div>
         )}
       </div>
-    </>
+    </SuiteWorkspaceShell>
   );
 }

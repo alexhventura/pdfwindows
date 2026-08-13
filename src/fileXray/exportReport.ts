@@ -153,7 +153,7 @@ export async function exportAnalysisPdf(result: AnalysisResult): Promise<Blob> {
 
   write('METADADOS', 12, true);
   if (!result.metadata.length) write('Não disponível no arquivo.');
-  for (const m of result.metadata.slice(0, 80)) {
+  for (const m of result.metadata) {
     write(`${m.key}: ${m.value}`);
     write(`Origem: ${m.origin}`);
   }
@@ -176,7 +176,7 @@ export async function exportAnalysisPdf(result: AnalysisResult): Promise<Blob> {
   if (result.fonts.length) {
     y -= 6;
     write('FONTES', 12, true);
-    for (const f of result.fonts.slice(0, 40)) {
+    for (const f of result.fonts) {
       write(`${f.name}${f.internalName && f.internalName !== f.name ? ` (${f.internalName})` : ''}`);
       write(`Origem: ${f.origin}`);
     }

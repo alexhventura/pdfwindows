@@ -178,8 +178,11 @@ export async function analyzePdf(
     let annotCount = 0;
     let linkCount = 0;
 
-    const maxPages = Math.min(pageCount, 80);
+    const maxPages = pageCount;
     for (let i = 1; i <= maxPages; i++) {
+      if (i % 10 === 0) {
+        await new Promise<void>((r) => setTimeout(r, 0));
+      }
       const page = await pdf.getPage(i);
       const textContent = await page.getTextContent();
       const pageText = textContent.items
@@ -232,21 +235,13 @@ export async function analyzePdf(
       }
     }
 
-    if (pageCount > maxPages) {
-      result.content.notes.push(`Texto/fontes analisados nas primeiras ${maxPages} de ${pageCount} páginas.`);
-    }
-
     result.content.pagesWithText = pagesWithText;
-    result.content.pagesWithoutText = Math.max(0, Math.min(pageCount, maxPages) - pagesWithText);
+    result.content.pagesWithoutText = Math.max(0, pageCount - pagesWithText);
     result.content.links = linkCount;
     result.content.comments = annotCount;
-    result.statistics.words = sv(countWords(totalText), 'pdf.js / textContent', pageCount > maxPages);
-    result.statistics.characters = sv(totalText.replace(/\s+/g, ' ').trim().length, 'pdf.js / textContent', pageCount > maxPages);
-    result.statistics.charactersNoSpaces = sv(
-      totalText.replace(/\s/g, '').length,
-      'pdf.js / textContent',
-      pageCount > maxPages,
-    );
+    result.statistics.words = sv(countWords(totalText), 'pdf.js / textContent');
+    result.statistics.characters = sv(totalText.replace(/\s+/g, ' ').trim().length, 'pdf.js / textContent');
+    result.statistics.charactersNoSpaces = sv(totalText.replace(/\s/g, '').length, 'pdf.js / textContent');
     result.statistics.images = sv(imageOps, 'pdf.js / operatorList (paintImage)', true);
     result.statistics.fonts = sv(fontMap.size, 'pdf.js / textContent.fontName');
 
@@ -255,7 +250,7 @@ export async function analyzePdf(
       internalName: name,
       subset: info.subset,
       occurrences: info.count,
-      pages: [...info.pages].slice(0, 20),
+      pages: [...info.pages],
       origin: 'pdf.js / textContent',
     }));
 

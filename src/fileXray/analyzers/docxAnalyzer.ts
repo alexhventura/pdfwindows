@@ -180,7 +180,7 @@ export async function analyzeDocx(
   }
 
   // Internal listing (advanced)
-  for (const n of names.slice(0, 200)) {
+  for (const n of names) {
     const f = zip.files[n];
     if (f.dir) continue;
     result.advanced.push({

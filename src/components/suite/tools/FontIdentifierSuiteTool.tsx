@@ -3,16 +3,20 @@ import { RefreshCw } from 'lucide-react';
 import type { LanguageType } from '../../../types';
 import { identifyDocumentFonts } from '../../../engines/fontIdentifier';
 import type { FontIdentifierResult } from '../../../engines/fontIdentifier';
-import { DocumentToolDropzone, ToolBusyState } from '../DocumentToolDropzone';
-import { ModalHeader, modalT } from '../shared';
+import {
+  DocumentToolDropzone,
+  ToolBusyState,
+  SuiteWorkspaceShell,
+  SUITE_UPLOAD_SUBTITLE,
+} from '../DocumentToolDropzone';
 
 const copy: Record<LanguageType, Record<string, string>> = {
   pt: {
     title: 'Identificador de Fontes',
     hero: 'Descubra quais fontes foram utilizadas em seus documentos PDF e Word.',
-    dropTitle: 'Arraste seu PDF ou DOCX aqui',
-    dropHint: 'ou selecione um arquivo do seu dispositivo',
-    browse: 'Selecionar arquivo',
+    dropTitle: 'Solte seus arquivos aqui',
+    orText: 'ou',
+    browse: 'Escolher arquivos',
     formats: 'PDF • DOCX',
     dropActive: 'Solte o arquivo aqui',
     invalidFile: 'Envie um arquivo PDF ou DOCX válido.',
@@ -51,9 +55,9 @@ const copy: Record<LanguageType, Record<string, string>> = {
   en: {
     title: 'Font Identifier',
     hero: 'Discover which fonts were used in your PDF and Word documents.',
-    dropTitle: 'Drag your PDF or DOCX here',
-    dropHint: 'or select a file from your device',
-    browse: 'Select file',
+    dropTitle: 'Drop your files here',
+    orText: 'or',
+    browse: 'Choose files',
     formats: 'PDF • DOCX',
     dropActive: 'Drop the file here',
     invalidFile: 'Please upload a valid PDF or DOCX file.',
@@ -92,9 +96,9 @@ const copy: Record<LanguageType, Record<string, string>> = {
   es: {
     title: 'Identificador de Fuentes',
     hero: 'Descubra qué fuentes se usaron en sus documentos PDF y Word.',
-    dropTitle: 'Arrastre su PDF o DOCX aquí',
-    dropHint: 'o seleccione un archivo de su dispositivo',
-    browse: 'Seleccionar archivo',
+    dropTitle: 'Suelta tus archivos aquí',
+    orText: 'o',
+    browse: 'Elegir archivos',
     formats: 'PDF • DOCX',
     dropActive: 'Suelte el archivo aquí',
     invalidFile: 'Envíe un archivo PDF o DOCX válido.',
@@ -154,7 +158,7 @@ export default function FontIdentifierSuiteTool({
   showHeader?: boolean;
 }) {
   const t = copy[lang];
-  const closeLabel = modalT[lang].close;
+  const closeLabel = lang === 'pt' ? 'Fechar' : lang === 'es' ? 'Cerrar' : 'Close';
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<FontIdentifierResult | null>(null);
@@ -183,9 +187,14 @@ export default function FontIdentifierSuiteTool({
   };
 
   return (
-    <>
-      {showHeader ? <ModalHeader title={t.title} onClose={onClose} closeLabel={closeLabel} /> : null}
-      <div className="p-6 space-y-6">
+    <SuiteWorkspaceShell
+      title={t.title}
+      subtitle={SUITE_UPLOAD_SUBTITLE[lang]}
+      showHeader={showHeader}
+      onClose={onClose}
+      closeLabel={closeLabel}
+    >
+      <div className="space-y-6">
         {!result && !busy && (
           <DocumentToolDropzone
             lang={lang}
@@ -193,7 +202,7 @@ export default function FontIdentifierSuiteTool({
             onFile={run}
             labels={{
               dropTitle: t.dropTitle,
-              dropHint: t.dropHint,
+              orText: t.orText,
               browse: t.browse,
               formats: t.formats,
               dropActive: t.dropActive,
@@ -317,6 +326,6 @@ export default function FontIdentifierSuiteTool({
           </div>
         )}
       </div>
-    </>
+    </SuiteWorkspaceShell>
   );
 }

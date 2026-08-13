@@ -2,18 +2,23 @@ import { useState } from 'react';
 import { Download, RefreshCw, ShieldCheck, AlertCircle, Lock } from 'lucide-react';
 import type { LanguageType } from '../../../types';
 import { unlockPdfFile, type UnlockPdfResult } from '../../../engines/unlockPdf';
-import { DocumentToolDropzone, ToolBusyState } from '../DocumentToolDropzone';
-import { ModalHeader, modalT, inputClass } from '../shared';
+import {
+  DocumentToolDropzone,
+  ToolBusyState,
+  SuiteWorkspaceShell,
+  SUITE_UPLOAD_SUBTITLE,
+} from '../DocumentToolDropzone';
+import { inputClass } from '../shared';
 
 const copy: Record<LanguageType, Record<string, string>> = {
   pt: {
     title: 'Desbloquear PDF',
     hero: 'Remova a proteção do seu PDF e gere uma nova cópia desbloqueada.',
-    dropTitle: 'Arraste e solte o PDF aqui',
-    dropHint: 'ou selecione um arquivo PDF do seu dispositivo',
-    browse: 'Selecionar arquivo PDF',
+    dropTitle: 'Solte seus arquivos aqui',
+    orText: 'ou',
+    browse: 'Escolher arquivos',
     formats: 'PDF',
-    dropActive: 'Solte o PDF aqui',
+    dropActive: 'Solte o arquivo aqui',
     invalidFile: 'Envie um arquivo PDF válido.',
     emptyFile: 'O arquivo está vazio.',
     tooLarge: 'Arquivo acima do limite de 100 MB.',
@@ -39,11 +44,11 @@ const copy: Record<LanguageType, Record<string, string>> = {
   en: {
     title: 'Unlock PDF',
     hero: 'Remove PDF protection and generate a new unlocked copy.',
-    dropTitle: 'Drag and drop the PDF here',
-    dropHint: 'or select a PDF file from your device',
-    browse: 'Select PDF file',
+    dropTitle: 'Drop your files here',
+    orText: 'or',
+    browse: 'Choose files',
     formats: 'PDF',
-    dropActive: 'Drop the PDF here',
+    dropActive: 'Drop the file here',
     invalidFile: 'Please upload a valid PDF file.',
     emptyFile: 'The file is empty.',
     tooLarge: 'File exceeds the 100 MB limit.',
@@ -69,11 +74,11 @@ const copy: Record<LanguageType, Record<string, string>> = {
   es: {
     title: 'Desbloquear PDF',
     hero: 'Quite la protección de su PDF y genere una nueva copia desbloqueada.',
-    dropTitle: 'Arrastre y suelte el PDF aquí',
-    dropHint: 'o seleccione un archivo PDF de su dispositivo',
-    browse: 'Seleccionar archivo PDF',
+    dropTitle: 'Suelta tus archivos aquí',
+    orText: 'o',
+    browse: 'Elegir archivos',
     formats: 'PDF',
-    dropActive: 'Suelte el PDF aquí',
+    dropActive: 'Suelte el archivo aquí',
     invalidFile: 'Envíe un archivo PDF válido.',
     emptyFile: 'El archivo está vacío.',
     tooLarge: 'El archivo supera el límite de 100 MB.',
@@ -108,7 +113,7 @@ export default function UnlockPdfSuiteTool({
   showHeader?: boolean;
 }) {
   const t = copy[lang];
-  const closeLabel = modalT[lang].close;
+  const closeLabel = lang === 'pt' ? 'Fechar' : lang === 'es' ? 'Cerrar' : 'Close';
   const [busy, setBusy] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [password, setPassword] = useState('');
@@ -176,9 +181,14 @@ export default function UnlockPdfSuiteTool({
   };
 
   return (
-    <>
-      {showHeader ? <ModalHeader title={t.title} onClose={onClose} closeLabel={closeLabel} /> : null}
-      <div className="p-6 space-y-6">
+    <SuiteWorkspaceShell
+      title={t.title}
+      subtitle={SUITE_UPLOAD_SUBTITLE[lang]}
+      showHeader={showHeader}
+      onClose={onClose}
+      closeLabel={closeLabel}
+    >
+      <div className="space-y-6">
         {!outputUrl && !needPassword && !busy && (
           <DocumentToolDropzone
             lang={lang}
@@ -186,7 +196,7 @@ export default function UnlockPdfSuiteTool({
             onFile={(f) => run(f)}
             labels={{
               dropTitle: t.dropTitle,
-              dropHint: t.dropHint,
+              orText: t.orText,
               browse: t.browse,
               formats: t.formats,
               dropActive: t.dropActive,
@@ -265,6 +275,6 @@ export default function UnlockPdfSuiteTool({
           </div>
         )}
       </div>
-    </>
+    </SuiteWorkspaceShell>
   );
 }

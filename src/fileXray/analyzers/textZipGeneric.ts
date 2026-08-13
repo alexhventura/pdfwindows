@@ -224,7 +224,7 @@ export async function analyzeZip(
   }
 
   // Cap embedded listing in UI via advanced
-  for (const n of names.slice(0, 300)) {
+  for (const n of names) {
     result.advanced.push({ key: n, value: zip.files[n].dir ? 'dir' : 'file', origin: 'ZIP / listing' });
   }
 

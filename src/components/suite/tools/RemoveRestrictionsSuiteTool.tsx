@@ -6,16 +6,20 @@ import {
   removeDocumentRestrictions,
   type RestrictionsAnalysis,
 } from '../../../engines/removeRestrictions';
-import { DocumentToolDropzone, ToolBusyState } from '../DocumentToolDropzone';
-import { ModalHeader, modalT } from '../shared';
+import {
+  DocumentToolDropzone,
+  ToolBusyState,
+  SuiteWorkspaceShell,
+  SUITE_UPLOAD_SUBTITLE,
+} from '../DocumentToolDropzone';
 
 const copy: Record<LanguageType, Record<string, string>> = {
   pt: {
     title: 'Remover Restrições',
     hero: 'Remova restrições de edição, cópia e impressão de seus documentos.',
-    dropTitle: 'Arraste seu PDF ou DOCX aqui',
-    dropHint: 'ou selecione um arquivo do seu dispositivo',
-    browse: 'Selecionar arquivo',
+    dropTitle: 'Solte seus arquivos aqui',
+    orText: 'ou',
+    browse: 'Escolher arquivos',
     formats: 'PDF • DOCX',
     dropActive: 'Solte o arquivo aqui',
     invalidFile: 'Envie um arquivo PDF ou DOCX válido.',
@@ -51,9 +55,9 @@ const copy: Record<LanguageType, Record<string, string>> = {
   en: {
     title: 'Remove Restrictions',
     hero: 'Remove editing, copying, and printing restrictions from your documents.',
-    dropTitle: 'Drag your PDF or DOCX here',
-    dropHint: 'or select a file from your device',
-    browse: 'Select file',
+    dropTitle: 'Drop your files here',
+    orText: 'or',
+    browse: 'Choose files',
     formats: 'PDF • DOCX',
     dropActive: 'Drop the file here',
     invalidFile: 'Please upload a valid PDF or DOCX file.',
@@ -87,9 +91,9 @@ const copy: Record<LanguageType, Record<string, string>> = {
   es: {
     title: 'Quitar Restricciones',
     hero: 'Quite restricciones de edición, copia e impresión de sus documentos.',
-    dropTitle: 'Arrastre su PDF o DOCX aquí',
-    dropHint: 'o seleccione un archivo de su dispositivo',
-    browse: 'Seleccionar archivo',
+    dropTitle: 'Suelta tus archivos aquí',
+    orText: 'o',
+    browse: 'Elegir archivos',
     formats: 'PDF • DOCX',
     dropActive: 'Suelte el archivo aquí',
     invalidFile: 'Envíe un archivo PDF o DOCX válido.',
@@ -138,7 +142,7 @@ export default function RemoveRestrictionsSuiteTool({
   showHeader?: boolean;
 }) {
   const t = copy[lang];
-  const closeLabel = modalT[lang].close;
+  const closeLabel = lang === 'pt' ? 'Fechar' : lang === 'es' ? 'Cerrar' : 'Close';
   const [busy, setBusy] = useState<'analyze' | 'process' | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [analysis, setAnalysis] = useState<RestrictionsAnalysis | null>(null);
@@ -212,9 +216,14 @@ export default function RemoveRestrictionsSuiteTool({
   };
 
   return (
-    <>
-      {showHeader ? <ModalHeader title={t.title} onClose={onClose} closeLabel={closeLabel} /> : null}
-      <div className="p-6 space-y-6">
+    <SuiteWorkspaceShell
+      title={t.title}
+      subtitle={SUITE_UPLOAD_SUBTITLE[lang]}
+      showHeader={showHeader}
+      onClose={onClose}
+      closeLabel={closeLabel}
+    >
+      <div className="space-y-6">
         {!analysis && !busy && !outputUrl && (
           <DocumentToolDropzone
             lang={lang}
@@ -222,7 +231,7 @@ export default function RemoveRestrictionsSuiteTool({
             onFile={onSelect}
             labels={{
               dropTitle: t.dropTitle,
-              dropHint: t.dropHint,
+              orText: t.orText,
               browse: t.browse,
               formats: t.formats,
               dropActive: t.dropActive,
@@ -304,6 +313,6 @@ export default function RemoveRestrictionsSuiteTool({
           </div>
         )}
       </div>
-    </>
+    </SuiteWorkspaceShell>
   );
 }
