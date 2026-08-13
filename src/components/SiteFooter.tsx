@@ -113,10 +113,18 @@ export function SiteFooter() {
               )}
               {activeModal === 'directory' && (
                 <div className="space-y-3">
-                  {conversionDirectory[lang].map((item) => (
-                    <div key={item.title} className="rounded-xl border border-slate-100 bg-slate-50/80 px-3 py-2">
-                      <p className="font-semibold text-slate-800 text-[11px]">{item.title}</p>
-                      <p className="text-slate-500 mt-1">{item.description}</p>
+                  <p className="text-[11px] text-slate-600 font-medium leading-relaxed">
+                    {conversionDirectory[lang].intro}
+                  </p>
+                  {conversionDirectory[lang].sections.map((section) => (
+                    <div key={section.title} className="rounded-xl border border-slate-100 bg-slate-50/80 px-3 py-2 space-y-2">
+                      <p className="font-semibold text-slate-800 text-[11px] uppercase tracking-wide">{section.title}</p>
+                      {section.items.map((item) => (
+                        <div key={item.name}>
+                          <p className="font-semibold text-slate-800 text-[11px]">{item.name}</p>
+                          <p className="text-slate-500 mt-0.5 text-[10px] leading-relaxed">{item.description}</p>
+                        </div>
+                      ))}
                     </div>
                   ))}
                 </div>

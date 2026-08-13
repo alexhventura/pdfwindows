@@ -32,6 +32,14 @@ const RICH_LOADERS: Record<string, RichLoader> = {
   '/gerador-qr-code': async (lang) => (await import('./tools/gerador-qr-code')).GERADOR_QR_CODE_CONTENT[lang],
   '/gerador-cpf': async (lang) => (await import('./tools/gerador-cpf')).GERADOR_CPF_CONTENT[lang],
   '/limpador-codigo': async (lang) => (await import('./tools/limpador-codigo')).LIMPADOR_CODIGO_CONTENT[lang],
+  '/identificador-de-fontes': async (lang) =>
+    (await import('./tools/identificador-de-fontes')).IDENTIFICADOR_FONTES_CONTENT[lang],
+  '/remover-restricoes': async (lang) =>
+    (await import('./tools/remover-restricoes')).REMOVER_RESTRICOES_CONTENT[lang],
+  '/desbloquear-pdf': async (lang) =>
+    (await import('./tools/desbloquear-pdf')).DESBLOQUEAR_PDF_CONTENT[lang],
+  '/raio-x-de-arquivo': async (lang) =>
+    (await import('./tools/raio-x-de-arquivo')).RAIO_X_ARQUIVO_CONTENT[lang],
 };
 
 function legacyToRich(path: string, lang: LanguageType): ToolRichContent {

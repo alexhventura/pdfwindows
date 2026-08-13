@@ -1949,6 +1949,306 @@
       }
     ]
   },
+  "/en/font-identifier": {
+    "lang": "en",
+    "title": "Font Identifier for PDF & Word Free | PDFWINDOWS",
+    "description": "Identify fonts in PDF and DOCX locally in your browser. Direct matches show high confidence; otherwise we estimate similarity without false certainty.",
+    "keywords": "font identifier, identify pdf font, find word document font, discover font used, free font detector offline",
+    "canonical": "https://www.pdfwindows.com/en/font-identifier",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/font-identifier"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/identificador-de-fontes"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/identificador-de-fuentes"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/font-identifier"
+      }
+    ]
+  },
+  "/pt/identificador-de-fontes": {
+    "lang": "pt-BR",
+    "title": "Identificador de Fontes PDF e Word Grátis | PDFWINDOWS",
+    "description": "Identifique fontes em PDF e DOCX localmente no navegador. Correspondências diretas têm alta confiança; senão estimamos similaridade sem falsa certeza.",
+    "keywords": "identificador de fontes, identificar fonte pdf, descobrir fonte word, qual fonte do documento, identificar fonte gratis",
+    "canonical": "https://www.pdfwindows.com/pt/identificador-de-fontes",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/font-identifier"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/identificador-de-fontes"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/identificador-de-fuentes"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/font-identifier"
+      }
+    ]
+  },
+  "/es/identificador-de-fuentes": {
+    "lang": "es",
+    "title": "Identificador de Fuentes PDF y Word Gratis | PDFWINDOWS",
+    "description": "Identifique fuentes en PDF y DOCX localmente en el navegador. Coincidencias directas tienen alta confianza; si no, estimamos similitud sin falsa certeza.",
+    "keywords": "identificador de fuentes, identificar fuente pdf, descubrir fuente word, qué fuente usa el documento",
+    "canonical": "https://www.pdfwindows.com/es/identificador-de-fuentes",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/font-identifier"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/identificador-de-fontes"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/identificador-de-fuentes"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/font-identifier"
+      }
+    ]
+  },
+  "/en/remove-restrictions": {
+    "lang": "en",
+    "title": "Remove PDF & Word Restrictions Free | PDFWINDOWS",
+    "description": "Remove editing, copying, and printing restrictions from PDF and DOCX in your browser. Download a new copy locally—files never leave your device.",
+    "keywords": "remove pdf restrictions, unlock pdf for editing, pdf cannot copy text, remove word restrictions, unlock protected docx",
+    "canonical": "https://www.pdfwindows.com/en/remove-restrictions",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/remove-restrictions"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/remover-restricoes"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/quitar-restricciones"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/remove-restrictions"
+      }
+    ]
+  },
+  "/pt/remover-restricoes": {
+    "lang": "pt-BR",
+    "title": "Remover Restrições de PDF e Word Grátis | PDFWINDOWS",
+    "description": "Remova restrições de edição, cópia e impressão de PDF e DOCX no navegador. Baixe uma nova cópia localmente—arquivos não saem do seu dispositivo.",
+    "keywords": "remover restrição pdf, desbloquear pdf para edição, pdf não permite copiar, remover restrições word, documento word protegido",
+    "canonical": "https://www.pdfwindows.com/pt/remover-restricoes",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/remove-restrictions"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/remover-restricoes"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/quitar-restricciones"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/remove-restrictions"
+      }
+    ]
+  },
+  "/es/quitar-restricciones": {
+    "lang": "es",
+    "title": "Quitar Restricciones de PDF y Word Gratis | PDFWINDOWS",
+    "description": "Quite restricciones de edición, copia e impresión de PDF y DOCX en el navegador. Descargue una copia nueva localmente—los archivos no salen de su dispositivo.",
+    "keywords": "quitar restricción pdf, desbloquear pdf edición, pdf no permite copiar, quitar restricciones word, documento word protegido",
+    "canonical": "https://www.pdfwindows.com/es/quitar-restricciones",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/remove-restrictions"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/remover-restricoes"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/quitar-restricciones"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/remove-restrictions"
+      }
+    ]
+  },
+  "/en/unlock-pdf": {
+    "lang": "en",
+    "title": "Unlock PDF Online Free | PDFWINDOWS",
+    "description": "Unlock a protected PDF in your browser and download a new copy. Enter the open password when required—processing stays local with zero cloud upload.",
+    "keywords": "unlock pdf, remove pdf password, open protected pdf, unlock pdf free, locked pdf, remove pdf protection",
+    "canonical": "https://www.pdfwindows.com/en/unlock-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/unlock-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/desbloquear-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/desbloquear-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/unlock-pdf"
+      }
+    ]
+  },
+  "/pt/desbloquear-pdf": {
+    "lang": "pt-BR",
+    "title": "Desbloquear PDF Online Grátis | PDFWINDOWS",
+    "description": "Desbloqueie um PDF protegido no navegador e baixe uma nova cópia. Informe a senha de abertura quando necessário—processamento local, sem upload na nuvem.",
+    "keywords": "desbloquear pdf, remover senha pdf, tirar senha do pdf, pdf protegido, pdf bloqueado, desbloquear pdf gratis",
+    "canonical": "https://www.pdfwindows.com/pt/desbloquear-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/unlock-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/desbloquear-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/desbloquear-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/unlock-pdf"
+      }
+    ]
+  },
+  "/es/desbloquear-pdf": {
+    "lang": "es",
+    "title": "Desbloquear PDF Online Gratis | PDFWINDOWS",
+    "description": "Desbloquee un PDF protegido en el navegador y descargue una copia nueva. Indique la contraseña si hace falta—procesamiento local, sin subida a la nube.",
+    "keywords": "desbloquear pdf, quitar contraseña pdf, pdf protegido, pdf bloqueado, desbloquear pdf gratis",
+    "canonical": "https://www.pdfwindows.com/es/desbloquear-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/unlock-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/desbloquear-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/desbloquear-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/unlock-pdf"
+      }
+    ]
+  },
+  "/en/file-xray": {
+    "lang": "en",
+    "title": "File X-Ray Online Free | PDFWINDOWS",
+    "description": "Inspect metadata, structure, hashes, and EXIF for PDF, Word, Excel, and images in your browser. Fully local analysis—files never leave your device.",
+    "keywords": "file x-ray, analyze file metadata, pdf metadata, word metadata, excel metadata, hidden file info, EXIF, sha-256 hash",
+    "canonical": "https://www.pdfwindows.com/en/file-xray",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/file-xray"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/raio-x-de-arquivo"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/rayos-x-de-archivo"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/file-xray"
+      }
+    ]
+  },
+  "/pt/raio-x-de-arquivo": {
+    "lang": "pt-BR",
+    "title": "Raio X de Arquivo Online Grátis | PDFWINDOWS",
+    "description": "Analise metadados, estrutura, hashes e EXIF de PDF, Word, Excel e imagens no navegador. Processamento 100% local—arquivos nunca saem do dispositivo.",
+    "keywords": "raio x de arquivo, analisar metadados, metadados pdf, metadados word, metadados excel, informações ocultas arquivo, EXIF, hash sha-256",
+    "canonical": "https://www.pdfwindows.com/pt/raio-x-de-arquivo",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/file-xray"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/raio-x-de-arquivo"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/rayos-x-de-archivo"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/file-xray"
+      }
+    ]
+  },
+  "/es/rayos-x-de-archivo": {
+    "lang": "es",
+    "title": "Rayos X de Archivo Online Gratis | PDFWINDOWS",
+    "description": "Analice metadatos, estructura, hashes y EXIF de PDF, Word, Excel e imágenes en el navegador. Análisis 100% local—los archivos no salen de su dispositivo.",
+    "keywords": "rayos x de archivo, analizar metadatos, metadatos pdf, metadatos word, metadatos excel, información oculta archivo, EXIF, hash sha-256",
+    "canonical": "https://www.pdfwindows.com/es/rayos-x-de-archivo",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/file-xray"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/raio-x-de-arquivo"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/rayos-x-de-archivo"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/file-xray"
+      }
+    ]
+  },
   "/en/privacy": {
     "lang": "en",
     "title": "Privacy Policy | PDFWINDOWS",

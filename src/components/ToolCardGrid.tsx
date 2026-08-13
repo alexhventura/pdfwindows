@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, FileText, Image as ImageIcon, FileSpreadsheet, LayoutTemplate, Droplet } from 'lucide-react';
+import { ArrowUpRight, FileText, Image as ImageIcon, FileSpreadsheet, LayoutTemplate, Droplet, Type, Unlock, FileKey2, ScanSearch } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { TOOL_PAGES } from '../seo/toolCatalog';
 
@@ -17,13 +17,21 @@ export function ToolCardGrid({ limit }: { limit?: number }) {
         const Icon =
           tool.suiteId === 'color-picker'
             ? Droplet
-            : tool.kind === 'suite'
-            ? LayoutTemplate
-            : tool.operation?.startsWith('img-')
-              ? ImageIcon
-              : tool.operation?.includes('csv') || tool.operation?.includes('json') || tool.operation?.includes('xml')
-                ? FileSpreadsheet
-                : FileText;
+            : tool.suiteId === 'font-identifier'
+              ? Type
+              : tool.suiteId === 'remove-restrictions'
+                ? Unlock
+                : tool.suiteId === 'unlock-pdf'
+                  ? FileKey2
+                  : tool.suiteId === 'file-xray'
+                    ? ScanSearch
+                    : tool.kind === 'suite'
+                    ? LayoutTemplate
+                    : tool.operation?.startsWith('img-')
+                      ? ImageIcon
+                      : tool.operation?.includes('csv') || tool.operation?.includes('json') || tool.operation?.includes('xml')
+                        ? FileSpreadsheet
+                        : FileText;
 
         return (
           <Link key={tool.path} to={lp(tool.path)} className="tool-card group p-5 md:p-6 text-left block">

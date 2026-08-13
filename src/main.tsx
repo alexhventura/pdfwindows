@@ -19,9 +19,14 @@ if ('serviceWorker' in navigator) {
     });
   };
 
-  if ('requestIdleCallback' in window) {
-    window.requestIdleCallback(registerSw, { timeout: 4000 });
+  const w = window as Window &
+    typeof globalThis & {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+    };
+
+  if (typeof w.requestIdleCallback === 'function') {
+    w.requestIdleCallback(registerSw, { timeout: 4000 });
   } else {
-    window.addEventListener('load', registerSw, { once: true });
+    w.addEventListener('load', registerSw, { once: true });
   }
 }

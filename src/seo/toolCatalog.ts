@@ -9,7 +9,11 @@ export type SuiteToolId =
   | 'report-gen'
   | 'qr-gen'
   | 'cpf-gen'
-  | 'code-clean';
+  | 'code-clean'
+  | 'font-identifier'
+  | 'remove-restrictions'
+  | 'unlock-pdf'
+  | 'file-xray';
 
 export interface FaqItem {
   q: string;
@@ -2014,6 +2018,338 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
         {
           q: '¿Qué lenguajes se admiten?',
           a: 'HTML, CSS y JavaScript — con opciones de formato y minificación para cada uno.',
+        },
+      ],
+    },
+  }),
+  page('/identificador-de-fontes', 'suite', undefined, 'font-identifier', {
+    pt: {
+      title: 'Identificador de Fontes PDF e Word Grátis | PDFWINDOWS',
+      description:
+        'Identifique fontes em PDF e DOCX localmente no navegador. Correspondências diretas têm alta confiança; senão estimamos similaridade sem falsa certeza.',
+      keywords:
+        'identificar fonte, identificador de fontes, descobrir fonte de pdf, identificar fonte word, qual fonte do documento',
+      h1: 'Identificador de Fontes',
+      intro:
+        'Descubra as fontes utilizadas em arquivos PDF e Word. Quando o arquivo declara a tipografia, mostramos identificação direta; caso contrário, estimamos similaridade com transparência.',
+      benefits: [
+        'Análise local de PDF e DOCX',
+        'Distingue fonte identificada de estimativa',
+        'Resultados por título, corpo e outros estilos',
+      ],
+      howItWorks: [
+        'Envie um PDF ou DOCX.',
+        'Aguarde a análise tipográfica local.',
+        'Veja fontes identificadas ou estimadas por elemento.',
+      ],
+      faq: [
+        ...privacyFaq('pt'),
+        {
+          q: 'A ferramenta sempre acerta a fonte com 100%?',
+          a: 'Não. Só marcamos 100% quando a informação existe no documento. Sem isso, mostramos similaridade estimada.',
+        },
+      ],
+    },
+    en: {
+      title: 'Font Identifier for PDF & Word Free | PDFWINDOWS',
+      description:
+        'Identify fonts in PDF and DOCX locally in your browser. Direct matches show high confidence; otherwise we estimate similarity without false certainty.',
+      keywords:
+        'identify font, font identifier, find pdf font, identify word document font, what font is used',
+      h1: 'Font Identifier',
+      intro:
+        'Discover fonts used in PDF and Word files. When the file declares typography, we show direct identification; otherwise we estimate similarity transparently.',
+      benefits: [
+        'Local PDF and DOCX analysis',
+        'Separates identified fonts from estimates',
+        'Results by title, body, and other styles',
+      ],
+      howItWorks: [
+        'Upload a PDF or DOCX.',
+        'Wait for local typographic analysis.',
+        'Review identified or estimated fonts by element.',
+      ],
+      faq: [
+        ...privacyFaq('en'),
+        {
+          q: 'Does the tool always identify fonts with 100% certainty?',
+          a: 'No. We only mark 100% when the document contains the information. Otherwise we show estimated similarity.',
+        },
+      ],
+    },
+    es: {
+      title: 'Identificador de Fuentes PDF y Word Gratis | PDFWINDOWS',
+      description:
+        'Identifique fuentes en PDF y DOCX localmente en el navegador. Coincidencias directas tienen alta confianza; si no, estimamos similitud sin falsa certeza.',
+      keywords:
+        'identificar fuente, identificador de fuentes, descubrir fuente pdf, identificar fuente word, qué fuente usa el documento',
+      h1: 'Identificador de Fuentes',
+      intro:
+        'Descubra las fuentes de archivos PDF y Word. Si el archivo declara la tipografía, mostramos identificación directa; si no, estimamos similitud con transparencia.',
+      benefits: [
+        'Análisis local de PDF y DOCX',
+        'Separa fuentes identificadas de estimaciones',
+        'Resultados por título, cuerpo y otros estilos',
+      ],
+      howItWorks: [
+        'Envíe un PDF o DOCX.',
+        'Espere el análisis tipográfico local.',
+        'Revise fuentes identificadas o estimadas por elemento.',
+      ],
+      faq: [
+        ...privacyFaq('es'),
+        {
+          q: '¿La herramienta siempre identifica la fuente al 100%?',
+          a: 'No. Solo marcamos 100% cuando la información existe en el documento. Si no, mostramos similitud estimada.',
+        },
+      ],
+    },
+  }),
+  page('/remover-restricoes', 'suite', undefined, 'remove-restrictions', {
+    pt: {
+      title: 'Remover Restrições de PDF e Word Grátis | PDFWINDOWS',
+      description:
+        'Remova restrições de edição, cópia e impressão de PDF e DOCX no navegador. Baixe uma nova cópia localmente—arquivos não saem do seu dispositivo.',
+      keywords:
+        'remover restrição pdf, desbloquear pdf edição, pdf não permite copiar, remover restrições word, desbloquear documento word',
+      h1: 'Remover Restrições de PDF e Word',
+      intro:
+        'Remova restrições de edição, cópia e impressão de documentos que abrem normalmente, mas bloqueiam ações. Processamento local com nova cópia do arquivo.',
+      benefits: [
+        'PDF e DOCX no mesmo fluxo',
+        'Mostra o que foi encontrado antes de processar',
+        'Original intacto — só gera cópia nova',
+      ],
+      howItWorks: [
+        'Envie o PDF ou DOCX.',
+        'Revise as restrições detectadas.',
+        'Baixe a cópia sem restrições removíveis.',
+      ],
+      faq: [
+        ...privacyFaq('pt'),
+        {
+          q: 'Remove senha de abertura de PDF?',
+          a: 'Não. Para senha de abertura use a ferramenta Desbloquear PDF. Esta página trata restrições de permissão e proteção estrutural de DOCX.',
+        },
+      ],
+    },
+    en: {
+      title: 'Remove PDF & Word Restrictions Free | PDFWINDOWS',
+      description:
+        'Remove editing, copying, and printing restrictions from PDF and DOCX in your browser. Download a new copy locally—files never leave your device.',
+      keywords:
+        'remove pdf restrictions, unlock pdf editing, pdf cannot copy, remove word restrictions, unlock protected docx',
+      h1: 'Remove PDF & Word Restrictions',
+      intro:
+        'Remove editing, copying, and printing restrictions from documents that open normally but block actions. Local processing with a new file copy.',
+      benefits: [
+        'PDF and DOCX in one flow',
+        'Shows findings before processing',
+        'Original untouched — only a new copy',
+      ],
+      howItWorks: [
+        'Upload the PDF or DOCX.',
+        'Review detected restrictions.',
+        'Download the copy without removable restrictions.',
+      ],
+      faq: [
+        ...privacyFaq('en'),
+        {
+          q: 'Does this remove a PDF open password?',
+          a: 'No. Use Unlock PDF for open passwords. This page handles permission restrictions and DOCX structural protection.',
+        },
+      ],
+    },
+    es: {
+      title: 'Quitar Restricciones de PDF y Word Gratis | PDFWINDOWS',
+      description:
+        'Quite restricciones de edición, copia e impresión de PDF y DOCX en el navegador. Descargue una copia nueva localmente—los archivos no salen de su dispositivo.',
+      keywords:
+        'quitar restricción pdf, desbloquear pdf edición, pdf no permite copiar, quitar restricciones word, desbloquear docx',
+      h1: 'Quitar Restricciones de PDF y Word',
+      intro:
+        'Quite restricciones de edición, copia e impresión de documentos que se abren con normalidad pero bloquean acciones. Procesamiento local con una copia nueva.',
+      benefits: [
+        'PDF y DOCX en el mismo flujo',
+        'Muestra hallazgos antes de procesar',
+        'Original intacto — solo genera copia',
+      ],
+      howItWorks: [
+        'Envíe el PDF o DOCX.',
+        'Revise las restricciones detectadas.',
+        'Descargue la copia sin restricciones removibles.',
+      ],
+      faq: [
+        ...privacyFaq('es'),
+        {
+          q: '¿Quita la contraseña de apertura del PDF?',
+          a: 'No. Para contraseña de apertura use Desbloquear PDF. Esta página trata restricciones de permiso y protección estructural de DOCX.',
+        },
+      ],
+    },
+  }),
+  page('/desbloquear-pdf', 'suite', undefined, 'unlock-pdf', {
+    pt: {
+      title: 'Desbloquear PDF Online Grátis | PDFWINDOWS',
+      description:
+        'Desbloqueie um PDF protegido no navegador e baixe uma nova cópia. Informe a senha de abertura quando necessário—processamento local, sem upload na nuvem.',
+      keywords:
+        'desbloquear pdf, remover senha pdf, tirar senha do pdf, pdf protegido, pdf bloqueado, desbloquear pdf gratis',
+      h1: 'Desbloquear PDF',
+      intro:
+        'Remova a proteção do seu PDF e gere uma nova cópia desbloqueada. Se houver senha de abertura, informe-a localmente — nada é enviado a servidores.',
+      benefits: [
+        'Fluxo simples: enviar → processar → baixar',
+        'Suporte a restrições e senha de abertura',
+        'Sempre gera nova cópia',
+      ],
+      howItWorks: [
+        'Selecione o PDF protegido.',
+        'Informe a senha se for solicitada.',
+        'Baixe o PDF desbloqueado.',
+      ],
+      faq: [
+        ...privacyFaq('pt'),
+        {
+          q: 'Funciona sem a senha?',
+          a: 'Não removemos senhas de abertura sem a senha legítima. Sem senha, só tratamos restrições de permissão em arquivos que já abrem.',
+        },
+      ],
+    },
+    en: {
+      title: 'Unlock PDF Online Free | PDFWINDOWS',
+      description:
+        'Unlock a protected PDF in your browser and download a new copy. Enter the open password when required—processing stays local with zero cloud upload.',
+      keywords:
+        'unlock pdf, remove pdf password, pdf protected, locked pdf, unlock pdf free, open password protected pdf',
+      h1: 'Unlock PDF',
+      intro:
+        'Remove PDF protection and generate a new unlocked copy. If an open password is required, enter it locally — nothing is uploaded to servers.',
+      benefits: [
+        'Simple flow: upload → process → download',
+        'Supports permission locks and open passwords',
+        'Always generates a new copy',
+      ],
+      howItWorks: [
+        'Select the protected PDF.',
+        'Enter the password if prompted.',
+        'Download the unlocked PDF.',
+      ],
+      faq: [
+        ...privacyFaq('en'),
+        {
+          q: 'Does it work without the password?',
+          a: 'We do not remove open passwords without the legitimate password. Without it, we only handle permission restrictions on files that already open.',
+        },
+      ],
+    },
+    es: {
+      title: 'Desbloquear PDF Online Gratis | PDFWINDOWS',
+      description:
+        'Desbloquee un PDF protegido en el navegador y descargue una copia nueva. Indique la contraseña si hace falta—procesamiento local, sin subida a la nube.',
+      keywords:
+        'desbloquear pdf, quitar contraseña pdf, pdf protegido, pdf bloqueado, desbloquear pdf gratis',
+      h1: 'Desbloquear PDF',
+      intro:
+        'Quite la protección de su PDF y genere una copia nueva desbloqueada. Si hay contraseña de apertura, indíquela localmente — nada se sube a servidores.',
+      benefits: [
+        'Flujo simple: enviar → procesar → descargar',
+        'Soporta restricciones y contraseña de apertura',
+        'Siempre genera una copia nueva',
+      ],
+      howItWorks: [
+        'Seleccione el PDF protegido.',
+        'Indique la contraseña si se solicita.',
+        'Descargue el PDF desbloqueado.',
+      ],
+      faq: [
+        ...privacyFaq('es'),
+        {
+          q: '¿Funciona sin la contraseña?',
+          a: 'No quitamos contraseñas de apertura sin la clave legítima. Sin ella, solo tratamos restricciones de permiso en archivos que ya se abren.',
+        },
+      ],
+    },
+  }),
+  page('/raio-x-de-arquivo', 'suite', undefined, 'file-xray', {
+    pt: {
+      title: 'Raio X de Arquivo Online Grátis | PDFWINDOWS',
+      description:
+        'Analise metadados, estrutura, hashes e EXIF de PDF, Word, Excel e imagens no navegador. Processamento 100% local—arquivos nunca saem do dispositivo.',
+      keywords:
+        'raio x de arquivo, analisar metadados, metadados pdf, metadados word, metadados excel, informações ocultas arquivo, EXIF, hash sha-256',
+      h1: 'Raio X de Arquivo',
+      intro:
+        'Descubra dados técnicos, metadados, estrutura e informações adicionais presentes em seus arquivos. Análise local com origem identificável para cada dado.',
+      benefits: [
+        'PDF, Office, imagens, CSV, TXT e ZIP',
+        'Hashes SHA-256 e origem de cada campo',
+        'Relatório exportável em PDF, JSON ou TXT',
+      ],
+      howItWorks: [
+        'Envie o arquivo para análise local.',
+        'Acompanhe as etapas do Raio X.',
+        'Explore o resumo, detalhes e exportação.',
+      ],
+      faq: [
+        ...privacyFaq('pt'),
+        {
+          q: 'A ferramenta inventa metadados?',
+          a: 'Não. Só mostramos o que está no arquivo. Quando algo não existe, informamos que não está disponível.',
+        },
+      ],
+    },
+    en: {
+      title: 'File X-Ray Online Free | PDFWINDOWS',
+      description:
+        'Inspect metadata, structure, hashes, and EXIF for PDF, Word, Excel, and images in your browser. Fully local analysis—files never leave your device.',
+      keywords:
+        'file x-ray, analyze file metadata, pdf metadata, word metadata, excel metadata, hidden file info, EXIF, sha-256 hash',
+      h1: 'File X-Ray',
+      intro:
+        'Discover technical data, metadata, structure, and additional information inside your files. Local analysis with identifiable provenance for every field.',
+      benefits: [
+        'PDF, Office, images, CSV, TXT, and ZIP',
+        'SHA-256 hashes and field-level provenance',
+        'Exportable PDF, JSON, or TXT reports',
+      ],
+      howItWorks: [
+        'Upload a file for local analysis.',
+        'Follow the X-Ray analysis stages.',
+        'Explore summary, details, and export options.',
+      ],
+      faq: [
+        ...privacyFaq('en'),
+        {
+          q: 'Does the tool invent metadata?',
+          a: 'No. We only show what is present in the file. Missing fields are labeled as not available.',
+        },
+      ],
+    },
+    es: {
+      title: 'Rayos X de Archivo Online Gratis | PDFWINDOWS',
+      description:
+        'Analice metadatos, estructura, hashes y EXIF de PDF, Word, Excel e imágenes en el navegador. Análisis 100% local—los archivos no salen de su dispositivo.',
+      keywords:
+        'rayos x de archivo, analizar metadatos, metadatos pdf, metadatos word, metadatos excel, información oculta archivo, EXIF, hash sha-256',
+      h1: 'Rayos X de Archivo',
+      intro:
+        'Descubra datos técnicos, metadatos, estructura e información adicional de sus archivos. Análisis local con origen identificable para cada dato.',
+      benefits: [
+        'PDF, Office, imágenes, CSV, TXT y ZIP',
+        'Hashes SHA-256 y origen de cada campo',
+        'Informe exportable en PDF, JSON o TXT',
+      ],
+      howItWorks: [
+        'Envíe el archivo para análisis local.',
+        'Siga las etapas del Rayos X.',
+        'Explore el resumen, detalles y exportación.',
+      ],
+      faq: [
+        ...privacyFaq('es'),
+        {
+          q: '¿La herramienta inventa metadatos?',
+          a: 'No. Solo mostramos lo que está en el archivo. Si falta un dato, indicamos que no está disponible.',
         },
       ],
     },

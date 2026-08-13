@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import {
   FileText,
@@ -9,6 +9,10 @@ import {
   FileJson,
   LayoutTemplate,
   ClipboardList,
+  Type,
+  Unlock,
+  FileKey2,
+  ScanSearch,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import type { LanguageType } from '../types';
@@ -20,7 +24,7 @@ interface Tool {
   id: string;
   name: Record<LanguageType, string>;
   description: Record<LanguageType, string>;
-  icon: React.ReactNode;
+  icon: ReactNode;
   color: string;
 }
 
@@ -91,6 +95,50 @@ const tools: Tool[] = [
     icon: <ClipboardList size={24} />,
     color: 'bg-violet-500',
   },
+  {
+    id: 'font-identifier',
+    name: { pt: 'Identificador de Fontes', en: 'Font Identifier', es: 'Identificador de Fuentes' },
+    description: {
+      pt: 'Descubra as fontes utilizadas em arquivos PDF e Word.',
+      en: 'Discover fonts used in PDF and Word files.',
+      es: 'Descubra las fuentes usadas en archivos PDF y Word.',
+    },
+    icon: <Type size={24} />,
+    color: 'bg-indigo-600',
+  },
+  {
+    id: 'remove-restrictions',
+    name: { pt: 'Remover Restrições', en: 'Remove Restrictions', es: 'Quitar Restricciones' },
+    description: {
+      pt: 'Remova restrições de edição, cópia e impressão de seus documentos.',
+      en: 'Remove editing, copying, and printing restrictions from your documents.',
+      es: 'Quite restricciones de edición, copia e impresión de sus documentos.',
+    },
+    icon: <Unlock size={24} />,
+    color: 'bg-orange-500',
+  },
+  {
+    id: 'unlock-pdf',
+    name: { pt: 'Desbloquear PDF', en: 'Unlock PDF', es: 'Desbloquear PDF' },
+    description: {
+      pt: 'Remova a proteção do PDF e gere uma nova cópia desbloqueada.',
+      en: 'Remove PDF protection and generate a new unlocked copy.',
+      es: 'Quite la protección del PDF y genere una copia desbloqueada.',
+    },
+    icon: <FileKey2 size={24} />,
+    color: 'bg-rose-500',
+  },
+  {
+    id: 'file-xray',
+    name: { pt: 'Raio X de Arquivo', en: 'File X-Ray', es: 'Rayos X de Archivo' },
+    description: {
+      pt: 'Descubra os dados técnicos, metadados e informações adicionais presentes em seus arquivos.',
+      en: 'Discover technical data, metadata, and additional information inside your files.',
+      es: 'Descubra datos técnicos, metadatos e información adicional de sus archivos.',
+    },
+    icon: <ScanSearch size={24} />,
+    color: 'bg-sky-600',
+  },
 ];
 
 const SUITE_PATHS: Record<string, string> = {
@@ -100,11 +148,18 @@ const SUITE_PATHS: Record<string, string> = {
   'code-clean': '/limpador-codigo',
   'document-studio': '/estudio-documentos',
   'report-gen': '/gerador-relatorios',
+  'font-identifier': '/identificador-de-fontes',
+  'remove-restrictions': '/remover-restricoes',
+  'unlock-pdf': '/desbloquear-pdf',
+  'file-xray': '/raio-x-de-arquivo',
 };
 
-export const ProductivityTools: React.FC<{ lang: LanguageType; linkMode?: boolean }> = ({
+export const ProductivityTools = ({
   lang,
   linkMode = false,
+}: {
+  lang: LanguageType;
+  linkMode?: boolean;
 }) => {
   const [activeTool, setActiveTool] = useState<string | null>(null);
   const t = modalT[lang];

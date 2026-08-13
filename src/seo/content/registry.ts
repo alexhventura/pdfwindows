@@ -25,6 +25,10 @@ import { GERADOR_RELATORIOS_CONTENT } from './tools/gerador-relatorios';
 import { GERADOR_QR_CODE_CONTENT } from './tools/gerador-qr-code';
 import { GERADOR_CPF_CONTENT } from './tools/gerador-cpf';
 import { LIMPADOR_CODIGO_CONTENT } from './tools/limpador-codigo';
+import { IDENTIFICADOR_FONTES_CONTENT } from './tools/identificador-de-fontes';
+import { REMOVER_RESTRICOES_CONTENT } from './tools/remover-restricoes';
+import { DESBLOQUEAR_PDF_CONTENT } from './tools/desbloquear-pdf';
+import { RAIO_X_ARQUIVO_CONTENT } from './tools/raio-x-de-arquivo';
 
 export const RICH_CONTENT_REGISTRY: ToolContentRegistry = {
   '/': HOME_CONTENT,
@@ -53,6 +57,10 @@ export const RICH_CONTENT_REGISTRY: ToolContentRegistry = {
   '/gerador-qr-code': GERADOR_QR_CODE_CONTENT,
   '/gerador-cpf': GERADOR_CPF_CONTENT,
   '/limpador-codigo': LIMPADOR_CODIGO_CONTENT,
+  '/identificador-de-fontes': IDENTIFICADOR_FONTES_CONTENT,
+  '/remover-restricoes': REMOVER_RESTRICOES_CONTENT,
+  '/desbloquear-pdf': DESBLOQUEAR_PDF_CONTENT,
+  '/raio-x-de-arquivo': RAIO_X_ARQUIVO_CONTENT,
 };
 
 export function getRichContent(path: string, lang: import('../../types').LanguageType) {

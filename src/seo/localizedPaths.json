@@ -26,6 +26,26 @@
   "/gerador-qr-code": { "en": "/qr-code-generator", "pt": "/gerador-qr-code", "es": "/generador-qr" },
   "/gerador-cpf": { "en": "/cpf-generator", "pt": "/gerador-cpf", "es": "/generador-cpf" },
   "/limpador-codigo": { "en": "/code-cleaner", "pt": "/limpador-de-codigo", "es": "/limpiador-de-codigo" },
+  "/identificador-de-fontes": {
+    "en": "/font-identifier",
+    "pt": "/identificador-de-fontes",
+    "es": "/identificador-de-fuentes"
+  },
+  "/remover-restricoes": {
+    "en": "/remove-restrictions",
+    "pt": "/remover-restricoes",
+    "es": "/quitar-restricciones"
+  },
+  "/desbloquear-pdf": {
+    "en": "/unlock-pdf",
+    "pt": "/desbloquear-pdf",
+    "es": "/desbloquear-pdf"
+  },
+  "/raio-x-de-arquivo": {
+    "en": "/file-xray",
+    "pt": "/raio-x-de-arquivo",
+    "es": "/rayos-x-de-archivo"
+  },
   "/privacy": { "en": "/privacy", "pt": "/privacidade", "es": "/privacidad" },
   "/terms": { "en": "/terms", "pt": "/termos", "es": "/terminos" }
 }
