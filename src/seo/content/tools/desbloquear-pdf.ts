@@ -56,7 +56,7 @@ export const DESBLOQUEAR_PDF_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent
     ],
     tips: [
       'We never claim success if encryption could not be removed — read the status message carefully.',
-      'Raster rebuild is disclosed when binary rewrite is not possible so you know text may become image-based.',
+      'When binary rewrite is not possible we rebuild pages locally (adaptive quality + searchable text when available) and disclose that method.',
       'Forgotten passwords cannot be recovered by this tool; store passphrases in a password manager.',
       'Use Remove Restrictions when the file already opens and you only need permission cleanup.',
       'Unlock before OCR or merge steps that fail on encrypted inputs.',
@@ -195,7 +195,7 @@ export const DESBLOQUEAR_PDF_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent
     ],
     tips: [
       'Nunca afirmamos sucesso se a criptografia não pôde ser removida — leia o status com atenção.',
-      'Avisamos quando a cópia for reconstrução visual para você saber que o texto pode virar imagem.',
+      'Quando a regravação binária não for possível, reconstruímos páginas localmente (qualidade adaptativa + texto pesquisável quando houver) e divulgamos o método.',
       'Senhas esquecidas não são recuperáveis aqui; guarde frases em um gerenciador de senhas.',
       'Use Remover Restrições quando o arquivo já abre e você só precisa limpar permissões.',
       'Desbloqueie antes de OCR ou mesclagem que falham com entradas criptografadas.',
@@ -334,7 +334,7 @@ export const DESBLOQUEAR_PDF_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent
     ],
     tips: [
       'Nunca afirmamos éxito si el cifrado no pudo eliminarse — lea el estado con atención.',
-      'Avisamos cuando la copia sea reconstrucción visual para que sepa que el texto puede volverse imagen.',
+      'Cuando la reescritura binaria no sea posible, reconstruimos páginas en local (calidad adaptativa + texto buscable si existe) e indicamos el método.',
       'Las contraseñas olvidadas no se recuperan aquí; guarde frases en un gestor de contraseñas.',
       'Use Quitar Restricciones cuando el archivo ya se abre y solo necesita limpiar permisos.',
       'Desbloquee antes de OCR o unión que fallan con entradas cifradas.',
