@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Download, RefreshCw, Unlock, ShieldCheck, AlertCircle } from 'lucide-react';
+import { Download, RefreshCw, ShieldCheck, AlertCircle } from 'lucide-react';
 import type { LanguageType } from '../../../types';
 import {
   analyzeRestrictions,
@@ -7,6 +7,7 @@ import {
   type RestrictionsAnalysis,
 } from '../../../engines/removeRestrictions';
 import { DocumentToolDropzone, ToolBusyState } from '../DocumentToolDropzone';
+import { ModalHeader, modalT } from '../shared';
 
 const copy: Record<LanguageType, Record<string, string>> = {
   pt: {
@@ -130,12 +131,14 @@ function flagLabel(v: 'blocked' | 'allowed' | 'unknown', t: Record<string, strin
 export default function RemoveRestrictionsSuiteTool({
   lang,
   onClose,
+  showHeader = false,
 }: {
   lang: LanguageType;
   onClose: () => void;
   showHeader?: boolean;
 }) {
   const t = copy[lang];
+  const closeLabel = modalT[lang].close;
   const [busy, setBusy] = useState<'analyze' | 'process' | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [analysis, setAnalysis] = useState<RestrictionsAnalysis | null>(null);
@@ -209,115 +212,98 @@ export default function RemoveRestrictionsSuiteTool({
   };
 
   return (
-    <div className="p-5 md:p-6 space-y-6">
-      <div className="flex items-start gap-3">
-        <div className="w-10 h-10 rounded-xl bg-orange-500 text-white flex items-center justify-center shrink-0">
-          <Unlock size={20} aria-hidden />
-        </div>
-        <div>
-          <h2 className="text-lg font-black text-slate-900 tracking-tight">{t.title}</h2>
-          <p className="text-[12px] text-slate-500 font-medium leading-relaxed mt-1">{t.hero}</p>
-        </div>
-      </div>
+    <>
+      {showHeader ? <ModalHeader title={t.title} onClose={onClose} closeLabel={closeLabel} /> : null}
+      <div className="p-6 space-y-6">
+        {!analysis && !busy && !outputUrl && (
+          <DocumentToolDropzone
+            lang={lang}
+            accept="pdf-docx"
+            onFile={onSelect}
+            labels={{
+              dropTitle: t.dropTitle,
+              dropHint: t.dropHint,
+              browse: t.browse,
+              formats: t.formats,
+              dropActive: t.dropActive,
+              invalidFile: t.invalidFile,
+              emptyFile: t.emptyFile,
+              tooLarge: t.tooLarge,
+            }}
+          />
+        )}
 
-      {!analysis && !busy && !outputUrl && (
-        <DocumentToolDropzone
-          lang={lang}
-          accept="pdf-docx"
-          onFile={onSelect}
-          labels={{
-            dropTitle: t.dropTitle,
-            dropHint: t.dropHint,
-            browse: t.browse,
-            formats: t.formats,
-            dropActive: t.dropActive,
-            invalidFile: t.invalidFile,
-            emptyFile: t.emptyFile,
-            tooLarge: t.tooLarge,
-          }}
-        />
-      )}
+        {busy && <ToolBusyState label={busy === 'analyze' ? t.analyzing : t.processing} />}
 
-      {busy && <ToolBusyState label={busy === 'analyze' ? t.analyzing : t.processing} />}
+        {error && (
+          <div role="alert" className="bg-rose-50 border border-rose-100 text-rose-700 rounded-xl px-4 py-3 text-xs font-semibold flex gap-2">
+            <AlertCircle size={14} className="shrink-0 mt-0.5" />
+            <div>
+              {error}
+              <button type="button" onClick={reset} className="block mt-2 text-win-blue font-semibold">
+                {t.again}
+              </button>
+            </div>
+          </div>
+        )}
 
-      {error && (
-        <div role="alert" className="bg-rose-50 border border-rose-100 text-rose-700 rounded-xl px-4 py-3 text-xs font-semibold flex gap-2">
-          <AlertCircle size={14} className="shrink-0 mt-0.5" />
-          <div>
-            {error}
-            <button type="button" onClick={reset} className="block mt-2 text-win-blue font-bold">
+        {analysis && !busy && !outputUrl && (
+          <div className="space-y-4">
+            {file && <p className="text-[11px] font-semibold text-slate-400 truncate">{file.name}</p>}
+            <h3 className="text-sm font-semibold text-slate-800">{t.found}</h3>
+            <ul className="p-4 border border-slate-200/80 rounded-2xl bg-white/60 divide-y divide-slate-100 text-xs font-semibold text-slate-700">
+              <li className="py-3 flex justify-between gap-2 first:pt-0 last:pb-0">
+                <span>{t.editing}</span>
+                <span>{flagLabel(analysis.restrictions.editing, t)}</span>
+              </li>
+              {analysis.format === 'pdf' && (
+                <>
+                  <li className="py-3 flex justify-between gap-2 first:pt-0 last:pb-0">
+                    <span>{t.printing}</span>
+                    <span>{flagLabel(analysis.restrictions.printing, t)}</span>
+                  </li>
+                  <li className="py-3 flex justify-between gap-2 first:pt-0 last:pb-0">
+                    <span>{t.copying}</span>
+                    <span>{flagLabel(analysis.restrictions.copying, t)}</span>
+                  </li>
+                  <li className="py-3 flex justify-between gap-2 first:pt-0 last:pb-0">
+                    <span>{t.annotating}</span>
+                    <span>{flagLabel(analysis.restrictions.annotating, t)}</span>
+                  </li>
+                </>
+              )}
+            </ul>
+            {message && (
+              <p role="status" className="text-xs font-semibold text-amber-800 bg-amber-50 border border-amber-100 rounded-xl px-4 py-3">
+                {message}
+              </p>
+            )}
+            {analysis.removable && (
+              <button type="button" onClick={process} className="w-full btn-primary py-3.5">
+                {t.remove}
+              </button>
+            )}
+            <button type="button" onClick={reset} className="w-full py-3 border border-slate-200 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-50 flex items-center justify-center gap-2">
+              <RefreshCw size={14} /> {t.again}
+            </button>
+          </div>
+        )}
+
+        {outputUrl && (
+          <div className="space-y-4 text-center py-4">
+            <div className="w-14 h-14 mx-auto rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+              <ShieldCheck size={28} />
+            </div>
+            <h3 className="text-base font-semibold text-slate-900">{t.success}</h3>
+            <button type="button" onClick={download} className="w-full btn-primary py-3.5 flex items-center justify-center gap-2">
+              <Download size={16} /> {t.download}
+            </button>
+            <button type="button" onClick={reset} className="text-xs font-semibold text-win-blue">
               {t.again}
             </button>
           </div>
-        </div>
-      )}
-
-      {analysis && !busy && !outputUrl && (
-        <div className="space-y-4">
-          {file && <p className="text-[11px] font-bold text-slate-400 truncate">{file.name}</p>}
-          <h3 className="text-sm font-black text-slate-800 uppercase tracking-tight">{t.found}</h3>
-          <ul className="bg-slate-50 border border-slate-200 rounded-2xl divide-y divide-slate-100 text-xs font-semibold text-slate-700">
-            <li className="px-4 py-3 flex justify-between gap-2">
-              <span>{t.editing}</span>
-              <span>{flagLabel(analysis.restrictions.editing, t)}</span>
-            </li>
-            {analysis.format === 'pdf' && (
-              <>
-                <li className="px-4 py-3 flex justify-between gap-2">
-                  <span>{t.printing}</span>
-                  <span>{flagLabel(analysis.restrictions.printing, t)}</span>
-                </li>
-                <li className="px-4 py-3 flex justify-between gap-2">
-                  <span>{t.copying}</span>
-                  <span>{flagLabel(analysis.restrictions.copying, t)}</span>
-                </li>
-                <li className="px-4 py-3 flex justify-between gap-2">
-                  <span>{t.annotating}</span>
-                  <span>{flagLabel(analysis.restrictions.annotating, t)}</span>
-                </li>
-              </>
-            )}
-          </ul>
-          {message && (
-            <p role="status" className="text-xs font-semibold text-amber-800 bg-amber-50 border border-amber-100 rounded-xl px-4 py-3">
-              {message}
-            </p>
-          )}
-          {analysis.removable && (
-            <button type="button" onClick={process} className="w-full btn-primary py-3 text-xs font-black uppercase tracking-widest">
-              {t.remove}
-            </button>
-          )}
-          <button type="button" onClick={reset} className="w-full py-3 border border-slate-200 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-50 flex items-center justify-center gap-2">
-            <RefreshCw size={14} /> {t.again}
-          </button>
-        </div>
-      )}
-
-      {outputUrl && (
-        <div className="space-y-4 text-center py-4">
-          <div className="w-14 h-14 mx-auto rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
-            <ShieldCheck size={28} />
-          </div>
-          <h3 className="text-base font-black text-slate-900">{t.success}</h3>
-          <button type="button" onClick={download} className="w-full btn-primary py-3.5 flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest">
-            <Download size={16} /> {t.download}
-          </button>
-          <button type="button" onClick={reset} className="text-xs font-bold text-win-blue">
-            {t.again}
-          </button>
-        </div>
-      )}
-
-      <div className="bg-slate-50 border border-slate-100 rounded-2xl p-4 space-y-2">
-        <h3 className="text-xs font-black text-slate-800 uppercase tracking-tight">{t.howTitle}</h3>
-        <ul className="text-[11px] text-slate-600 font-medium space-y-1.5 list-disc pl-4 leading-relaxed">
-          <li>{t.how1}</li>
-          <li>{t.how2}</li>
-          <li>{t.how3}</li>
-        </ul>
-        <p className="text-[10px] text-emerald-800 font-semibold pt-1">{t.privacy}</p>
+        )}
       </div>
-    </div>
+    </>
   );
 }

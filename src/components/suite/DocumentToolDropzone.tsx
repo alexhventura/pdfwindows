@@ -127,10 +127,8 @@ export function DocumentToolDropzone({
         onDragLeave={onDrag}
         onDrop={onDrop}
         onClick={() => !disabled && inputRef.current?.click()}
-        className={`border-2 border-dashed rounded-2xl p-8 md:p-10 text-center cursor-pointer transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-win-blue ${
-          dragActive
-            ? 'border-win-blue bg-blue-50/50'
-            : 'border-slate-200 hover:border-slate-300 bg-slate-50/60'
+        className={`premium-dropzone w-full py-16 md:py-24 flex flex-col items-center gap-3 ${
+          dragActive ? 'premium-dropzone-active' : ''
         } ${disabled ? 'opacity-50 pointer-events-none' : ''}`}
       >
         <input
@@ -141,17 +139,15 @@ export function DocumentToolDropzone({
           disabled={disabled}
           onChange={(e) => handleFiles(e.target.files)}
         />
-        <div className="mx-auto w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-win-blue mb-4 shadow-sm">
-          <Upload size={20} aria-hidden />
+        <div className="premium-dropzone-icon" aria-hidden>
+          <Upload size={28} />
         </div>
-        <p className="text-sm font-bold text-slate-800 mb-1">
+        <span className="text-sm font-semibold text-slate-800">
           {dragActive ? labels.dropActive : labels.dropTitle}
-        </p>
-        <p className="text-[11px] text-slate-500 font-medium mb-4">{labels.dropHint}</p>
-        <span className="inline-flex px-5 py-2.5 bg-win-blue text-white rounded-xl text-xs font-bold">
-          {labels.browse}
         </span>
-        <p className="mt-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">{labels.formats}</p>
+        <span className="text-[11px] text-slate-500 max-w-sm text-center px-4">{labels.dropHint}</span>
+        <span className="btn-primary text-xs pointer-events-none">{labels.browse}</span>
+        <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">{labels.formats}</span>
       </div>
 
       {error && (
@@ -168,7 +164,6 @@ export function DocumentToolDropzone({
       )}
 
       {children}
-      {/* keep lang for future a11y announcements */}
       <span className="sr-only">{lang}</span>
     </div>
   );
@@ -178,7 +173,7 @@ export function ToolBusyState({ label }: { label: string }) {
   return (
     <div className="flex flex-col items-center justify-center gap-3 py-12" role="status" aria-live="polite">
       <Loader2 className="animate-spin text-win-blue" size={28} aria-hidden />
-      <p className="text-xs font-bold text-slate-600 uppercase tracking-wider">{label}</p>
+      <p className="text-xs font-semibold text-slate-600">{label}</p>
     </div>
   );
 }

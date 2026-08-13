@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Download, RefreshCw, FileKey2, ShieldCheck, AlertCircle, Lock } from 'lucide-react';
+import { Download, RefreshCw, ShieldCheck, AlertCircle, Lock } from 'lucide-react';
 import type { LanguageType } from '../../../types';
 import { unlockPdfFile, type UnlockPdfResult } from '../../../engines/unlockPdf';
 import { DocumentToolDropzone, ToolBusyState } from '../DocumentToolDropzone';
+import { ModalHeader, modalT, inputClass } from '../shared';
 
 const copy: Record<LanguageType, Record<string, string>> = {
   pt: {
@@ -100,12 +101,14 @@ const copy: Record<LanguageType, Record<string, string>> = {
 export default function UnlockPdfSuiteTool({
   lang,
   onClose,
+  showHeader = false,
 }: {
   lang: LanguageType;
   onClose: () => void;
   showHeader?: boolean;
 }) {
   const t = copy[lang];
+  const closeLabel = modalT[lang].close;
   const [busy, setBusy] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [password, setPassword] = useState('');
@@ -173,112 +176,95 @@ export default function UnlockPdfSuiteTool({
   };
 
   return (
-    <div className="p-5 md:p-6 space-y-6">
-      <div className="flex items-start gap-3">
-        <div className="w-10 h-10 rounded-xl bg-rose-500 text-white flex items-center justify-center shrink-0">
-          <FileKey2 size={20} aria-hidden />
-        </div>
-        <div>
-          <h2 className="text-lg font-black text-slate-900 tracking-tight">{t.title}</h2>
-          <p className="text-[12px] text-slate-500 font-medium leading-relaxed mt-1">{t.hero}</p>
-        </div>
-      </div>
+    <>
+      {showHeader ? <ModalHeader title={t.title} onClose={onClose} closeLabel={closeLabel} /> : null}
+      <div className="p-6 space-y-6">
+        {!outputUrl && !needPassword && !busy && (
+          <DocumentToolDropzone
+            lang={lang}
+            accept="pdf"
+            onFile={(f) => run(f)}
+            labels={{
+              dropTitle: t.dropTitle,
+              dropHint: t.dropHint,
+              browse: t.browse,
+              formats: t.formats,
+              dropActive: t.dropActive,
+              invalidFile: t.invalidFile,
+              emptyFile: t.emptyFile,
+              tooLarge: t.tooLarge,
+            }}
+          />
+        )}
 
-      {!outputUrl && !needPassword && !busy && (
-        <DocumentToolDropzone
-          lang={lang}
-          accept="pdf"
-          onFile={(f) => run(f)}
-          labels={{
-            dropTitle: t.dropTitle,
-            dropHint: t.dropHint,
-            browse: t.browse,
-            formats: t.formats,
-            dropActive: t.dropActive,
-            invalidFile: t.invalidFile,
-            emptyFile: t.emptyFile,
-            tooLarge: t.tooLarge,
-          }}
-        />
-      )}
+        {busy && <ToolBusyState label={needPassword || password ? t.unlocking : t.analyzing} />}
 
-      {busy && <ToolBusyState label={needPassword || password ? t.unlocking : t.analyzing} />}
+        {needPassword && !busy && !outputUrl && (
+          <form
+            className="space-y-4 p-4 border border-slate-200/80 rounded-2xl bg-white/60"
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (file) run(file, password);
+            }}
+          >
+            <div className="flex items-start gap-2 text-xs font-semibold text-slate-700">
+              <Lock size={16} className="text-rose-500 shrink-0 mt-0.5" />
+              <p>{t.needPassword}</p>
+            </div>
+            {file && <p className="text-[11px] font-semibold text-slate-400 truncate">{file.name}</p>}
+            <label className="block">
+              <span className="text-[10px] font-semibold uppercase tracking-wide text-slate-500">{t.password}</span>
+              <input
+                type="password"
+                autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className={inputClass + ' mt-1 w-full'}
+              />
+            </label>
+            {error && (
+              <p role="alert" className="text-[11px] font-semibold text-rose-600 flex items-center gap-1.5">
+                <AlertCircle size={12} /> {error}
+              </p>
+            )}
+            <button type="submit" disabled={!password.trim()} className="w-full btn-primary py-3.5 disabled:opacity-50">
+              {t.unlock}
+            </button>
+            <button type="button" onClick={reset} className="w-full text-xs font-semibold text-slate-500">
+              {t.again}
+            </button>
+          </form>
+        )}
 
-      {needPassword && !busy && !outputUrl && (
-        <form
-          className="space-y-4 bg-slate-50 border border-slate-200 rounded-2xl p-5"
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (file) run(file, password);
-          }}
-        >
-          <div className="flex items-start gap-2 text-xs font-semibold text-slate-700">
-            <Lock size={16} className="text-rose-500 shrink-0 mt-0.5" />
-            <p>{t.needPassword}</p>
+        {error && !needPassword && !outputUrl && !busy && (
+          <div role="alert" className="bg-rose-50 border border-rose-100 text-rose-700 rounded-xl px-4 py-3 text-xs font-semibold">
+            {error}
+            <button type="button" onClick={reset} className="block mt-2 text-win-blue font-semibold">
+              {t.again}
+            </button>
           </div>
-          {file && <p className="text-[11px] font-bold text-slate-400 truncate">{file.name}</p>}
-          <label className="block">
-            <span className="text-[10px] font-bold uppercase tracking-wide text-slate-500">{t.password}</span>
-            <input
-              type="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 w-full p-3 border border-slate-200 rounded-xl text-xs font-bold focus:ring-2 focus:ring-win-blue/20 focus:border-win-blue outline-none"
-            />
-          </label>
-          {error && (
-            <p role="alert" className="text-[11px] font-semibold text-rose-600 flex items-center gap-1.5">
-              <AlertCircle size={12} /> {error}
-            </p>
-          )}
-          <button type="submit" disabled={!password.trim()} className="w-full btn-primary py-3 text-xs font-black uppercase tracking-widest disabled:opacity-50">
-            {t.unlock}
-          </button>
-          <button type="button" onClick={reset} className="w-full text-xs font-bold text-slate-500">
-            {t.again}
-          </button>
-        </form>
-      )}
+        )}
 
-      {error && !needPassword && !outputUrl && !busy && (
-        <div role="alert" className="bg-rose-50 border border-rose-100 text-rose-700 rounded-xl px-4 py-3 text-xs font-semibold">
-          {error}
-          <button type="button" onClick={reset} className="block mt-2 text-win-blue font-bold">
-            {t.again}
-          </button>
-        </div>
-      )}
-
-      {outputUrl && result?.status === 'unlocked' && (
-        <div className="space-y-4 text-center py-4">
-          <div className="w-14 h-14 mx-auto rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
-            <ShieldCheck size={28} />
+        {outputUrl && result?.status === 'unlocked' && (
+          <div className="space-y-4 text-center py-4">
+            <div className="w-14 h-14 mx-auto rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+              <ShieldCheck size={28} />
+            </div>
+            <h3 className="text-base font-semibold text-slate-900">{t.success}</h3>
+            {result.method && (
+              <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">
+                {result.method === 'permissions-strip' ? t.methodStrip : t.methodRaster}
+              </p>
+            )}
+            <button type="button" onClick={download} className="w-full btn-primary py-3.5 flex items-center justify-center gap-2">
+              <Download size={16} /> {t.download}
+            </button>
+            <button type="button" onClick={reset} className="text-xs font-semibold text-win-blue flex items-center justify-center gap-1.5 mx-auto">
+              <RefreshCw size={12} /> {t.again}
+            </button>
           </div>
-          <h3 className="text-base font-black text-slate-900">{t.success}</h3>
-          {result.method && (
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-              {result.method === 'permissions-strip' ? t.methodStrip : t.methodRaster}
-            </p>
-          )}
-          <button type="button" onClick={download} className="w-full btn-primary py-3.5 flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest">
-            <Download size={16} /> {t.download}
-          </button>
-          <button type="button" onClick={reset} className="text-xs font-bold text-win-blue flex items-center justify-center gap-1.5 mx-auto">
-            <RefreshCw size={12} /> {t.again}
-          </button>
-        </div>
-      )}
-
-      <div className="bg-slate-50 border border-slate-100 rounded-2xl p-4 space-y-2">
-        <h3 className="text-xs font-black text-slate-800 uppercase tracking-tight">{t.howTitle}</h3>
-        <ul className="text-[11px] text-slate-600 font-medium space-y-1.5 list-disc pl-4 leading-relaxed">
-          <li>{t.how1}</li>
-          <li>{t.how2}</li>
-          <li>{t.how3}</li>
-        </ul>
-        <p className="text-[10px] text-emerald-800 font-semibold pt-1">{t.privacy}</p>
+        )}
       </div>
-    </div>
+    </>
   );
 }

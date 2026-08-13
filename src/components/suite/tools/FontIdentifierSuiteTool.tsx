@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { RefreshCw, Type, ShieldCheck } from 'lucide-react';
+import { RefreshCw } from 'lucide-react';
 import type { LanguageType } from '../../../types';
 import { identifyDocumentFonts } from '../../../engines/fontIdentifier';
 import type { FontIdentifierResult } from '../../../engines/fontIdentifier';
 import { DocumentToolDropzone, ToolBusyState } from '../DocumentToolDropzone';
+import { ModalHeader, modalT } from '../shared';
 
 const copy: Record<LanguageType, Record<string, string>> = {
   pt: {
@@ -146,12 +147,14 @@ function elementLabel(id: string, t: Record<string, string>): string {
 export default function FontIdentifierSuiteTool({
   lang,
   onClose,
+  showHeader = false,
 }: {
   lang: LanguageType;
   onClose: () => void;
   showHeader?: boolean;
 }) {
   const t = copy[lang];
+  const closeLabel = modalT[lang].close;
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<FontIdentifierResult | null>(null);
@@ -180,157 +183,140 @@ export default function FontIdentifierSuiteTool({
   };
 
   return (
-    <div className="p-5 md:p-6 space-y-6">
-      <div className="flex items-start gap-3">
-        <div className="w-10 h-10 rounded-xl bg-indigo-500 text-white flex items-center justify-center shrink-0">
-          <Type size={20} aria-hidden />
-        </div>
-        <div>
-          <h2 className="text-lg font-black text-slate-900 tracking-tight">{t.title}</h2>
-          <p className="text-[12px] text-slate-500 font-medium leading-relaxed mt-1">{t.hero}</p>
-        </div>
-      </div>
+    <>
+      {showHeader ? <ModalHeader title={t.title} onClose={onClose} closeLabel={closeLabel} /> : null}
+      <div className="p-6 space-y-6">
+        {!result && !busy && (
+          <DocumentToolDropzone
+            lang={lang}
+            accept="pdf-docx"
+            onFile={run}
+            labels={{
+              dropTitle: t.dropTitle,
+              dropHint: t.dropHint,
+              browse: t.browse,
+              formats: t.formats,
+              dropActive: t.dropActive,
+              invalidFile: t.invalidFile,
+              emptyFile: t.emptyFile,
+              tooLarge: t.tooLarge,
+            }}
+          />
+        )}
 
-      {!result && !busy && (
-        <DocumentToolDropzone
-          lang={lang}
-          accept="pdf-docx"
-          onFile={run}
-          labels={{
-            dropTitle: t.dropTitle,
-            dropHint: t.dropHint,
-            browse: t.browse,
-            formats: t.formats,
-            dropActive: t.dropActive,
-            invalidFile: t.invalidFile,
-            emptyFile: t.emptyFile,
-            tooLarge: t.tooLarge,
-          }}
-        />
-      )}
+        {busy && <ToolBusyState label={t.analyzing} />}
 
-      {busy && <ToolBusyState label={t.analyzing} />}
+        {error && (
+          <div role="alert" className="bg-rose-50 border border-rose-100 text-rose-700 rounded-xl px-4 py-3 text-xs font-semibold">
+            {error}
+            <button type="button" onClick={reset} className="block mt-3 text-win-blue font-semibold">
+              {t.again}
+            </button>
+          </div>
+        )}
 
-      {error && (
-        <div role="alert" className="bg-rose-50 border border-rose-100 text-rose-700 rounded-xl px-4 py-3 text-xs font-semibold">
-          {error}
-          <button type="button" onClick={reset} className="block mt-3 text-win-blue font-bold">
-            {t.again}
-          </button>
-        </div>
-      )}
-
-      {result && (
-        <div className="space-y-4">
-          {fileName && <p className="text-[11px] font-bold text-slate-400 truncate">{fileName}</p>}
-          <h3 className="text-sm font-black text-slate-800 uppercase tracking-tight">{t.results}</h3>
-          {result.findings.length === 0 ? (
-            <p className="text-xs text-slate-600 font-medium">{t.noFonts}</p>
-          ) : (
-            <>
-              <div className="overflow-x-auto rounded-xl border border-slate-200">
-                <table className="w-full text-left text-[11px] min-w-[480px]">
-                  <thead className="bg-slate-50 text-slate-500 uppercase tracking-wider text-[9px] font-black">
-                    <tr>
-                      <th className="px-3 py-2">{t.element}</th>
-                      <th className="px-3 py-2">{t.font}</th>
-                      <th className="px-3 py-2">{t.confidence}</th>
-                      <th className="px-3 py-2">{t.method}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {result.findings.map((f, i) => (
-                      <tr key={i} className="border-t border-slate-100">
-                        <td className="px-3 py-2 font-semibold text-slate-700">{elementLabel(f.element, t)}</td>
-                        <td className="px-3 py-2 font-bold text-slate-900">
-                          {f.primary.name}
-                          {f.primary.weightStyle ? ` ${f.primary.weightStyle}` : ''}
-                        </td>
-                        <td className="px-3 py-2">{f.confidencePercent}%</td>
-                        <td className="px-3 py-2">{f.method === 'document' ? t.methodDoc : t.methodSim}</td>
+        {result && (
+          <div className="space-y-4">
+            {fileName && <p className="text-[11px] font-semibold text-slate-400 truncate">{fileName}</p>}
+            <h3 className="text-sm font-semibold text-slate-800">{t.results}</h3>
+            {result.findings.length === 0 ? (
+              <p className="text-xs text-slate-600 font-medium">{t.noFonts}</p>
+            ) : (
+              <>
+                <div className="overflow-x-auto rounded-xl border border-slate-200/80">
+                  <table className="w-full text-left text-[11px] min-w-[480px]">
+                    <thead className="bg-slate-50 text-slate-500 uppercase tracking-wider text-[9px] font-semibold">
+                      <tr>
+                        <th className="px-3 py-2">{t.element}</th>
+                        <th className="px-3 py-2">{t.font}</th>
+                        <th className="px-3 py-2">{t.confidence}</th>
+                        <th className="px-3 py-2">{t.method}</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {result.findings.map((f, i) => {
-                  const isDirect = f.method === 'document';
-                  return (
-                    <article key={i} className="bg-white border border-slate-200 rounded-2xl p-4 md:p-5 space-y-3">
-                      <div className="flex items-center justify-between gap-2 flex-wrap">
-                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                          {elementLabel(f.element, t)}
-                        </span>
-                        <span
-                          className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                            isDirect ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-800'
-                          }`}
-                        >
-                          {isDirect ? t.methodDoc : t.methodSim}
-                        </span>
-                      </div>
-                      <div>
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1">
-                          {isDirect ? t.identified : t.probable}
-                        </p>
-                        <h3 className="text-base font-black text-slate-900">
-                          {f.primary.name}
-                          {f.primary.weightStyle ? ` ${f.primary.weightStyle}` : ''}
-                        </h3>
-                      </div>
-                      <p className="text-xs font-semibold text-slate-600">
-                        {isDirect ? t.confidenceHigh : `${t.similarity}: ${f.confidencePercent}%`}
-                      </p>
-                      {!isDirect && f.alternatives.length > 0 && (
-                        <div>
-                          <p className="text-[10px] font-bold text-slate-400 uppercase mb-1">{t.alternatives}</p>
-                          <ul className="space-y-1">
-                            {f.alternatives.map((a) => (
-                              <li key={a.name} className="text-[11px] text-slate-600 font-medium">
-                                {a.name}
-                                {a.similarity != null ? ` — ${a.similarity}%` : ''}
-                              </li>
-                            ))}
-                          </ul>
+                    </thead>
+                    <tbody>
+                      {result.findings.map((f, i) => (
+                        <tr key={i} className="border-t border-slate-100">
+                          <td className="px-3 py-2 font-semibold text-slate-700">{elementLabel(f.element, t)}</td>
+                          <td className="px-3 py-2 font-semibold text-slate-900">
+                            {f.primary.name}
+                            {f.primary.weightStyle ? ` ${f.primary.weightStyle}` : ''}
+                          </td>
+                          <td className="px-3 py-2">
+                            {f.method === 'document' ? t.confidenceHigh : `${f.confidencePercent}%`}
+                          </td>
+                          <td className="px-3 py-2">{f.method === 'document' ? t.methodDoc : t.methodSim}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {result.findings.map((f, i) => {
+                    const isDirect = f.method === 'document';
+                    return (
+                      <article key={i} className="p-4 border border-slate-200/80 rounded-2xl bg-white/60 space-y-3">
+                        <div className="flex items-center justify-between gap-2 flex-wrap">
+                          <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">
+                            {elementLabel(f.element, t)}
+                          </span>
+                          <span
+                            className={`text-[10px] font-semibold px-2 py-0.5 rounded-lg ${
+                              isDirect ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-800'
+                            }`}
+                          >
+                            {isDirect ? t.methodDoc : t.methodSim}
+                          </span>
                         </div>
-                      )}
-                      <div className="flex flex-wrap gap-3 text-[10px] text-slate-500 font-semibold">
-                        {f.occurrences != null && (
-                          <span>
-                            {t.occurrences}: {f.occurrences}
-                          </span>
+                        <div>
+                          <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mb-1">
+                            {isDirect ? t.identified : t.probable}
+                          </p>
+                          <h3 className="text-base font-semibold text-slate-900">
+                            {f.primary.name}
+                            {f.primary.weightStyle ? ` ${f.primary.weightStyle}` : ''}
+                          </h3>
+                        </div>
+                        <p className="text-xs font-semibold text-slate-600">
+                          {isDirect ? t.confidenceHigh : `${t.similarity}: ${f.confidencePercent}%`}
+                        </p>
+                        {!isDirect && f.alternatives.length > 0 && (
+                          <div>
+                            <p className="text-[10px] font-semibold text-slate-400 uppercase mb-1">{t.alternatives}</p>
+                            <ul className="space-y-1">
+                              {f.alternatives.map((a) => (
+                                <li key={a.name} className="text-[11px] text-slate-600 font-medium">
+                                  {a.name}
+                                  {a.similarity != null ? ` — ${a.similarity}%` : ''}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
                         )}
-                        {f.pages && f.pages.length > 0 && (
-                          <span>
-                            {t.pages}: {f.pages.slice(0, 12).join(', ')}
-                            {f.pages.length > 12 ? '…' : ''}
-                          </span>
-                        )}
-                      </div>
-                    </article>
-                  );
-                })}
-              </div>
-            </>
-          )}
-          <button type="button" onClick={reset} className="w-full btn-primary py-3 flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest">
-            <RefreshCw size={14} /> {t.again}
-          </button>
-        </div>
-      )}
-
-      <div className="bg-slate-50 border border-slate-100 rounded-2xl p-4 space-y-2">
-        <h3 className="text-xs font-black text-slate-800 uppercase tracking-tight flex items-center gap-2">
-          <ShieldCheck size={14} className="text-emerald-600" /> {t.howTitle}
-        </h3>
-        <ul className="text-[11px] text-slate-600 font-medium space-y-1.5 list-disc pl-4 leading-relaxed">
-          <li>{t.how1}</li>
-          <li>{t.how2}</li>
-          <li>{t.how3}</li>
-        </ul>
-        <p className="text-[10px] text-emerald-800 font-semibold pt-1">{t.privacy}</p>
+                        <div className="flex flex-wrap gap-3 text-[10px] text-slate-500 font-semibold">
+                          {f.occurrences != null && (
+                            <span>
+                              {t.occurrences}: {f.occurrences}
+                            </span>
+                          )}
+                          {f.pages && f.pages.length > 0 && (
+                            <span>
+                              {t.pages}: {f.pages.slice(0, 12).join(', ')}
+                              {f.pages.length > 12 ? '…' : ''}
+                            </span>
+                          )}
+                        </div>
+                      </article>
+                    );
+                  })}
+                </div>
+              </>
+            )}
+            <button type="button" onClick={reset} className="w-full btn-primary py-3.5 flex items-center justify-center gap-2">
+              <RefreshCw size={14} /> {t.again}
+            </button>
+          </div>
+        )}
       </div>
-    </div>
+    </>
   );
 }
