@@ -2360,7 +2360,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
     pt: {
       title: 'Organizar Páginas PDF Online Grátis | PDFWINDOWS',
       description:
-        'Exclua, reordene e extraia páginas de PDF no navegador. Gere uma cópia organizada localmente—sem upload na nuvem.',
+        'Exclua, reordene e extraia páginas PDF com miniaturas no navegador. Baixe uma nova cópia organizada localmente; sem upload, original intacto.',
       keywords:
         'organizar páginas pdf, excluir páginas pdf, reordenar pdf, extrair páginas pdf, organizar pdf gratis',
       h1: 'Organizar Páginas PDF',
@@ -2387,7 +2387,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
     en: {
       title: 'Organize PDF Pages Online Free | PDFWINDOWS',
       description:
-        'Delete, reorder, and extract PDF pages in your browser. Download an organized copy locally—no cloud upload.',
+        'Delete, reorder, and extract PDF pages with thumbnails in your browser. Download a new organized copy locally; no cloud upload, original stays intact.',
       keywords:
         'organize pdf pages, delete pdf pages, reorder pdf, extract pdf pages, organize pdf free',
       h1: 'Organize PDF Pages',
@@ -2414,7 +2414,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
     es: {
       title: 'Organizar Páginas PDF Online Gratis | PDFWINDOWS',
       description:
-        'Elimine, reordene y extraiga páginas PDF en el navegador. Descargue una copia organizada localmente—sin subida a la nube.',
+        'Elimine, reordene y extraiga páginas PDF con miniaturas en el navegador. Descargue una copia nueva organizada localmente; sin subida a la nube.',
       keywords:
         'organizar páginas pdf, eliminar páginas pdf, reordenar pdf, extraer páginas pdf, organizar pdf gratis',
       h1: 'Organizar Páginas PDF',
@@ -2443,7 +2443,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
     pt: {
       title: 'Redação PDF Online Grátis | PDFWINDOWS',
       description:
-        'Tape CPF, valores e dados sensíveis em PDF no navegador. Gere uma cópia redigida localmente—sem enviar o arquivo para a nuvem.',
+        'Tape CPF, valores e dados sensíveis em PDFs no navegador. Baixe uma nova cópia redigida localmente; revise as coberturas antes de compartilhar.',
       keywords:
         'redação pdf, ocultar dados pdf, blackout pdf, tapar cpf pdf, redação documento gratis',
       h1: 'Redação PDF',
@@ -2470,7 +2470,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
     en: {
       title: 'Redact PDF Online Free | PDFWINDOWS',
       description:
-        'Black out IDs, amounts, and sensitive data in PDFs in your browser. Download a redacted copy locally—no cloud upload.',
+        'Black out IDs, amounts, and sensitive data in PDFs in your browser. Download a new redacted copy locally; review visual covers before sharing.',
       keywords:
         'redact pdf, blackout pdf, hide sensitive data pdf, pdf redaction free, cover text pdf',
       h1: 'Redact PDF',
@@ -2497,7 +2497,7 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
     es: {
       title: 'Redacción PDF Online Gratis | PDFWINDOWS',
       description:
-        'Tape datos sensibles en PDF en el navegador. Descargue una copia redactada localmente—sin subir el archivo a la nube.',
+        'Tape identificaciones, importes y datos sensibles en PDFs en el navegador. Descargue una copia redactada localmente; revise cubiertas antes de compartir.',
       keywords:
         'redacción pdf, ocultar datos pdf, blackout pdf, tapar texto pdf, redacción documento gratis',
       h1: 'Redacción PDF',

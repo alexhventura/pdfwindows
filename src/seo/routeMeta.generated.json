@@ -2249,6 +2249,156 @@
       }
     ]
   },
+  "/en/organize-pdf-pages": {
+    "lang": "en",
+    "title": "Organize PDF Pages Online Free | PDFWINDOWS",
+    "description": "Delete, reorder, and extract PDF pages with thumbnails in your browser. Download a new organized copy locally; no cloud upload, original stays intact.",
+    "keywords": "organize pdf pages, delete pdf pages, reorder pdf, extract pdf pages, organize pdf free",
+    "canonical": "https://www.pdfwindows.com/en/organize-pdf-pages",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/organize-pdf-pages"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/organizar-paginas-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/organizar-paginas-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/organize-pdf-pages"
+      }
+    ]
+  },
+  "/pt/organizar-paginas-pdf": {
+    "lang": "pt-BR",
+    "title": "Organizar Páginas PDF Online Grátis | PDFWINDOWS",
+    "description": "Exclua, reordene e extraia páginas PDF com miniaturas no navegador. Baixe uma nova cópia organizada localmente; sem upload, original intacto.",
+    "keywords": "organizar páginas pdf, excluir páginas pdf, reordenar pdf, extrair páginas pdf, organizar pdf gratis",
+    "canonical": "https://www.pdfwindows.com/pt/organizar-paginas-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/organize-pdf-pages"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/organizar-paginas-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/organizar-paginas-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/organize-pdf-pages"
+      }
+    ]
+  },
+  "/es/organizar-paginas-pdf": {
+    "lang": "es",
+    "title": "Organizar Páginas PDF Online Gratis | PDFWINDOWS",
+    "description": "Elimine, reordene y extraiga páginas PDF con miniaturas en el navegador. Descargue una copia nueva organizada localmente; sin subida a la nube.",
+    "keywords": "organizar páginas pdf, eliminar páginas pdf, reordenar pdf, extraer páginas pdf, organizar pdf gratis",
+    "canonical": "https://www.pdfwindows.com/es/organizar-paginas-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/organize-pdf-pages"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/organizar-paginas-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/organizar-paginas-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/organize-pdf-pages"
+      }
+    ]
+  },
+  "/en/redact-pdf": {
+    "lang": "en",
+    "title": "Redact PDF Online Free | PDFWINDOWS",
+    "description": "Black out IDs, amounts, and sensitive data in PDFs in your browser. Download a new redacted copy locally; review visual covers before sharing.",
+    "keywords": "redact pdf, blackout pdf, hide sensitive data pdf, pdf redaction free, cover text pdf",
+    "canonical": "https://www.pdfwindows.com/en/redact-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/redact-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/redacao-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/redaccion-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/redact-pdf"
+      }
+    ]
+  },
+  "/pt/redacao-pdf": {
+    "lang": "pt-BR",
+    "title": "Redação PDF Online Grátis | PDFWINDOWS",
+    "description": "Tape CPF, valores e dados sensíveis em PDFs no navegador. Baixe uma nova cópia redigida localmente; revise as coberturas antes de compartilhar.",
+    "keywords": "redação pdf, ocultar dados pdf, blackout pdf, tapar cpf pdf, redação documento gratis",
+    "canonical": "https://www.pdfwindows.com/pt/redacao-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/redact-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/redacao-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/redaccion-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/redact-pdf"
+      }
+    ]
+  },
+  "/es/redaccion-pdf": {
+    "lang": "es",
+    "title": "Redacción PDF Online Gratis | PDFWINDOWS",
+    "description": "Tape identificaciones, importes y datos sensibles en PDFs en el navegador. Descargue una copia redactada localmente; revise cubiertas antes de compartir.",
+    "keywords": "redacción pdf, ocultar datos pdf, blackout pdf, tapar texto pdf, redacción documento gratis",
+    "canonical": "https://www.pdfwindows.com/es/redaccion-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/redact-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/redacao-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/redaccion-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/redact-pdf"
+      }
+    ]
+  },
   "/en/privacy": {
     "lang": "en",
     "title": "Privacy Policy | PDFWINDOWS",

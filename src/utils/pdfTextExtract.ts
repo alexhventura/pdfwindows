@@ -1,6 +1,7 @@
 import type { PDFPageProxy } from 'pdfjs-dist';
 import { loadPdfJS } from './pdfjsLoader';
 import { createLocalOcrWorker } from './tesseractLoader';
+import { PSM } from 'tesseract.js';
 import { sanitizePdfText } from './pdfTextSanitizer';
 import { textToDocxBlob } from './textToDocx';
 import {
@@ -76,7 +77,7 @@ async function extractHybridPdfText(
         if (!worker) {
           worker = await createLocalOcrWorker(language);
           await worker.setParameters({
-            tessedit_pageseg_mode: '6',
+            tessedit_pageseg_mode: PSM.SINGLE_BLOCK,
             preserve_interword_spaces: '1',
             user_defined_dpi: String(Math.round(72 * scale)),
           });

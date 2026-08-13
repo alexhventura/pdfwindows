@@ -2,6 +2,7 @@ import { PDFDocument, StandardFonts, rgb, type PDFPage, type PDFFont } from 'pdf
 import type { LanguageType } from '../types';
 import { sanitizePdfText } from '../utils/pdfTextSanitizer';
 import type { Worker } from 'tesseract.js';
+import { PSM } from 'tesseract.js';
 import type { PDFPageProxy } from 'pdfjs-dist';
 import { loadPdfJS } from '../utils/pdfjsLoader';
 import { drawPdfWindowsFooter } from '../utils/pdfFooter';
@@ -173,7 +174,7 @@ export async function buildSearchablePdfFromFile(
 
   await worker.setParameters({
     preserve_interword_spaces: '1',
-    tessedit_pageseg_mode: '6',
+    tessedit_pageseg_mode: PSM.SINGLE_BLOCK,
     user_defined_dpi: String(Math.round(72 * renderScale)),
   });
 

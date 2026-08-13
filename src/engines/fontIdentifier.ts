@@ -41,6 +41,7 @@ const KNOWN_FAMILIES = [
   'Georgia',
   'Tahoma',
   'Calibri',
+  'Calibri Light',
   'Cambria',
   'Garamond',
   'Palatino',
@@ -331,47 +332,159 @@ function appendSample(prev: string, piece: string, max = 120): string {
   return `${prev}${prev ? ' ' : ''}${clean}`.slice(0, max);
 }
 
-async function identifyDocxFonts(file: File): Promise<FontIdentifierResult> {
-  const zip = await openDocxZip(file);
-  const styles = (await readZipText(zip, 'word/styles.xml')) || '';
-  const document = (await readZipText(zip, 'word/document.xml')) || '';
+type ThemeFontMap = {
+  major: string;
+  minor: string;
+};
 
-  if (!document) throw new Error('INVALID_DOCX');
+function parseThemeFonts(themeXml: string): ThemeFontMap {
+  const major =
+    themeXml.match(/<a:majorFont\b[\s\S]*?<a:latin\b[^>]*typeface="([^"]+)"/i)?.[1] || 'Calibri Light';
+  const minor =
+    themeXml.match(/<a:minorFont\b[\s\S]*?<a:latin\b[^>]*typeface="([^"]+)"/i)?.[1] || 'Calibri';
+  return {
+    major: normalizeFontName(major),
+    minor: normalizeFontName(minor),
+  };
+}
 
-  // Default run font from docDefaults / Normal style
-  let defaultFont = 'Calibri';
-  const defAscii = styles.match(
-    /w:docDefaults[\s\S]*?w:rFonts[^>]*w:ascii="([^"]+)"/i
-  );
-  if (defAscii?.[1] && !isThemeOrJunkFont(defAscii[1])) {
-    defaultFont = normalizeFontName(defAscii[1]);
-  } else {
-    const normal = styles.match(
-      /w:style[^>]*w:styleId="Normal"[^>]*>[\s\S]*?w:rFonts[^>]*w:ascii="([^"]+)"/i
-    );
-    if (normal?.[1] && !isThemeOrJunkFont(normal[1])) {
-      defaultFont = normalizeFontName(normal[1]);
-    }
-  }
+function resolveThemeSlot(slot: string | undefined, theme: ThemeFontMap): string | null {
+  if (!slot) return null;
+  const s = slot.toLowerCase();
+  if (s.startsWith('major')) return theme.major;
+  if (s.startsWith('minor')) return theme.minor;
+  return null;
+}
 
-  const styleFont = new Map<string, string>();
-  const styleBlocks = styles.matchAll(/<w:style\b([^>]*)>([\s\S]*?)<\/w:style>/gi);
+/** Resolve a concrete font from a w:rFonts opening tag (self-closing or not). */
+function fontFromRFontsTag(tag: string, theme: ThemeFontMap): string | null {
+  const ascii = tag.match(/\bw:ascii="([^"]+)"/i)?.[1];
+  if (ascii && !isThemeOrJunkFont(ascii)) return normalizeFontName(ascii);
+  const hAnsi = tag.match(/\bw:hAnsi="([^"]+)"/i)?.[1];
+  if (hAnsi && !isThemeOrJunkFont(hAnsi)) return normalizeFontName(hAnsi);
+  const asciiTheme = tag.match(/\bw:asciiTheme="([^"]+)"/i)?.[1];
+  const fromAsciiTheme = resolveThemeSlot(asciiTheme, theme);
+  if (fromAsciiTheme) return fromAsciiTheme;
+  const hAnsiTheme = tag.match(/\bw:hAnsiTheme="([^"]+)"/i)?.[1];
+  return resolveThemeSlot(hAnsiTheme, theme);
+}
+
+function firstRFontsIn(xml: string, theme: ThemeFontMap): string | null {
+  const m = xml.match(/<w:rFonts\b[^>]*\/?>/i);
+  return m ? fontFromRFontsTag(m[0], theme) : null;
+}
+
+type StyleNode = {
+  basedOn?: string;
+  font?: string;
+  name?: string;
+};
+
+function parseStyleGraph(stylesXml: string, theme: ThemeFontMap): {
+  styles: Map<string, StyleNode>;
+  defaultFont: string;
+} {
+  const styles = new Map<string, StyleNode>();
+  const styleBlocks = stylesXml.matchAll(/<w:style\b([^>]*)>([\s\S]*?)<\/w:style>/gi);
   for (const block of styleBlocks) {
     const id = block[1].match(/w:styleId="([^"]+)"/i)?.[1];
-    const ascii = block[2].match(/w:rFonts[^>]*w:ascii="([^"]+)"/i)?.[1];
-    if (!id || !ascii || isThemeOrJunkFont(ascii)) continue;
-    styleFont.set(id, normalizeFontName(ascii));
+    if (!id) continue;
+    const basedOn = block[2].match(/<w:basedOn\b[^>]*w:val="([^"]+)"/i)?.[1];
+    const name = block[2].match(/<w:name\b[^>]*w:val="([^"]+)"/i)?.[1];
+    const font = firstRFontsIn(block[2], theme) || undefined;
+    styles.set(id, { basedOn, font, name });
   }
 
-  type Agg = { count: number; sample: string; weightStyle?: string; rawName: string };
-  const usage = new Map<string, Agg>();
+  let defaultFont =
+    firstRFontsIn(stylesXml.match(/<w:docDefaults\b[\s\S]*?<\/w:docDefaults>/i)?.[0] || '', theme) ||
+    null;
+  if (!defaultFont) {
+    defaultFont = resolveStyleFont('Normal', styles, theme, new Set()) || theme.minor;
+  }
 
+  return { styles, defaultFont };
+}
+
+function resolveStyleFont(
+  styleId: string | undefined,
+  styles: Map<string, StyleNode>,
+  theme: ThemeFontMap,
+  seen: Set<string>
+): string | null {
+  if (!styleId || seen.has(styleId)) return null;
+  seen.add(styleId);
+  const node = styles.get(styleId);
+  if (!node) return null;
+  if (node.font) return node.font;
+  return resolveStyleFont(node.basedOn, styles, theme, seen);
+}
+
+function classifyDocxElement(styleId: string | undefined, styleName: string | undefined): string {
+  const blob = `${styleId || ''} ${styleName || ''}`.toLowerCase();
+  if (/title|heading\s*1|t[ií]tulo/.test(blob)) return 'title';
+  if (/heading|subtitle|subt[ií]tulo/.test(blob)) return 'subtitle';
+  if (/header|cabe[cç]alho/.test(blob)) return 'header';
+  if (/footer|rodap[eé]/.test(blob)) return 'footer';
+  if (/caption|legenda/.test(blob)) return 'caption';
+  return 'body';
+}
+
+function recordUsage(
+  usage: Map<string, { count: number; sample: string; weightStyle?: string; rawName: string; element: string; elementCounts: Record<string, number> }>,
+  rawFont: string,
+  text: string,
+  element: string
+) {
+  if (isThemeOrJunkFont(rawFont)) return;
+  const normalized = normalizeFontName(rawFont);
+  // Keep "Calibri Light" as its own family — it is a distinct face, not a weight of Calibri.
+  let family = normalized;
+  let weightStyle: string | undefined;
+  if (!/^calibri light$/i.test(normalized)) {
+    ({ family, weightStyle } = splitWeight(normalized));
+  }
+  if (isThemeOrJunkFont(family)) return;
+
+  const key = `${family.toLowerCase()}|${(weightStyle || '').toLowerCase()}`;
+  const chars = text.replace(/\s+/g, '').length || text.length;
+  const prev = usage.get(key) || {
+    count: 0,
+    sample: '',
+    weightStyle,
+    rawName: family,
+    element,
+    elementCounts: {},
+  };
+  prev.count += chars;
+  prev.sample = appendSample(prev.sample, text);
+  if (weightStyle && !prev.weightStyle) prev.weightStyle = weightStyle;
+  prev.elementCounts[element] = (prev.elementCounts[element] || 0) + chars;
+  prev.element = Object.entries(prev.elementCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || element;
+  usage.set(key, prev);
+}
+
+function collectFontsFromXml(
+  xml: string,
+  styles: Map<string, StyleNode>,
+  theme: ThemeFontMap,
+  defaultFont: string,
+  usage: Map<
+    string,
+    { count: number; sample: string; weightStyle?: string; rawName: string; element: string; elementCounts: Record<string, number> }
+  >
+) {
   const paraRe = /<w:p\b[\s\S]*?<\/w:p>/gi;
   let paraMatch: RegExpExecArray | null;
-  while ((paraMatch = paraRe.exec(document))) {
+  while ((paraMatch = paraRe.exec(xml))) {
     const para = paraMatch[0];
-    const styleId = para.match(/w:pStyle[^>]*w:val="([^"]+)"/i)?.[1];
-    const paraFont = (styleId && styleFont.get(styleId)) || defaultFont;
+    const pPr = para.match(/<w:pPr\b[\s\S]*?<\/w:pPr>/i)?.[0] || '';
+    const styleId = pPr.match(/w:pStyle[^>]*w:val="([^"]+)"/i)?.[1];
+    const styleName = styleId ? styles.get(styleId)?.name : undefined;
+    const element = classifyDocxElement(styleId, styleName);
+
+    const paraMarkFont = firstRFontsIn(pPr, theme);
+    const styleFont = resolveStyleFont(styleId, styles, theme, new Set());
+    const paraFont = paraMarkFont || styleFont || defaultFont;
 
     const runRe = /<w:r\b[\s\S]*?<\/w:r>/gi;
     let runMatch: RegExpExecArray | null;
@@ -381,92 +494,66 @@ async function identifyDocxFonts(file: File): Promise<FontIdentifierResult> {
       const text = texts.join('');
       if (!text.replace(/\s+/g, '').length) continue;
 
-      const ascii = run.match(/w:rFonts[^>]*w:ascii="([^"]+)"/i)?.[1];
-      const hAnsi = run.match(/w:rFonts[^>]*w:hAnsi="([^"]+)"/i)?.[1];
-      const rawFont = ascii || hAnsi || paraFont;
-      if (isThemeOrJunkFont(rawFont)) continue;
-
-      const normalized = normalizeFontName(rawFont);
-      const { family, weightStyle } = splitWeight(normalized);
-      if (isThemeOrJunkFont(family)) continue;
-
-      const key = `${family.toLowerCase()}|${(weightStyle || '').toLowerCase()}`;
-      const prev = usage.get(key) || { count: 0, sample: '', weightStyle, rawName: family };
-      prev.count += text.replace(/\s+/g, '').length || text.length;
-      prev.sample = appendSample(prev.sample, text);
-      if (weightStyle && !prev.weightStyle) prev.weightStyle = weightStyle;
-      usage.set(key, prev);
+      const rPr = run.match(/<w:rPr\b[\s\S]*?<\/w:rPr>/i)?.[0] || '';
+      const runFont = firstRFontsIn(rPr, theme);
+      const rStyleId = rPr.match(/w:rStyle[^>]*w:val="([^"]+)"/i)?.[1];
+      const charStyleFont = resolveStyleFont(rStyleId, styles, theme, new Set());
+      const rawFont = runFont || charStyleFont || paraFont;
+      recordUsage(usage, rawFont, text, element);
     }
   }
+}
 
-  // Fallback: if no runs resolved, scrape any rFonts+nearby text once
-  if (usage.size === 0) {
-    const runRe = /<w:r\b[\s\S]*?<\/w:r>/gi;
-    let runMatch: RegExpExecArray | null;
-    while ((runMatch = runRe.exec(document))) {
-      const run = runMatch[0];
-      const fontM = run.match(/w:(?:ascii|hAnsi)="([^"]+)"/i);
-      const texts = [...run.matchAll(/<w:t\b[^>]*>([\s\S]*?)<\/w:t>/gi)].map((m) => m[1]);
-      const text = texts.join('');
-      if (!text.trim()) continue;
-      const raw = fontM?.[1] || defaultFont;
-      if (isThemeOrJunkFont(raw)) continue;
-      const { family, weightStyle } = splitWeight(normalizeFontName(raw));
-      const key = `${family.toLowerCase()}|${(weightStyle || '').toLowerCase()}`;
-      const prev = usage.get(key) || { count: 0, sample: '', weightStyle, rawName: family };
-      prev.count += text.length;
-      prev.sample = appendSample(prev.sample, text);
-      usage.set(key, prev);
-    }
+async function identifyDocxFonts(file: File): Promise<FontIdentifierResult> {
+  const zip = await openDocxZip(file);
+  const stylesXml = (await readZipText(zip, 'word/styles.xml')) || '';
+  const document = (await readZipText(zip, 'word/document.xml')) || '';
+  const themeXml =
+    (await readZipText(zip, 'word/theme/theme1.xml')) ||
+    (await readZipText(zip, 'word/theme/theme.xml')) ||
+    '';
+
+  if (!document) throw new Error('INVALID_DOCX');
+
+  const theme = parseThemeFonts(themeXml);
+  const { styles, defaultFont } = parseStyleGraph(stylesXml, theme);
+
+  type Agg = {
+    count: number;
+    sample: string;
+    weightStyle?: string;
+    rawName: string;
+    element: string;
+    elementCounts: Record<string, number>;
+  };
+  const usage = new Map<string, Agg>();
+
+  collectFontsFromXml(document, styles, theme, defaultFont, usage);
+
+  // Headers / footers often use distinct faces (and were previously missed).
+  for (const path of Object.keys(zip.files)) {
+    if (!/^word\/(header|footer)\d*\.xml$/i.test(path)) continue;
+    const part = await readZipText(zip, path);
+    if (part) collectFontsFromXml(part, styles, theme, defaultFont, usage);
   }
 
   const findings: FontFinding[] = [];
-  for (const [, agg] of usage) {
+  for (const agg of usage.values()) {
     const family = agg.rawName;
     const sampleText = agg.sample.trim() || undefined;
     if (!sampleText) continue;
 
-    const element = classifyElement(family);
-    if (isKnownExact(family)) {
-      findings.push({
-        element,
-        primary: { name: family, weightStyle: agg.weightStyle },
-        alternatives: [],
-        method: 'document',
-        confidenceLabel: 'high',
-        confidencePercent: 100,
-        occurrences: agg.count,
-        sampleText,
-      });
-    } else {
-      const alts = estimateAlternatives(family);
-      const best = alts[0];
-      const sim = best?.similarity ?? 60;
-      findings.push({
-        element,
-        primary: {
-          name: best && sim >= 70 ? best.name : family,
-          weightStyle: agg.weightStyle,
-          similarity: sim,
-        },
-        alternatives: alts.filter((a) => a.name !== (best && sim >= 70 ? best.name : family)).slice(0, 3),
-        method: best && sim >= 70 ? 'similarity' : 'document',
-        confidenceLabel: best && sim >= 70 ? 'estimated' : 'high',
-        confidencePercent: best && sim >= 70 ? sim : 100,
-        occurrences: agg.count,
-        sampleText,
-      });
-    }
-  }
-
-  // Prefer known families as document-identified when we have real samples
-  for (const f of findings) {
-    if (f.sampleText && isKnownExact(f.primary.name)) {
-      f.method = 'document';
-      f.confidenceLabel = 'high';
-      f.confidencePercent = 100;
-      f.alternatives = [];
-    }
+    const alts = isKnownExact(family) ? [] : estimateAlternatives(family);
+    findings.push({
+      element: agg.element,
+      primary: { name: family, weightStyle: agg.weightStyle },
+      alternatives: alts.slice(0, 3),
+      method: 'document',
+      confidenceLabel: 'high',
+      confidencePercent: 100,
+      occurrences: agg.count,
+      sampleText,
+    });
   }
 
   findings.sort((a, b) => {

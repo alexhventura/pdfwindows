@@ -15,7 +15,10 @@ vi.mock('../../utils/pdfjsLoader', () => ({
 
 import { identifyDocumentFonts } from '../../engines/fontIdentifier';
 
-async function makeDocx(documentXml: string, stylesXml?: string): Promise<File> {
+async function makeDocx(
+  documentXml: string,
+  options?: { stylesXml?: string; themeXml?: string }
+): Promise<File> {
   const zip = new JSZip();
   zip.file(
     '[Content_Types].xml',
@@ -28,7 +31,7 @@ async function makeDocx(documentXml: string, stylesXml?: string): Promise<File> 
   zip.file('word/document.xml', documentXml);
   zip.file(
     'word/styles.xml',
-    stylesXml ||
+    options?.stylesXml ||
       `<?xml version="1.0" encoding="UTF-8"?>
 <w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
   <w:docDefaults>
@@ -40,11 +43,24 @@ async function makeDocx(documentXml: string, stylesXml?: string): Promise<File> 
   </w:docDefaults>
 </w:styles>`
   );
+  if (options?.themeXml) {
+    zip.file('word/theme/theme1.xml', options.themeXml);
+  }
   const blob = await zip.generateAsync({ type: 'blob' });
   return new File([blob], 'sample.docx', {
     type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
   });
 }
+
+const OFFICE_THEME = `<?xml version="1.0" encoding="UTF-8"?>
+<a:theme xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+  <a:themeElements>
+    <a:fontScheme name="Office">
+      <a:majorFont><a:latin typeface="Calibri Light"/></a:majorFont>
+      <a:minorFont><a:latin typeface="Calibri"/></a:minorFont>
+    </a:fontScheme>
+  </a:themeElements>
+</a:theme>`;
 
 describe('identifyDocumentFonts (docx)', () => {
   it('attaches sample text to 100% identified fonts from document runs', async () => {
@@ -82,7 +98,59 @@ describe('identifyDocumentFonts (docx)', () => {
     expect(times?.sampleText).toMatch(/serifado/i);
   });
 
-  it('does not invent hundreds of unused fontTable entries', async () => {
+  it('resolves theme major/minor fonts so headings are not collapsed into body', async () => {
+    const styles = `<?xml version="1.0" encoding="UTF-8"?>
+<w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+  <w:docDefaults>
+    <w:rPrDefault>
+      <w:rPr>
+        <w:rFonts w:asciiTheme="minorHAnsi" w:hAnsiTheme="minorHAnsi"/>
+      </w:rPr>
+    </w:rPrDefault>
+  </w:docDefaults>
+  <w:style w:type="paragraph" w:styleId="Normal">
+    <w:name w:val="Normal"/>
+    <w:rPr><w:rFonts w:asciiTheme="minorHAnsi" w:hAnsiTheme="minorHAnsi"/></w:rPr>
+  </w:style>
+  <w:style w:type="paragraph" w:styleId="Heading1">
+    <w:name w:val="heading 1"/>
+    <w:basedOn w:val="Normal"/>
+    <w:rPr><w:rFonts w:asciiTheme="majorHAnsi" w:hAnsiTheme="majorHAnsi"/></w:rPr>
+  </w:style>
+</w:styles>`;
+
+    const file = await makeDocx(
+      `<?xml version="1.0" encoding="UTF-8"?>
+<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+  <w:body>
+    <w:p>
+      <w:pPr><w:pStyle w:val="Heading1"/></w:pPr>
+      <w:r><w:t>Título em tema major</w:t></w:r>
+    </w:p>
+    <w:p>
+      <w:r><w:t>Corpo em tema minor Calibri</w:t></w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/></w:rPr>
+        <w:t>Trecho em Times New Roman</w:t>
+      </w:r>
+    </w:p>
+  </w:body>
+</w:document>`,
+      { stylesXml: styles, themeXml: OFFICE_THEME }
+    );
+
+    const result = await identifyDocumentFonts(file);
+    const names = result.findings.map((f) => f.primary.name).sort();
+    expect(names).toEqual(['Calibri', 'Calibri Light', 'Times New Roman']);
+
+    const light = result.findings.find((f) => f.primary.name === 'Calibri Light');
+    expect(light?.sampleText).toMatch(/Título|Titulo/i);
+    expect(light?.confidencePercent).toBe(100);
+  });
+
+  it('does not invent unused style fonts that never appear in text', async () => {
     const styles = `<?xml version="1.0" encoding="UTF-8"?>
 <w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
   <w:docDefaults>
@@ -108,7 +176,7 @@ describe('identifyDocumentFonts (docx)', () => {
     </w:p>
   </w:body>
 </w:document>`,
-      styles
+      { stylesXml: styles }
     );
 
     const result = await identifyDocumentFonts(file);
