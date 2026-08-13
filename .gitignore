@@ -41,4 +41,7 @@ blob-report/
 *.temp
 .cache/
 
+# Generated audit reports (recreated by scripts)
+scripts/gsc-url-validation-report.json
+
 .vercel
