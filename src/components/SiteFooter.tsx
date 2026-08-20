@@ -84,10 +84,24 @@ export function SiteFooter() {
           </section>
 
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 border-t border-slate-700/60 pt-6">
-            <div className="text-center md:text-left text-[11px] leading-relaxed">
-              <span className="font-bold text-slate-200 tracking-wide block sm:inline">PDFWINDOWS</span>
-              <span className="hidden sm:inline text-slate-600 mx-2">·</span>
-              <span className="text-slate-500 block sm:inline mt-1 sm:mt-0">{t.footerCopyright}</span>
+            <div className="text-center md:text-left text-[11px] leading-relaxed space-y-1.5">
+              <div>
+                <span className="font-bold text-slate-200 tracking-wide block sm:inline">PDFWINDOWS</span>
+                <span className="hidden sm:inline text-slate-600 mx-2">·</span>
+                <span className="text-slate-500 block sm:inline mt-1 sm:mt-0">{t.footerCopyright}</span>
+              </div>
+              <p className="text-slate-500 tracking-wide">
+                Desenvolvido por{' '}
+                <a
+                  href="https://hervenhub.com.br"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-bold hover:underline"
+                  style={{ color: '#F5C400' }}
+                >
+                  Herven Hub
+                </a>
+              </p>
             </div>
 
             <nav
