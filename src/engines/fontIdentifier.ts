@@ -1,9 +1,19 @@
 import { PDFDocument } from 'pdf-lib';
 import { loadPdfJS } from '../utils/pdfjsLoader';
 import { looksLikePdf, openDocxZip, readZipText } from '../utils/docxZip';
+import {
+  analyzeFontTechnicalName,
+  classifyElement,
+  estimateFamilyAlternatives,
+  formatPageRanges,
+  isInternalFontId,
+  isKnownExact,
+  isUnreliableSampleText,
+} from './fontNameNormalize';
+import { describePdfFontType, parsePdfFontDictionaries, type PdfFontDict } from './pdfFontScan';
 
-export type FontMethod = 'document' | 'similarity';
-export type FontConfidenceLabel = 'high' | 'estimated';
+export type FontMethod = 'document' | 'similarity' | 'unknown';
+export type FontConfidenceLabel = 'confirmed' | 'high' | 'good' | 'possible' | 'low' | 'none' | 'estimated';
 
 export interface FontMatch {
   name: string;
@@ -11,17 +21,41 @@ export interface FontMatch {
   similarity?: number;
 }
 
+export interface FontTechnicalInfo {
+  internalName?: string;
+  postScriptName?: string;
+  baseFont?: string;
+  fontName?: string;
+  pdfType?: string;
+  subtype?: string;
+  encoding?: string;
+  embedded?: boolean | null;
+  subset?: boolean | null;
+  hasToUnicode?: boolean | null;
+  cidSystemInfo?: string;
+  objectRef?: string;
+}
+
 export interface FontFinding {
   element: string;
   primary: FontMatch;
+  /** False when we only have an internal PDF/pdf.js id — never treat that as a family. */
+  familyIdentified: boolean;
   alternatives: FontMatch[];
   method: FontMethod;
   confidenceLabel: FontConfidenceLabel;
+  /** Identification confidence. 100 only when the file names a known family unambiguously. */
   confidencePercent: number;
+  /** Visual/name similarity only — never presented as identification certainty. */
+  visualSimilarityPercent?: number;
+  identificationNote?: string;
   occurrences?: number;
   pages?: number[];
-  /** Short text excerpt from the document that used this font. */
+  pageRangeLabel?: string;
   sampleText?: string;
+  sampleUnreliable?: boolean;
+  sampleUnreliableReason?: string;
+  technical?: FontTechnicalInfo;
 }
 
 export interface FontIdentifierResult {
@@ -30,158 +64,228 @@ export interface FontIdentifierResult {
   notes: string[];
 }
 
-const KNOWN_FAMILIES = [
-  'Arial',
-  'Helvetica',
-  'Times New Roman',
-  'Times',
-  'Courier New',
-  'Courier',
-  'Verdana',
-  'Georgia',
-  'Tahoma',
-  'Calibri',
-  'Calibri Light',
-  'Cambria',
-  'Garamond',
-  'Palatino',
-  'Trebuchet MS',
-  'Comic Sans MS',
-  'Impact',
-  'Montserrat',
-  'Poppins',
-  'Open Sans',
-  'Roboto',
-  'Lato',
-  'Nunito',
-  'Inter',
-  'Source Sans Pro',
-  'Ubuntu',
-  'Noto Sans',
-  'Segoe UI',
-  'Candara',
-  'Constantia',
-  'Corbel',
-  'Book Antiqua',
-  'Century Gothic',
-  'Franklin Gothic',
-  'Lucida Sans',
-  'Lucida Console',
-  'MS Gothic',
-  'SimSun',
-  'DejaVu Sans',
-  'Liberation Sans',
-  'Carlito',
-  'FreeSans',
-] as const;
-
-function stripSubsetPrefix(name: string): string {
-  return name.replace(/^[A-Z]{6}\+/, '').trim();
+function splitWeight(name: string): { family: string; weightStyle?: string } {
+  const a = analyzeFontTechnicalName(name);
+  return { family: a.family || a.technicalName || name, weightStyle: a.weightStyle };
 }
 
 function normalizeFontName(raw: string): string {
-  let n = stripSubsetPrefix(raw);
-  n = n.replace(/[,].*$/, '').replace(/#20/gi, ' ').replace(/_/g, ' ');
-  n = n.replace(/(Bold|Italic|Oblique|Regular|Medium|Light|SemiBold|Black|Thin)/gi, ' $1');
-  return n.replace(/\s+/g, ' ').trim();
+  const a = analyzeFontTechnicalName(raw);
+  return a.family || a.technicalName || raw.trim();
 }
 
-function splitWeight(name: string): { family: string; weightStyle?: string } {
-  const m = name.match(
-    /^(.*?)\s+(Thin|Light|Regular|Medium|SemiBold|Semi Bold|Bold|Black|Italic|Oblique|BoldItalic|Bold Oblique)$/i
-  );
-  if (m) return { family: m[1].trim(), weightStyle: m[2].replace(/\s+/g, '') };
-  if (/bold/i.test(name) && /italic|oblique/i.test(name)) {
-    return { family: name.replace(/\s*(bold|italic|oblique)/gi, '').trim() || name, weightStyle: 'BoldItalic' };
+async function resolvePdfJsFont(
+  page: { commonObjs?: { get: (id: string, cb?: (v: unknown) => void) => unknown } },
+  loadedName: string
+): Promise<{ name?: string; type?: string }> {
+  const objs = page.commonObjs;
+  if (!objs?.get) return {};
+  const pick = (v: unknown): { name?: string; type?: string } => {
+    if (!v || typeof v !== 'object') return {};
+    const o = v as Record<string, unknown>;
+    const name =
+      (typeof o.name === 'string' && o.name) ||
+      (typeof o.fontName === 'string' && o.fontName) ||
+      undefined;
+    const type =
+      (typeof o.type === 'string' && o.type) ||
+      (typeof o.mimetype === 'string' && o.mimetype) ||
+      undefined;
+    return { name, type };
+  };
+  try {
+    const immediate = objs.get(loadedName);
+    if (immediate && typeof immediate === 'object') return pick(immediate);
+  } catch {
+    /* callback API */
   }
-  if (/bold/i.test(name)) {
-    return { family: name.replace(/\s*bold/gi, '').trim() || name, weightStyle: 'Bold' };
-  }
-  if (/italic|oblique/i.test(name)) {
-    return { family: name.replace(/\s*(italic|oblique)/gi, '').trim() || name, weightStyle: 'Italic' };
-  }
-  return { family: name };
+  return await new Promise((resolve) => {
+    let settled = false;
+    const finish = (v: unknown) => {
+      if (settled) return;
+      settled = true;
+      resolve(pick(v));
+    };
+    try {
+      objs.get(loadedName, finish);
+    } catch {
+      finish(null);
+      return;
+    }
+    setTimeout(() => finish(null), 80);
+  });
 }
 
-function levenshtein(a: string, b: string): number {
-  const m = a.length;
-  const n = b.length;
-  const dp = Array.from({ length: m + 1 }, () => new Array<number>(n + 1).fill(0));
-  for (let i = 0; i <= m; i++) dp[i][0] = i;
-  for (let j = 0; j <= n; j++) dp[0][j] = j;
-  for (let i = 1; i <= m; i++) {
-    for (let j = 1; j <= n; j++) {
-      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
-      dp[i][j] = Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + cost);
+function matchFontDict(dicts: PdfFontDict[], ...candidates: Array<string | undefined>): PdfFontDict | undefined {
+  const analyzed = candidates
+    .filter((c): c is string => Boolean(c))
+    .map((c) => analyzeFontTechnicalName(c));
+  for (const d of dicts) {
+    const dNames = [d.baseFont, d.fontName].filter((x): x is string => Boolean(x));
+    for (const dn of dNames) {
+      const da = analyzeFontTechnicalName(dn);
+      for (const a of analyzed) {
+        if (da.family && a.family && da.family.toLowerCase() === a.family.toLowerCase()) return d;
+        if (
+          !da.internal &&
+          !a.internal &&
+          da.technicalName &&
+          a.technicalName &&
+          da.technicalName.toLowerCase() === a.technicalName.toLowerCase()
+        ) {
+          return d;
+        }
+      }
+      const raw = dn.replace(/^\/+/, '');
+      if (candidates.some((c) => c && c.replace(/^\/+/, '') === raw)) return d;
     }
   }
-  return dp[m][n];
+  return undefined;
 }
 
-function similarityScore(a: string, b: string): number {
-  const x = a.toLowerCase();
-  const y = b.toLowerCase();
-  if (x === y) return 100;
-  if (x.includes(y) || y.includes(x)) return 92;
-  const maxLen = Math.max(x.length, y.length) || 1;
-  const dist = levenshtein(x, y);
-  return Math.max(0, Math.round((1 - dist / maxLen) * 100));
+function notInformed(value: string | undefined): string | undefined {
+  return value?.trim() || undefined;
 }
 
-function estimateAlternatives(family: string): FontMatch[] {
-  const scored = KNOWN_FAMILIES.map((f) => ({
-    name: f,
-    similarity: similarityScore(family, f),
-  }))
-    .filter((s) => s.similarity < 100)
-    .sort((a, b) => b.similarity - a.similarity)
-    .slice(0, 4);
-  return scored;
-}
+function buildPdfFinding(args: {
+  analyzed: ReturnType<typeof analyzeFontTechnicalName>;
+  dict?: PdfFontDict;
+  jsType?: string;
+  loadedName?: string;
+  element: string;
+  count: number;
+  pages: number[];
+  sample?: string;
+  avgSize?: number;
+}): FontFinding {
+  const { analyzed, dict, jsType, loadedName, element, count, pages, sample } = args;
+  const family = analyzed.family;
+  const known = Boolean(family && isKnownExact(family));
+  const explicitName = Boolean(
+    (dict?.baseFont && !isInternalFontId(dict.baseFont)) ||
+      (dict?.fontName && !isInternalFontId(dict.fontName)) ||
+      (analyzed.technicalName && !analyzed.internal)
+  );
+  const subset = analyzed.subset || dict?.subset || null;
+  const technical: FontTechnicalInfo = {
+    internalName: loadedName && isInternalFontId(loadedName) ? loadedName : analyzed.internal ? analyzed.raw : undefined,
+    postScriptName: notInformed(analyzed.postScriptName || analyzed.technicalName),
+    baseFont: notInformed(dict?.baseFont),
+    fontName: notInformed(dict?.fontName),
+    pdfType: describePdfFontType(dict, jsType),
+    subtype: notInformed(dict?.subtype),
+    encoding: notInformed(dict?.encoding),
+    embedded: dict?.embedded ?? null,
+    subset,
+    hasToUnicode: dict?.hasToUnicode ?? null,
+    cidSystemInfo: notInformed(dict?.cidSystemInfo),
+    objectRef: notInformed(dict?.objectRef),
+  };
 
-function isKnownExact(family: string): boolean {
-  const lower = family.toLowerCase();
-  return KNOWN_FAMILIES.some((f) => f.toLowerCase() === lower);
-}
+  const sampleText = sample?.trim() || undefined;
+  const sampleUnreliable = Boolean(sampleText && (isUnreliableSampleText(sampleText) || dict?.hasToUnicode === false));
+  const pageRangeLabel = pages.length ? formatPageRanges(pages) : undefined;
 
-function classifyElement(fontName: string, sizeHint?: number): string {
-  const n = fontName.toLowerCase();
-  if (sizeHint && sizeHint >= 18) return 'title';
-  if (sizeHint && sizeHint >= 13) return 'subtitle';
-  if (/header|heading|title|titulo/i.test(n)) return 'title';
-  if (/footer|rodape|rodapé/i.test(n)) return 'footer';
-  if (/caption|legenda/i.test(n)) return 'caption';
-  return 'body';
-}
-
-function extractPdfBaseFonts(raw: string): string[] {
-  const names = new Set<string>();
-  const re = /\/(?:BaseFont|FontName)\s*\/([^\s[/]+)/g;
-  let m: RegExpExecArray | null;
-  while ((m = re.exec(raw))) {
-    const cleaned = normalizeFontName(decodePdfName(m[1]));
-    if (cleaned && cleaned.length > 1) names.add(cleaned);
+  if (!family || analyzed.internal) {
+    return {
+      element,
+      primary: { name: '' },
+      familyIdentified: false,
+      alternatives: [],
+      method: 'unknown',
+      confidenceLabel: 'none',
+      confidencePercent: 0,
+      identificationNote: 'unidentified-internal',
+      occurrences: count || undefined,
+      pages: pages.length ? pages : undefined,
+      pageRangeLabel,
+      sampleText,
+      sampleUnreliable,
+      sampleUnreliableReason: sampleUnreliable ? 'encoding-or-tounicode' : undefined,
+      technical,
+    };
   }
-  return [...names];
-}
 
-function decodePdfName(name: string): string {
-  return name.replace(/#([0-9A-Fa-f]{2})/g, (_, h) => String.fromCharCode(parseInt(h, 16)));
+  if (explicitName && (known || analyzed.mappedFromPostScript || dict?.baseFont)) {
+    const confirmed = known && explicitName && !analyzed.internal;
+    return {
+      element,
+      primary: { name: family, weightStyle: analyzed.weightStyle },
+      familyIdentified: true,
+      alternatives: [],
+      method: 'document',
+      confidenceLabel: confirmed ? 'confirmed' : 'high',
+      confidencePercent: confirmed ? 100 : 90,
+      identificationNote: subset ? 'subset-embedded' : 'document-name',
+      occurrences: count || undefined,
+      pages: pages.length ? pages : undefined,
+      pageRangeLabel,
+      sampleText,
+      sampleUnreliable,
+      sampleUnreliableReason: sampleUnreliable ? 'encoding-or-tounicode' : undefined,
+      technical,
+    };
+  }
+
+  const alts = estimateFamilyAlternatives(family);
+  const best = alts[0];
+  if (best && best.similarity >= 70 && !known) {
+    const band = best.similarity >= 85 ? 'good' : best.similarity >= 75 ? 'possible' : 'low';
+    return {
+      element,
+      primary: { name: best.name, weightStyle: analyzed.weightStyle, similarity: best.similarity },
+      familyIdentified: false,
+      alternatives: alts.filter((a) => a.name !== best.name).slice(0, 3),
+      method: 'similarity',
+      confidenceLabel: band,
+      confidencePercent: 0,
+      visualSimilarityPercent: best.similarity,
+      identificationNote: 'visual-similarity',
+      occurrences: count || undefined,
+      pages: pages.length ? pages : undefined,
+      pageRangeLabel,
+      sampleText,
+      sampleUnreliable,
+      sampleUnreliableReason: sampleUnreliable ? 'encoding-or-tounicode' : undefined,
+      technical,
+    };
+  }
+
+  // PDF-declared name that is not in the known list — still what the file says.
+  return {
+    element,
+    primary: { name: family, weightStyle: analyzed.weightStyle },
+    familyIdentified: true,
+    alternatives: alts.slice(0, 3),
+    method: 'document',
+    confidenceLabel: 'high',
+    confidencePercent: 85,
+    identificationNote: 'document-name',
+    occurrences: count || undefined,
+    pages: pages.length ? pages : undefined,
+    pageRangeLabel,
+    sampleText,
+    sampleUnreliable,
+    sampleUnreliableReason: sampleUnreliable ? 'encoding-or-tounicode' : undefined,
+    technical,
+  };
 }
 
 async function identifyPdfFonts(file: File): Promise<FontIdentifierResult> {
   const buffer = await file.arrayBuffer();
   if (!looksLikePdf(buffer)) throw new Error('INVALID_PDF');
 
-  const raw = new TextDecoder('latin1').decode(new Uint8Array(buffer).slice(0, Math.min(buffer.byteLength, 2_500_000)));
-  const embedded = extractPdfBaseFonts(raw);
+  const slice = new Uint8Array(buffer).slice(0, Math.min(buffer.byteLength, 3_500_000));
+  const raw = new TextDecoder('latin1').decode(slice);
+  const dicts = parsePdfFontDictionaries(raw);
 
   const pdfjs = await loadPdfJS();
   const pdf = await pdfjs.getDocument({ data: buffer.slice(0) }).promise;
 
   type Agg = {
-    family: string;
-    weightStyle?: string;
+    loadedName: string;
+    resolvedName?: string;
+    jsType?: string;
     count: number;
     pages: Set<number>;
     sizes: number[];
@@ -189,28 +293,37 @@ async function identifyPdfFonts(file: File): Promise<FontIdentifierResult> {
   };
   const usage = new Map<string, Agg>();
   const SAMPLE_MAX = 120;
+  const notes: string[] = [];
 
-  const pageLimit = Math.min(pdf.numPages, 40);
+  const pageLimit = Math.min(pdf.numPages, 80);
+  if (pdf.numPages > 80) notes.push('page-limit');
+
   for (let i = 1; i <= pageLimit; i++) {
     const page = await pdf.getPage(i);
     const content = await page.getTextContent();
+    const resolvedCache = new Map<string, { name?: string; type?: string }>();
     for (const item of content.items) {
       if (!('str' in item) || !item.str?.trim()) continue;
-      const fontName = normalizeFontName(String((item as { fontName?: string }).fontName || 'Unknown'));
-      const { family, weightStyle } = splitWeight(fontName);
-      if (!family || family.toLowerCase() === 'unknown') continue;
+      const loadedName = String((item as { fontName?: string }).fontName || '');
+      if (!loadedName) continue;
+      if (!resolvedCache.has(loadedName)) {
+        resolvedCache.set(loadedName, await resolvePdfJsFont(page, loadedName));
+      }
+      const resolved = resolvedCache.get(loadedName);
       const size = Array.isArray((item as { transform?: number[] }).transform)
         ? Math.abs((item as { transform: number[] }).transform[0] || 0)
         : 0;
-      const key = `${family.toLowerCase()}|${(weightStyle || '').toLowerCase()}`;
-      const prev = usage.get(key) || {
-        family,
-        weightStyle,
+      const prev = usage.get(loadedName) || {
+        loadedName,
+        resolvedName: resolved?.name,
+        jsType: resolved?.type,
         count: 0,
         pages: new Set<number>(),
         sizes: [],
         sample: '',
       };
+      if (resolved?.name && !prev.resolvedName) prev.resolvedName = resolved.name;
+      if (resolved?.type && !prev.jsType) prev.jsType = resolved.type;
       prev.count += item.str.length;
       prev.pages.add(i);
       if (size) prev.sizes.push(size);
@@ -220,87 +333,135 @@ async function identifyPdfFonts(file: File): Promise<FontIdentifierResult> {
           prev.sample = `${prev.sample}${prev.sample ? ' ' : ''}${piece}`.slice(0, SAMPLE_MAX);
         }
       }
-      usage.set(key, prev);
+      usage.set(loadedName, prev);
     }
   }
 
   const findings: FontFinding[] = [];
-  const notes: string[] = [];
-
-  if (embedded.length === 0 && usage.size === 0) {
-    notes.push('no-fonts');
-    return { format: 'pdf', findings: [], notes };
-  }
+  const usedDicts = new Set<PdfFontDict>();
 
   if (usage.size > 0) {
+    const unresolved: Agg[] = [];
     for (const agg of usage.values()) {
-      const sampleText = agg.sample.trim() || undefined;
-      if (!sampleText) continue;
+      const dict = matchFontDict(dicts, agg.resolvedName, agg.loadedName);
+      const sourceName = agg.resolvedName || dict?.baseFont || dict?.fontName || agg.loadedName;
+      const analyzed = analyzeFontTechnicalName(sourceName);
+      if (analyzed.internal && !agg.resolvedName && !dict) {
+        unresolved.push(agg);
+        continue;
+      }
+      if (dict) usedDicts.add(dict);
       const avgSize = agg.sizes.length ? agg.sizes.reduce((a, b) => a + b, 0) / agg.sizes.length : undefined;
-      const element = classifyElement(agg.family, avgSize);
-      const exactEmbedded = embedded.some(
-        (e) => splitWeight(normalizeFontName(e)).family.toLowerCase() === agg.family.toLowerCase()
+      findings.push(
+        buildPdfFinding({
+          analyzed,
+          dict,
+          jsType: agg.jsType,
+          loadedName: agg.loadedName,
+          element: classifyElement(analyzed.family || analyzed.technicalName, avgSize),
+          count: agg.count,
+          pages: [...agg.pages].sort((a, b) => a - b),
+          sample: agg.sample,
+          avgSize,
+        })
       );
-      const exactKnown = isKnownExact(agg.family) || exactEmbedded;
+    }
 
-      if (exactKnown) {
-        findings.push({
-          element,
-          primary: { name: agg.family, weightStyle: agg.weightStyle },
-          alternatives: [],
-          method: 'document',
-          confidenceLabel: 'high',
-          confidencePercent: 100,
-          occurrences: agg.count,
-          pages: [...agg.pages].sort((a, b) => a - b),
-          sampleText,
-        });
-      } else {
-        const alts = estimateAlternatives(agg.family);
-        const best = alts[0];
-        const primaryName = best && best.similarity! >= 70 ? best.name : agg.family;
-        const sim =
-          best && best.similarity! >= 70 ? best.similarity! : Math.max(55, similarityScore(agg.family, primaryName));
-        findings.push({
-          element,
-          primary: { name: primaryName, weightStyle: agg.weightStyle, similarity: sim },
-          alternatives: alts.filter((a) => a.name !== primaryName).slice(0, 3),
-          method: 'similarity',
-          confidenceLabel: 'estimated',
-          confidencePercent: sim,
-          occurrences: agg.count,
-          pages: [...agg.pages].sort((a, b) => a - b),
-          sampleText,
-        });
+    if (unresolved.length && dicts.length === 1) {
+      const dict = dicts[0];
+      usedDicts.add(dict);
+      const merged = unresolved.reduce(
+        (acc, u) => {
+          acc.count += u.count;
+          u.pages.forEach((p) => acc.pages.add(p));
+          acc.sample = `${acc.sample}${acc.sample && u.sample ? ' ' : ''}${u.sample}`.slice(0, SAMPLE_MAX);
+          acc.loadedName = acc.loadedName || u.loadedName;
+          return acc;
+        },
+        { count: 0, pages: new Set<number>(), sample: '', loadedName: unresolved[0].loadedName }
+      );
+      const analyzed = analyzeFontTechnicalName(dict.baseFont || dict.fontName || merged.loadedName);
+      findings.push(
+        buildPdfFinding({
+          analyzed,
+          dict,
+          loadedName: merged.loadedName,
+          element: classifyElement(analyzed.family || analyzed.technicalName),
+          count: merged.count,
+          pages: [...merged.pages].sort((a, b) => a - b),
+          sample: merged.sample,
+        })
+      );
+    } else {
+      for (const agg of unresolved) {
+        findings.push(
+          buildPdfFinding({
+            analyzed: analyzeFontTechnicalName(agg.loadedName),
+            loadedName: agg.loadedName,
+            jsType: agg.jsType,
+            element: 'body',
+            count: agg.count,
+            pages: [...agg.pages].sort((a, b) => a - b),
+            sample: agg.sample,
+          })
+        );
       }
     }
-  } else {
-    // Embedded fonts only (no extractable text — e.g. scanned PDF)
-    for (const name of embedded) {
-      const { family, weightStyle } = splitWeight(name);
-      findings.push({
-        element: classifyElement(name),
-        primary: { name: family, weightStyle },
-        alternatives: [],
-        method: 'document',
-        confidenceLabel: 'high',
-        confidencePercent: 100,
-      });
-    }
+  }
+
+  for (const dict of dicts) {
+    if (usedDicts.has(dict)) continue;
+    const analyzed = analyzeFontTechnicalName(dict.baseFont || dict.fontName || '');
+    if (!analyzed.family && analyzed.internal) continue;
+    findings.push(
+      buildPdfFinding({
+        analyzed,
+        dict,
+        element: classifyElement(analyzed.family || analyzed.technicalName),
+        count: 0,
+        pages: [],
+      })
+    );
+  }
+
+  if (findings.length === 0) {
+    notes.push(pdf.numPages > 0 && usage.size === 0 && dicts.length === 0 ? 'scanned-or-image' : 'no-fonts');
+    return { format: 'pdf', findings: [], notes };
   }
 
   const dedup = new Map<string, FontFinding>();
   for (const f of findings) {
-    const key = `${f.element}|${f.primary.name}|${f.primary.weightStyle || ''}`;
+    const key = f.familyIdentified
+      ? `fam:${f.element}|${f.primary.name}|${f.primary.weightStyle || ''}`
+      : `int:${f.technical?.internalName || f.technical?.objectRef || f.technical?.baseFont || 'unknown'}`;
     const prev = dedup.get(key);
-    if (!prev || f.confidencePercent > prev.confidencePercent) dedup.set(key, f);
-    else if (prev && !prev.sampleText && f.sampleText) dedup.set(key, { ...prev, sampleText: f.sampleText });
+    if (!prev) {
+      dedup.set(key, f);
+      continue;
+    }
+    const merged: FontFinding = {
+      ...prev,
+      occurrences: (prev.occurrences || 0) + (f.occurrences || 0),
+      pages: [...new Set([...(prev.pages || []), ...(f.pages || [])])].sort((a, b) => a - b),
+      sampleText: prev.sampleText || f.sampleText,
+      technical: { ...f.technical, ...prev.technical },
+    };
+    merged.pageRangeLabel = merged.pages?.length ? formatPageRanges(merged.pages) : prev.pageRangeLabel;
+    if (f.confidencePercent > prev.confidencePercent) {
+      merged.confidencePercent = f.confidencePercent;
+      merged.confidenceLabel = f.confidenceLabel;
+      merged.method = f.method;
+    }
+    dedup.set(key, merged);
   }
 
   const sorted = [...dedup.values()].sort((a, b) => {
+    if (Boolean(b.familyIdentified) !== Boolean(a.familyIdentified)) return a.familyIdentified ? -1 : 1;
     if (b.confidencePercent !== a.confidencePercent) return b.confidencePercent - a.confidencePercent;
     return (b.occurrences || 0) - (a.occurrences || 0);
   });
+
+  if (sorted.some((f) => !f.familyIdentified)) notes.push('some-unidentified');
 
   return { format: 'pdf', findings: sorted, notes };
 }
@@ -543,14 +704,16 @@ async function identifyDocxFonts(file: File): Promise<FontIdentifierResult> {
     const sampleText = agg.sample.trim() || undefined;
     if (!sampleText) continue;
 
-    const alts = isKnownExact(family) ? [] : estimateAlternatives(family);
+    const alts = isKnownExact(family) ? [] : estimateFamilyAlternatives(family);
     findings.push({
       element: agg.element,
       primary: { name: family, weightStyle: agg.weightStyle },
+      familyIdentified: true,
       alternatives: alts.slice(0, 3),
       method: 'document',
-      confidenceLabel: 'high',
+      confidenceLabel: 'confirmed',
       confidencePercent: 100,
+      identificationNote: 'document-name',
       occurrences: agg.count,
       sampleText,
     });

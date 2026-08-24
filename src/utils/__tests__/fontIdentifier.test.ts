@@ -1,13 +1,35 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi, beforeEach } from 'vitest';
 import JSZip from 'jszip';
+import { PDFDocument, StandardFonts } from 'pdf-lib';
+
+type MockPage = {
+  items: Array<{ str: string; fontName: string; transform?: number[] }>;
+  fonts?: Record<string, { name?: string; type?: string }>;
+};
+
+const pdfJsState = vi.hoisted(() => ({ pages: [] as MockPage[] }));
 
 vi.mock('../../utils/pdfjsLoader', () => ({
   loadPdfJS: async () => ({
     getDocument: () => ({
       promise: Promise.resolve({
-        numPages: 0,
+        get numPages() {
+          return Math.max(pdfJsState.pages.length, 0);
+        },
         destroy: async () => undefined,
-        getPage: async () => ({ getTextContent: async () => ({ items: [] }) }),
+        getPage: async (i: number) => {
+          const page = pdfJsState.pages[i - 1] || { items: [] };
+          return {
+            getTextContent: async () => ({ items: page.items }),
+            commonObjs: {
+              get: (id: string, cb?: (v: unknown) => void) => {
+                const val = page.fonts?.[id] || null;
+                if (cb) cb(val);
+                return val;
+              },
+            },
+          };
+        },
       }),
     }),
   }),
@@ -185,3 +207,150 @@ describe('identifyDocumentFonts (docx)', () => {
     expect(result.findings[0].sampleText).toMatch(/padrão|padrao/i);
   });
 });
+
+async function pdfFile(bytes: Uint8Array, name = 'doc.pdf'): Promise<File> {
+  return new File([bytes as BlobPart], name, { type: 'application/pdf' });
+}
+
+describe('identifyDocumentFonts (pdf)', () => {
+  beforeEach(() => {
+    pdfJsState.pages = [];
+  });
+
+  it('identifies embedded-declared Helvetica without treating it as a guess', async () => {
+    const doc = await PDFDocument.create();
+    const font = await doc.embedFont(StandardFonts.Helvetica);
+    const page = doc.addPage([400, 200]);
+    page.drawText('Hello Helvetica', { x: 40, y: 100, size: 14, font });
+    const file = await pdfFile(await doc.save(), 'helvetica.pdf');
+    pdfJsState.pages = [
+      {
+        items: [{ str: 'Hello Helvetica', fontName: 'g_d0_f1', transform: [14, 0, 0, 14, 0, 0] }],
+        fonts: { g_d0_f1: { name: 'Helvetica', type: 'Type1' } },
+      },
+    ];
+
+    const result = await identifyDocumentFonts(file);
+    const hit = result.findings.find((f) => f.primary.name === 'Helvetica');
+    expect(hit).toBeTruthy();
+    expect(hit?.familyIdentified).toBe(true);
+    expect(hit?.method).toBe('document');
+    expect(hit?.confidencePercent).toBe(100);
+    expect(hit?.primary.name).not.toMatch(/g[_ ]d\d/i);
+  });
+
+  it('identifies Times and Helvetica together in one file', async () => {
+    const doc = await PDFDocument.create();
+    const helv = await doc.embedFont(StandardFonts.Helvetica);
+    const times = await doc.embedFont(StandardFonts.TimesRoman);
+    const page = doc.addPage([400, 300]);
+    page.drawText('Title', { x: 40, y: 220, size: 22, font: times });
+    page.drawText('Body copy', { x: 40, y: 160, size: 12, font: helv });
+    const file = await pdfFile(await doc.save(), 'multi.pdf');
+    pdfJsState.pages = [
+      {
+        items: [
+          { str: 'Title', fontName: 'g_d0_f1', transform: [22, 0, 0, 22, 0, 0] },
+          { str: 'Body copy', fontName: 'g_d0_f2', transform: [12, 0, 0, 12, 0, 0] },
+        ],
+        fonts: {
+          g_d0_f1: { name: 'Times-Roman', type: 'Type1' },
+          g_d0_f2: { name: 'Helvetica', type: 'Type1' },
+        },
+      },
+    ];
+
+    const result = await identifyDocumentFonts(file);
+    const names = result.findings.map((f) => f.primary.name).sort();
+    expect(names).toEqual(expect.arrayContaining(['Helvetica', 'Times']));
+  });
+
+  it('marks standard fonts as not embedded', async () => {
+    const doc = await PDFDocument.create();
+    const font = await doc.embedFont(StandardFonts.Courier);
+    const page = doc.addPage([300, 200]);
+    page.drawText('Mono', { x: 20, y: 100, size: 12, font });
+    const file = await pdfFile(await doc.save(), 'courier.pdf');
+    pdfJsState.pages = [
+      {
+        items: [{ str: 'Mono', fontName: 'F1', transform: [12, 0, 0, 12, 0, 0] }],
+        fonts: { F1: { name: 'Courier', type: 'Type1' } },
+      },
+    ];
+    const result = await identifyDocumentFonts(file);
+    const courier = result.findings.find((f) => f.primary.name === 'Courier');
+    expect(courier?.familyIdentified).toBe(true);
+    expect(courier?.technical?.pdfType).toMatch(/Type 1/i);
+  });
+
+  it('does not present pdf.js loadedName as the font family, even at 100% self-match', async () => {
+    const doc = await PDFDocument.create();
+    doc.addPage([200, 200]);
+    const file = await pdfFile(await doc.save(), 'blank-usage.pdf');
+    pdfJsState.pages = [
+      {
+        items: [{ str: 'abc', fontName: 'g_d0_f1946', transform: [12, 0, 0, 12, 0, 0] }],
+      },
+    ];
+
+    const result = await identifyDocumentFonts(file);
+    expect(result.findings.some((f) => /g[_ ]d0[_ ]f1946/i.test(f.primary.name))).toBe(false);
+    const unknown = result.findings.find((f) => !f.familyIdentified);
+    expect(unknown).toBeTruthy();
+    expect(unknown?.method).toBe('unknown');
+    expect(unknown?.confidencePercent).toBe(0);
+    expect(unknown?.technical?.internalName).toMatch(/g_d0_f1946/);
+  });
+
+  it('resolves loadedName via pdf.js translated name ABCDEE+ArialMT', async () => {
+    const doc = await PDFDocument.create();
+    doc.addPage([200, 200]);
+    const file = await pdfFile(await doc.save(), 'subset.pdf');
+    pdfJsState.pages = [
+      {
+        items: [{ str: 'Hello Arial body', fontName: 'g_d0_f12', transform: [11, 0, 0, 11, 0, 0] }],
+        fonts: { g_d0_f12: { name: 'ABCDEE+ArialMT', type: 'CIDFontType2' } },
+      },
+    ];
+
+    const result = await identifyDocumentFonts(file);
+    const arial = result.findings.find((f) => f.primary.name === 'Arial');
+    expect(arial?.familyIdentified).toBe(true);
+    expect(arial?.method).toBe('document');
+    expect(arial?.technical?.subset).toBe(true);
+    expect(arial?.sampleText).toMatch(/Hello Arial/i);
+    expect(arial?.confidencePercent).toBe(100);
+  });
+
+  it('flags garbled glyph text as low-reliability', async () => {
+    const doc = await PDFDocument.create();
+    const font = await doc.embedFont(StandardFonts.Helvetica);
+    const page = doc.addPage([200, 200]);
+    page.drawText('ok', { x: 10, y: 100, size: 12, font });
+    const file = await pdfFile(await doc.save(), 'garbled.pdf');
+    pdfJsState.pages = [
+      {
+        items: [{ str: "t 1 I l 1' 11lil I l 0 t", fontName: 'g_d0_f1', transform: [10, 0, 0, 10, 0, 0] }],
+        fonts: { g_d0_f1: { name: 'Helvetica', type: 'Type1' } },
+      },
+    ];
+
+    const result = await identifyDocumentFonts(file);
+    const helv = result.findings.find((f) => f.primary.name === 'Helvetica');
+    expect(helv?.sampleUnreliable).toBe(true);
+  });
+
+  it('labels image-only PDFs as scanned rather than inventing a font', async () => {
+    const doc = await PDFDocument.create();
+    doc.addPage([200, 200]);
+    const file = await pdfFile(await doc.save(), 'scan.pdf');
+    pdfJsState.pages = [{ items: [] }];
+
+    const result = await identifyDocumentFonts(file);
+    expect(result.findings.filter((f) => f.familyIdentified)).toHaveLength(0);
+    expect(result.notes.some((n) => n === 'scanned-or-image' || n === 'no-fonts' || n === 'some-unidentified')).toBe(
+      true
+    );
+  });
+});
+
