@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { RefreshCw, ChevronDown, ChevronUp } from 'lucide-react';
 import type { LanguageType } from '../../../types';
 import { identifyDocumentFonts } from '../../../engines/fontIdentifier';
 import type { FontIdentifierResult, FontFinding } from '../../../engines/fontIdentifier';
@@ -26,6 +25,12 @@ const copy: Record<LanguageType, Record<string, string>> = {
     tooLarge: 'Arquivo acima do limite de 100 MB.',
     analyzing: 'Analisando documento...',
     results: 'Fontes encontradas',
+    resultsObjects: 'Fontes encontradas · {n} objetos de fonte',
+    identifiedFamilies: 'Famílias identificadas · {n}',
+    colFontFamily: 'Fonte/Família',
+    reason: 'Motivo',
+    unidentifiedReason: 'O PDF só expõe um identificador interno.',
+    confidence: 'Confiança',
     identified: 'Fonte identificada',
     probable: 'Fonte mais provável',
     unidentified: 'Família não identificada',
@@ -98,7 +103,7 @@ const copy: Record<LanguageType, Record<string, string>> = {
     techObj: 'Objeto PDF',
     yes: 'Sim',
     no: 'Não',
-    notInformed: 'Não informado pelo PDF',
+    notInformed: 'Não informado',
     mainFont: 'Fonte principal encontrada',
     otherFonts: 'Outras fontes',
   },
@@ -115,6 +120,12 @@ const copy: Record<LanguageType, Record<string, string>> = {
     tooLarge: 'File exceeds the 100 MB limit.',
     analyzing: 'Analyzing document...',
     results: 'Fonts found',
+    resultsObjects: 'Fonts found · {n} font objects',
+    identifiedFamilies: 'Identified families · {n}',
+    colFontFamily: 'Font/Family',
+    reason: 'Reason',
+    unidentifiedReason: 'The PDF only exposes an internal identifier.',
+    confidence: 'Confidence',
     identified: 'Font identified',
     probable: 'Most likely font',
     unidentified: 'Family not identified',
@@ -187,7 +198,7 @@ const copy: Record<LanguageType, Record<string, string>> = {
     techObj: 'PDF object',
     yes: 'Yes',
     no: 'No',
-    notInformed: 'Not declared by the PDF',
+    notInformed: 'Not informed',
     mainFont: 'Primary font found',
     otherFonts: 'Other fonts',
   },
@@ -204,6 +215,12 @@ const copy: Record<LanguageType, Record<string, string>> = {
     tooLarge: 'El archivo supera el límite de 100 MB.',
     analyzing: 'Analizando documento...',
     results: 'Fuentes encontradas',
+    resultsObjects: 'Fuentes encontradas · {n} objetos de fuente',
+    identifiedFamilies: 'Familias identificadas · {n}',
+    colFontFamily: 'Fuente/Familia',
+    reason: 'Motivo',
+    unidentifiedReason: 'El PDF solo expone un identificador interno.',
+    confidence: 'Confianza',
     identified: 'Fuente identificada',
     probable: 'Fuente más probable',
     unidentified: 'Familia no identificada',
@@ -277,7 +294,7 @@ const copy: Record<LanguageType, Record<string, string>> = {
     techObj: 'Objeto PDF',
     yes: 'Sí',
     no: 'No',
-    notInformed: 'No informado por el PDF',
+    notInformed: 'No informado',
     mainFont: 'Fuente principal encontrada',
     otherFonts: 'Otras fuentes',
   },
@@ -323,7 +340,7 @@ function flagLabel(v: boolean | null | undefined, t: Record<string, string>): st
 function embedLabel(v: boolean | null | undefined, t: Record<string, string>): string {
   if (v === true) return t.embeddedYes;
   if (v === false) return t.embeddedNo;
-  return t.embeddedUnknown;
+  return t.notInformed;
 }
 
 function howCopy(f: FontFinding, t: Record<string, string>): string {
@@ -333,12 +350,42 @@ function howCopy(f: FontFinding, t: Record<string, string>): string {
   return t.howDoc;
 }
 
+function displayFontLabel(f: FontFinding, t: Record<string, string>): string {
+  if (!f.familyIdentified || !f.primary.name) return t.unidentified;
+  const weight = f.primary.weightStyle?.trim();
+  if (weight && !f.primary.name.toLowerCase().includes(weight.toLowerCase())) {
+    return `${f.primary.name} ${weight}`;
+  }
+  return f.primary.name;
+}
+
+function identifiedFamilyCount(findings: FontFinding[]): number {
+  const names = new Set(
+    findings.filter((f) => f.familyIdentified && f.primary.name).map((f) => f.primary.name.trim().toLowerCase())
+  );
+  return names.size;
+}
+
+function findingKey(f: FontFinding, index: number): string {
+  const tech = f.technical;
+  return [
+    f.primary.name || 'unidentified',
+    f.primary.weightStyle || '',
+    f.element,
+    tech?.objectRef || '',
+    tech?.internalName || '',
+    tech?.encoding || '',
+    tech?.baseFont || '',
+    String(index),
+  ].join('|');
+}
+
 function FontCard({ f, t }: { f: FontFinding; t: Record<string, string> }) {
   const [techOpen, setTechOpen] = useState(false);
   const isDirect = f.method === 'document' && f.familyIdentified;
   const isProbable = f.method === 'similarity';
   const isUnknown = !isDirect && !isProbable;
-  const displayName = isUnknown ? t.unidentified : f.primary.name;
+  const displayName = displayFontLabel(f, t);
   const familyCss = f.familyIdentified
     ? `"${f.primary.name.replace(/"/g, '')}", system-ui, sans-serif`
     : 'system-ui, sans-serif';
@@ -346,41 +393,44 @@ function FontCard({ f, t }: { f: FontFinding; t: Record<string, string> }) {
     /bold/i.test(f.primary.weightStyle || '') ? 700 : /light|thin/i.test(f.primary.weightStyle || '') ? 300 : 500;
   const italic = /italic|oblique/i.test(f.primary.weightStyle || '');
   const tech = f.technical;
+  const role = f.element && f.element !== 'body' ? elementLabel(f.element, t) : null;
 
   return (
     <article className="p-4 border border-slate-200/80 rounded-2xl bg-white/60 space-y-3">
-      <div className="flex items-center justify-between gap-2 flex-wrap">
-        <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">
-          {elementLabel(f.element, t)}
-        </span>
-        <span
-          className={`text-[10px] font-semibold px-2 py-0.5 rounded-lg ${
-            isDirect ? 'bg-emerald-50 text-emerald-700' : isProbable ? 'bg-amber-50 text-amber-800' : 'bg-slate-100 text-slate-600'
-          }`}
-        >
-          {isDirect ? t.methodDoc : isProbable ? t.methodSim : t.methodUnknown}
-        </span>
+      <div>
+        {isUnknown ? (
+          <h3 className="text-base font-semibold text-slate-900">{t.unidentified}</h3>
+        ) : (
+          <>
+            <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mb-1">
+              {isDirect ? t.identified : t.probable}
+            </p>
+            <h3 className="text-base font-semibold text-slate-900">{displayName}</h3>
+          </>
+        )}
+        {role && <p className="text-[10px] font-semibold text-slate-400 mt-1">{role}</p>}
       </div>
       <div>
-        <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mb-1">
-          {isDirect ? t.identified : isProbable ? t.probable : t.unidentified}
+        <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mb-0.5">
+          {isUnknown ? t.confidence : t.identificationConfidence}
         </p>
-        <h3 className="text-base font-semibold text-slate-900">
-          {displayName}
-          {isDirect && f.primary.weightStyle ? ` ${f.primary.weightStyle}` : ''}
-        </h3>
-        {isUnknown && <p className="text-[11px] text-slate-600 mt-1 leading-relaxed">{t.unidentifiedBody}</p>}
+        <p className="text-xs font-semibold text-slate-600">
+          {confidenceCopy(f.confidenceLabel, t)}
+          {isDirect && f.confidencePercent === 100 ? ' · 100%' : ''}
+        </p>
       </div>
-      <p className="text-xs font-semibold text-slate-600">
-        {t.identificationConfidence}: {confidenceCopy(f.confidenceLabel, t)}
-        {isDirect && f.confidencePercent === 100 ? ' · 100%' : ''}
-      </p>
+      {isUnknown && (
+        <p className="text-[11px] text-slate-600 leading-relaxed">
+          <span className="font-semibold">{t.reason}: </span>
+          {t.unidentifiedReason}
+        </p>
+      )}
       {isProbable && f.visualSimilarityPercent != null && (
         <p className="text-xs font-semibold text-amber-800">
           {t.similarity}: {f.visualSimilarityPercent}%
         </p>
       )}
-      <p className="text-[11px] text-slate-500 leading-relaxed">{howCopy(f, t)}</p>
+      {!isUnknown && <p className="text-[11px] text-slate-500 leading-relaxed">{howCopy(f, t)}</p>}
       {f.sampleText ? (
         <div className="rounded-xl bg-slate-50 border border-slate-100 px-3 py-2.5">
           <p className="text-[9px] font-semibold uppercase tracking-wide text-slate-400 mb-1.5">{t.sample}</p>
@@ -434,9 +484,8 @@ function FontCard({ f, t }: { f: FontFinding; t: Record<string, string> }) {
       <button
         type="button"
         onClick={() => setTechOpen((v) => !v)}
-        className="text-[11px] font-semibold text-win-blue inline-flex items-center gap-1"
+        className="text-[11px] font-semibold text-win-blue"
       >
-        {techOpen ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
         {techOpen ? t.techHide : t.techToggle}
       </button>
       {techOpen && (
@@ -513,6 +562,7 @@ export default function FontIdentifierSuiteTool({
   const findings = result?.findings || [];
   const visible = expanded ? findings : findings.slice(0, VISIBLE_CARDS);
   const hiddenCount = Math.max(0, findings.length - VISIBLE_CARDS);
+  const familyCount = identifiedFamilyCount(findings);
 
   return (
     <SuiteWorkspaceShell
@@ -555,10 +605,14 @@ export default function FontIdentifierSuiteTool({
         {result && (
           <div className="space-y-4">
             {fileName && <p className="text-[11px] font-semibold text-slate-400 truncate">{fileName}</p>}
-            <h3 className="text-sm font-semibold text-slate-800">
-              {t.results}
-              {findings.length > 0 ? ` · ${findings.length}` : ''}
-            </h3>
+            <div className="space-y-1">
+              <h3 className="text-sm font-semibold text-slate-800">
+                {findings.length > 0 ? t.resultsObjects.replace('{n}', String(findings.length)) : t.results}
+              </h3>
+              {familyCount > 0 && (
+                <p className="text-xs font-semibold text-slate-500">{t.identifiedFamilies.replace('{n}', String(familyCount))}</p>
+              )}
+            </div>
             {result.notes.includes('scanned-or-image') && (
               <p className="text-xs text-amber-800 font-medium bg-amber-50 border border-amber-100 rounded-xl px-3 py-2">
                 {t.scanned}
@@ -573,7 +627,7 @@ export default function FontIdentifierSuiteTool({
                     <table className="w-full text-[11px]">
                       <thead className="bg-slate-50 text-slate-500 uppercase tracking-wide">
                         <tr>
-                          <th className="text-left font-semibold px-3 py-2">{t.colFont}</th>
+                          <th className="text-left font-semibold px-3 py-2">{t.colFontFamily}</th>
                           <th className="text-left font-semibold px-3 py-2">{t.colType}</th>
                           <th className="text-left font-semibold px-3 py-2">{t.colEmbed}</th>
                           <th className="text-right font-semibold px-3 py-2">{t.occurrences}</th>
@@ -582,17 +636,14 @@ export default function FontIdentifierSuiteTool({
                       </thead>
                       <tbody>
                         {findings.map((f, i) => (
-                          <tr key={`${f.primary.name}-${i}`} className="border-t border-slate-100">
-                            <td className="px-3 py-2 font-semibold text-slate-800">
-                              {f.familyIdentified ? f.primary.name : t.unidentified}
-                            </td>
+                          <tr key={findingKey(f, i)} className="border-t border-slate-100">
+                            <td className="px-3 py-2 font-semibold text-slate-800">{displayFontLabel(f, t)}</td>
                             <td className="px-3 py-2 text-slate-600">{f.technical?.pdfType || t.notInformed}</td>
-                            <td className="px-3 py-2 text-slate-600">
-                              {embedLabel(f.technical?.embedded, t)}
-                              {f.technical?.subset ? ` · ${t.subsetYes}` : ''}
+                            <td className="px-3 py-2 text-slate-600">{embedLabel(f.technical?.embedded, t)}</td>
+                            <td className="px-3 py-2 text-right text-slate-600">
+                              {f.occurrences != null ? f.occurrences : t.notInformed}
                             </td>
-                            <td className="px-3 py-2 text-right text-slate-600">{f.occurrences ?? '—'}</td>
-                            <td className="px-3 py-2 text-right text-slate-600">{f.pageRangeLabel || '—'}</td>
+                            <td className="px-3 py-2 text-right text-slate-600">{f.pageRangeLabel || t.notInformed}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -604,7 +655,7 @@ export default function FontIdentifierSuiteTool({
                 )}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {visible.map((f, i) => (
-                    <div key={`${f.primary.name}-${f.element}-${i}`}>
+                    <div key={findingKey(f, i)}>
                       <FontCard f={f} t={t} />
                     </div>
                   ))}
@@ -615,21 +666,13 @@ export default function FontIdentifierSuiteTool({
                     onClick={() => setExpanded((v) => !v)}
                     className="w-full btn-secondary py-2.5 text-xs font-semibold inline-flex items-center justify-center gap-1.5"
                   >
-                    {expanded ? (
-                      <>
-                        <ChevronUp size={14} /> {t.showLess}
-                      </>
-                    ) : (
-                      <>
-                        <ChevronDown size={14} /> {t.showMore.replace('{n}', String(hiddenCount))}
-                      </>
-                    )}
+                    {expanded ? t.showLess : t.showMore.replace('{n}', String(hiddenCount))}
                   </button>
                 )}
               </>
             )}
-            <button type="button" onClick={reset} className="w-full btn-primary py-3.5 flex items-center justify-center gap-2">
-              <RefreshCw size={14} /> {t.again}
+            <button type="button" onClick={reset} className="w-full btn-primary py-3.5 font-semibold">
+              {t.again}
             </button>
             <p className="text-[10px] font-semibold text-emerald-700/80 text-center">{t.privacy}</p>
           </div>
