@@ -4,6 +4,7 @@ import {
   convertDocument,
   identifyDocument,
   listConversionTargets,
+  readDocumentPreviewSource,
 } from '../../engines/documentConverter';
 
 async function makeSimpleDocx(body = 'Hello Word'): Promise<File> {
@@ -96,6 +97,25 @@ describe('documentConverter', () => {
     const html = await convertDocument(file, 'htm');
     expect(await html.blob.text()).toContain('<td>Ana</td>');
     expect(html.fileName).toBe('dados.htm');
+  });
+
+  it('reads preview source without converting', async () => {
+    const txt = new File(['Ata da reunião\nPauta 1'], 'ata.txt', { type: 'text/plain' });
+    const txtSource = await readDocumentPreviewSource(txt, identifyDocument(txt));
+    expect(txtSource).toEqual({ kind: 'text', text: 'Ata da reunião\nPauta 1' });
+
+    const csv = new File(['nome,valor\nAna,10\n'], 'dados.csv', { type: 'text/csv' });
+    const csvSource = await readDocumentPreviewSource(csv, identifyDocument(csv));
+    expect(csvSource.kind).toBe('table');
+    if (csvSource.kind === 'table') {
+      expect(csvSource.rows[0]).toEqual(['nome', 'valor']);
+    }
+
+    const pdf = new File(['%PDF'], 'scan.pdf');
+    expect(await readDocumentPreviewSource(pdf, identifyDocument(pdf))).toEqual({ kind: 'pdf' });
+
+    const legacy = new File([new Uint8Array([0xd0, 0xcf])], 'old.doc');
+    expect(await readDocumentPreviewSource(legacy, identifyDocument(legacy))).toEqual({ kind: 'icon' });
   });
 
   it('builds DOCX from plain text', async () => {

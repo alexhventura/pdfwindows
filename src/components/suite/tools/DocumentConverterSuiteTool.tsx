@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { Download, FileText } from 'lucide-react';
 import type { LanguageType } from '../../../types';
 import {
   convertDocument,
@@ -9,6 +10,7 @@ import {
   type ConversionTargetId,
   type IdentifiedDocument,
 } from '../../../engines/documentConverter';
+import { renderDocumentPreviewUrl } from '../../../utils/documentPreview';
 import {
   DocumentToolDropzone,
   ToolBusyState,
@@ -44,7 +46,9 @@ const copy: Record<LanguageType, Record<string, string>> = {
     convert: 'Converter e baixar',
     converting: 'Convertendo documento...',
     success: 'Conversão concluída',
-    download: 'Baixar arquivo',
+    successHint: 'O arquivo já foi baixado para o seu computador. Use o botão abaixo se precisar baixar de novo.',
+    previewAlt: 'Pré-visualização do documento selecionado',
+    download: 'Baixar novamente',
     again: 'Converter outro documento',
     privacy: 'Processamento 100% local no navegador. Seu arquivo não é enviado a servidores.',
     note: 'A conversão usa o conteúdo textual do arquivo. Layout complexo, macros e objetos incorporados não são reproduzidos.',
@@ -97,7 +101,9 @@ const copy: Record<LanguageType, Record<string, string>> = {
     convert: 'Convert and download',
     converting: 'Converting document...',
     success: 'Conversion complete',
-    download: 'Download file',
+    successHint: 'The file was already downloaded to your computer. Use the button below if you need to download it again.',
+    previewAlt: 'Preview of the selected document',
+    download: 'Download again',
     again: 'Convert another document',
     privacy: '100% local browser processing. Your file is never uploaded to servers.',
     note: 'Conversion uses the file’s textual content. Complex layout, macros, and embedded objects are not reproduced.',
@@ -149,7 +155,9 @@ const copy: Record<LanguageType, Record<string, string>> = {
     convert: 'Convertir y descargar',
     converting: 'Convirtiendo documento...',
     success: 'Conversión completada',
-    download: 'Descargar archivo',
+    successHint: 'El archivo ya se descargó a su computadora. Use el botón de abajo si necesita descargarlo de nuevo.',
+    previewAlt: 'Vista previa del documento seleccionado',
+    download: 'Descargar de nuevo',
     again: 'Convertir otro documento',
     privacy: 'Procesamiento 100% local en el navegador. Su archivo no se envía a servidores.',
     note: 'La conversión usa el contenido textual del archivo. Diseño complejo, macros y objetos incrustados no se reproducen.',
@@ -214,6 +222,16 @@ function targetDescription(id: ConversionTargetId, t: Record<string, string>): s
   return t[`desc_${id}`] || '';
 }
 
+function triggerFileDownload(url: string, name: string) {
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = name;
+  a.rel = 'noopener';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+
 export default function DocumentConverterSuiteTool({
   lang,
   onClose,
@@ -231,6 +249,7 @@ export default function DocumentConverterSuiteTool({
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [output, setOutput] = useState<{ url: string; name: string } | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const targets = useMemo(() => (identified ? listConversionTargets(identified) : []), [identified]);
   const grouped = useMemo(() => {
@@ -242,6 +261,34 @@ export default function DocumentConverterSuiteTool({
     }
     return GROUP_ORDER.filter((g) => map.has(g)).map((g) => ({ group: g, items: map.get(g)! }));
   }, [targets]);
+
+  useEffect(() => {
+    if (!file || !identified) {
+      setPreviewUrl(null);
+      return;
+    }
+    let cancelled = false;
+    renderDocumentPreviewUrl(file, identified)
+      .then((url) => {
+        if (cancelled) {
+          URL.revokeObjectURL(url);
+          return;
+        }
+        setPreviewUrl(url);
+      })
+      .catch(() => {
+        if (!cancelled) setPreviewUrl(null);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [file, identified]);
+
+  useEffect(() => {
+    return () => {
+      if (previewUrl) URL.revokeObjectURL(previewUrl);
+    };
+  }, [previewUrl]);
 
   const startOver = () => {
     if (output?.url) URL.revokeObjectURL(output.url);
@@ -273,6 +320,7 @@ export default function DocumentConverterSuiteTool({
       if (output?.url) URL.revokeObjectURL(output.url);
       const url = URL.createObjectURL(result.blob);
       setOutput({ url, name: result.fileName });
+      triggerFileDownload(url, result.fileName);
     } catch (err) {
       const message = err instanceof Error ? err.message : '';
       if (message === 'PDF_NO_TEXT') setError(t.pdfNoText);
@@ -318,17 +366,52 @@ export default function DocumentConverterSuiteTool({
           </div>
         )}
 
-        {file && identified && !busy && !output && (
+        {file && identified && !busy && (
           <div className="space-y-5">
-            <div className="rounded-2xl border border-slate-200/80 bg-white/70 px-4 py-3">
-              <p className="text-[10px] font-semibold uppercase tracking-wide text-slate-400 mb-1">{t.identified}</p>
-              <p className="text-sm font-semibold text-slate-900 truncate">{file.name}</p>
-              <p className="text-xs text-slate-500 mt-1">
-                {t.extension}: .{identified.extension} · {familyLabel(identified, t)}
-              </p>
+            <div className="rounded-2xl border border-slate-200/80 bg-white/70 p-4">
+              <div className="flex flex-col sm:flex-row gap-4">
+                <div className="w-full sm:w-40 shrink-0">
+                  <div className="aspect-[3/4] rounded-xl border border-slate-200 bg-slate-50 overflow-hidden shadow-sm">
+                    {previewUrl ? (
+                      <img
+                        src={previewUrl}
+                        alt={t.previewAlt}
+                        className="w-full h-full object-contain bg-slate-100"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex flex-col items-center justify-center gap-2 text-slate-300">
+                        <FileText size={40} />
+                        <span className="text-[10px] font-bold uppercase tracking-widest">
+                          .{identified.extension}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-[10px] font-semibold uppercase tracking-wide text-slate-400 mb-1">{t.identified}</p>
+                  <p className="text-sm font-semibold text-slate-900 truncate">{file.name}</p>
+                  <p className="text-xs text-slate-500 mt-1">
+                    {t.extension}: .{identified.extension} · {familyLabel(identified, t)}
+                  </p>
+                </div>
+              </div>
             </div>
 
-            {!identified.convertible ? (
+            {output ? (
+              <div className="space-y-4 text-center">
+                <h3 className="text-base font-semibold text-slate-900">{t.success}</h3>
+                <p className="text-xs text-slate-500 leading-relaxed">{t.successHint}</p>
+                <p className="text-[10px] font-semibold text-slate-400 truncate">{output.name}</p>
+                <button
+                  type="button"
+                  className="w-full btn-primary py-3.5 font-semibold inline-flex items-center justify-center gap-2"
+                  onClick={() => triggerFileDownload(output.url, output.name)}
+                >
+                  <Download size={16} /> {t.download}
+                </button>
+              </div>
+            ) : !identified.convertible ? (
               <p className="text-xs text-slate-600 leading-relaxed font-medium">
                 {identified.unsupportedReason === 'legacy-binary' ? t.legacy : t.unknown}
               </p>
@@ -382,30 +465,6 @@ export default function DocumentConverterSuiteTool({
               </>
             )}
 
-            <button type="button" onClick={startOver} className="w-full text-xs font-semibold text-slate-500">
-              {t.again}
-            </button>
-            <p className="text-[10px] font-semibold text-emerald-700/80 text-center">{t.privacy}</p>
-          </div>
-        )}
-
-        {output && !busy && (
-          <div className="space-y-4 text-center py-4">
-            <h3 className="text-base font-semibold text-slate-900">{t.success}</h3>
-            <p className="text-[10px] font-semibold text-slate-400 truncate">{output.name}</p>
-            <button
-              type="button"
-              className="w-full btn-primary py-3.5 font-semibold"
-              onClick={() => {
-                const a = document.createElement('a');
-                a.href = output.url;
-                a.download = output.name;
-                a.rel = 'noopener';
-                a.click();
-              }}
-            >
-              {t.download}
-            </button>
             <button type="button" onClick={startOver} className="w-full text-xs font-semibold text-slate-500">
               {t.again}
             </button>

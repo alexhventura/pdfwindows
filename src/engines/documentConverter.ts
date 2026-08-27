@@ -51,6 +51,12 @@ export interface ConversionResult {
   fileName: string;
 }
 
+export type DocumentPreviewSource =
+  | { kind: 'pdf' }
+  | { kind: 'text'; text: string }
+  | { kind: 'table'; rows: string[][] }
+  | { kind: 'icon' };
+
 const WORD_OOXML = new Set(['docx', 'dotx', 'docm', 'dotm']);
 const WORD_LEGACY = new Set(['doc', 'dot']);
 const SHEETS = new Set(['xlsx', 'xlsm', 'csv']);
@@ -576,6 +582,24 @@ async function ooxmlToStandardDocx(file: File): Promise<Blob> {
   const remove = Object.keys(zip.files).filter((n) => /vbaProject|vbaData|macros/i.test(n));
   for (const path of remove) zip.remove(path);
   return zipToDocxBlob(zip);
+}
+
+export async function readDocumentPreviewSource(
+  file: File,
+  identified: IdentifiedDocument
+): Promise<DocumentPreviewSource> {
+  if (!identified.convertible) return { kind: 'icon' };
+  if (identified.family === 'pdf') return { kind: 'pdf' };
+  try {
+    const payload = await parsePayload(file, identified);
+    if (payload.kind === 'table') {
+      const rows = (payload.sheets[0]?.rows ?? []).slice(0, 10).map((row) => row.slice(0, 6));
+      return { kind: 'table', rows };
+    }
+    return { kind: 'text', text: payload.text.slice(0, 2500) };
+  } catch {
+    return { kind: 'icon' };
+  }
 }
 
 async function parsePayload(file: File, identified: IdentifiedDocument): Promise<Payload> {
