@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { shouldAutoScrollToTool } from '../scrollToToolStart';
+import {
+  shouldAutoScrollToTool,
+  TOOL_UPLOAD_SELECTOR,
+  workspaceHasLoadingFallback,
+} from '../scrollToToolStart';
 
 describe('shouldAutoScrollToTool', () => {
   it('scrolls on push and replace navigation', () => {
@@ -67,5 +71,15 @@ describe('shouldAutoScrollToTool', () => {
         performanceNavType: 'reload',
       })
     ).toBe(true);
+  });
+});
+
+describe('tool upload scroll target', () => {
+  it('uses a stable dropzone selector', () => {
+    expect(TOOL_UPLOAD_SELECTOR).toBe('[data-tool-upload]');
+  });
+
+  it('treats a missing node as not loading', () => {
+    expect(workspaceHasLoadingFallback(null)).toBe(false);
   });
 });

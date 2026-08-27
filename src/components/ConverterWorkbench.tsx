@@ -562,6 +562,7 @@ export function ConverterWorkbench({
                   onDrop={handleDrop}
                   onClick={triggerBrowse}
                   className={`premium-dropzone ${dragActive ? 'premium-dropzone-active' : ''}`}
+                  data-tool-upload="upload"
                   role="button"
                   tabIndex={0}
                   onKeyDown={(e) => {

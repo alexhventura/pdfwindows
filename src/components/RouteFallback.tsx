@@ -17,11 +17,11 @@ export function RouteFallback({ message = 'PDFWINDOWS' }: { message?: string }) 
   );
 }
 
-/** Workspace-sized loader used inside tool pages while lazy workbenches resolve. */
+/** Compact loader inside tool pages while lazy workbenches resolve. */
 export function WorkspaceFallback({ message = 'PDFWINDOWS' }: { message?: string }) {
   return (
     <div
-      className="workspace-panel py-20 min-h-[min(28rem,70vh)] flex flex-col items-center justify-center text-center"
+      className="workspace-panel py-10 min-h-[12rem] flex flex-col items-center justify-center text-center"
       role="status"
       aria-live="polite"
       aria-busy="true"

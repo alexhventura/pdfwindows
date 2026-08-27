@@ -1,5 +1,7 @@
 export const TOOL_START_ID = 'tool-start';
 export const TOOL_CATALOG_ID = 'tool-catalog';
+/** File-upload dropzone on tool pages — preferred scroll target over the workspace chrome. */
+export const TOOL_UPLOAD_SELECTOR = '[data-tool-upload]';
 
 const HEADER_SELECTOR = 'header.header-glass';
 const SCROLL_CUSHION_PX = 8;
@@ -21,11 +23,42 @@ export function measureSiteHeaderOffset(): number {
   return headerHeight + safeTop + SCROLL_CUSHION_PX;
 }
 
-export function getToolStartScrollTop(targetId = TOOL_START_ID): number | null {
-  const el = document.getElementById(targetId);
-  if (!el) return null;
+/** True while the lazy workbench is still showing the workspace spinner. */
+export function workspaceHasLoadingFallback(root: Element | null): boolean {
+  return !!root?.querySelector('[role="status"][aria-busy="true"]');
+}
+
+export function resolveToolScrollElement(fallbackId = TOOL_START_ID): HTMLElement | null {
+  if (typeof document === 'undefined') return null;
+  const upload = document.querySelector<HTMLElement>(TOOL_UPLOAD_SELECTOR);
+  if (upload) return upload;
+  const start = document.getElementById(fallbackId);
+  if (!start || workspaceHasLoadingFallback(start)) return null;
+  return start;
+}
+
+/** Upload block is ready, or the workspace finished loading without a dropzone. */
+export function hasSettledToolScrollTarget(fallbackId = TOOL_START_ID): boolean {
+  if (typeof document === 'undefined') return false;
+  if (document.querySelector(TOOL_UPLOAD_SELECTOR)) return true;
+  const start = document.getElementById(fallbackId);
+  return !!start && !workspaceHasLoadingFallback(start);
+}
+
+export function getAnchorScrollTop(el: Element): number {
   const offset = measureSiteHeaderOffset();
   return Math.max(0, el.getBoundingClientRect().top + window.scrollY - offset);
+}
+
+export function getToolStartScrollTop(targetId = TOOL_START_ID): number | null {
+  const el =
+    targetId === TOOL_START_ID
+      ? resolveToolScrollElement(targetId)
+      : typeof document === 'undefined'
+        ? null
+        : document.getElementById(targetId);
+  if (!el) return null;
+  return getAnchorScrollTop(el);
 }
 
 export function scrollToAnchor(

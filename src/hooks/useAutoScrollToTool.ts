@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef } from 'react';
 import { useLocation, useNavigationType } from 'react-router-dom';
 import {
   getPerformanceNavigationType,
+  hasSettledToolScrollTarget,
   scrollToToolStart,
   shouldAutoScrollToTool,
   TOOL_START_ID,
@@ -28,7 +29,8 @@ function clampScrollToDocument() {
 }
 
 /**
- * On tool pages, positions the viewport at the workspace on direct entry or forward navigation.
+ * On tool pages, positions the viewport on the file-upload block (or the workspace
+ * when the tool has no dropzone) on direct entry or forward navigation.
  * Skips browser back/forward and native scroll restoration.
  * Always clamps scroll so a tall homepage cannot leave the next page scrolled into empty space.
  */
@@ -72,19 +74,58 @@ export function useAutoScrollToTool(targetId: string = TOOL_START_ID) {
       return;
     }
 
-    const scrolled = scrollToToolStart(targetId);
-    if (!scrolled) {
-      // Element not painted yet (lazy route) — retry once, then fall back to top.
-      requestAnimationFrame(() => {
-        if (!scrollToToolStart(targetId)) {
-          window.scrollTo(0, 0);
-        }
+    let cancelled = false;
+    lastScrollPathRef.current = pathname;
+
+    const align = () => {
+      if (cancelled) return false;
+      try {
+        const scrolled = scrollToToolStart(targetId);
+        if (!scrolled) return false;
         clampScrollToDocument();
+        return true;
+      } catch {
+        return false;
+      }
+    };
+
+    if (!align()) {
+      requestAnimationFrame(() => {
+        if (!align()) {
+          window.scrollTo(0, 0);
+          clampScrollToDocument();
+        }
       });
-    } else {
-      clampScrollToDocument();
     }
 
-    lastScrollPathRef.current = pathname;
+    // Dropzone lives in a lazy workbench. Keep watching until upload exists or
+    // the spinner is gone (tools without a file picker). Then stop so we do not
+    // fight the user if they scroll up to the intro.
+    if (hasSettledToolScrollTarget(targetId)) {
+      return () => {
+        cancelled = true;
+      };
+    }
+
+    const root = document.getElementById(targetId) ?? document.body;
+    const observer = new MutationObserver(() => {
+      requestAnimationFrame(() => {
+        if (cancelled) return;
+        align();
+        if (hasSettledToolScrollTarget(targetId)) observer.disconnect();
+      });
+    });
+    observer.observe(root, { childList: true, subtree: true });
+
+    const settle = window.setTimeout(() => {
+      observer.disconnect();
+      align();
+    }, 2500);
+
+    return () => {
+      cancelled = true;
+      observer.disconnect();
+      window.clearTimeout(settle);
+    };
   }, [pathname, navigationType, targetId]);
 }

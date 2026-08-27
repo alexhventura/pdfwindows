@@ -195,6 +195,7 @@ export function DocumentToolDropzone({
         className={`premium-dropzone ${dragActive ? 'premium-dropzone-active' : ''} ${
           disabled ? 'opacity-50 pointer-events-none' : ''
         }`}
+        data-tool-upload="upload"
       >
         <input
           ref={inputRef}

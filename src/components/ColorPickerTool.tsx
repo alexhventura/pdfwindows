@@ -499,6 +499,7 @@ export const ColorPickerTool: React.FC<{
                 className={`premium-dropzone w-full py-16 md:py-24 flex flex-col items-center gap-3 cursor-pointer ${
                   dragOver ? 'premium-dropzone-active' : ''
                 }`}
+                data-tool-upload="upload"
                 onClick={() => fileRef.current?.click()}
                 onDragOver={(e) => {
                   e.preventDefault();
