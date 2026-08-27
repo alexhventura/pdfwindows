@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
 import { Download } from 'lucide-react';
 import type { LanguageType } from '../../../types';
 import {
@@ -29,7 +29,7 @@ const copy: Record<LanguageType, Record<string, string>> = {
     invalidFile: 'Envie uma imagem JPG, PNG ou WEBP.',
     emptyFile: 'O arquivo está vazio.',
     tooLarge: 'Arquivo acima do limite de 40 MB.',
-    hint: 'Arraste as quatro pontas até os cantos da folha. O que ficar fora do quadrilátero será cortado.',
+    hint: 'Alinhe o centro de cada cruz com o canto da folha. O que ficar fora do quadrilátero será cortado.',
     crop: 'Cortar folha',
     opening: 'Abrindo imagem…',
     cropping: 'Alinhando a página…',
@@ -53,7 +53,7 @@ const copy: Record<LanguageType, Record<string, string>> = {
     invalidFile: 'Please upload a JPG, PNG, or WEBP image.',
     emptyFile: 'The file is empty.',
     tooLarge: 'File exceeds the 40 MB limit.',
-    hint: 'Drag the four corners onto the sheet edges. Everything outside the quadrilateral is cropped away.',
+    hint: 'Line up the center of each cross with a sheet corner. Everything outside the quadrilateral is cropped away.',
     crop: 'Crop sheet',
     opening: 'Opening image…',
     cropping: 'Straightening the page…',
@@ -77,7 +77,7 @@ const copy: Record<LanguageType, Record<string, string>> = {
     invalidFile: 'Envíe una imagen JPG, PNG o WEBP.',
     emptyFile: 'El archivo está vacío.',
     tooLarge: 'Archivo por encima del límite de 40 MB.',
-    hint: 'Arrastre las cuatro puntas hasta los extremos de la hoja. Lo que quede fuera del cuadrilátero se recorta.',
+    hint: 'Alinee el centro de cada cruz con la esquina de la hoja. Lo que quede fuera del cuadrilátero se recorta.',
     crop: 'Recortar hoja',
     opening: 'Abriendo imagen…',
     cropping: 'Alineando la página…',
@@ -165,6 +165,53 @@ function stem(name: string) {
   return name.replace(/\.[^.]+$/, '') || 'folha';
 }
 
+function CrosshairArms() {
+  return (
+    <>
+      <line x1="28" y1="3" x2="28" y2="19" />
+      <line x1="28" y1="37" x2="28" y2="53" />
+      <line x1="3" y1="28" x2="19" y2="28" />
+      <line x1="37" y1="28" x2="53" y2="28" />
+    </>
+  );
+}
+
+/** Open translucent crosshair — the paper corner stays visible at the intersection. */
+function CornerCrosshair({
+  x,
+  y,
+  color,
+  label,
+  active,
+  onPointerDown,
+}: {
+  x: number;
+  y: number;
+  color: string;
+  label: string;
+  active: boolean;
+  onPointerDown: (e: ReactPointerEvent<HTMLButtonElement>) => void;
+}) {
+  return (
+    <button
+      type="button"
+      aria-label={label}
+      className="absolute z-10 h-14 w-14 -translate-x-1/2 -translate-y-1/2 touch-none bg-transparent p-0 cursor-grab active:cursor-grabbing focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-sky-500"
+      style={{ left: x, top: y }}
+      onPointerDown={onPointerDown}
+    >
+      <svg viewBox="0 0 56 56" className="h-full w-full overflow-visible pointer-events-none" aria-hidden>
+        <g stroke="#fff" strokeWidth="3.25" strokeLinecap="round" opacity="0.42">
+          <CrosshairArms />
+        </g>
+        <g stroke={color} strokeWidth="1.65" strokeLinecap="round" opacity={active ? 0.92 : 0.68}>
+          <CrosshairArms />
+        </g>
+      </svg>
+    </button>
+  );
+}
+
 export default function MarginAdjustSuiteTool({
   lang,
   onClose,
@@ -190,6 +237,7 @@ export default function MarginAdjustSuiteTool({
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [resultUrl, setResultUrl] = useState<string | null>(null);
+  const [activeHandle, setActiveHandle] = useState<number | null>(null);
   const resultRaster = useRef<Raster | null>(null);
   rasterRef.current = raster;
 
@@ -292,6 +340,7 @@ export default function MarginAdjustSuiteTool({
     };
     const onUp = () => {
       dragIndex.current = null;
+      setActiveHandle(null);
     };
     window.addEventListener('pointermove', onMove, { passive: false });
     window.addEventListener('pointerup', onUp);
@@ -388,29 +437,30 @@ export default function MarginAdjustSuiteTool({
                 <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden>
                   <polygon
                     points={polygon}
-                    fill="rgba(37, 99, 235, 0.12)"
+                    fill="rgba(37, 99, 235, 0.06)"
                     stroke="#ea580c"
-                    strokeWidth="2"
+                    strokeWidth="1.5"
+                    strokeOpacity="0.7"
                     strokeLinejoin="round"
                   />
                 </svg>
               )}
               {handles.map((handle, index) => (
-                <button
+                <CornerCrosshair
                   key={index}
-                  type="button"
-                  className="absolute z-10 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-white text-[11px] font-bold text-white shadow-lg touch-none"
-                  style={{ left: handle.x, top: handle.y, background: HANDLE_COLORS[index] }}
-                  aria-label={`${t.corner} ${index + 1}`}
+                  x={handle.x}
+                  y={handle.y}
+                  color={HANDLE_COLORS[index]}
+                  label={`${t.corner} ${index + 1}`}
+                  active={activeHandle === index}
                   onPointerDown={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    (e.currentTarget as HTMLButtonElement).setPointerCapture(e.pointerId);
+                    e.currentTarget.setPointerCapture(e.pointerId);
                     dragIndex.current = index;
+                    setActiveHandle(index);
                   }}
-                >
-                  {index + 1}
-                </button>
+                />
               ))}
             </div>
             <div className="flex flex-col sm:flex-row gap-2">
