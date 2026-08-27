@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   shouldAutoScrollToTool,
   TOOL_UPLOAD_SELECTOR,
+  WORKSPACE_PANEL_SELECTOR,
   workspaceHasLoadingFallback,
 } from '../scrollToToolStart';
 
@@ -77,6 +78,10 @@ describe('shouldAutoScrollToTool', () => {
 describe('tool upload scroll target', () => {
   it('uses a stable dropzone selector', () => {
     expect(TOOL_UPLOAD_SELECTOR).toBe('[data-tool-upload]');
+  });
+
+  it('scrolls the workspace card that wraps the dropzone', () => {
+    expect(WORKSPACE_PANEL_SELECTOR).toBe('.workspace-panel');
   });
 
   it('treats a missing node as not loading', () => {

@@ -699,6 +699,7 @@
   }
 
   .tool-workspace-anchor,
+  .workspace-panel,
   [data-tool-upload] {
     scroll-margin-top: calc(4.25rem + env(safe-area-inset-top, 0px) + 0.5rem);
   }

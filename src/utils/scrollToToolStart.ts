@@ -1,7 +1,9 @@
 export const TOOL_START_ID = 'tool-start';
 export const TOOL_CATALOG_ID = 'tool-catalog';
-/** File-upload dropzone on tool pages — preferred scroll target over the workspace chrome. */
+/** File-upload dropzone — used to find the workspace card that also holds the tool title. */
 export const TOOL_UPLOAD_SELECTOR = '[data-tool-upload]';
+/** Outer tool card (title + dropzone). Scroll here so the heading stays on screen. */
+export const WORKSPACE_PANEL_SELECTOR = '.workspace-panel';
 
 const HEADER_SELECTOR = 'header.header-glass';
 const SCROLL_CUSHION_PX = 8;
@@ -28,12 +30,18 @@ export function workspaceHasLoadingFallback(root: Element | null): boolean {
   return !!root?.querySelector('[role="status"][aria-busy="true"]');
 }
 
+function workspaceCardFrom(el: HTMLElement): HTMLElement {
+  return el.closest<HTMLElement>(WORKSPACE_PANEL_SELECTOR) ?? el;
+}
+
 export function resolveToolScrollElement(fallbackId = TOOL_START_ID): HTMLElement | null {
   if (typeof document === 'undefined') return null;
   const upload = document.querySelector<HTMLElement>(TOOL_UPLOAD_SELECTOR);
-  if (upload) return upload;
+  if (upload) return workspaceCardFrom(upload);
   const start = document.getElementById(fallbackId);
   if (!start || workspaceHasLoadingFallback(start)) return null;
+  const panel = start.querySelector<HTMLElement>(WORKSPACE_PANEL_SELECTOR);
+  if (panel && !workspaceHasLoadingFallback(panel)) return panel;
   return start;
 }
 

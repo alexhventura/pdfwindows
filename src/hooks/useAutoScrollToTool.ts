@@ -29,8 +29,9 @@ function clampScrollToDocument() {
 }
 
 /**
- * On tool pages, positions the viewport on the file-upload block (or the workspace
- * when the tool has no dropzone) on direct entry or forward navigation.
+ * On tool pages, positions the viewport at the start of the tool card so the
+ * title and file-upload block share the screen (or the workspace when the tool
+ * has no dropzone) on direct entry or forward navigation.
  * Skips browser back/forward and native scroll restoration.
  * Always clamps scroll so a tall homepage cannot leave the next page scrolled into empty space.
  */
