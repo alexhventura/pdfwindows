@@ -49,7 +49,7 @@ export const ORGANIZAR_PAGINAS_PDF_CONTENT: Record<'en' | 'pt' | 'es', ToolRichC
     howItWorks: [
       'Select the PDF you are authorized to organize.',
       'Wait for local thumbnail generation so you can identify every page visually.',
-      'Delete unwanted pages, move pages up or down, or keep only the selected pages you need.',
+      'Delete unwanted pages, move pages up or down, insert another PDF at the end, or keep only the selected pages you need.',
       'Generate a new organized PDF copy in the browser.',
       'Download the result and review the page order before sharing or archiving it.',
     ],
@@ -132,7 +132,7 @@ export const ORGANIZAR_PAGINAS_PDF_CONTENT: Record<'en' | 'pt' | 'es', ToolRichC
         a: 'No. If a PDF requires an open password, use Unlock PDF with the legitimate password first. This tool does not guess or bypass unknown passwords.',
       },
     ],
-    relatedTools: ['/pdf-split', '/pdf-merge', '/redacao-pdf', '/desbloquear-pdf'],
+    relatedTools: ['/pdf-split', '/pdf-merge', '/redacao-pdf', '/desbloquear-pdf', '/numerador-de-paginas'],
     cta: defaultCta('en', 'Organize PDF Pages'),
   },
   pt: {
@@ -182,7 +182,7 @@ export const ORGANIZAR_PAGINAS_PDF_CONTENT: Record<'en' | 'pt' | 'es', ToolRichC
     howItWorks: [
       'Selecione o PDF que você está autorizado a organizar.',
       'Aguarde a geração local das miniaturas para identificar cada página visualmente.',
-      'Exclua páginas indesejadas, mova páginas para cima ou para baixo, ou mantenha só as selecionadas.',
+      'Exclua páginas indesejadas, mova páginas para cima ou para baixo, insira outro PDF no fim, ou mantenha só as selecionadas.',
       'Gere uma nova cópia organizada do PDF no navegador.',
       'Baixe o resultado e revise a ordem das páginas antes de compartilhar ou arquivar.',
     ],
@@ -265,7 +265,7 @@ export const ORGANIZAR_PAGINAS_PDF_CONTENT: Record<'en' | 'pt' | 'es', ToolRichC
         a: 'Não. Se o PDF exige senha de abertura, use Desbloquear PDF com a senha legítima primeiro. Esta ferramenta não adivinha nem ignora senhas desconhecidas.',
       },
     ],
-    relatedTools: ['/pdf-split', '/pdf-merge', '/redacao-pdf', '/desbloquear-pdf'],
+    relatedTools: ['/pdf-split', '/pdf-merge', '/redacao-pdf', '/desbloquear-pdf', '/numerador-de-paginas'],
     cta: defaultCta('pt', 'Organizar Páginas PDF'),
   },
   es: {
@@ -315,7 +315,7 @@ export const ORGANIZAR_PAGINAS_PDF_CONTENT: Record<'en' | 'pt' | 'es', ToolRichC
     howItWorks: [
       'Seleccione el PDF que está autorizado a organizar.',
       'Espere la generación local de miniaturas para identificar cada página visualmente.',
-      'Elimine páginas no deseadas, mueva páginas arriba o abajo, o conserve solo las seleccionadas.',
+      'Elimine páginas no deseadas, mueva páginas arriba o abajo, inserte otro PDF al final, o conserve solo las seleccionadas.',
       'Genere una copia nueva organizada del PDF en el navegador.',
       'Descargue el resultado y revise el orden de páginas antes de compartir o archivar.',
     ],
@@ -398,7 +398,7 @@ export const ORGANIZAR_PAGINAS_PDF_CONTENT: Record<'en' | 'pt' | 'es', ToolRichC
         a: 'No. Si el PDF exige contraseña de apertura, use Desbloquear PDF con la contraseña legítima primero. Esta herramienta no adivina ni evita contraseñas desconocidas.',
       },
     ],
-    relatedTools: ['/pdf-split', '/pdf-merge', '/redacao-pdf', '/desbloquear-pdf'],
+    relatedTools: ['/pdf-split', '/pdf-merge', '/redacao-pdf', '/desbloquear-pdf', '/numerador-de-paginas'],
     cta: defaultCta('es', 'Organizar Páginas PDF'),
   },
 };

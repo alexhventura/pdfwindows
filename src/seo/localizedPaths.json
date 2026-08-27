@@ -61,6 +61,86 @@
     "pt": "/ajuste-de-margem",
     "es": "/ajuste-de-margen"
   },
+  "/assinatura-pdf": {
+    "en": "/sign-pdf",
+    "pt": "/assinatura-pdf",
+    "es": "/firma-pdf"
+  },
+  "/numerador-de-paginas": {
+    "en": "/page-numbers",
+    "pt": "/numerador-de-paginas",
+    "es": "/numeros-de-pagina"
+  },
+  "/recortar-pdf": {
+    "en": "/crop-pdf",
+    "pt": "/recortar-pdf",
+    "es": "/recortar-pdf"
+  },
+  "/comparar-pdf": {
+    "en": "/compare-pdf",
+    "pt": "/comparar-pdf",
+    "es": "/comparar-pdf"
+  },
+  "/editar-pdf": {
+    "en": "/edit-pdf",
+    "pt": "/editar-pdf",
+    "es": "/editar-pdf"
+  },
+  "/escanear-para-pdf": {
+    "en": "/scan-to-pdf",
+    "pt": "/escanear-para-pdf",
+    "es": "/escanear-a-pdf"
+  },
+  "/reparar-pdf": {
+    "en": "/repair-pdf",
+    "pt": "/reparar-pdf",
+    "es": "/reparar-pdf"
+  },
+  "/pdf-para-pdfa": {
+    "en": "/pdf-to-pdfa",
+    "pt": "/pdf-para-pdfa",
+    "es": "/pdf-a-pdfa"
+  },
+  "/formularios-pdf": {
+    "en": "/pdf-forms",
+    "pt": "/formularios-pdf",
+    "es": "/formularios-pdf"
+  },
+  "/pdf-para-powerpoint": {
+    "en": "/pdf-to-powerpoint",
+    "pt": "/pdf-para-powerpoint",
+    "es": "/pdf-a-powerpoint"
+  },
+  "/powerpoint-para-pdf": {
+    "en": "/powerpoint-to-pdf",
+    "pt": "/powerpoint-para-pdf",
+    "es": "/powerpoint-a-pdf"
+  },
+  "/pdf-para-excel": {
+    "en": "/pdf-to-excel",
+    "pt": "/pdf-para-excel",
+    "es": "/pdf-a-excel"
+  },
+  "/pdf-para-word": {
+    "en": "/pdf-to-word",
+    "pt": "/pdf-para-word",
+    "es": "/pdf-a-word"
+  },
+  "/word-para-pdf": {
+    "en": "/word-to-pdf",
+    "pt": "/word-para-pdf",
+    "es": "/word-a-pdf"
+  },
+  "/excel-para-pdf": {
+    "en": "/excel-to-pdf",
+    "pt": "/excel-para-pdf",
+    "es": "/excel-a-pdf"
+  },
+  "/html-para-pdf": {
+    "en": "/html-to-pdf",
+    "pt": "/html-para-pdf",
+    "es": "/html-a-pdf"
+  },
   "/privacy": { "en": "/privacy", "pt": "/privacidade", "es": "/privacidad" },
   "/terms": { "en": "/terms", "pt": "/termos", "es": "/terminos" }
 }

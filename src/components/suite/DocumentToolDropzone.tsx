@@ -3,7 +3,7 @@ import { Upload, Loader2, AlertCircle, X, Plus } from 'lucide-react';
 import type { LanguageType } from '../../types';
 import { ModalHeader } from './shared';
 
-export type DocToolAccept = 'pdf' | 'pdf-docx' | 'file-xray' | 'documents' | 'image';
+export type DocToolAccept = 'pdf' | 'pdf-docx' | 'file-xray' | 'documents' | 'image' | 'docx' | 'xlsx' | 'pptx' | 'html';
 
 interface Labels {
   dropTitle: string;
@@ -80,6 +80,8 @@ const DOCUMENT_EXTS = new Set([
   'xlsx',
   'xlsm',
   'csv',
+  'pptx',
+  'pptm',
 ]);
 
 const XRAY_EXTS = new Set([
@@ -107,6 +109,10 @@ function isAllowed(file: File, accept: DocToolAccept): boolean {
   if (accept === 'image') {
     return IMAGE_EXTS.has(ext) || file.type.startsWith('image/');
   }
+  if (accept === 'docx') return ext === 'docx' || file.type.includes('wordprocessingml');
+  if (accept === 'xlsx') return ext === 'xlsx' || ext === 'xlsm' || ext === 'csv';
+  if (accept === 'pptx') return ext === 'pptx' || ext === 'pptm';
+  if (accept === 'html') return ext === 'html' || ext === 'htm';
   return (
     ext === 'pdf' ||
     ext === 'docx' ||
@@ -172,10 +178,18 @@ export function DocumentToolDropzone({
       : accept === 'file-xray'
         ? '.pdf,.docx,.xlsx,.pptx,.jpg,.jpeg,.png,.webp,.gif,.csv,.txt,.zip'
         : accept === 'documents'
-          ? '.pdf,.txt,.docx,.dotx,.docm,.dotm,.doc,.dot,.rtf,.odt,.html,.htm,.xlsx,.xlsm,.csv'
+          ? '.pdf,.txt,.docx,.dotx,.docm,.dotm,.doc,.dot,.rtf,.odt,.html,.htm,.xlsx,.xlsm,.csv,.pptx,.pptm'
           : accept === 'image'
             ? 'image/jpeg,image/png,image/webp,image/gif,image/bmp,.jpg,.jpeg,.png,.webp,.gif,.bmp'
-        : '.pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+            : accept === 'docx'
+              ? '.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+              : accept === 'xlsx'
+                ? '.xlsx,.xlsm,.csv'
+                : accept === 'pptx'
+                  ? '.pptx,.pptm'
+                  : accept === 'html'
+                    ? '.html,.htm,text/html'
+                    : '.pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document';
 
   const chips = labels.formats
     .split(/[•·|,]/)

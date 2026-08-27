@@ -129,7 +129,9 @@ export const translations: Record<LanguageType, TranslationDict> = {
     manualBody: [
       "Passo 1: Selecione ou arraste o seu arquivo para dentro do card principal de cor branca com bordas em cinza claro. Nosso sistema lerá a extensão instantaneamente na memória interna para garantir segurança.",
       "Passo 2: Após detectar o tipo de arquivo, um seletor dinâmico surgirá na tela oferecendo as opções de conversão que fazem sentido para ele (Ex: Imagens viram WebP/PDF, PDFs podem ser divididos, protegidos ou extraídos; CSV vira JSON). Preencha as configurações caso necessário (como senha ou qualidade).",
-      "Passo 3: Clique em 'Processar Arquivos com Segurança'. O progresso reflete o trabalho real na sua máquina. Ao concluir, baixe os arquivos gerados localmente."
+      "Passo 3: Clique em 'Processar Arquivos com Segurança'. O progresso reflete o trabalho real na sua máquina. Ao concluir, baixe os arquivos gerados localmente.",
+      "Assinatura PDF: escreva no campo da tela, opcionalmente junte nome, local e data, posicione o carimbo nas páginas e baixe uma cópia. É tinta visual — não substitui certificado digital.",
+      "Novas ferramentas locais (numerador, recorte, comparar, editar, scan, reparar, arquivo PDF/A, formulários, Word/Excel/PowerPoint/HTML): o ficheiro fica no aparelho. Conversões de Office extraem texto — layout não é clone visual. HTML é arquivo local, sem buscar URL. PDF/A não é certificado ISO."
     ],
     cookiesTitle: "Política de Cookies — PDFWINDOWS",
     cookiesIntro:
@@ -423,7 +425,9 @@ export const translations: Record<LanguageType, TranslationDict> = {
     manualBody: [
       "Step 1: Drag and drop or select your document inside the prominent white dashboard block bordered in clean gray. Our local scanner evaluates the formatting without any network activity.",
       "Step 2: Once analyzed, our tool dynamically populates a dropdown selection containing context-aware targets (e.g. images convert to WebP/PDF, PDFs offer splits, encryptions, text export; CSV outputs JSON). Fill in parameters like passwords if needed.",
-      "Step 3: Click 'Process Files Safely'. Progress reflects real work on your machine. When finished, download your locally generated files."
+      "Step 3: Click 'Process Files Safely'. Progress reflects real work on your machine. When finished, download your locally generated files.",
+      "Sign PDF: write in the on-screen field, optionally add name, location, and date, place the stamp on the pages, and download a copy. It is visual ink — not a digital certificate.",
+      "New local tools (page numbers, crop, compare, edit, scan, repair, archival PDF/A, forms, Word/Excel/PowerPoint/HTML): the file stays on the device. Office conversions extract text — layout is not a visual clone. HTML is a local file, no URL fetch. PDF/A is not ISO-certified."
     ],
     cookiesTitle: "Cookie Policy — PDFWINDOWS",
     cookiesIntro:
@@ -717,7 +721,9 @@ export const translations: Record<LanguageType, TranslationDict> = {
     manualBody: [
       "Paso 1: Arrastra tu documento comercial al bloque blanco central destacado con un suave borde gris. El reconocedor inteligente de formatos operará de inmediato en completo aislamiento cibernético.",
       "Paso 2: Según la extensión detectada, el sistema de PDF WINDOWS adaptará el desplegable de opciones (imágenes a WebP/PDF; PDFs a división, protección con contraseña, extracción textual; CSV a JSON). Ajusta la calidad o escribe llaves.",
-      "Paso 3: Pulsa 'Procesar Archivos de Forma Segura'. El progreso refleja el trabajo real en tu equipo. Al terminar, descarga los archivos generados localmente."
+      "Paso 3: Pulsa 'Procesar Archivos de Forma Segura'. El progreso refleja el trabajo real en tu equipo. Al terminar, descarga los archivos generados localmente.",
+      "Firma PDF: escriba en el campo de la pantalla, sume nombre, lugar y fecha si quiere, coloque el sello en las páginas y descargue una copia. Es tinta visual — no sustituye un certificado digital.",
+      "Nuevas herramientas locales (números de página, recorte, comparar, editar, escanear, reparar, archivo PDF/A, formularios, Word/Excel/PowerPoint/HTML): el archivo queda en el aparato. Las conversiones Office extraen texto — el diseño no es un clon visual. HTML es archivo local, sin buscar URL. PDF/A no es certificado ISO."
     ],
     cookiesTitle: "Política de Cookies — PDFWINDOWS",
     cookiesIntro:

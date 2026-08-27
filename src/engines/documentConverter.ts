@@ -14,6 +14,7 @@ export type DocumentFamily =
   | 'web'
   | 'rtf'
   | 'opendocument'
+  | 'presentation'
   | 'unknown';
 
 export type ConversionTargetId =
@@ -61,6 +62,7 @@ const WORD_OOXML = new Set(['docx', 'dotx', 'docm', 'dotm']);
 const WORD_LEGACY = new Set(['doc', 'dot']);
 const SHEETS = new Set(['xlsx', 'xlsm', 'csv']);
 const WEB = new Set(['html', 'htm']);
+const DECKS = new Set(['pptx', 'pptm']);
 
 const MIME: Record<ConversionTargetId, string> = {
   docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
@@ -93,6 +95,8 @@ export const DOCUMENT_CONVERTER_EXTENSIONS = [
   'xlsx',
   'xlsm',
   'csv',
+  'pptx',
+  'pptm',
 ] as const;
 
 export function getFileExtension(name: string): string {
@@ -114,6 +118,7 @@ export function identifyDocument(file: File): IdentifiedDocument {
   if (WEB.has(extension)) return { fileName, extension, family: 'web', convertible: true };
   if (extension === 'rtf') return { fileName, extension, family: 'rtf', convertible: true };
   if (extension === 'odt') return { fileName, extension, family: 'opendocument', convertible: true };
+  if (DECKS.has(extension)) return { fileName, extension, family: 'presentation', convertible: true };
   return { fileName, extension, family: 'unknown', convertible: false, unsupportedReason: 'unknown' };
 }
 
@@ -144,6 +149,8 @@ export function listConversionTargets(identified: IdentifiedDocument): Conversio
     add('txt', 'pdf', 'docx', 'html', 'htm', 'odt', 'xml', 'jpeg', 'png');
   } else if (identified.family === 'opendocument') {
     add('txt', 'pdf', 'docx', 'rtf', 'html', 'htm', 'xml', 'jpeg', 'png');
+  } else if (identified.family === 'presentation') {
+    add('pdf', 'txt', 'html', 'htm', 'jpeg', 'png');
   }
 
   ids.delete(ext as ConversionTargetId);
@@ -396,7 +403,7 @@ async function textToOdtBlob(text: string): Promise<Blob> {
   });
 }
 
-async function extractDocxText(file: File): Promise<string> {
+export async function extractDocxText(file: File): Promise<string> {
   const zip = await JSZip.loadAsync(await file.arrayBuffer());
   const xml = await zip.file('word/document.xml')?.async('string');
   if (!xml) throw new Error('INVALID_DOCX');
@@ -410,7 +417,7 @@ async function extractOdtText(file: File): Promise<string> {
   return stripXml(xml);
 }
 
-async function extractPdfText(file: File): Promise<string> {
+export async function extractPdfPages(file: File): Promise<string[]> {
   const { loadPdfJS } = await import('../utils/pdfjsLoader');
   const {
     buildTextFromPdfContentItems,
@@ -427,16 +434,46 @@ async function extractPdfText(file: File): Promise<string> {
       const text = buildTextFromPdfContentItems(
         content.items as Parameters<typeof buildTextFromPdfContentItems>[0]
       );
-      if (text.trim()) blocks.push(text.trim());
+      blocks.push(text.trim());
     }
   } finally {
     await pdf.destroy?.();
   }
-  const joined = blocks.join('\n\n').trim();
-  if (!joined) {
+  if (!blocks.some((block) => block.length > 0)) {
     throw new Error('PDF_NO_TEXT');
   }
+  return blocks;
+}
+
+export async function extractPdfText(file: File): Promise<string> {
+  const blocks = (await extractPdfPages(file)).filter(Boolean);
+  const joined = blocks.join('\n\n').trim();
+  if (!joined) throw new Error('PDF_NO_TEXT');
   return joined;
+}
+
+export async function extractPptxText(file: File): Promise<string> {
+  const zip = await JSZip.loadAsync(await file.arrayBuffer());
+  const slides = Object.keys(zip.files)
+    .filter((name) => /^ppt\/slides\/slide\d+\.xml$/i.test(name))
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+  if (slides.length < 1) throw new Error('INVALID_PPTX');
+  const parts: string[] = [];
+  for (const path of slides) {
+    const xml = await zip.file(path)?.async('string');
+    if (!xml) continue;
+    const text = xml
+      .replace(/<\/a:p>/g, '\n')
+      .replace(/<[^>]+>/g, '')
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/\s+\n/g, '\n')
+      .trim();
+    if (text) parts.push(text);
+  }
+  if (!parts.length) throw new Error('NO_TEXT');
+  return parts.join('\n\n');
 }
 
 function colLettersToIndex(letters: string): number {
@@ -620,6 +657,9 @@ async function parsePayload(file: File, identified: IdentifiedDocument): Promise
   }
   if (identified.family === 'pdf') {
     return { kind: 'text', text: await extractPdfText(file), pdfFile: file };
+  }
+  if (identified.family === 'presentation') {
+    return { kind: 'text', text: await extractPptxText(file) };
   }
   if (identified.family === 'spreadsheet') {
     if (identified.extension === 'csv') {

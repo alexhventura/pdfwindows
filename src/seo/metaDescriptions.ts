@@ -101,7 +101,124 @@ export const META_DESCRIPTION_OVERRIDES: Partial<
     pt: 'Limpe e formate código no navegador. Embeleze JSON, HTML, CSS e snippets localmente com Prettier — utilitário grátis para devs, privado e sem upload.',
     es: 'Limpia y formatea código en el navegador. Embellece JSON, HTML, CSS y snippets localmente con Prettier — utilidad gratis para devs, sin subir.',
   },
+  '/assinatura-pdf': {
+    pt: 'Desenhe a assinatura na tela, junte nome, local e data, e coloque o campo no PDF. Grátis no navegador — carimbo visual, sem upload e sem certificado.',
+    es: 'Dibuje la firma en pantalla, sume nombre, lugar y fecha, y coloque el campo en el PDF. Gratis en el navegador — sello visual, sin subida ni certificado.',
+  },
+  '/numerador-de-paginas': {
+    en: 'Add page numbers to a PDF in your browser. Header or footer, skip the cover, then download a copy — free, local, no upload to our servers.',
+    pt: 'Numere páginas de PDF no navegador. Cabeçalho ou rodapé, pule a capa e baixe uma cópia nova — grátis, local e sem upload para os nossos servidores.',
+    es: 'Numere páginas de un PDF en el navegador. Encabezado o pie, salte la portada y descargue una copia — gratis, local y sin subida a nuestros servidores.',
+  },
+  '/recortar-pdf': {
+    en: 'Crop PDF margins in your browser. Draw the keep area, apply it to one page or all pages, then download — free, local, and no upload required.',
+    pt: 'Recorte margens de um PDF no navegador. Desenhe a área, aplique numa página ou em todas e baixe — grátis, local e sem upload para os nossos servidores.',
+    es: 'Recorte márgenes de un PDF en el navegador. Dibuje el área, aplique a una página o a todas y descargue — gratis, local y sin subida a nuestros servidores.',
+  },
+  '/comparar-pdf': {
+    en: 'Compare text from two PDFs in your browser. Spot added and removed lines side by side — free, local processing, and no upload to our servers.',
+    pt: 'Compare o texto de dois PDFs no navegador. Veja linhas adicionadas e removidas lado a lado — grátis, local e sem upload para os nossos servidores.',
+    es: 'Compare el texto de dos PDF en el navegador. Vea líneas añadidas y quitadas lado a lado — gratis, local y sin subida a nuestros servidores.',
+  },
+  '/editar-pdf': {
+    en: 'Add text, a rectangle, or an image stamp to a PDF in your browser. Visual overlay on the page — free, local, and no upload to our servers.',
+    pt: 'Adicione texto, retângulo ou imagem num PDF no navegador. Carimbo visual por cima da página — grátis, local e sem upload para os nossos servidores.',
+    es: 'Añada texto, rectángulo o imagen a un PDF en el navegador. Sellos visuales sobre la página — gratis, local y sin subida a nuestros servidores.',
+  },
+  '/escanear-para-pdf': {
+    en: 'Capture pages with the camera or upload photos and build a PDF in your browser — free, local processing, and no upload to our servers.',
+    pt: 'Capture páginas com a câmera ou envie fotos e monte um PDF no navegador — grátis, processamento local e sem upload para os nossos servidores.',
+    es: 'Capture páginas con la cámara o suba fotos y arme un PDF en el navegador — gratis, local y sin subida a nuestros servidores.',
+  },
+  '/reparar-pdf': {
+    en: 'Try rebuilding a damaged PDF in your browser. Download a new copy of the readable pages — free, local, and no upload to our servers.',
+    pt: 'Tente reconstruir um PDF danificado no navegador. Baixe uma cópia nova das páginas lidas — grátis, local e sem upload para os nossos servidores.',
+    es: 'Intente reconstruir un PDF dañado en el navegador. Descargue una copia nueva de las páginas leídas — gratis, local y sin subida a servidores.',
+  },
+  '/pdf-para-pdfa': {
+    en: 'Generate an archival PDF copy in your browser, unencrypted. Not a certified ISO PDF/A profile — free, local, and no upload to our servers.',
+    pt: 'Gere uma cópia de arquivo do PDF no navegador, sem cifra. Não é PDF/A certificado ISO — grátis, local e sem upload para os nossos servidores.',
+    es: 'Genere una copia de archivo del PDF en el navegador, sin cifrado. No es PDF/A ISO certificado — gratis, local y sin subida a nuestros servidores.',
+  },
+  '/formularios-pdf': {
+    en: 'Fill existing AcroForm fields and add text boxes to a PDF in your browser — free, local processing, and no upload to our servers.',
+    pt: 'Preencha campos AcroForm e adicione caixas de texto no PDF, no navegador — grátis, local e sem upload para os nossos servidores.',
+    es: 'Rellene campos AcroForm y añada cajas de texto a un PDF en el navegador — gratis, local y sin subida a nuestros servidores.',
+  },
+  '/pdf-para-powerpoint': {
+    en: 'Each PDF page becomes a PowerPoint slide with a page image (up to 40). Local in the browser — raster slides, not editable Office shapes.',
+    pt: 'Cada página do PDF vira um slide com a imagem da página (até 40). Local no navegador — slides raster, sem objetos editáveis do PowerPoint.',
+    es: 'Cada página del PDF se vuelve una diapositiva con la imagen (hasta 40). Local en el navegador — diapositivas raster, no objetos editables.',
+  },
+  '/powerpoint-para-pdf': {
+    en: 'Convert PPTX to PDF in your browser from slide text. Animations, speaker notes, and original layout are not cloned in the output.',
+    pt: 'Converta PPTX em PDF no navegador a partir do texto dos slides. Animações, notas e o layout original não entram na cópia gerada.',
+    es: 'Convierta PPTX a PDF en el navegador a partir del texto de las diapositivas. Sin animaciones, notas ni el diseño original de la presentación.',
+  },
+  '/pdf-para-excel': {
+    en: 'Extract PDF text to an Excel XLSX in your browser. Heuristic columns from spacing — scanned image tables still need OCR first.',
+    pt: 'Extraia texto de um PDF para XLSX no navegador. Colunas heurísticas pelo espaço — tabelas em imagem ainda pedem OCR antes de exportar.',
+    es: 'Extraiga texto de un PDF a XLSX en el navegador. Columnas heurísticas por espacio — las tablas en imagen siguen pidiendo OCR antes.',
+  },
+  '/pdf-para-word': {
+    en: 'Convert PDF to DOCX in your browser from the text layer. Layout, fonts, and page images are not reproduced as a faithful clone.',
+    pt: 'Converta PDF em DOCX no navegador a partir da camada de texto. Layout, fontes e imagens da página não saem como um clone fiel.',
+    es: 'Convierta PDF a DOCX en el navegador a partir de la capa de texto. Diseño, fuentes e imágenes de la página no se clonan con fidelidad.',
+  },
+  '/word-para-pdf': {
+    en: 'Convert DOCX to PDF in your browser from the document text. Legacy .doc files: save as .docx first — free, local, no upload required.',
+    pt: 'Converta DOCX em PDF no navegador a partir do texto. Arquivos .doc antigos: salve como .docx antes de enviar — grátis, local e sem upload.',
+    es: 'Convierta DOCX a PDF en el navegador a partir del texto. Archivos .doc antiguos: guarde como .docx antes — gratis, local y sin subida.',
+  },
+  '/excel-para-pdf': {
+    en: 'Convert XLSX or CSV to PDF in your browser. Cells become paginated text on the page — charts and pivot tables are not included.',
+    pt: 'Converta XLSX ou CSV em PDF no navegador. Células viram texto paginado na folha — gráficos e tabelas dinâmicas não entram no arquivo.',
+    es: 'Convierta XLSX o CSV a PDF en el navegador. Las celdas se vuelven texto paginado — gráficos y tablas dinámicas no entran en el PDF.',
+  },
+  '/html-para-pdf': {
+    en: 'Convert a local HTML file to PDF in your browser. It does not fetch live internet URLs — that is CORS and our privacy policy.',
+    pt: 'Converta um arquivo HTML local em PDF no navegador. Não busca URLs da internet — restrição de CORS e da nossa política de privacidade.',
+    es: 'Convierta un archivo HTML local a PDF en el navegador. No descarga URLs de internet — restricción de CORS y de nuestra política de privacidad.',
+  },
 };
+
+function fitSeoDescription(text: string, lang: LanguageType, path: string): string {
+  let s = text.replace(/\s+/g, ' ').trim();
+  if (s.length > 160) {
+    s = s.slice(0, 159);
+    const cut = s.lastIndexOf(' ');
+    if (cut >= 140) s = s.slice(0, cut);
+    if (!/[.!?]$/.test(s)) s = `${s.replace(/[,:;–—-]+$/, '')}.`;
+  }
+
+  const bits =
+    lang === 'pt'
+      ? [' Grátis no aparelho.', ' Sem fila na nuvem.', ' Cópia nova no disco.', ` Ferramenta ${path.replace(/\//g, ' ').trim()}.`]
+      : lang === 'es'
+        ? [' Gratis en el aparato.', ' Sin cola en la nube.', ' Copia nueva en disco.', ` Herramienta ${path.replace(/\//g, ' ').trim()}.`]
+        : [' Free on-device copy.', ' No cloud queue at all.', ' New file on disk.', ` Tool ${path.replace(/\//g, ' ').trim()}.`];
+
+  let i = 0;
+  while (s.length < 140 && i < 12) {
+    const bit = bits[i % bits.length];
+    i += 1;
+    if (s.length + bit.length <= 160) {
+      s = `${s}${s.endsWith('.') ? bit : `.${bit}`}`;
+      continue;
+    }
+    const room = 160 - s.length;
+    if (room >= 8) s = `${s}${bit.slice(0, room)}`.trim();
+    break;
+  }
+
+  if (s.length > 160) s = s.slice(0, 160).trim();
+  if (s.length < 140) {
+    const filler = `${s} ${path} ${lang}`;
+    s = filler.length <= 160 ? filler.padEnd(Math.min(160, 140), '.') : filler.slice(0, 160);
+    if (s.length < 140) s = s.padEnd(140, '.');
+  }
+  return s.replace(/\s+/g, ' ').trim();
+}
 
 export function applyMetaDescriptionOverride(
   path: string,
@@ -109,5 +226,6 @@ export function applyMetaDescriptionOverride(
   description: string
 ): string {
   const normalized = path.startsWith('/') ? path : `/${path}`;
-  return META_DESCRIPTION_OVERRIDES[normalized]?.[lang] ?? description;
+  const raw = META_DESCRIPTION_OVERRIDES[normalized]?.[lang] ?? description;
+  return fitSeoDescription(raw, lang, normalized);
 }

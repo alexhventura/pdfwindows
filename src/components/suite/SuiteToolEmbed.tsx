@@ -38,6 +38,22 @@ const SUITE_LAZY_TOOLS: Record<string, SuiteLazyTool> = {
   'redact-pdf': lazy(() => import('./tools/RedactPdfSuiteTool')),
   'document-converter': lazy(() => import('./tools/DocumentConverterSuiteTool')),
   'margin-adjust': lazy(() => import('./tools/MarginAdjustSuiteTool')),
+  'sign-pdf': lazy(() => import('./tools/SignPdfSuiteTool')),
+  'page-numbers': lazy(() => import('./tools/PdfConvertSuiteTools').then((m) => ({ default: m.PageNumbersSuiteTool }))),
+  'repair-pdf': lazy(() => import('./tools/PdfConvertSuiteTools').then((m) => ({ default: m.RepairPdfSuiteTool }))),
+  'pdf-to-pdfa': lazy(() => import('./tools/PdfConvertSuiteTools').then((m) => ({ default: m.PdfaSuiteTool }))),
+  'pdf-to-word': lazy(() => import('./tools/PdfConvertSuiteTools').then((m) => ({ default: m.PdfToWordSuiteTool }))),
+  'word-to-pdf': lazy(() => import('./tools/PdfConvertSuiteTools').then((m) => ({ default: m.WordToPdfSuiteTool }))),
+  'excel-to-pdf': lazy(() => import('./tools/PdfConvertSuiteTools').then((m) => ({ default: m.ExcelToPdfSuiteTool }))),
+  'html-to-pdf': lazy(() => import('./tools/PdfConvertSuiteTools').then((m) => ({ default: m.HtmlToPdfSuiteTool }))),
+  'pptx-to-pdf': lazy(() => import('./tools/PdfConvertSuiteTools').then((m) => ({ default: m.PptxToPdfSuiteTool }))),
+  'pdf-to-excel': lazy(() => import('./tools/PdfConvertSuiteTools').then((m) => ({ default: m.PdfToExcelSuiteTool }))),
+  'pdf-to-pptx': lazy(() => import('./tools/PdfConvertSuiteTools').then((m) => ({ default: m.PdfToPptxSuiteTool }))),
+  'crop-pdf': lazy(() => import('./tools/PdfInteractiveSuiteTools').then((m) => ({ default: m.CropPdfSuiteTool }))),
+  'compare-pdf': lazy(() => import('./tools/PdfInteractiveSuiteTools').then((m) => ({ default: m.ComparePdfSuiteTool }))),
+  'edit-pdf': lazy(() => import('./tools/PdfInteractiveSuiteTools').then((m) => ({ default: m.EditPdfSuiteTool }))),
+  'scan-to-pdf': lazy(() => import('./tools/PdfInteractiveSuiteTools').then((m) => ({ default: m.ScanToPdfSuiteTool }))),
+  'pdf-forms': lazy(() => import('./tools/PdfInteractiveSuiteTools').then((m) => ({ default: m.PdfFormsSuiteTool }))),
 };
 
 function SuiteToolLoader({

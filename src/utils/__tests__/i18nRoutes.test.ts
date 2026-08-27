@@ -36,5 +36,11 @@ describe('i18n routes', () => {
     expect(getLocalizedPublicPath('pt', '/ajuste-de-margem')).toBe('/pt/ajuste-de-margem');
     expect(getLocalizedPublicPath('en', '/ajuste-de-margem')).toBe('/en/margin-adjust');
     expect(getLocalizedPublicPath('es', '/ajuste-de-margem')).toBe('/es/ajuste-de-margen');
+    expect(getLocalizedPublicPath('pt', '/assinatura-pdf')).toBe('/pt/assinatura-pdf');
+    expect(getLocalizedPublicPath('en', '/assinatura-pdf')).toBe('/en/sign-pdf');
+    expect(getLocalizedPublicPath('es', '/assinatura-pdf')).toBe('/es/firma-pdf');
+    expect(getLocalizedPublicPath('pt', '/numerador-de-paginas')).toBe('/pt/numerador-de-paginas');
+    expect(getLocalizedPublicPath('en', '/pdf-para-word')).toBe('/en/pdf-to-word');
+    expect(getLocalizedPublicPath('es', '/html-para-pdf')).toBe('/es/html-a-pdf');
   });
 });

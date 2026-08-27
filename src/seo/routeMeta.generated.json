@@ -2474,6 +2474,1206 @@
       }
     ]
   },
+  "/en/sign-pdf": {
+    "lang": "en",
+    "title": "Sign PDF — Draw a Signature Field | PDFWINDOWS",
+    "description": "Draw your signature on screen, add name, location, and date, then place the field on a PDF. Free, local in the browser — visual stamp, no upload.",
+    "keywords": "sign pdf online, draw signature, signature field, name location date stamp, handwritten signature pdf, sign document browser, visual signature no certificate",
+    "canonical": "https://www.pdfwindows.com/en/sign-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/sign-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/assinatura-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/firma-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/sign-pdf"
+      }
+    ]
+  },
+  "/pt/assinatura-pdf": {
+    "lang": "pt-BR",
+    "title": "Assinatura PDF — Campo escrito na tela | PDFWINDOWS",
+    "description": "Desenhe a assinatura na tela, junte nome, local e data, e coloque o campo no PDF. Grátis no navegador — carimbo visual, sem upload e sem certificado.",
+    "keywords": "assinar pdf, desenhar assinatura, campo de assinatura, nome local data, assinatura manuscrita pdf, assinar documento navegador, carimbo visual sem certificado",
+    "canonical": "https://www.pdfwindows.com/pt/assinatura-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/sign-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/assinatura-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/firma-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/sign-pdf"
+      }
+    ]
+  },
+  "/es/firma-pdf": {
+    "lang": "es",
+    "title": "Firma PDF — Campo escrito en pantalla | PDFWINDOWS",
+    "description": "Dibuje la firma en pantalla, sume nombre, lugar y fecha, y coloque el campo en el PDF. Gratis en el navegador — sello visual, sin subida ni certificado.",
+    "keywords": "firmar pdf, dibujar firma, campo de firma, nombre lugar fecha, firma manuscrita pdf, firmar documento navegador, sello visual sin certificado",
+    "canonical": "https://www.pdfwindows.com/es/firma-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/sign-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/assinatura-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/firma-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/sign-pdf"
+      }
+    ]
+  },
+  "/en/page-numbers": {
+    "lang": "en",
+    "title": "PDF Page Numbers Online | PDFWINDOWS",
+    "description": "Add page numbers to a PDF in your browser. Header or footer, skip the cover, then download a copy — free, local, no upload to our servers. Free on-device copy.",
+    "keywords": "pdf page numbers, add page numbers pdf, footer pdf pagination, number pdf pages local",
+    "canonical": "https://www.pdfwindows.com/en/page-numbers",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/page-numbers"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/numerador-de-paginas"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/numeros-de-pagina"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/page-numbers"
+      }
+    ]
+  },
+  "/pt/numerador-de-paginas": {
+    "lang": "pt-BR",
+    "title": "Numerador de Páginas PDF | PDFWINDOWS",
+    "description": "Numere páginas de PDF no navegador. Cabeçalho ou rodapé, pule a capa e baixe uma cópia nova — grátis, local e sem upload para os nossos servidores.",
+    "keywords": "numerador pdf, números de página pdf, rodapé pdf, paginar pdf online, numerar pdf local",
+    "canonical": "https://www.pdfwindows.com/pt/numerador-de-paginas",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/page-numbers"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/numerador-de-paginas"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/numeros-de-pagina"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/page-numbers"
+      }
+    ]
+  },
+  "/es/numeros-de-pagina": {
+    "lang": "es",
+    "title": "Números de Página PDF | PDFWINDOWS",
+    "description": "Numere páginas de un PDF en el navegador. Encabezado o pie, salte la portada y descargue una copia — gratis, local y sin subida a nuestros servidores.",
+    "keywords": "numeros de pagina pdf, numerar pdf, pie de pagina pdf, paginar pdf local",
+    "canonical": "https://www.pdfwindows.com/es/numeros-de-pagina",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/page-numbers"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/numerador-de-paginas"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/numeros-de-pagina"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/page-numbers"
+      }
+    ]
+  },
+  "/en/crop-pdf": {
+    "lang": "en",
+    "title": "Crop PDF Online | PDFWINDOWS",
+    "description": "Crop PDF margins in your browser. Draw the keep area, apply it to one page or all pages, then download — free, local, and no upload required.",
+    "keywords": "crop pdf, pdf margins, trim pdf page, crop box pdf, cut pdf borders local",
+    "canonical": "https://www.pdfwindows.com/en/crop-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/crop-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/recortar-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/recortar-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/crop-pdf"
+      }
+    ]
+  },
+  "/pt/recortar-pdf": {
+    "lang": "pt-BR",
+    "title": "Recortar PDF Online | PDFWINDOWS",
+    "description": "Recorte margens de um PDF no navegador. Desenhe a área, aplique numa página ou em todas e baixe — grátis, local e sem upload para os nossos servidores.",
+    "keywords": "recortar pdf, crop pdf, cortar margem pdf, trim pdf, recorte de pagina pdf",
+    "canonical": "https://www.pdfwindows.com/pt/recortar-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/crop-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/recortar-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/recortar-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/crop-pdf"
+      }
+    ]
+  },
+  "/es/recortar-pdf": {
+    "lang": "es",
+    "title": "Recortar PDF en el navegador | PDFWINDOWS",
+    "description": "Recorte márgenes de un PDF en el navegador. Dibuje el área, aplique a una página o a todas y descargue — gratis, local y sin subida a nuestros servidores.",
+    "keywords": "recortar pdf, recortar margenes pdf, crop pdf, recorte de pagina",
+    "canonical": "https://www.pdfwindows.com/es/recortar-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/crop-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/recortar-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/recortar-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/crop-pdf"
+      }
+    ]
+  },
+  "/en/compare-pdf": {
+    "lang": "en",
+    "title": "Compare PDF Online | PDFWINDOWS",
+    "description": "Compare text from two PDFs in your browser. Spot added and removed lines side by side — free, local processing, and no upload to our servers.",
+    "keywords": "compare pdf, pdf diff, document comparison, compare pdf versions local",
+    "canonical": "https://www.pdfwindows.com/en/compare-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/compare-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/comparar-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/comparar-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/compare-pdf"
+      }
+    ]
+  },
+  "/pt/comparar-pdf": {
+    "lang": "pt-BR",
+    "title": "Comparar PDF Online | PDFWINDOWS",
+    "description": "Compare o texto de dois PDFs no navegador. Veja linhas adicionadas e removidas lado a lado — grátis, local e sem upload para os nossos servidores.",
+    "keywords": "comparar pdf, diff pdf, diferenças pdf, comparar documentos pdf local",
+    "canonical": "https://www.pdfwindows.com/pt/comparar-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/compare-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/comparar-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/comparar-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/compare-pdf"
+      }
+    ]
+  },
+  "/es/comparar-pdf": {
+    "lang": "es",
+    "title": "Comparar PDF en el navegador | PDFWINDOWS",
+    "description": "Compare el texto de dos PDF en el navegador. Vea líneas añadidas y quitadas lado a lado — gratis, local y sin subida a nuestros servidores. Gratis en el aparato",
+    "keywords": "comparar pdf, diferencias pdf, diff pdf, comparar versiones pdf",
+    "canonical": "https://www.pdfwindows.com/es/comparar-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/compare-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/comparar-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/comparar-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/compare-pdf"
+      }
+    ]
+  },
+  "/en/edit-pdf": {
+    "lang": "en",
+    "title": "Edit PDF Online | PDFWINDOWS",
+    "description": "Add text, a rectangle, or an image stamp to a PDF in your browser. Visual overlay on the page — free, local, and no upload to our servers. Free on-device copy.",
+    "keywords": "edit pdf, add text to pdf, stamp pdf, annotate pdf local",
+    "canonical": "https://www.pdfwindows.com/en/edit-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/edit-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/editar-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/editar-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/edit-pdf"
+      }
+    ]
+  },
+  "/pt/editar-pdf": {
+    "lang": "pt-BR",
+    "title": "Editar PDF Online | PDFWINDOWS",
+    "description": "Adicione texto, retângulo ou imagem num PDF no navegador. Carimbo visual por cima da página — grátis, local e sem upload para os nossos servidores.",
+    "keywords": "editar pdf, adicionar texto pdf, carimbo pdf, anotar pdf local",
+    "canonical": "https://www.pdfwindows.com/pt/editar-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/edit-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/editar-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/editar-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/edit-pdf"
+      }
+    ]
+  },
+  "/es/editar-pdf": {
+    "lang": "es",
+    "title": "Editar PDF en el navegador | PDFWINDOWS",
+    "description": "Añada texto, rectángulo o imagen a un PDF en el navegador. Sellos visuales sobre la página — gratis, local y sin subida a nuestros servidores.",
+    "keywords": "editar pdf, añadir texto pdf, sello pdf, anotar pdf local",
+    "canonical": "https://www.pdfwindows.com/es/editar-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/edit-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/editar-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/editar-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/edit-pdf"
+      }
+    ]
+  },
+  "/en/scan-to-pdf": {
+    "lang": "en",
+    "title": "Scan to PDF | PDFWINDOWS",
+    "description": "Capture pages with the camera or upload photos and build a PDF in your browser — free, local processing, and no upload to our servers. Free on-device copy.",
+    "keywords": "scan to pdf, camera to pdf, photos to pdf, digitize sheet",
+    "canonical": "https://www.pdfwindows.com/en/scan-to-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/scan-to-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/escanear-para-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/escanear-a-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/scan-to-pdf"
+      }
+    ]
+  },
+  "/pt/escanear-para-pdf": {
+    "lang": "pt-BR",
+    "title": "Escanear para PDF | PDFWINDOWS",
+    "description": "Capture páginas com a câmera ou envie fotos e monte um PDF no navegador — grátis, processamento local e sem upload para os nossos servidores.",
+    "keywords": "escanear para pdf, camera pdf, foto para pdf, digitalizar folha",
+    "canonical": "https://www.pdfwindows.com/pt/escanear-para-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/scan-to-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/escanear-para-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/escanear-a-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/scan-to-pdf"
+      }
+    ]
+  },
+  "/es/escanear-a-pdf": {
+    "lang": "es",
+    "title": "Escanear a PDF | PDFWINDOWS",
+    "description": "Capture páginas con la cámara o suba fotos y arme un PDF en el navegador — gratis, local y sin subida a nuestros servidores. Gratis en el aparato.",
+    "keywords": "escanear a pdf, camara pdf, foto a pdf, digitalizar hoja",
+    "canonical": "https://www.pdfwindows.com/es/escanear-a-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/scan-to-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/escanear-para-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/escanear-a-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/scan-to-pdf"
+      }
+    ]
+  },
+  "/en/repair-pdf": {
+    "lang": "en",
+    "title": "Repair PDF Online | PDFWINDOWS",
+    "description": "Try rebuilding a damaged PDF in your browser. Download a new copy of the readable pages — free, local, and no upload to our servers. Free on-device copy.",
+    "keywords": "repair pdf, corrupt pdf, recover pdf, fix pdf local",
+    "canonical": "https://www.pdfwindows.com/en/repair-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/repair-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/reparar-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/reparar-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/repair-pdf"
+      }
+    ]
+  },
+  "/pt/reparar-pdf": {
+    "lang": "pt-BR",
+    "title": "Reparar PDF Online | PDFWINDOWS",
+    "description": "Tente reconstruir um PDF danificado no navegador. Baixe uma cópia nova das páginas lidas — grátis, local e sem upload para os nossos servidores.",
+    "keywords": "reparar pdf, pdf corrompido, recuperar pdf, consertar pdf local",
+    "canonical": "https://www.pdfwindows.com/pt/reparar-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/repair-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/reparar-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/reparar-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/repair-pdf"
+      }
+    ]
+  },
+  "/es/reparar-pdf": {
+    "lang": "es",
+    "title": "Reparar PDF en el navegador | PDFWINDOWS",
+    "description": "Intente reconstruir un PDF dañado en el navegador. Descargue una copia nueva de las páginas leídas — gratis, local y sin subida a servidores.",
+    "keywords": "reparar pdf, pdf corrupto, recuperar pdf, arreglar pdf local",
+    "canonical": "https://www.pdfwindows.com/es/reparar-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/repair-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/reparar-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/reparar-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/repair-pdf"
+      }
+    ]
+  },
+  "/en/pdf-to-pdfa": {
+    "lang": "en",
+    "title": "PDF to archival copy | PDFWINDOWS",
+    "description": "Generate an archival PDF copy in your browser, unencrypted. Not a certified ISO PDF/A profile — free, local, and no upload to our servers. Free on-device copy.",
+    "keywords": "pdf to pdfa, archival pdf, pdf/a browser, archival copy pdf",
+    "canonical": "https://www.pdfwindows.com/en/pdf-to-pdfa",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/pdf-to-pdfa"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/pdf-para-pdfa"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/pdf-a-pdfa"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/pdf-to-pdfa"
+      }
+    ]
+  },
+  "/pt/pdf-para-pdfa": {
+    "lang": "pt-BR",
+    "title": "PDF para arquivo (PDF/A) | PDFWINDOWS",
+    "description": "Gere uma cópia de arquivo do PDF no navegador, sem cifra. Não é PDF/A certificado ISO — grátis, local e sem upload para os nossos servidores.",
+    "keywords": "pdf para pdfa, pdf arquivo, pdf/a navegador, copia de arquivo pdf",
+    "canonical": "https://www.pdfwindows.com/pt/pdf-para-pdfa",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/pdf-to-pdfa"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/pdf-para-pdfa"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/pdf-a-pdfa"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/pdf-to-pdfa"
+      }
+    ]
+  },
+  "/es/pdf-a-pdfa": {
+    "lang": "es",
+    "title": "PDF a copia de archivo | PDFWINDOWS",
+    "description": "Genere una copia de archivo del PDF en el navegador, sin cifrado. No es PDF/A ISO certificado — gratis, local y sin subida a nuestros servidores.",
+    "keywords": "pdf a pdfa, pdf archivo, pdf/a navegador, copia de archivo",
+    "canonical": "https://www.pdfwindows.com/es/pdf-a-pdfa",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/pdf-to-pdfa"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/pdf-para-pdfa"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/pdf-a-pdfa"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/pdf-to-pdfa"
+      }
+    ]
+  },
+  "/en/pdf-forms": {
+    "lang": "en",
+    "title": "PDF Forms Online | PDFWINDOWS",
+    "description": "Fill existing AcroForm fields and add text boxes to a PDF in your browser — free, local processing, and no upload to our servers. Free on-device copy.",
+    "keywords": "pdf forms, fill pdf, acroform, pdf fields local",
+    "canonical": "https://www.pdfwindows.com/en/pdf-forms",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/pdf-forms"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/formularios-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/formularios-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/pdf-forms"
+      }
+    ]
+  },
+  "/pt/formularios-pdf": {
+    "lang": "pt-BR",
+    "title": "Formulários PDF Online | PDFWINDOWS",
+    "description": "Preencha campos AcroForm e adicione caixas de texto no PDF, no navegador — grátis, local e sem upload para os nossos servidores. Grátis no aparelho.",
+    "keywords": "formularios pdf, preencher pdf, acroform, campos pdf local",
+    "canonical": "https://www.pdfwindows.com/pt/formularios-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/pdf-forms"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/formularios-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/formularios-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/pdf-forms"
+      }
+    ]
+  },
+  "/es/formularios-pdf": {
+    "lang": "es",
+    "title": "Formularios PDF Online | PDFWINDOWS",
+    "description": "Rellene campos AcroForm y añada cajas de texto a un PDF en el navegador — gratis, local y sin subida a nuestros servidores. Gratis en el aparato.",
+    "keywords": "formularios pdf, rellenar pdf, acroform, campos pdf local",
+    "canonical": "https://www.pdfwindows.com/es/formularios-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/pdf-forms"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/formularios-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/formularios-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/pdf-forms"
+      }
+    ]
+  },
+  "/en/pdf-to-powerpoint": {
+    "lang": "en",
+    "title": "PDF to PowerPoint | PDFWINDOWS",
+    "description": "Each PDF page becomes a PowerPoint slide with a page image (up to 40). Local in the browser — raster slides, not editable Office shapes. Free on-device copy.",
+    "keywords": "pdf to powerpoint, pdf to pptx, pdf slides local",
+    "canonical": "https://www.pdfwindows.com/en/pdf-to-powerpoint",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/pdf-to-powerpoint"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/pdf-para-powerpoint"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/pdf-a-powerpoint"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/pdf-to-powerpoint"
+      }
+    ]
+  },
+  "/pt/pdf-para-powerpoint": {
+    "lang": "pt-BR",
+    "title": "PDF para PowerPoint | PDFWINDOWS",
+    "description": "Cada página do PDF vira um slide com a imagem da página (até 40). Local no navegador — slides raster, sem objetos editáveis do PowerPoint. Grátis no aparelho.",
+    "keywords": "pdf para powerpoint, pdf para pptx, slides pdf local",
+    "canonical": "https://www.pdfwindows.com/pt/pdf-para-powerpoint",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/pdf-to-powerpoint"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/pdf-para-powerpoint"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/pdf-a-powerpoint"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/pdf-to-powerpoint"
+      }
+    ]
+  },
+  "/es/pdf-a-powerpoint": {
+    "lang": "es",
+    "title": "PDF a PowerPoint | PDFWINDOWS",
+    "description": "Cada página del PDF se vuelve una diapositiva con la imagen (hasta 40). Local en el navegador — diapositivas raster, no objetos editables. Gratis en el aparato.",
+    "keywords": "pdf a powerpoint, pdf a pptx, diapositivas pdf local",
+    "canonical": "https://www.pdfwindows.com/es/pdf-a-powerpoint",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/pdf-to-powerpoint"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/pdf-para-powerpoint"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/pdf-a-powerpoint"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/pdf-to-powerpoint"
+      }
+    ]
+  },
+  "/en/powerpoint-to-pdf": {
+    "lang": "en",
+    "title": "PowerPoint to PDF | PDFWINDOWS",
+    "description": "Convert PPTX to PDF in your browser from slide text. Animations, speaker notes, and original layout are not cloned in the output. Free on-device copy.",
+    "keywords": "powerpoint to pdf, pptx to pdf, convert pptx local",
+    "canonical": "https://www.pdfwindows.com/en/powerpoint-to-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/powerpoint-to-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/powerpoint-para-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/powerpoint-a-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/powerpoint-to-pdf"
+      }
+    ]
+  },
+  "/pt/powerpoint-para-pdf": {
+    "lang": "pt-BR",
+    "title": "PowerPoint para PDF | PDFWINDOWS",
+    "description": "Converta PPTX em PDF no navegador a partir do texto dos slides. Animações, notas e o layout original não entram na cópia gerada. Grátis no aparelho.",
+    "keywords": "powerpoint para pdf, pptx para pdf, converter pptx local",
+    "canonical": "https://www.pdfwindows.com/pt/powerpoint-para-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/powerpoint-to-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/powerpoint-para-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/powerpoint-a-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/powerpoint-to-pdf"
+      }
+    ]
+  },
+  "/es/powerpoint-a-pdf": {
+    "lang": "es",
+    "title": "PowerPoint a PDF | PDFWINDOWS",
+    "description": "Convierta PPTX a PDF en el navegador a partir del texto de las diapositivas. Sin animaciones, notas ni el diseño original de la presentación.",
+    "keywords": "powerpoint a pdf, pptx a pdf, convertir pptx local",
+    "canonical": "https://www.pdfwindows.com/es/powerpoint-a-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/powerpoint-to-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/powerpoint-para-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/powerpoint-a-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/powerpoint-to-pdf"
+      }
+    ]
+  },
+  "/en/pdf-to-excel": {
+    "lang": "en",
+    "title": "PDF to Excel | PDFWINDOWS",
+    "description": "Extract PDF text to an Excel XLSX in your browser. Heuristic columns from spacing — scanned image tables still need OCR first. Free on-device copy.",
+    "keywords": "pdf to excel, pdf to xlsx, pdf table, extract spreadsheet pdf",
+    "canonical": "https://www.pdfwindows.com/en/pdf-to-excel",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/pdf-to-excel"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/pdf-para-excel"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/pdf-a-excel"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/pdf-to-excel"
+      }
+    ]
+  },
+  "/pt/pdf-para-excel": {
+    "lang": "pt-BR",
+    "title": "PDF para Excel | PDFWINDOWS",
+    "description": "Extraia texto de um PDF para XLSX no navegador. Colunas heurísticas pelo espaço — tabelas em imagem ainda pedem OCR antes de exportar. Grátis no aparelho.",
+    "keywords": "pdf para excel, pdf para xlsx, tabela pdf, extrair planilha pdf",
+    "canonical": "https://www.pdfwindows.com/pt/pdf-para-excel",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/pdf-to-excel"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/pdf-para-excel"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/pdf-a-excel"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/pdf-to-excel"
+      }
+    ]
+  },
+  "/es/pdf-a-excel": {
+    "lang": "es",
+    "title": "PDF a Excel | PDFWINDOWS",
+    "description": "Extraiga texto de un PDF a XLSX en el navegador. Columnas heurísticas por espacio — las tablas en imagen siguen pidiendo OCR antes. Gratis en el aparato.",
+    "keywords": "pdf a excel, pdf a xlsx, tabla pdf, extraer hoja pdf",
+    "canonical": "https://www.pdfwindows.com/es/pdf-a-excel",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/pdf-to-excel"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/pdf-para-excel"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/pdf-a-excel"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/pdf-to-excel"
+      }
+    ]
+  },
+  "/en/pdf-to-word": {
+    "lang": "en",
+    "title": "PDF to Word | PDFWINDOWS",
+    "description": "Convert PDF to DOCX in your browser from the text layer. Layout, fonts, and page images are not reproduced as a faithful clone. Free on-device copy.",
+    "keywords": "pdf to word, pdf to docx, convert pdf word local",
+    "canonical": "https://www.pdfwindows.com/en/pdf-to-word",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/pdf-to-word"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/pdf-para-word"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/pdf-a-word"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/pdf-to-word"
+      }
+    ]
+  },
+  "/pt/pdf-para-word": {
+    "lang": "pt-BR",
+    "title": "PDF para Word | PDFWINDOWS",
+    "description": "Converta PDF em DOCX no navegador a partir da camada de texto. Layout, fontes e imagens da página não saem como um clone fiel. Grátis no aparelho.",
+    "keywords": "pdf para word, pdf para docx, converter pdf word local",
+    "canonical": "https://www.pdfwindows.com/pt/pdf-para-word",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/pdf-to-word"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/pdf-para-word"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/pdf-a-word"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/pdf-to-word"
+      }
+    ]
+  },
+  "/es/pdf-a-word": {
+    "lang": "es",
+    "title": "PDF a Word | PDFWINDOWS",
+    "description": "Convierta PDF a DOCX en el navegador a partir de la capa de texto. Diseño, fuentes e imágenes de la página no se clonan con fidelidad. Gratis en el aparato.",
+    "keywords": "pdf a word, pdf a docx, convertir pdf word local",
+    "canonical": "https://www.pdfwindows.com/es/pdf-a-word",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/pdf-to-word"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/pdf-para-word"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/pdf-a-word"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/pdf-to-word"
+      }
+    ]
+  },
+  "/en/word-to-pdf": {
+    "lang": "en",
+    "title": "Word to PDF | PDFWINDOWS",
+    "description": "Convert DOCX to PDF in your browser from the document text. Legacy .doc files: save as .docx first — free, local, no upload required. Free on-device copy.",
+    "keywords": "word to pdf, docx to pdf, convert word local",
+    "canonical": "https://www.pdfwindows.com/en/word-to-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/word-to-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/word-para-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/word-a-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/word-to-pdf"
+      }
+    ]
+  },
+  "/pt/word-para-pdf": {
+    "lang": "pt-BR",
+    "title": "Word para PDF | PDFWINDOWS",
+    "description": "Converta DOCX em PDF no navegador a partir do texto. Arquivos .doc antigos: salve como .docx antes de enviar — grátis, local e sem upload. Grátis no aparelho.",
+    "keywords": "word para pdf, docx para pdf, converter word local",
+    "canonical": "https://www.pdfwindows.com/pt/word-para-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/word-to-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/word-para-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/word-a-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/word-to-pdf"
+      }
+    ]
+  },
+  "/es/word-a-pdf": {
+    "lang": "es",
+    "title": "Word a PDF | PDFWINDOWS",
+    "description": "Convierta DOCX a PDF en el navegador a partir del texto. Archivos .doc antiguos: guarde como .docx antes — gratis, local y sin subida. Gratis en el aparato.",
+    "keywords": "word a pdf, docx a pdf, convertir word local",
+    "canonical": "https://www.pdfwindows.com/es/word-a-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/word-to-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/word-para-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/word-a-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/word-to-pdf"
+      }
+    ]
+  },
+  "/en/excel-to-pdf": {
+    "lang": "en",
+    "title": "Excel to PDF | PDFWINDOWS",
+    "description": "Convert XLSX or CSV to PDF in your browser. Cells become paginated text on the page — charts and pivot tables are not included. Free on-device copy.",
+    "keywords": "excel to pdf, xlsx to pdf, csv to pdf, spreadsheet pdf local",
+    "canonical": "https://www.pdfwindows.com/en/excel-to-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/excel-to-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/excel-para-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/excel-a-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/excel-to-pdf"
+      }
+    ]
+  },
+  "/pt/excel-para-pdf": {
+    "lang": "pt-BR",
+    "title": "Excel para PDF | PDFWINDOWS",
+    "description": "Converta XLSX ou CSV em PDF no navegador. Células viram texto paginado na folha — gráficos e tabelas dinâmicas não entram no arquivo. Grátis no aparelho.",
+    "keywords": "excel para pdf, xlsx para pdf, csv para pdf, planilha pdf local",
+    "canonical": "https://www.pdfwindows.com/pt/excel-para-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/excel-to-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/excel-para-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/excel-a-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/excel-to-pdf"
+      }
+    ]
+  },
+  "/es/excel-a-pdf": {
+    "lang": "es",
+    "title": "Excel a PDF | PDFWINDOWS",
+    "description": "Convierta XLSX o CSV a PDF en el navegador. Las celdas se vuelven texto paginado — gráficos y tablas dinámicas no entran en el PDF. Gratis en el aparato.",
+    "keywords": "excel a pdf, xlsx a pdf, csv a pdf, hoja pdf local",
+    "canonical": "https://www.pdfwindows.com/es/excel-a-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/excel-to-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/excel-para-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/excel-a-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/excel-to-pdf"
+      }
+    ]
+  },
+  "/en/html-to-pdf": {
+    "lang": "en",
+    "title": "HTML to PDF | PDFWINDOWS",
+    "description": "Convert a local HTML file to PDF in your browser. It does not fetch live internet URLs — that is CORS and our privacy policy. Free on-device copy.",
+    "keywords": "html to pdf, html file to pdf, convert html local",
+    "canonical": "https://www.pdfwindows.com/en/html-to-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/html-to-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/html-para-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/html-a-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/html-to-pdf"
+      }
+    ]
+  },
+  "/pt/html-para-pdf": {
+    "lang": "pt-BR",
+    "title": "HTML para PDF | PDFWINDOWS",
+    "description": "Converta um arquivo HTML local em PDF no navegador. Não busca URLs da internet — restrição de CORS e da nossa política de privacidade. Grátis no aparelho.",
+    "keywords": "html para pdf, arquivo html pdf, converter html local",
+    "canonical": "https://www.pdfwindows.com/pt/html-para-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/html-to-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/html-para-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/html-a-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/html-to-pdf"
+      }
+    ]
+  },
+  "/es/html-a-pdf": {
+    "lang": "es",
+    "title": "HTML a PDF | PDFWINDOWS",
+    "description": "Convierta un archivo HTML local a PDF en el navegador. No descarga URLs de internet — restricción de CORS y de nuestra política de privacidad.",
+    "keywords": "html a pdf, archivo html pdf, convertir html local",
+    "canonical": "https://www.pdfwindows.com/es/html-a-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/html-to-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/html-para-pdf"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/html-a-pdf"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/html-to-pdf"
+      }
+    ]
+  },
   "/en/privacy": {
     "lang": "en",
     "title": "Privacy Policy | PDFWINDOWS",

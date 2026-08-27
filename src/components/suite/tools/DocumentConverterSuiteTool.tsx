@@ -26,9 +26,9 @@ const copy: Record<LanguageType, Record<string, string>> = {
     dropTitle: 'Solte seus arquivos aqui',
     orText: 'ou',
     browse: 'Escolher arquivos',
-    formats: 'PDF • DOCX • XLSX • TXT • CSV • ODT • RTF • HTML',
+    formats: 'PDF • DOCX • PPTX • XLSX • TXT • CSV • ODT • RTF • HTML',
     dropActive: 'Solte o arquivo aqui',
-    invalidFile: 'Envie um documento Word, PDF, TXT, Excel, ODT, RTF ou HTML.',
+    invalidFile: 'Envie um documento Word, PDF, PowerPoint, TXT, Excel, ODT, RTF ou HTML.',
     emptyFile: 'O arquivo está vazio.',
     tooLarge: 'Arquivo acima do limite de 100 MB.',
     identified: 'Arquivo identificado',
@@ -41,6 +41,7 @@ const copy: Record<LanguageType, Record<string, string>> = {
     familyRtf: 'Texto rico (RTF)',
     familyOdt: 'OpenDocument',
     familyLegacy: 'Word antigo (binário)',
+    familyDeck: 'Apresentação PowerPoint',
     familyUnknown: 'Formato não reconhecido',
     choose: 'Escolha o formato de destino',
     convert: 'Converter e baixar',
@@ -81,9 +82,9 @@ const copy: Record<LanguageType, Record<string, string>> = {
     dropTitle: 'Drop your files here',
     orText: 'or',
     browse: 'Choose files',
-    formats: 'PDF • DOCX • XLSX • TXT • CSV • ODT • RTF • HTML',
+    formats: 'PDF • DOCX • PPTX • XLSX • TXT • CSV • ODT • RTF • HTML',
     dropActive: 'Drop the file here',
-    invalidFile: 'Upload a Word, PDF, TXT, Excel, ODT, RTF, or HTML document.',
+    invalidFile: 'Upload a Word, PDF, PowerPoint, TXT, Excel, ODT, RTF, or HTML document.',
     emptyFile: 'The file is empty.',
     tooLarge: 'File exceeds the 100 MB limit.',
     identified: 'File identified',
@@ -96,6 +97,7 @@ const copy: Record<LanguageType, Record<string, string>> = {
     familyRtf: 'Rich text (RTF)',
     familyOdt: 'OpenDocument',
     familyLegacy: 'Legacy Word (binary)',
+    familyDeck: 'PowerPoint presentation',
     familyUnknown: 'Unrecognized format',
     choose: 'Choose the output format',
     convert: 'Convert and download',
@@ -135,9 +137,9 @@ const copy: Record<LanguageType, Record<string, string>> = {
     dropTitle: 'Suelta tus archivos aquí',
     orText: 'o',
     browse: 'Elegir archivos',
-    formats: 'PDF • DOCX • XLSX • TXT • CSV • ODT • RTF • HTML',
+    formats: 'PDF • DOCX • PPTX • XLSX • TXT • CSV • ODT • RTF • HTML',
     dropActive: 'Suelte el archivo aquí',
-    invalidFile: 'Envíe un documento Word, PDF, TXT, Excel, ODT, RTF o HTML.',
+    invalidFile: 'Envíe un documento Word, PDF, PowerPoint, TXT, Excel, ODT, RTF o HTML.',
     emptyFile: 'El archivo está vacío.',
     tooLarge: 'El archivo supera el límite de 100 MB.',
     identified: 'Archivo identificado',
@@ -150,6 +152,7 @@ const copy: Record<LanguageType, Record<string, string>> = {
     familyRtf: 'Texto enriquecido (RTF)',
     familyOdt: 'OpenDocument',
     familyLegacy: 'Word antiguo (binario)',
+    familyDeck: 'Presentación PowerPoint',
     familyUnknown: 'Formato no reconocido',
     choose: 'Elija el formato de destino',
     convert: 'Convertir y descargar',
@@ -205,6 +208,8 @@ function familyLabel(id: IdentifiedDocument, t: Record<string, string>): string 
       return t.familyRtf;
     case 'opendocument':
       return t.familyOdt;
+    case 'presentation':
+      return t.familyDeck;
     default:
       return t.familyUnknown;
   }

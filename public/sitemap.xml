@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.pdfwindows.com/en</loc>
-    <lastmod>2026-08-05</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en"/>
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es"/>
@@ -10,7 +10,7 @@
   </url>
   <url>
     <loc>https://www.pdfwindows.com/pt</loc>
-    <lastmod>2026-08-05</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en"/>
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es"/>
@@ -18,7 +18,7 @@
   </url>
   <url>
     <loc>https://www.pdfwindows.com/es</loc>
-    <lastmod>2026-08-05</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en"/>
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es"/>
@@ -73,6 +73,30 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/margin-adjust"/>
   </url>
   <url>
+    <loc>https://www.pdfwindows.com/en/sign-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/sign-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/assinatura-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/firma-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/sign-pdf"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/pt/assinatura-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/sign-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/assinatura-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/firma-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/sign-pdf"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/es/firma-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/sign-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/assinatura-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/firma-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/sign-pdf"/>
+  </url>
+  <url>
     <loc>https://www.pdfwindows.com/en/color-picker</loc>
     <lastmod>2026-08-27</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/color-picker"/>
@@ -95,6 +119,30 @@
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/capturador-de-cores"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/capturador-de-colores"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/color-picker"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/en/compare-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/compare-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/comparar-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/comparar-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/compare-pdf"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/pt/comparar-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/compare-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/comparar-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/comparar-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/compare-pdf"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/es/comparar-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/compare-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/comparar-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/comparar-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/compare-pdf"/>
   </url>
   <url>
     <loc>https://www.pdfwindows.com/en/csv-to-json</loc>
@@ -145,6 +193,54 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/unlock-pdf"/>
   </url>
   <url>
+    <loc>https://www.pdfwindows.com/en/edit-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/edit-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/editar-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/editar-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/edit-pdf"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/pt/editar-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/edit-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/editar-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/editar-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/edit-pdf"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/es/editar-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/edit-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/editar-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/editar-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/edit-pdf"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/en/scan-to-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/scan-to-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/escanear-para-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/escanear-a-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/scan-to-pdf"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/pt/escanear-para-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/scan-to-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/escanear-para-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/escanear-a-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/scan-to-pdf"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/es/escanear-a-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/scan-to-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/escanear-para-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/escanear-a-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/scan-to-pdf"/>
+  </url>
+  <url>
     <loc>https://www.pdfwindows.com/en/document-studio</loc>
     <lastmod>2026-08-27</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/document-studio"/>
@@ -167,6 +263,54 @@
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/estudio-documentos"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/estudio-documentos"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/document-studio"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/en/excel-to-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/excel-to-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/excel-para-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/excel-a-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/excel-to-pdf"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/pt/excel-para-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/excel-to-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/excel-para-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/excel-a-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/excel-to-pdf"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/es/excel-a-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/excel-to-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/excel-para-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/excel-a-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/excel-to-pdf"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/en/pdf-forms</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/pdf-forms"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/formularios-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/formularios-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/pdf-forms"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/pt/formularios-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/pdf-forms"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/formularios-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/formularios-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/pdf-forms"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/es/formularios-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/pdf-forms"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/formularios-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/formularios-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/pdf-forms"/>
   </url>
   <url>
     <loc>https://www.pdfwindows.com/en/cpf-generator</loc>
@@ -239,6 +383,30 @@
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/gerador-de-relatorios"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/generador-de-informes"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/report-generator"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/en/html-to-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/html-to-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/html-para-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/html-a-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/html-to-pdf"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/pt/html-para-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/html-to-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/html-para-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/html-a-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/html-to-pdf"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/es/html-a-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/html-to-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/html-para-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/html-a-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/html-to-pdf"/>
   </url>
   <url>
     <loc>https://www.pdfwindows.com/en/font-identifier</loc>
@@ -433,6 +601,30 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/code-cleaner"/>
   </url>
   <url>
+    <loc>https://www.pdfwindows.com/en/page-numbers</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/page-numbers"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/numerador-de-paginas"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/numeros-de-pagina"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/page-numbers"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/pt/numerador-de-paginas</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/page-numbers"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/numerador-de-paginas"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/numeros-de-pagina"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/page-numbers"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/es/numeros-de-pagina</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/page-numbers"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/numerador-de-paginas"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/numeros-de-pagina"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/page-numbers"/>
+  </url>
+  <url>
     <loc>https://www.pdfwindows.com/en/organize-pdf-pages</loc>
     <lastmod>2026-08-27</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/organize-pdf-pages"/>
@@ -551,6 +743,102 @@
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/ocr-pdf"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/ocr-pdf"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/pdf-ocr"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/en/pdf-to-excel</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/pdf-to-excel"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/pdf-para-excel"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/pdf-a-excel"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/pdf-to-excel"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/pt/pdf-para-excel</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/pdf-to-excel"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/pdf-para-excel"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/pdf-a-excel"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/pdf-to-excel"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/es/pdf-a-excel</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/pdf-to-excel"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/pdf-para-excel"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/pdf-a-excel"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/pdf-to-excel"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/en/pdf-to-pdfa</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/pdf-to-pdfa"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/pdf-para-pdfa"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/pdf-a-pdfa"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/pdf-to-pdfa"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/pt/pdf-para-pdfa</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/pdf-to-pdfa"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/pdf-para-pdfa"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/pdf-a-pdfa"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/pdf-to-pdfa"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/es/pdf-a-pdfa</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/pdf-to-pdfa"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/pdf-para-pdfa"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/pdf-a-pdfa"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/pdf-to-pdfa"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/en/pdf-to-powerpoint</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/pdf-to-powerpoint"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/pdf-para-powerpoint"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/pdf-a-powerpoint"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/pdf-to-powerpoint"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/pt/pdf-para-powerpoint</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/pdf-to-powerpoint"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/pdf-para-powerpoint"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/pdf-a-powerpoint"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/pdf-to-powerpoint"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/es/pdf-a-powerpoint</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/pdf-to-powerpoint"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/pdf-para-powerpoint"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/pdf-a-powerpoint"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/pdf-to-powerpoint"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/en/pdf-to-word</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/pdf-to-word"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/pdf-para-word"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/pdf-a-word"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/pdf-to-word"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/pt/pdf-para-word</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/pdf-to-word"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/pdf-para-word"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/pdf-a-word"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/pdf-to-word"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/es/pdf-a-word</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/pdf-to-word"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/pdf-para-word"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/pdf-a-word"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/pdf-to-word"/>
   </url>
   <url>
     <loc>https://www.pdfwindows.com/en/protect-pdf</loc>
@@ -673,6 +961,30 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/watermark-pdf"/>
   </url>
   <url>
+    <loc>https://www.pdfwindows.com/en/powerpoint-to-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/powerpoint-to-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/powerpoint-para-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/powerpoint-a-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/powerpoint-to-pdf"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/pt/powerpoint-para-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/powerpoint-to-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/powerpoint-para-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/powerpoint-a-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/powerpoint-to-pdf"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/es/powerpoint-a-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/powerpoint-to-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/powerpoint-para-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/powerpoint-a-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/powerpoint-to-pdf"/>
+  </url>
+  <url>
     <loc>https://www.pdfwindows.com/en/privacy</loc>
     <lastmod>2026-08-27</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/privacy"/>
@@ -719,6 +1031,30 @@
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/raio-x-de-arquivo"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/rayos-x-de-archivo"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/file-xray"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/en/crop-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/crop-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/recortar-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/recortar-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/crop-pdf"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/pt/recortar-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/crop-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/recortar-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/recortar-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/crop-pdf"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/es/recortar-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/crop-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/recortar-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/recortar-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/crop-pdf"/>
   </url>
   <url>
     <loc>https://www.pdfwindows.com/en/redact-pdf</loc>
@@ -769,6 +1105,30 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/remove-restrictions"/>
   </url>
   <url>
+    <loc>https://www.pdfwindows.com/en/repair-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/repair-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/reparar-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/reparar-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/repair-pdf"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/pt/reparar-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/repair-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/reparar-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/reparar-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/repair-pdf"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/es/reparar-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/repair-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/reparar-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/reparar-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/repair-pdf"/>
+  </url>
+  <url>
     <loc>https://www.pdfwindows.com/en/terms</loc>
     <lastmod>2026-08-27</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/terms"/>
@@ -815,6 +1175,30 @@
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/txt-para-pdf"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/txt-a-pdf"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/txt-to-pdf"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/en/word-to-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/word-to-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/word-para-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/word-a-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/word-to-pdf"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/pt/word-para-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/word-to-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/word-para-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/word-a-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/word-to-pdf"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/es/word-a-pdf</loc>
+    <lastmod>2026-08-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/word-to-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/word-para-pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/word-a-pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/word-to-pdf"/>
   </url>
   <url>
     <loc>https://www.pdfwindows.com/en/xml-to-json</loc>

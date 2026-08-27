@@ -4,6 +4,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../utils/translations';
 import { useLocalizedPath } from '../hooks/useLocalizedPath';
 import { getToolPageByPath } from '../seo/toolCatalog';
+import { getToolFamily, toolCardFamilyClass } from '../seo/toolFamily';
 
 interface RelatedToolsProps {
   paths: string[];
@@ -34,7 +35,7 @@ export function RelatedTools({ paths, title }: RelatedToolsProps) {
             <li key={tool.path}>
               <Link
                 to={lp(tool.path)}
-                className="tool-card group flex items-start justify-between gap-2 p-3 md:p-4"
+                className={`tool-card group flex items-start justify-between gap-2 p-3 md:p-4 ${toolCardFamilyClass(getToolFamily(tool))}`}
               >
                 <div className="min-w-0">
                   <p className="text-sm font-semibold text-slate-800 tool-card-title">{copy.h1}</p>

@@ -54,6 +54,13 @@ describe('documentConverter', () => {
     const xlsx = identifyDocument(new File(['x'], 'sheet.xlsx'));
     expect(xlsx.family).toBe('spreadsheet');
     expect(listConversionTargets(xlsx).map((t) => t.id)).toContain('csv');
+
+    const pptx = identifyDocument(new File(['x'], 'deck.pptx'));
+    expect(pptx.family).toBe('presentation');
+    expect(listConversionTargets(pptx).map((t) => t.id)).toEqual(
+      expect.arrayContaining(['pdf', 'txt', 'html', 'jpeg', 'png'])
+    );
+    expect(listConversionTargets(pptx).map((t) => t.id)).not.toContain('pptx');
   });
 
   it('rejects legacy binary Word as non-convertible', () => {

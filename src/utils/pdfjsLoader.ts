@@ -1,6 +1,7 @@
 /**
  * Bundled PDF.js — no CDN. Worker loaded from same origin via Vite asset URL.
  */
+import './collectionPolyfills';
 import * as pdfjsLib from 'pdfjs-dist';
 import pdfWorkerSrc from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 

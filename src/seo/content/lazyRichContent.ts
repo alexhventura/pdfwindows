@@ -45,6 +45,29 @@ const RICH_LOADERS: Record<string, RichLoader> = {
   '/redacao-pdf': async (lang) => (await import('./tools/redacao-pdf')).REDACAO_PDF_CONTENT[lang],
   '/ajuste-de-margem': async (lang) =>
     (await import('./tools/ajuste-de-margem')).AJUSTE_DE_MARGEM_CONTENT[lang],
+  '/assinatura-pdf': async (lang) =>
+    (await import('./tools/assinatura-pdf')).ASSINATURA_PDF_CONTENT[lang],
+  '/numerador-de-paginas': async (lang) =>
+    (await import('./tools/pdf-parity')).PAGE_NUMBERS_CONTENT[lang],
+  '/recortar-pdf': async (lang) => (await import('./tools/pdf-parity')).CROP_PDF_CONTENT[lang],
+  '/comparar-pdf': async (lang) => (await import('./tools/pdf-parity')).COMPARE_PDF_CONTENT[lang],
+  '/editar-pdf': async (lang) => (await import('./tools/pdf-parity-rest')).EDIT_PDF_CONTENT[lang],
+  '/escanear-para-pdf': async (lang) =>
+    (await import('./tools/pdf-parity-rest')).SCAN_TO_PDF_CONTENT[lang],
+  '/reparar-pdf': async (lang) => (await import('./tools/pdf-parity-rest')).REPAIR_PDF_CONTENT[lang],
+  '/pdf-para-pdfa': async (lang) => (await import('./tools/pdf-parity-rest')).PDFA_CONTENT[lang],
+  '/formularios-pdf': async (lang) => (await import('./tools/pdf-parity-rest')).PDF_FORMS_CONTENT[lang],
+  '/pdf-para-powerpoint': async (lang) =>
+    (await import('./tools/pdf-parity-rest')).PDF_TO_PPTX_CONTENT[lang],
+  '/powerpoint-para-pdf': async (lang) =>
+    (await import('./tools/pdf-parity-rest')).PPTX_TO_PDF_CONTENT[lang],
+  '/pdf-para-excel': async (lang) =>
+    (await import('./tools/pdf-parity-rest')).PDF_TO_EXCEL_CONTENT[lang],
+  '/pdf-para-word': async (lang) => (await import('./tools/pdf-parity-rest')).PDF_TO_WORD_CONTENT[lang],
+  '/word-para-pdf': async (lang) => (await import('./tools/pdf-parity-rest')).WORD_TO_PDF_CONTENT[lang],
+  '/excel-para-pdf': async (lang) =>
+    (await import('./tools/pdf-parity-rest')).EXCEL_TO_PDF_CONTENT[lang],
+  '/html-para-pdf': async (lang) => (await import('./tools/pdf-parity-rest')).HTML_TO_PDF_CONTENT[lang],
 };
 
 function legacyToRich(path: string, lang: LanguageType): ToolRichContent {

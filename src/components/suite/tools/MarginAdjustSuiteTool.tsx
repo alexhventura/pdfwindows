@@ -191,6 +191,7 @@ function CornerCrosshair({
   label: string;
   active: boolean;
   onPointerDown: (e: ReactPointerEvent<HTMLButtonElement>) => void;
+  key?: string | number;
 }) {
   return (
     <button

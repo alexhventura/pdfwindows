@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Download, RefreshCw, Trash2, GripVertical, AlertCircle, CheckSquare, Square } from 'lucide-react';
 import type { LanguageType } from '../../../types';
 import { organizePdfPages, getPdfPageCount, ORGANIZE_MAX_PAGES } from '../../../engines/organizePdf';
+import { appendPdf } from '../../../engines/pdfToolkit';
 import { renderPdfPageThumbnailUrl } from '../../../utils/pdfThumbnail';
 import {
   DocumentToolDropzone,
@@ -37,7 +38,8 @@ const copy: Record<LanguageType, Record<string, string>> = {
     tooMany: `Limite de ${ORGANIZE_MAX_PAGES} páginas por documento neste navegador.`,
     corrupt: 'Não foi possível ler este PDF.',
     privacy: 'Processamento local. O original não é alterado.',
-    hint: 'Selecione páginas para excluir. Use as setas para reordenar.',
+    hint: 'Selecione páginas para excluir. Use as setas para reordenar. Inserir outro PDF adiciona páginas no fim.',
+    insert: 'Inserir outro PDF no fim',
     page: 'Pág.',
   },
   en: {
@@ -66,7 +68,8 @@ const copy: Record<LanguageType, Record<string, string>> = {
     tooMany: `Limit of ${ORGANIZE_MAX_PAGES} pages per document in this browser.`,
     corrupt: 'Could not read this PDF.',
     privacy: 'Local processing. The original is not modified.',
-    hint: 'Select pages to delete. Use arrows to reorder.',
+    hint: 'Select pages to delete. Use arrows to reorder. Insert another PDF to append pages at the end.',
+    insert: 'Insert another PDF at the end',
     page: 'Pg.',
   },
   es: {
@@ -95,7 +98,8 @@ const copy: Record<LanguageType, Record<string, string>> = {
     tooMany: `Límite de ${ORGANIZE_MAX_PAGES} páginas por documento en este navegador.`,
     corrupt: 'No se pudo leer este PDF.',
     privacy: 'Procesamiento local. El original no se modifica.',
-    hint: 'Seleccione páginas para eliminar. Use las flechas para reordenar.',
+    hint: 'Seleccione páginas para eliminar. Use las flechas para reordenar. Insertar otro PDF añade páginas al final.',
+    insert: 'Insertar otro PDF al final',
     page: 'Pág.',
   },
 };
@@ -125,6 +129,7 @@ export default function OrganizePdfSuiteTool({
   const [outputUrl, setOutputUrl] = useState<string | null>(null);
   const [outputName, setOutputName] = useState<string | null>(null);
   const thumbCache = useRef<Map<number, string>>(new Map());
+  const insertInputRef = useRef<HTMLInputElement>(null);
 
   const revokeThumbs = () => {
     for (const url of thumbCache.current.values()) URL.revokeObjectURL(url);
@@ -220,6 +225,24 @@ export default function OrganizePdfSuiteTool({
       }
       return arr;
     });
+  };
+
+  const insertPdf = async (extra: File) => {
+    if (!file || pages.length < 1) return;
+    setBusy('load');
+    setError(null);
+    try {
+      const baked = await organizePdfPages(
+        file,
+        pages.map((p) => p.sourceIndex)
+      );
+      const bakedFile = new File([baked.blob], file.name, { type: 'application/pdf' });
+      const combined = await appendPdf(bakedFile, extra);
+      await loadFile(combined);
+    } catch {
+      setError(t.corrupt);
+      setBusy(null);
+    }
   };
 
   const exportPdf = async () => {
@@ -334,6 +357,20 @@ export default function OrganizePdfSuiteTool({
               >
                 <Trash2 size={12} /> {t.deleteSel}
               </button>
+              <button type="button" className="btn-secondary text-[11px] py-2 px-3" onClick={() => insertInputRef.current?.click()}>
+                {t.insert}
+              </button>
+              <input
+                ref={insertInputRef}
+                type="file"
+                accept=".pdf,application/pdf"
+                className="hidden"
+                onChange={(e) => {
+                  const extra = e.target.files?.[0];
+                  e.target.value = '';
+                  if (extra) void insertPdf(extra);
+                }}
+              />
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">

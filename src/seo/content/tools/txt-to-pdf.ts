@@ -10,7 +10,7 @@ export const TXT_TO_PDF_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = {
       'document converter, word to pdf offline, excel to csv browser, txt to pdf local, convert docx html rtf odt',
     h1: 'Document Converter',
     intro:
-      'Teams still bounce the same file through Word, PDF, spreadsheets, and plain text because each system demands a different container. Cloud converters solve that by copying the whole document to someone else’s server — a bad trade for contracts, payroll sheets, and meeting notes. PDFWINDOWS Document Converter stays in the browser: upload a file, read the extension, list the output formats that can actually be produced locally, then download the result. Word OOXML packages, PDFs with a text layer, UTF-8 text, OpenDocument, RTF, HTML, and Excel workbooks are identified up front so you choose a destination instead of guessing which single-purpose tool to open.',
+      'Teams still bounce the same file through Word, PDF, spreadsheets, and plain text because each system demands a different container. Cloud converters solve that by copying the whole document to someone else’s server — a bad trade for contracts, payroll sheets, and meeting notes. PDFWINDOWS Document Converter stays in the browser: upload a file, read the extension, list the output formats that can actually be produced locally, then download the result. Word OOXML packages, PDFs with a text layer, UTF-8 text, OpenDocument, RTF, HTML, and Excel workbooks, and PowerPoint PPTX decks are identified up front so you choose a destination instead of guessing which single-purpose tool to open.',
     toolName: 'Document Converter',
     benefits: [
       'Identifies the uploaded extension before listing conversion targets',
@@ -47,7 +47,7 @@ export const TXT_TO_PDF_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = {
       },
     ],
     howItWorks: [
-      'Upload a Word, PDF, TXT, Excel, ODT, RTF, or HTML file.',
+      'Upload a Word, PDF, TXT, Excel, PowerPoint, ODT, RTF, or HTML file.',
       'The tool identifies the extension and document family.',
       'Choose an available output format from the grouped list.',
       'Conversion runs locally in the browser.',
@@ -79,13 +79,14 @@ export const TXT_TO_PDF_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = {
         heading: 'What Word, PDF, text, and Excel can become',
         level: 2,
         paragraphs: [
-          'Word OOXML (.docx, .dotx, .docm, .dotm) yields PDF, TXT, RTF, ODT, HTML, XML, and page images. PDF with a text layer yields the same family of editable outputs plus JPEG/PNG page renders. Plain text still becomes PDF, Word, HTML, RTF, and ODT. Spreadsheets become CSV, JSON, HTML tables, TXT, and PDF text tables.',
+          'Word OOXML (.docx, .dotx, .docm, .dotm) yields PDF, TXT, RTF, ODT, HTML, XML, and page images. PDF with a text layer yields the same family of editable outputs plus JPEG/PNG page renders. Plain text still becomes PDF, Word, HTML, RTF, and ODT. Spreadsheets become CSV, JSON, HTML tables, TXT, and PDF text tables. PowerPoint PPTX yields PDF, TXT, HTML, and page images from slide text — not a visual clone of the deck.',
           'Image exports go through a local page render. If the source is not already PDF, the tool paginates extracted text first, then rasterizes. That is useful for previews and tickets, not for pixel-perfect brand layouts.',
         ],
         bullets: [
           'Word — content from word/document.xml, not a full layout engine',
           'PDF — text layer only unless you run OCR separately',
           'Excel — cell values from the workbook, formulas are not recalculated',
+          'PowerPoint — slide text only, not a visual clone of the deck',
         ],
       },
       {
@@ -133,7 +134,7 @@ export const TXT_TO_PDF_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = {
         a: 'Those formats need desktop applications this site does not run. Only destinations that can be produced locally are listed.',
       },
     ],
-    relatedTools: ['/pdf-extract-text', '/pdf-merge', '/pdf-password'],
+    relatedTools: ['/pdf-extract-text', '/pdf-merge', '/pdf-password', '/pdf-para-word', '/word-para-pdf'],
     cta: defaultCta('en', 'Document Converter'),
   },
   pt: {
@@ -144,7 +145,7 @@ export const TXT_TO_PDF_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = {
       'conversor de documento, word para pdf offline, excel para csv navegador, txt para pdf local, converter docx html rtf odt',
     h1: 'Conversor de Documento',
     intro:
-      'Equipes ainda fazem o mesmo arquivo circular entre Word, PDF, planilha e texto puro porque cada sistema exige um recipiente diferente. Conversores na nuvem resolvem isso copiando o documento inteiro para o servidor de outra pessoa — um mau negócio para contratos, folhas de pagamento e atas. O Conversor de Documento do PDFWINDOWS permanece no navegador: envie o arquivo, leia a extensão, liste os formatos de saída que de fato podem ser gerados localmente e baixe o resultado. Pacotes Word OOXML, PDFs com camada de texto, texto UTF-8, OpenDocument, RTF, HTML e pastas Excel são identificados na hora para você escolher o destino em vez de adivinhar qual ferramenta de propósito único abrir.',
+      'Equipes ainda fazem o mesmo arquivo circular entre Word, PDF, planilha e texto puro porque cada sistema exige um recipiente diferente. Conversores na nuvem resolvem isso copiando o documento inteiro para o servidor de outra pessoa — um mau negócio para contratos, folhas de pagamento e atas. O Conversor de Documento do PDFWINDOWS permanece no navegador: envie o arquivo, leia a extensão, liste os formatos de saída que de fato podem ser gerados localmente e baixe o resultado. Pacotes Word OOXML, PDFs com camada de texto, texto UTF-8, OpenDocument, RTF, HTML e pastas Excel e decks PowerPoint PPTX são identificados na hora para você escolher o destino em vez de adivinhar qual ferramenta de propósito único abrir.',
     toolName: 'Conversor de Documento',
     benefits: [
       'Identifica a extensão enviada antes de listar destinos',
@@ -181,7 +182,7 @@ export const TXT_TO_PDF_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = {
       },
     ],
     howItWorks: [
-      'Envie um arquivo Word, PDF, TXT, Excel, ODT, RTF ou HTML.',
+      'Envie um arquivo Word, PDF, TXT, Excel, PowerPoint, ODT, RTF ou HTML.',
       'A ferramenta identifica a extensão e a família do documento.',
       'Escolha um formato de saída disponível na lista agrupada.',
       'A conversão roda localmente no navegador.',
@@ -213,13 +214,14 @@ export const TXT_TO_PDF_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = {
         heading: 'O que Word, PDF, texto e Excel podem virar',
         level: 2,
         paragraphs: [
-          'Word OOXML (.docx, .dotx, .docm, .dotm) gera PDF, TXT, RTF, ODT, HTML, XML e imagens de página. PDF com camada de texto gera a mesma família editável mais JPEG/PNG. Texto puro ainda vira PDF, Word, HTML, RTF e ODT. Planilhas viram CSV, JSON, tabelas HTML, TXT e PDF de texto.',
+          'Word OOXML (.docx, .dotx, .docm, .dotm) gera PDF, TXT, RTF, ODT, HTML, XML e imagens de página. PDF com camada de texto gera a mesma família editável mais JPEG/PNG. Texto puro ainda vira PDF, Word, HTML, RTF e ODT. Planilhas viram CSV, JSON, tabelas HTML, TXT e PDF de texto. PowerPoint PPTX gera PDF, TXT, HTML e imagens a partir do texto dos slides — não é um clone visual do deck.',
           'Exportações de imagem passam por renderização local de página. Se a origem ainda não é PDF, a ferramenta pagina o texto extraído e depois rasteriza. Serve para prévia e tickets, não para layout de marca pixel a pixel.',
         ],
         bullets: [
           'Word — conteúdo de word/document.xml, não um motor de layout completo',
           'PDF — só camada de texto, salvo se você rodar OCR à parte',
           'Excel — valores das células; fórmulas não são recalculadas',
+          'PowerPoint — só o texto dos slides, não um clone visual do deck',
         ],
       },
       {
@@ -267,7 +269,7 @@ export const TXT_TO_PDF_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = {
         a: 'Esses formatos exigem aplicativos desktop que este site não executa. Só entram destinos que dá para produzir localmente.',
       },
     ],
-    relatedTools: ['/pdf-extract-text', '/pdf-merge', '/pdf-password'],
+    relatedTools: ['/pdf-extract-text', '/pdf-merge', '/pdf-password', '/pdf-para-word', '/word-para-pdf'],
     cta: defaultCta('pt', 'Conversor de Documento'),
   },
   es: {
@@ -278,7 +280,7 @@ export const TXT_TO_PDF_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = {
       'conversor de documento, word a pdf offline, excel a csv navegador, txt a pdf local, convertir docx html rtf odt',
     h1: 'Conversor de Documento',
     intro:
-      'Los equipos siguen haciendo circular el mismo archivo entre Word, PDF, hoja de cálculo y texto plano porque cada sistema exige un contenedor distinto. Los conversores en la nube lo resuelven copiando el documento entero al servidor de otra persona — un mal negocio para contratos, nóminas y actas. El Conversor de Documento de PDFWINDOWS permanece en el navegador: suba el archivo, lea la extensión, liste los formatos de salida que realmente se pueden generar en local y descargue el resultado. Paquetes Word OOXML, PDF con capa de texto, texto UTF-8, OpenDocument, RTF, HTML y libros Excel se identifican al instante para que elija el destino en lugar de adivinar qué herramienta de un solo propósito abrir.',
+      'Los equipos siguen haciendo circular el mismo archivo entre Word, PDF, hoja de cálculo y texto plano porque cada sistema exige un contenedor distinto. Los conversores en la nube lo resuelven copiando el documento entero al servidor de otra persona — un mal negocio para contratos, nóminas y actas. El Conversor de Documento de PDFWINDOWS permanece en el navegador: suba el archivo, lea la extensión, liste los formatos de salida que realmente se pueden generar en local y descargue el resultado. Paquetes Word OOXML, PDF con capa de texto, texto UTF-8, OpenDocument, RTF, HTML y libros Excel y presentaciones PowerPoint PPTX se identifican al instante para que elija el destino en lugar de adivinar qué herramienta de un solo propósito abrir.',
     toolName: 'Conversor de Documento',
     benefits: [
       'Identifica la extensión subida antes de listar destinos',
@@ -315,7 +317,7 @@ export const TXT_TO_PDF_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = {
       },
     ],
     howItWorks: [
-      'Suba un archivo Word, PDF, TXT, Excel, ODT, RTF o HTML.',
+      'Suba un archivo Word, PDF, TXT, Excel, PowerPoint, ODT, RTF o HTML.',
       'La herramienta identifica la extensión y la familia del documento.',
       'Elija un formato de salida disponible en la lista agrupada.',
       'La conversión se ejecuta localmente en el navegador.',
@@ -347,13 +349,14 @@ export const TXT_TO_PDF_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = {
         heading: 'En qué pueden convertirse Word, PDF, texto y Excel',
         level: 2,
         paragraphs: [
-          'Word OOXML (.docx, .dotx, .docm, .dotm) genera PDF, TXT, RTF, ODT, HTML, XML e imágenes de página. Un PDF con capa de texto genera la misma familia editable más JPEG/PNG. El texto plano sigue convirtiéndose en PDF, Word, HTML, RTF y ODT. Las hojas se vuelven CSV, JSON, tablas HTML, TXT y PDF de texto.',
+          'Word OOXML (.docx, .dotx, .docm, .dotm) genera PDF, TXT, RTF, ODT, HTML, XML e imágenes de página. Un PDF con capa de texto genera la misma familia editable más JPEG/PNG. El texto plano sigue convirtiéndose en PDF, Word, HTML, RTF y ODT. Las hojas se vuelven CSV, JSON, tablas HTML, TXT y PDF de texto. PowerPoint PPTX genera PDF, TXT, HTML e imágenes a partir del texto de las diapositivas — no es un clon visual del deck.',
           'Las exportaciones de imagen pasan por un render local de página. Si el origen aún no es PDF, la herramienta pagina el texto extraído y luego rasteriza. Sirve para vista previa y tickets, no para un diseño de marca píxel a píxel.',
         ],
         bullets: [
           'Word — contenido de word/document.xml, no un motor de maquetación completo',
           'PDF — solo capa de texto, salvo que ejecute OCR aparte',
           'Excel — valores de celdas; las fórmulas no se recalculan',
+          'PowerPoint — solo el texto de las diapositivas, no un clon visual del deck',
         ],
       },
       {
@@ -401,7 +404,7 @@ export const TXT_TO_PDF_CONTENT: Record<'en' | 'pt' | 'es', ToolRichContent> = {
         a: 'Esos formatos requieren aplicaciones de escritorio que este sitio no ejecuta. Solo se listan destinos que se pueden producir en local.',
       },
     ],
-    relatedTools: ['/pdf-extract-text', '/pdf-merge', '/pdf-password'],
+    relatedTools: ['/pdf-extract-text', '/pdf-merge', '/pdf-password', '/pdf-para-word', '/word-para-pdf'],
     cta: defaultCta('es', 'Conversor de Documento'),
   },
 };

@@ -32,6 +32,26 @@ import { RAIO_X_ARQUIVO_CONTENT } from './tools/raio-x-de-arquivo';
 import { ORGANIZAR_PAGINAS_PDF_CONTENT } from './tools/organizar-paginas-pdf';
 import { REDACAO_PDF_CONTENT } from './tools/redacao-pdf';
 import { AJUSTE_DE_MARGEM_CONTENT } from './tools/ajuste-de-margem';
+import { ASSINATURA_PDF_CONTENT } from './tools/assinatura-pdf';
+import {
+  PAGE_NUMBERS_CONTENT,
+  CROP_PDF_CONTENT,
+  COMPARE_PDF_CONTENT,
+} from './tools/pdf-parity';
+import {
+  EDIT_PDF_CONTENT,
+  SCAN_TO_PDF_CONTENT,
+  REPAIR_PDF_CONTENT,
+  PDFA_CONTENT,
+  PDF_FORMS_CONTENT,
+  PDF_TO_PPTX_CONTENT,
+  PPTX_TO_PDF_CONTENT,
+  PDF_TO_EXCEL_CONTENT,
+  PDF_TO_WORD_CONTENT,
+  WORD_TO_PDF_CONTENT,
+  EXCEL_TO_PDF_CONTENT,
+  HTML_TO_PDF_CONTENT,
+} from './tools/pdf-parity-rest';
 
 export const RICH_CONTENT_REGISTRY: ToolContentRegistry = {
   '/': HOME_CONTENT,
@@ -67,6 +87,22 @@ export const RICH_CONTENT_REGISTRY: ToolContentRegistry = {
   '/organizar-paginas-pdf': ORGANIZAR_PAGINAS_PDF_CONTENT,
   '/redacao-pdf': REDACAO_PDF_CONTENT,
   '/ajuste-de-margem': AJUSTE_DE_MARGEM_CONTENT,
+  '/assinatura-pdf': ASSINATURA_PDF_CONTENT,
+  '/numerador-de-paginas': PAGE_NUMBERS_CONTENT,
+  '/recortar-pdf': CROP_PDF_CONTENT,
+  '/comparar-pdf': COMPARE_PDF_CONTENT,
+  '/editar-pdf': EDIT_PDF_CONTENT,
+  '/escanear-para-pdf': SCAN_TO_PDF_CONTENT,
+  '/reparar-pdf': REPAIR_PDF_CONTENT,
+  '/pdf-para-pdfa': PDFA_CONTENT,
+  '/formularios-pdf': PDF_FORMS_CONTENT,
+  '/pdf-para-powerpoint': PDF_TO_PPTX_CONTENT,
+  '/powerpoint-para-pdf': PPTX_TO_PDF_CONTENT,
+  '/pdf-para-excel': PDF_TO_EXCEL_CONTENT,
+  '/pdf-para-word': PDF_TO_WORD_CONTENT,
+  '/word-para-pdf': WORD_TO_PDF_CONTENT,
+  '/excel-para-pdf': EXCEL_TO_PDF_CONTENT,
+  '/html-para-pdf': HTML_TO_PDF_CONTENT,
 };
 
 export function getRichContent(path: string, lang: import('../../types').LanguageType) {

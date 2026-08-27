@@ -17,7 +17,23 @@ export type SuiteToolId =
   | 'organize-pdf'
   | 'redact-pdf'
   | 'document-converter'
-  | 'margin-adjust';
+  | 'margin-adjust'
+  | 'sign-pdf'
+  | 'page-numbers'
+  | 'crop-pdf'
+  | 'compare-pdf'
+  | 'edit-pdf'
+  | 'scan-to-pdf'
+  | 'repair-pdf'
+  | 'pdf-to-pdfa'
+  | 'pdf-forms'
+  | 'pdf-to-pptx'
+  | 'pptx-to-pdf'
+  | 'pdf-to-excel'
+  | 'pdf-to-word'
+  | 'word-to-pdf'
+  | 'excel-to-pdf'
+  | 'html-to-pdf';
 
 export interface FaqItem {
   q: string;
@@ -100,6 +116,38 @@ function page(
   copy: Record<LanguageType, ToolPageCopy>
 ): ToolPageDefinition {
   return { path, kind, operation, suiteId, copy };
+}
+
+function localSuitePage(
+  path: string,
+  suiteId: SuiteToolId,
+  spec: {
+    title: [string, string, string];
+    description: [string, string, string];
+    keywords: [string, string, string];
+    h1: [string, string, string];
+    intro: [string, string, string];
+    benefits: Array<[string, string, string]>;
+    how: Array<[string, string, string]>;
+    faqQ: [string, string, string];
+    faqA: [string, string, string];
+  }
+): ToolPageDefinition {
+  const pack = (index: 0 | 1 | 2, lang: LanguageType): ToolPageCopy => ({
+    title: spec.title[index],
+    description: spec.description[index],
+    keywords: spec.keywords[index],
+    h1: spec.h1[index],
+    intro: spec.intro[index],
+    benefits: spec.benefits.map((row) => row[index]),
+    howItWorks: spec.how.map((row) => row[index]),
+    faq: [...privacyFaq(lang), { q: spec.faqQ[index], a: spec.faqA[index] }],
+  });
+  return page(path, 'suite', undefined, suiteId, {
+    pt: pack(0, 'pt'),
+    en: pack(1, 'en'),
+    es: pack(2, 'es'),
+  });
 }
 
 export const TOOL_PAGES: ToolPageDefinition[] = [
@@ -2606,6 +2654,564 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
         },
       ],
     },
+  }),
+  page('/assinatura-pdf', 'suite', undefined, 'sign-pdf', {
+    pt: {
+      title: 'Assinatura PDF — Campo escrito na tela | PDFWINDOWS',
+      description:
+        'Desenhe a assinatura na tela, junte nome, local e data, e coloque o campo no PDF. Grátis no navegador — carimbo visual, sem upload.',
+      keywords:
+        'assinar pdf, desenhar assinatura, campo de assinatura, nome local data, assinatura manuscrita pdf',
+      h1: 'Assinatura PDF',
+      intro:
+        'Escreva a assinatura na tela, opcionalmente junte nome, local e data, e solte o campo nas páginas do PDF — local no navegador.',
+      benefits: [
+        'Traço com mouse ou dedo',
+        'Nome, local e data opcionais no mesmo campo',
+        'PDF novo; o original permanece intacto',
+      ],
+      howItWorks: [
+        'Desenhe a assinatura no campo da tela.',
+        'Marque nome, local e data se quiser impressos junto.',
+        'Envie o PDF, posicione o campo e baixe a cópia assinada.',
+      ],
+      faq: [
+        ...privacyFaq('pt'),
+        {
+          q: 'Isto vale como certificado digital?',
+          a: 'Não. É um carimbo visual da sua escrita. Não substitui ICP-Brasil nem outros certificados.',
+        },
+      ],
+    },
+    en: {
+      title: 'Sign PDF — Draw a Signature Field | PDFWINDOWS',
+      description:
+        'Draw your signature on screen, add name, location, and date, then place the field on a PDF. Free, local in the browser — visual stamp, no upload.',
+      keywords: 'sign pdf, draw signature, signature field, name location date, handwritten signature pdf',
+      h1: 'Sign PDF',
+      intro:
+        'Write your signature on screen, optionally add name, location, and date, then drop the field onto PDF pages — locally in the browser.',
+      benefits: [
+        'Ink with mouse or finger',
+        'Optional name, place, and date on the same field',
+        'New PDF; the original stays intact',
+      ],
+      howItWorks: [
+        'Draw the signature in the on-screen field.',
+        'Include name, location, and date if you want them printed.',
+        'Upload the PDF, place the field, and download the signed copy.',
+      ],
+      faq: [
+        ...privacyFaq('en'),
+        {
+          q: 'Is this a digital certificate?',
+          a: 'No. It is a visual stamp of your handwriting. It does not replace ICP-Brasil or other certificates.',
+        },
+      ],
+    },
+    es: {
+      title: 'Firma PDF — Campo escrito en pantalla | PDFWINDOWS',
+      description:
+        'Dibuje la firma en pantalla, sume nombre, lugar y fecha, y coloque el campo en el PDF. Gratis en el navegador — sello visual, sin subida.',
+      keywords: 'firmar pdf, dibujar firma, campo de firma, nombre lugar fecha, firma manuscrita pdf',
+      h1: 'Firma PDF',
+      intro:
+        'Escriba la firma en pantalla, sume nombre, lugar y fecha si quiere, y suelte el campo en las páginas del PDF — en local en el navegador.',
+      benefits: [
+        'Trazo con ratón o dedo',
+        'Nombre, lugar y fecha opcionales en el mismo campo',
+        'PDF nuevo; el original permanece intacto',
+      ],
+      howItWorks: [
+        'Dibuje la firma en el campo de la pantalla.',
+        'Marque nombre, lugar y fecha si quiere imprimirlos juntos.',
+        'Suba el PDF, coloque el campo y descargue la copia firmada.',
+      ],
+      faq: [
+        ...privacyFaq('es'),
+        {
+          q: '¿Esto vale como certificado digital?',
+          a: 'No. Es un sello visual de su escritura. No sustituye ICP-Brasil ni otros certificados.',
+        },
+      ],
+    },
+  }),
+  localSuitePage('/numerador-de-paginas', 'page-numbers', {
+    title: [
+      'Numerador de Páginas PDF | PDFWINDOWS',
+      'PDF Page Numbers Online | PDFWINDOWS',
+      'Números de Página PDF | PDFWINDOWS',
+    ],
+    description: [
+      'Numere páginas de PDF no navegador. Cabeçalho ou rodapé, pule a capa e baixe uma cópia — grátis, local e sem upload.',
+      'Add page numbers to a PDF in your browser. Header or footer, skip the cover, download a copy — free, local, no upload.',
+      'Numere páginas de un PDF en el navegador. Encabezado o pie, salte la portada y descargue — gratis, local y sin subida.',
+    ],
+    keywords: [
+      'numerador pdf, números de página pdf, rodapé pdf, paginar pdf',
+      'pdf page numbers, add page numbers pdf, footer pdf pagination',
+      'numeros de pagina pdf, numerar pdf, pie de pagina pdf',
+    ],
+    h1: ['Numerador de páginas', 'Page numbers', 'Números de página'],
+    intro: [
+      'Desenhe números de página no PDF, no rodapé ou no cabeçalho, com opção de pular a capa — local no navegador.',
+      'Stamp page numbers onto a PDF in the footer or header, with an option to skip the cover — locally in the browser.',
+      'Dibuje números de página en el PDF, en el pie o el encabezado, con opción de saltar la portada — en local.',
+    ],
+    benefits: [
+      ['Rodapé ou cabeçalho', 'Footer or header', 'Pie o encabezado'],
+      ['Pule a primeira página', 'Skip the first page', 'Salte la primera página'],
+      ['Cópia nova; original intacto', 'New copy; original intact', 'Copia nueva; original intacto'],
+    ],
+    how: [
+      ['Envie o PDF.', 'Upload the PDF.', 'Suba el PDF.'],
+      ['Escolha posição e formato.', 'Choose position and format.', 'Elija posición y formato.'],
+      ['Baixe a cópia numerada.', 'Download the numbered copy.', 'Descargue la copia numerada.'],
+    ],
+    faqQ: [
+      'Os números são campos automáticos do Word?',
+      'Are these Word automatic fields?',
+      '¿Son campos automáticos de Word?',
+    ],
+    faqA: [
+      'Não. Os números são desenhados na página do PDF.',
+      'No. The numbers are drawn onto the PDF page.',
+      'No. Los números se dibujan en la página del PDF.',
+    ],
+  }),
+  localSuitePage('/recortar-pdf', 'crop-pdf', {
+    title: ['Recortar PDF Online | PDFWINDOWS', 'Crop PDF Online | PDFWINDOWS', 'Recortar PDF en el navegador | PDFWINDOWS'],
+    description: [
+      'Recorte margens de um PDF no navegador. Desenhe a área, aplique numa página ou em todas — grátis, local e sem upload.',
+      'Crop PDF margins in your browser. Draw the area, apply to one page or all pages — free, local, and no upload.',
+      'Recorte márgenes de un PDF en el navegador. Dibuje el área y aplique a una página o a todas — gratis y local.',
+    ],
+    keywords: ['recortar pdf, crop pdf, cortar margem pdf', 'crop pdf, pdf margins, trim pdf page', 'recortar pdf, recortar margenes pdf'],
+    h1: ['Recortar PDF', 'Crop PDF', 'Recortar PDF'],
+    intro: [
+      'Desenhe a área visível na página e aplique o recorte nesta folha ou no documento inteiro — local no navegador.',
+      'Draw the visible area on the page and apply the crop to this sheet or the whole document — locally in the browser.',
+      'Dibuje el área visible y aplique el recorte a esta hoja o a todo el documento — en local en el navegador.',
+    ],
+    benefits: [
+      ['Área desenhada na prévia', 'Area drawn on the preview', 'Área dibujada en la vista previa'],
+      ['Uma página ou todas', 'One page or all pages', 'Una página o todas'],
+      ['Cópia nova; original intacto', 'New copy; original intact', 'Copia nueva; original intacto'],
+    ],
+    how: [
+      ['Envie o PDF.', 'Upload the PDF.', 'Suba el PDF.'],
+      ['Arraste a área de recorte.', 'Drag the crop area.', 'Arrastre el área de recorte.'],
+      ['Baixe o PDF recortado.', 'Download the cropped PDF.', 'Descargue el PDF recortado.'],
+    ],
+    faqQ: ['O recorte apaga o conteúdo fora da caixa?', 'Does crop delete content outside the box?', '¿El recorte borra el contenido fuera de la caja?'],
+    faqA: [
+      'Define a caixa de recorte visível. Alguns leitores ainda podem revelar conteúdo fora do crop box.',
+      'It sets the visible crop box. Some readers can still reveal content outside the crop box.',
+      'Define la caja de recorte visible. Algunos lectores aún pueden revelar contenido fuera del crop box.',
+    ],
+  }),
+  localSuitePage('/comparar-pdf', 'compare-pdf', {
+    title: ['Comparar PDF Online | PDFWINDOWS', 'Compare PDF Online | PDFWINDOWS', 'Comparar PDF en el navegador | PDFWINDOWS'],
+    description: [
+      'Compare o texto de dois PDFs no navegador. Veja linhas adicionadas e removidas — grátis, local e sem upload.',
+      'Compare text from two PDFs in your browser. Spot added and removed lines — free, local, and no upload.',
+      'Compare el texto de dos PDF en el navegador. Vea líneas añadidas y quitadas — gratis, local y sin subida.',
+    ],
+    keywords: ['comparar pdf, diff pdf, diferenças pdf', 'compare pdf, pdf diff, document comparison', 'comparar pdf, diferencias pdf'],
+    h1: ['Comparar PDF', 'Compare PDF', 'Comparar PDF'],
+    intro: [
+      'Envie duas versões e compare o texto extraível linha a linha. Não é um diff visual de layout.',
+      'Upload two versions and compare extractable text line by line. This is not a visual layout diff.',
+      'Suba dos versiones y compare el texto extraíble línea a línea. No es un diff visual de diseño.',
+    ],
+    benefits: [
+      ['Dois arquivos lado a lado', 'Two files side by side', 'Dos archivos lado a lado'],
+      ['Linhas novas e removidas', 'Added and removed lines', 'Líneas nuevas y quitadas'],
+      ['Processamento 100% local', '100% local processing', 'Procesamiento 100% local'],
+    ],
+    how: [
+      ['Envie o PDF A e o PDF B.', 'Upload PDF A and PDF B.', 'Suba el PDF A y el PDF B.'],
+      ['Compare o texto extraído.', 'Compare the extracted text.', 'Compare el texto extraído.'],
+      ['Revise as linhas marcadas.', 'Review the marked lines.', 'Revise las líneas marcadas.'],
+    ],
+    faqQ: ['Funciona em PDF escaneado?', 'Does it work on a scanned PDF?', '¿Funciona en un PDF escaneado?'],
+    faqA: [
+      'Só se houver texto extraível. Rode OCR de PDF antes se for imagem.',
+      'Only if there is extractable text. Run PDF OCR first if it is an image.',
+      'Solo si hay texto extraíble. Ejecute OCR de PDF antes si es imagen.',
+    ],
+  }),
+  localSuitePage('/editar-pdf', 'edit-pdf', {
+    title: ['Editar PDF Online | PDFWINDOWS', 'Edit PDF Online | PDFWINDOWS', 'Editar PDF en el navegador | PDFWINDOWS'],
+    description: [
+      'Adicione texto, retângulo ou imagem num PDF no navegador. Carimbo visual por cima da página — grátis, local e sem upload.',
+      'Add text, a rectangle, or an image to a PDF in your browser. Visual stamps on the page — free, local, no upload.',
+      'Añada texto, rectángulo o imagen a un PDF en el navegador. Sellos visuales sobre la página — gratis y local.',
+    ],
+    keywords: ['editar pdf, adicionar texto pdf, carimbo pdf', 'edit pdf, add text to pdf, stamp pdf', 'editar pdf, añadir texto pdf'],
+    h1: ['Editar PDF', 'Edit PDF', 'Editar PDF'],
+    intro: [
+      'Carimbe texto, retângulo ou imagem sobre a página. Não reescreve o texto original do PDF.',
+      'Stamp text, a rectangle, or an image onto the page. It does not rewrite the original PDF text.',
+      'Selle texto, un rectángulo o una imagen sobre la página. No reescribe el texto original del PDF.',
+    ],
+    benefits: [
+      ['Texto, retângulo ou imagem', 'Text, rectangle, or image', 'Texto, rectángulo o imagen'],
+      ['Clique para posicionar', 'Click to place', 'Clic para colocar'],
+      ['Cópia nova; original intacto', 'New copy; original intact', 'Copia nueva; original intacto'],
+    ],
+    how: [
+      ['Envie o PDF.', 'Upload the PDF.', 'Suba el PDF.'],
+      ['Escolha o tipo e clique na página.', 'Choose the type and click the page.', 'Elija el tipo y pulse la página.'],
+      ['Baixe o PDF editado.', 'Download the edited PDF.', 'Descargue el PDF editado.'],
+    ],
+    faqQ: ['Posso alterar o texto original da página?', 'Can I change the original page text?', '¿Puedo cambiar el texto original de la página?'],
+    faqA: [
+      'Não. Esta ferramenta adiciona conteúdo por cima. Para apagar dados visíveis, use Redação PDF.',
+      'No. This tool adds content on top. To hide visible data, use Redact PDF.',
+      'No. Esta herramienta añade contenido encima. Para ocultar datos, use Redacción PDF.',
+    ],
+  }),
+  localSuitePage('/escanear-para-pdf', 'scan-to-pdf', {
+    title: ['Escanear para PDF | PDFWINDOWS', 'Scan to PDF | PDFWINDOWS', 'Escanear a PDF | PDFWINDOWS'],
+    description: [
+      'Capture páginas com a câmera ou envie fotos e monte um PDF no navegador — grátis, local e sem upload.',
+      'Capture pages with the camera or upload photos and build a PDF in your browser — free, local, no upload.',
+      'Capture páginas con la cámara o suba fotos y arme un PDF en el navegador — gratis, local y sin subida.',
+    ],
+    keywords: ['escanear para pdf, camera pdf, foto para pdf', 'scan to pdf, camera to pdf, photos to pdf', 'escanear a pdf, camara pdf'],
+    h1: ['Escanear para PDF', 'Scan to PDF', 'Escanear a PDF'],
+    intro: [
+      'Abra a câmera ou envie fotos da folha e gere um PDF. A imagem não sai do aparelho.',
+      'Open the camera or upload photos of the sheet and generate a PDF. The image stays on the device.',
+      'Abra la cámara o suba fotos de la hoja y genere un PDF. La imagen no sale del aparato.',
+    ],
+    benefits: [
+      ['Câmera no aparelho', 'On-device camera', 'Cámara en el aparato'],
+      ['Várias páginas em um PDF', 'Several pages in one PDF', 'Varias páginas en un PDF'],
+      ['Combine com Ajuste de Margem', 'Pair with Margin Adjust', 'Combine con Ajuste de Margen'],
+    ],
+    how: [
+      ['Abra a câmera ou envie fotos.', 'Open the camera or upload photos.', 'Abra la cámara o suba fotos.'],
+      ['Capture cada página.', 'Capture each page.', 'Capture cada página.'],
+      ['Gere e baixe o PDF.', 'Build and download the PDF.', 'Genere y descargue el PDF.'],
+    ],
+    faqQ: ['As fotos vão para um servidor?', 'Do the photos go to a server?', '¿Las fotos van a un servidor?'],
+    faqA: [
+      'Não. A câmera e as imagens ficam no navegador.',
+      'No. The camera and images stay in the browser.',
+      'No. La cámara y las imágenes quedan en el navegador.',
+    ],
+  }),
+  localSuitePage('/reparar-pdf', 'repair-pdf', {
+    title: ['Reparar PDF Online | PDFWINDOWS', 'Repair PDF Online | PDFWINDOWS', 'Reparar PDF en el navegador | PDFWINDOWS'],
+    description: [
+      'Tente reconstruir um PDF danificado no navegador. Cópia nova das páginas lidas — grátis, local e sem upload.',
+      'Try rebuilding a damaged PDF in your browser. A new copy of readable pages — free, local, no upload.',
+      'Intente reconstruir un PDF dañado en el navegador. Copia nueva de las páginas leídas — gratis y local.',
+    ],
+    keywords: ['reparar pdf, pdf corrompido, recuperar pdf', 'repair pdf, corrupt pdf, recover pdf', 'reparar pdf, pdf corrupto'],
+    h1: ['Reparar PDF', 'Repair PDF', 'Reparar PDF'],
+    intro: [
+      'Copia as páginas que o leitor ainda consegue abrir para um PDF novo. Não é recuperação forense.',
+      'Copies pages the reader can still open into a new PDF. This is not forensic recovery.',
+      'Copia las páginas que el lector aún abre a un PDF nuevo. No es recuperación forense.',
+    ],
+    benefits: [
+      ['Reconstrói páginas legíveis', 'Rebuilds readable pages', 'Reconstruye páginas legibles'],
+      ['Cópia nova', 'New copy', 'Copia nueva'],
+      ['Processamento local', 'Local processing', 'Procesamiento local'],
+    ],
+    how: [
+      ['Envie o PDF.', 'Upload the PDF.', 'Suba el PDF.'],
+      ['Aguarde a reconstrução.', 'Wait for the rebuild.', 'Espere la reconstrucción.'],
+      ['Baixe a cópia.', 'Download the copy.', 'Descargue la copia.'],
+    ],
+    faqQ: ['Recupera arquivo totalmente corrompido?', 'Does it recover a fully corrupt file?', '¿Recupera un archivo totalmente corrupto?'],
+    faqA: [
+      'Não. Só reconstrói o que o leitor ainda consegue carregar.',
+      'No. It only rebuilds what the reader can still load.',
+      'No. Solo reconstruye lo que el lector aún puede cargar.',
+    ],
+  }),
+  localSuitePage('/pdf-para-pdfa', 'pdf-to-pdfa', {
+    title: ['PDF para arquivo (PDF/A) | PDFWINDOWS', 'PDF to archival copy | PDFWINDOWS', 'PDF a copia de archivo | PDFWINDOWS'],
+    description: [
+      'Gere uma cópia de arquivo do PDF no navegador, sem cifra. Não é PDF/A certificado ISO — grátis e local.',
+      'Generate an archival PDF copy in your browser, unencrypted. Not a certified ISO PDF/A — free and local.',
+      'Genere una copia de archivo del PDF en el navegador, sin cifrado. No es PDF/A ISO certificado — gratis y local.',
+    ],
+    keywords: ['pdf para pdfa, pdf arquivo, pdf/a', 'pdf to pdfa, archival pdf, pdf/a', 'pdf a pdfa, pdf archivo'],
+    h1: ['PDF para arquivo (PDF/A)', 'PDF to archival copy', 'PDF a copia de archivo'],
+    intro: [
+      'Regrava o PDF sem cifra, com metadados. Não embute perfil ICC — não é PDF/A certificado.',
+      'Rewrites the PDF without encryption, with metadata. No ICC profile — not a certified PDF/A.',
+      'Reescribe el PDF sin cifrado, con metadatos. Sin perfil ICC — no es un PDF/A certificado.',
+    ],
+    benefits: [
+      ['Cópia sem cifra', 'Unencrypted copy', 'Copia sin cifrado'],
+      ['Metadados de arquivo', 'Archival metadata', 'Metadatos de archivo'],
+      ['Processamento local', 'Local processing', 'Procesamiento local'],
+    ],
+    how: [
+      ['Envie o PDF.', 'Upload the PDF.', 'Suba el PDF.'],
+      ['Gere a cópia de arquivo.', 'Generate the archival copy.', 'Genere la copia de archivo.'],
+      ['Baixe o resultado.', 'Download the result.', 'Descargue el resultado.'],
+    ],
+    faqQ: ['Isto é PDF/A-1b certificado?', 'Is this certified PDF/A-1b?', '¿Esto es PDF/A-1b certificado?'],
+    faqA: [
+      'Não. É uma cópia de arquivo inspirada no PDF/A, sem perfil ICC de impressão.',
+      'No. It is an archival-inspired copy without a printer ICC profile.',
+      'No. Es una copia de archivo inspirada en PDF/A, sin perfil ICC de impresión.',
+    ],
+  }),
+  localSuitePage('/formularios-pdf', 'pdf-forms', {
+    title: ['Formulários PDF Online | PDFWINDOWS', 'PDF Forms Online | PDFWINDOWS', 'Formularios PDF Online | PDFWINDOWS'],
+    description: [
+      'Preencha campos AcroForm e adicione caixas de texto no PDF, no navegador — grátis, local e sem upload.',
+      'Fill AcroForm fields and add text boxes to a PDF in your browser — free, local, and no upload.',
+      'Rellene campos AcroForm y añada cajas de texto a un PDF en el navegador — gratis, local y sin subida.',
+    ],
+    keywords: ['formularios pdf, preencher pdf, acroform', 'pdf forms, fill pdf, acroform', 'formularios pdf, rellenar pdf'],
+    h1: ['Formulários PDF', 'PDF Forms', 'Formularios PDF'],
+    intro: [
+      'Preencha um AcroForm existente ou clique para adicionar campos de texto e caixas. Sem detecção visual automática.',
+      'Fill an existing AcroForm or click to add text fields and checkboxes. No automatic visual detection.',
+      'Rellene un AcroForm existente o pulse para añadir campos de texto y casillas. Sin detección visual automática.',
+    ],
+    benefits: [
+      ['Lista campos existentes', 'Lists existing fields', 'Lista campos existentes'],
+      ['Adiciona texto e caixa', 'Adds text and checkbox', 'Añade texto y casilla'],
+      ['Cópia nova; original intacto', 'New copy; original intact', 'Copia nueva; original intacto'],
+    ],
+    how: [
+      ['Envie o PDF.', 'Upload the PDF.', 'Suba el PDF.'],
+      ['Preencha ou adicione campos.', 'Fill or add fields.', 'Rellene o añada campos.'],
+      ['Baixe o PDF do formulário.', 'Download the form PDF.', 'Descargue el PDF del formulario.'],
+    ],
+    faqQ: ['Detecta campos desenhados só visualmente?', 'Does it detect visual-only fields?', '¿Detecta campos solo visuales?'],
+    faqA: [
+      'Não. Só lê AcroForm. XFA não é suportado.',
+      'No. It only reads AcroForm. XFA is not supported.',
+      'No. Solo lee AcroForm. XFA no es compatible.',
+    ],
+  }),
+  localSuitePage('/pdf-para-powerpoint', 'pdf-to-pptx', {
+    title: ['PDF para PowerPoint | PDFWINDOWS', 'PDF to PowerPoint | PDFWINDOWS', 'PDF a PowerPoint | PDFWINDOWS'],
+    description: [
+      'Cada página do PDF vira um slide com a imagem da página (até 40). Local no navegador — sem objetos editáveis.',
+      'Each PDF page becomes a slide with a page image (up to 40). Local in the browser — not editable shapes.',
+      'Cada página del PDF se vuelve una diapositiva con la imagen (hasta 40). Local — no objetos editables.',
+    ],
+    keywords: ['pdf para powerpoint, pdf para pptx', 'pdf to powerpoint, pdf to pptx', 'pdf a powerpoint, pdf a pptx'],
+    h1: ['PDF para PowerPoint', 'PDF to PowerPoint', 'PDF a PowerPoint'],
+    intro: [
+      'Rasteriza cada página e monta um PPTX com a imagem no slide. Não gera formas editáveis do PowerPoint.',
+      'Rasters each page and builds a PPTX with the image on the slide. It does not create editable PowerPoint shapes.',
+      'Rasteriza cada página y arma un PPTX con la imagen en la diapositiva. No genera formas editables de PowerPoint.',
+    ],
+    benefits: [
+      ['Um slide por página', 'One slide per page', 'Una diapositiva por página'],
+      ['Até 40 páginas', 'Up to 40 pages', 'Hasta 40 páginas'],
+      ['Processamento local', 'Local processing', 'Procesamiento local'],
+    ],
+    how: [
+      ['Envie o PDF.', 'Upload the PDF.', 'Suba el PDF.'],
+      ['Aguarde a rasterização.', 'Wait for rasterization.', 'Espere la rasterización.'],
+      ['Baixe o PPTX.', 'Download the PPTX.', 'Descargue el PPTX.'],
+    ],
+    faqQ: ['Consigo editar o texto no PowerPoint?', 'Can I edit the text in PowerPoint?', '¿Puedo editar el texto en PowerPoint?'],
+    faqA: [
+      'Não. O slide contém a imagem da página, não caixas de texto.',
+      'No. The slide contains the page image, not text boxes.',
+      'No. La diapositiva contiene la imagen de la página, no cajas de texto.',
+    ],
+  }),
+  localSuitePage('/powerpoint-para-pdf', 'pptx-to-pdf', {
+    title: ['PowerPoint para PDF | PDFWINDOWS', 'PowerPoint to PDF | PDFWINDOWS', 'PowerPoint a PDF | PDFWINDOWS'],
+    description: [
+      'Converta PPTX em PDF no navegador a partir do texto dos slides. Animações e layout original não entram.',
+      'Convert PPTX to PDF in your browser from slide text. Animations and original layout are not included.',
+      'Convierta PPTX a PDF en el navegador a partir del texto de las diapositivas. Sin animaciones ni diseño original.',
+    ],
+    keywords: ['powerpoint para pdf, pptx para pdf', 'powerpoint to pdf, pptx to pdf', 'powerpoint a pdf, pptx a pdf'],
+    h1: ['PowerPoint para PDF', 'PowerPoint to PDF', 'PowerPoint a PDF'],
+    intro: [
+      'Extrai o texto dos slides e pagina um PDF. Não reproduz animações, notas do orador nem o layout original.',
+      'Extracts slide text and paginates a PDF. It does not reproduce animations, speaker notes, or original layout.',
+      'Extrae el texto de las diapositivas y pagina un PDF. No reproduce animaciones, notas ni el diseño original.',
+    ],
+    benefits: [
+      ['Texto dos slides', 'Slide text', 'Texto de las diapositivas'],
+      ['PDF local', 'Local PDF', 'PDF local'],
+      ['Sem upload', 'No upload', 'Sin subida'],
+    ],
+    how: [
+      ['Envie o PPTX.', 'Upload the PPTX.', 'Suba el PPTX.'],
+      ['Aguarde a extração do texto.', 'Wait for text extraction.', 'Espere la extracción del texto.'],
+      ['Baixe o PDF.', 'Download the PDF.', 'Descargue el PDF.'],
+    ],
+    faqQ: ['Aceita .ppt antigo?', 'Does it accept legacy .ppt?', '¿Acepta .ppt antiguo?'],
+    faqA: [
+      'Não. Salve como .pptx no PowerPoint e envie de novo.',
+      'No. Save as .pptx in PowerPoint and upload again.',
+      'No. Guarde como .pptx en PowerPoint y súbalo de nuevo.',
+    ],
+  }),
+  localSuitePage('/pdf-para-excel', 'pdf-to-excel', {
+    title: ['PDF para Excel | PDFWINDOWS', 'PDF to Excel | PDFWINDOWS', 'PDF a Excel | PDFWINDOWS'],
+    description: [
+      'Extraia texto de um PDF para XLSX no navegador. Colunas heurísticas pelo espaço — tabelas em imagem pedem OCR.',
+      'Extract PDF text to XLSX in your browser. Heuristic columns from spacing — image tables need OCR first.',
+      'Extraiga texto de un PDF a XLSX en el navegador. Columnas heurísticas por espacio — tablas en imagen piden OCR.',
+    ],
+    keywords: ['pdf para excel, pdf para xlsx, tabela pdf', 'pdf to excel, pdf to xlsx, pdf table', 'pdf a excel, pdf a xlsx'],
+    h1: ['PDF para Excel', 'PDF to Excel', 'PDF a Excel'],
+    intro: [
+      'Lê o texto do PDF e tenta separar colunas pelo espaço. Não reconstrói planilhas formatadas.',
+      'Reads PDF text and tries to split columns by spacing. It does not rebuild formatted spreadsheets.',
+      'Lee el texto del PDF e intenta separar columnas por el espacio. No reconstruye hojas formateadas.',
+    ],
+    benefits: [
+      ['Saída XLSX', 'XLSX output', 'Salida XLSX'],
+      ['Uma linha por trecho de texto', 'One row per text line', 'Una fila por tramo de texto'],
+      ['Processamento local', 'Local processing', 'Procesamiento local'],
+    ],
+    how: [
+      ['Envie o PDF.', 'Upload the PDF.', 'Suba el PDF.'],
+      ['Aguarde a extração.', 'Wait for extraction.', 'Espere la extracción.'],
+      ['Baixe o XLSX.', 'Download the XLSX.', 'Descargue el XLSX.'],
+    ],
+    faqQ: ['Tabelas desenhadas como imagem entram?', 'Do image-drawn tables come through?', '¿Entran las tablas dibujadas como imagen?'],
+    faqA: [
+      'Não até rodar OCR de PDF e gerar texto extraível.',
+      'Not until you run PDF OCR and get extractable text.',
+      'No hasta ejecutar OCR de PDF y obtener texto extraíble.',
+    ],
+  }),
+  localSuitePage('/pdf-para-word', 'pdf-to-word', {
+    title: ['PDF para Word | PDFWINDOWS', 'PDF to Word | PDFWINDOWS', 'PDF a Word | PDFWINDOWS'],
+    description: [
+      'Converta PDF em DOCX no navegador a partir do texto. Layout, fontes e imagens da página não são reproduzidos fielmente.',
+      'Convert PDF to DOCX in your browser from the text layer. Layout, fonts, and page images are not reproduced faithfully.',
+      'Convierta PDF a DOCX en el navegador a partir del texto. Diseño, fuentes e imágenes de la página no se reproducen fielmente.',
+    ],
+    keywords: ['pdf para word, pdf para docx', 'pdf to word, pdf to docx', 'pdf a word, pdf a docx'],
+    h1: ['PDF para Word', 'PDF to Word', 'PDF a Word'],
+    intro: [
+      'Extrai o texto e gera um DOCX editável. Não é uma conversão visual quase 100% fiel.',
+      'Extracts the text and writes an editable DOCX. This is not a nearly 100% visual conversion.',
+      'Extrae el texto y genera un DOCX editable. No es una conversión visual casi 100% fiel.',
+    ],
+    benefits: [
+      ['DOCX editável', 'Editable DOCX', 'DOCX editable'],
+      ['Texto por página', 'Text per page', 'Texto por página'],
+      ['Sem upload', 'No upload', 'Sin subida'],
+    ],
+    how: [
+      ['Envie o PDF.', 'Upload the PDF.', 'Suba el PDF.'],
+      ['Aguarde a extração do texto.', 'Wait for text extraction.', 'Espere la extracción del texto.'],
+      ['Baixe o DOCX.', 'Download the DOCX.', 'Descargue el DOCX.'],
+    ],
+    faqQ: ['O Word sai igual ao PDF?', 'Does Word look like the PDF?', '¿El Word sale igual que el PDF?'],
+    faqA: [
+      'Não. Só o texto extraível. Use OCR se for scan.',
+      'No. Only extractable text. Use OCR if it is a scan.',
+      'No. Solo el texto extraíble. Use OCR si es un escaneo.',
+    ],
+  }),
+  localSuitePage('/word-para-pdf', 'word-to-pdf', {
+    title: ['Word para PDF | PDFWINDOWS', 'Word to PDF | PDFWINDOWS', 'Word a PDF | PDFWINDOWS'],
+    description: [
+      'Converta DOCX em PDF no navegador a partir do texto. Arquivos .doc antigos: salve como .docx antes.',
+      'Convert DOCX to PDF in your browser from the text. Legacy .doc files: save as .docx first.',
+      'Convierta DOCX a PDF en el navegador a partir del texto. Archivos .doc antiguos: guarde como .docx antes.',
+    ],
+    keywords: ['word para pdf, docx para pdf', 'word to pdf, docx to pdf', 'word a pdf, docx a pdf'],
+    h1: ['Word para PDF', 'Word to PDF', 'Word a PDF'],
+    intro: [
+      'Lê o texto do DOCX e pagina um PDF. Layout complexo e macros não entram.',
+      'Reads DOCX text and paginates a PDF. Complex layout and macros are not included.',
+      'Lee el texto del DOCX y pagina un PDF. El diseño complejo y las macros no entran.',
+    ],
+    benefits: [
+      ['DOCX para PDF local', 'DOCX to local PDF', 'DOCX a PDF local'],
+      ['Sem macros', 'No macros', 'Sin macros'],
+      ['Original intacto', 'Original intact', 'Original intacto'],
+    ],
+    how: [
+      ['Envie o DOCX.', 'Upload the DOCX.', 'Suba el DOCX.'],
+      ['Aguarde a paginação.', 'Wait for pagination.', 'Espere la paginación.'],
+      ['Baixe o PDF.', 'Download the PDF.', 'Descargue el PDF.'],
+    ],
+    faqQ: ['Aceita .doc binário?', 'Does it accept binary .doc?', '¿Acepta .doc binario?'],
+    faqA: [
+      'Não. Salve como .docx no Word ou LibreOffice.',
+      'No. Save as .docx in Word or LibreOffice.',
+      'No. Guarde como .docx en Word o LibreOffice.',
+    ],
+  }),
+  localSuitePage('/excel-para-pdf', 'excel-to-pdf', {
+    title: ['Excel para PDF | PDFWINDOWS', 'Excel to PDF | PDFWINDOWS', 'Excel a PDF | PDFWINDOWS'],
+    description: [
+      'Converta XLSX ou CSV em PDF no navegador. Células viram texto paginado — gráficos não entram.',
+      'Convert XLSX or CSV to PDF in your browser. Cells become paginated text — charts are not included.',
+      'Convierta XLSX o CSV a PDF en el navegador. Las celdas se vuelven texto paginado — sin gráficos.',
+    ],
+    keywords: ['excel para pdf, xlsx para pdf, csv para pdf', 'excel to pdf, xlsx to pdf', 'excel a pdf, xlsx a pdf'],
+    h1: ['Excel para PDF', 'Excel to PDF', 'Excel a PDF'],
+    intro: [
+      'Lê células da planilha e pagina o texto em PDF. Formatação condicional e gráficos não entram.',
+      'Reads spreadsheet cells and paginates the text into a PDF. Conditional formatting and charts are not included.',
+      'Lee celdas de la hoja y pagina el texto en PDF. El formato condicional y los gráficos no entran.',
+    ],
+    benefits: [
+      ['XLSX e CSV', 'XLSX and CSV', 'XLSX y CSV'],
+      ['PDF local', 'Local PDF', 'PDF local'],
+      ['Sem recalcular fórmulas', 'No formula recalculation', 'Sin recalcular fórmulas'],
+    ],
+    how: [
+      ['Envie a planilha.', 'Upload the spreadsheet.', 'Suba la hoja.'],
+      ['Aguarde a leitura das células.', 'Wait for the cell read.', 'Espere la lectura de celdas.'],
+      ['Baixe o PDF.', 'Download the PDF.', 'Descargue el PDF.'],
+    ],
+    faqQ: ['As fórmulas são recalculadas?', 'Are formulas recalculated?', '¿Se recalculan las fórmulas?'],
+    faqA: [
+      'Não. Entram os valores em cache da planilha.',
+      'No. Cached cell values are used.',
+      'No. Se usan los valores en caché de la hoja.',
+    ],
+  }),
+  localSuitePage('/html-para-pdf', 'html-to-pdf', {
+    title: ['HTML para PDF | PDFWINDOWS', 'HTML to PDF | PDFWINDOWS', 'HTML a PDF | PDFWINDOWS'],
+    description: [
+      'Converta um arquivo HTML local em PDF no navegador. Não busca URLs da internet — CORS e política de privacidade.',
+      'Convert a local HTML file to PDF in your browser. It does not fetch internet URLs — CORS and privacy policy.',
+      'Convierta un archivo HTML local a PDF en el navegador. No descarga URLs de internet — CORS y política de privacidad.',
+    ],
+    keywords: ['html para pdf, arquivo html pdf', 'html to pdf, html file to pdf', 'html a pdf, archivo html pdf'],
+    h1: ['HTML para PDF', 'HTML to PDF', 'HTML a PDF'],
+    intro: [
+      'Envie um .html do seu computador. O texto da página vira PDF. Não copiamos URL da web.',
+      'Upload an .html file from your computer. Page text becomes a PDF. We do not fetch a web URL.',
+      'Suba un .html de su computadora. El texto de la página se vuelve PDF. No copiamos una URL de la web.',
+    ],
+    benefits: [
+      ['Arquivo HTML local', 'Local HTML file', 'Archivo HTML local'],
+      ['Sem proxy de URL', 'No URL proxy', 'Sin proxy de URL'],
+      ['PDF no aparelho', 'PDF on the device', 'PDF en el aparato'],
+    ],
+    how: [
+      ['Envie o arquivo HTML.', 'Upload the HTML file.', 'Suba el archivo HTML.'],
+      ['Aguarde a conversão do texto.', 'Wait for the text conversion.', 'Espere la conversión del texto.'],
+      ['Baixe o PDF.', 'Download the PDF.', 'Descargue el PDF.'],
+    ],
+    faqQ: ['Posso colar a URL de um site?', 'Can I paste a website URL?', '¿Puedo pegar la URL de un sitio?'],
+    faqA: [
+      'Não. Isso exigiria um proxy. Envie o arquivo HTML salvo no aparelho.',
+      'No. That would need a proxy. Upload the HTML file saved on the device.',
+      'No. Eso exigiría un proxy. Suba el archivo HTML guardado en el aparato.',
+    ],
   }),
 ];
 
