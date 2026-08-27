@@ -470,7 +470,7 @@ export function ConverterWorkbench({
 
   return (
     <>
-      <main className="flex-1 w-full max-w-7xl mx-auto px-4 py-8 flex flex-col lg:flex-row items-start justify-center gap-6 xl:gap-8">
+      <main className="flex-1 w-full py-2 flex flex-col lg:flex-row items-start justify-center gap-6 xl:gap-8">
         
         {showSideAds && (
         <aside className="hidden lg:flex flex-col w-[160px] shrink-0 premium-surface !p-3 select-none sticky top-24">
@@ -486,7 +486,7 @@ export function ConverterWorkbench({
         )}
 
         {/* CENTRAL CORE SYSTEM - DYNAMIC FLEXIBLE GRID */}
-        <div className="flex-1 w-full max-w-2xl flex flex-col">
+        <div className="flex-1 w-full min-w-0 flex flex-col">
           
           {/* THE HUB INFO BUTTON: SoftPremium directory popup trigger */}
           <div className="w-full flex justify-end mb-3">
@@ -505,7 +505,7 @@ export function ConverterWorkbench({
             {/* MAIN TOOL CARD */}
             <section ref={workspaceAnchorRef} className="workspace-panel scroll-mt-24">
           
-          <div className="p-6 md:p-8">
+          <div className="p-6 md:p-8 xl:p-10">
             
             {/* Title Block */}
             <div className="text-center mb-8 select-none">

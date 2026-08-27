@@ -9,7 +9,7 @@ export function SiteHeader() {
 
   return (
     <header className="header-glass w-full">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
+      <div className="page-shell py-3 flex items-center justify-between gap-4">
         <Link to={lp('/')} className="flex items-center gap-3 select-none min-w-0 group">
           <LogoImage
             size={40}

@@ -61,9 +61,7 @@ export function SuiteToolPage() {
       />
       <ToolPageSeoBlocks toolPath={tool.path} lang={lang}>
         <Suspense fallback={<WorkspaceFallback message={t.openingWorkspace} />}>
-          <div className={tool.suiteId === 'color-picker' ? 'max-w-5xl mx-auto' : ''}>
-            <SuiteToolEmbed toolId={tool.suiteId} lang={lang} />
-          </div>
+          <SuiteToolEmbed toolId={tool.suiteId} lang={lang} />
         </Suspense>
       </ToolPageSeoBlocks>
     </>

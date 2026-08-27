@@ -27,7 +27,7 @@ export function RelatedTools({ paths, title }: RelatedToolsProps) {
       <h2 id="related-tools-heading" className="text-sm font-bold text-slate-900 mb-4">
         {heading}
       </h2>
-      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-3">
         {tools.map((tool) => {
           const copy = tool.copy[lang];
           return (

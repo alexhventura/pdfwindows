@@ -54,6 +54,27 @@
 }
 
 @layer components {
+  /**
+   * Full-bleed content rail: modest side inset that scales with the viewport
+   * so cards stay near the edges on large monitors (iLovePDF-style).
+   */
+  .page-shell {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 2.6vw, 3.5rem);
+  }
+
+  .landing-display {
+    font-size: clamp(1.65rem, 1.05rem + 1.7vw, 2.65rem);
+    line-height: 1.15;
+  }
+
+  .tool-catalog-grid {
+    display: grid;
+    gap: clamp(0.85rem, 1.2vw, 1.35rem);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16.5rem), 1fr));
+  }
+
   .text-gradient-brand {
     background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 40%, #ea580c 100%);
     -webkit-background-clip: text;
@@ -268,7 +289,13 @@
   }
 
   .premium-dropzone {
-    @apply relative rounded-[1.25rem] p-8 md:p-12 text-center cursor-pointer outline-none transition-all duration-300 ease-out;
+    @apply relative rounded-[1.25rem] text-center cursor-pointer outline-none transition-all duration-300 ease-out;
+    padding: clamp(1.75rem, 3.5vw, 4.25rem) clamp(1.25rem, 3vw, 3rem);
+    min-height: clamp(14rem, 28vh, 26rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     background: linear-gradient(
       165deg,
       rgba(255, 255, 255, 0.98) 0%,

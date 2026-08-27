@@ -32,7 +32,7 @@ export function LazyToolLandingBody({ path, lang }: { path: string; lang: Langua
   return (
     <div
       ref={ref}
-      className="w-full max-w-3xl mx-auto mt-10 pb-4"
+      className="w-full mt-10 pb-4"
       style={Body ? undefined : { contentVisibility: 'auto', containIntrinsicSize: '0 1200px' }}
     >
       {content && Body ? <Body content={content} ctaTargetId={ctaTargetId} /> : null}

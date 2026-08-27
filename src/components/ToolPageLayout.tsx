@@ -41,7 +41,7 @@ export function ToolPageSeoBlocks({
     return (
       <div
         id={TOOL_START_ID}
-        className="w-full max-w-4xl mx-auto px-4 sm:px-6 py-20 text-center tool-workspace-anchor"
+        className="page-shell py-20 text-center tool-workspace-anchor"
         role="alert"
       >
         <p className="text-sm text-slate-500">Unavailable</p>
@@ -54,18 +54,18 @@ export function ToolPageSeoBlocks({
 
   return (
     <>
-      <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 pt-4">
+      <div className="page-shell pt-4">
         <ToolBackNav className="mb-4" />
         <Breadcrumbs items={crumbs} className="mb-5" />
         <ToolLandingHero content={{ ...copy, toolName, benefits: copy.benefits ?? [] }} />
       </div>
       <div
         id={TOOL_START_ID}
-        className="w-full max-w-4xl mx-auto px-4 sm:px-6 pb-6 tool-workspace-anchor"
+        className="page-shell pb-6 tool-workspace-anchor"
       >
         {children}
       </div>
-      <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 pb-12 seo-body-slot">
+      <div className="page-shell pb-12 seo-body-slot">
         <LazyToolLandingBody path={toolPath} lang={lang} />
       </div>
     </>

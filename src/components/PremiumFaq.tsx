@@ -73,7 +73,7 @@ export function PremiumFaq({ title, items, className = '' }: PremiumFaqProps) {
 
   return (
     <section
-      className={`w-full max-w-3xl mx-auto ${className}`}
+      className={`w-full ${className}`}
       aria-labelledby={titleId}
     >
       <div className="faq-premium-panel">

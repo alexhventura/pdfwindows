@@ -8,7 +8,7 @@ export function GlobalFaq() {
   const { lang } = useLanguage();
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-10 md:py-14 mt-auto">
+    <div className="page-shell py-10 md:py-14 mt-auto">
       <PremiumFaq title={translations[lang].faqSectionTitle} items={HOME_COPY[lang].faq} />
     </div>
   );

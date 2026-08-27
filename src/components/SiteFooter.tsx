@@ -48,7 +48,7 @@ export function SiteFooter() {
   return (
     <>
       <footer className="footer-premium w-full text-slate-400 mt-auto">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 space-y-8">
+        <div className="page-shell py-8 space-y-8">
           <section aria-labelledby="footer-trust-heading" className="space-y-4">
             <h2 id="footer-trust-heading" className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 text-center md:text-left">
               {t.footerTrustTitle}

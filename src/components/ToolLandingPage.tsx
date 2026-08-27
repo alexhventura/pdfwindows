@@ -35,16 +35,16 @@ export function ToolLandingHero({ content }: { content: ToolRichContent }) {
   const t = LABELS[lang];
 
   return (
-    <header className="w-full max-w-3xl mx-auto text-center mb-6">
-      <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-gradient-brand mb-3">{content.h1}</h1>
-      <p className="text-sm md:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto font-medium mb-6">
+    <header className="w-full text-center mb-6">
+      <h1 className="landing-display font-bold tracking-tight text-gradient-brand mb-3">{content.h1}</h1>
+      <p className="text-sm md:text-lg text-slate-600 leading-relaxed max-w-3xl mx-auto font-medium mb-6">
         {content.intro}
       </p>
       <section aria-labelledby="hero-benefits">
         <h2 id="hero-benefits" className="sr-only">
           {t.benefits}
         </h2>
-        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-left">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2 text-left">
           {(content.benefits ?? []).map((item) => (
             <li
               key={item}
@@ -77,7 +77,7 @@ export function ToolLandingBody({
   };
 
   return (
-    <article className="w-full max-w-3xl mx-auto space-y-6 pb-4">
+    <article className="w-full space-y-6 pb-4">
       {content.sections.map((section) => (
         <section key={section.id} className="premium-surface" aria-labelledby={section.id}>
           {section.level === 2 ? (
