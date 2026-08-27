@@ -3,7 +3,7 @@ import { Upload, Loader2, AlertCircle, X, Plus } from 'lucide-react';
 import type { LanguageType } from '../../types';
 import { ModalHeader } from './shared';
 
-export type DocToolAccept = 'pdf' | 'pdf-docx' | 'file-xray' | 'documents';
+export type DocToolAccept = 'pdf' | 'pdf-docx' | 'file-xray' | 'documents' | 'image';
 
 interface Labels {
   dropTitle: string;
@@ -45,7 +45,7 @@ export function SuiteWorkspaceShell({
   return (
     <>
       {showHeader ? <ModalHeader title={title} onClose={onClose} closeLabel={closeLabel} /> : null}
-      <div className="p-6 md:p-8">
+      <div className="p-6 md:p-8 xl:p-10">
         {!showHeader ? (
           <div className="text-center mb-8 select-none">
             <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 mb-2">{title}</h2>
@@ -97,11 +97,16 @@ const XRAY_EXTS = new Set([
   'zip',
 ]);
 
+const IMAGE_EXTS = new Set(['jpg', 'jpeg', 'png', 'webp', 'gif', 'bmp']);
+
 function isAllowed(file: File, accept: DocToolAccept): boolean {
   const ext = file.name.split('.').pop()?.toLowerCase() || '';
   if (accept === 'pdf') return ext === 'pdf' || file.type === 'application/pdf';
   if (accept === 'file-xray') return XRAY_EXTS.has(ext);
   if (accept === 'documents') return DOCUMENT_EXTS.has(ext);
+  if (accept === 'image') {
+    return IMAGE_EXTS.has(ext) || file.type.startsWith('image/');
+  }
   return (
     ext === 'pdf' ||
     ext === 'docx' ||
@@ -168,6 +173,8 @@ export function DocumentToolDropzone({
         ? '.pdf,.docx,.xlsx,.pptx,.jpg,.jpeg,.png,.webp,.gif,.csv,.txt,.zip'
         : accept === 'documents'
           ? '.pdf,.txt,.docx,.dotx,.docm,.dotm,.doc,.dot,.rtf,.odt,.html,.htm,.xlsx,.xlsm,.csv'
+          : accept === 'image'
+            ? 'image/jpeg,image/png,image/webp,image/gif,image/bmp,.jpg,.jpeg,.png,.webp,.gif,.bmp'
         : '.pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document';
 
   const chips = labels.formats

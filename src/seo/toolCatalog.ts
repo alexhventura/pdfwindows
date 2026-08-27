@@ -16,7 +16,8 @@ export type SuiteToolId =
   | 'file-xray'
   | 'organize-pdf'
   | 'redact-pdf'
-  | 'document-converter';
+  | 'document-converter'
+  | 'margin-adjust';
 
 export interface FaqItem {
   q: string;
@@ -2519,6 +2520,89 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
         {
           q: '¿La redacción elimina el texto de debajo?',
           a: 'Aplicamos una cobertura visual opaca en la copia. Revise el archivo antes de compartir información crítica.',
+        },
+      ],
+    },
+  }),
+  page('/ajuste-de-margem', 'suite', undefined, 'margin-adjust', {
+    pt: {
+      title: 'Ajuste de Margem — Cortar Foto de Folha | PDFWINDOWS',
+      description:
+        'Recorte a mesa ao redor de uma folha fotografada no navegador. Ajuste as 4 pontas, alinhe a perspectiva e baixe a página — grátis, local e sem upload.',
+      keywords:
+        'cortar foto de folha, ajustar margem, quatro pontas, correção de perspectiva, recortar mesa, digitalizar folha',
+      h1: 'Ajuste de Margem',
+      intro:
+        'Fotografe uma folha, marque as quatro pontas e corte o ambiente em volta. A página sai alinhada, localmente no navegador.',
+      benefits: [
+        'Quatro alças nos cantos da folha',
+        'Remove mesa e fundo da foto',
+        'Download PNG ou JPG sem upload',
+      ],
+      howItWorks: [
+        'Envie a foto da folha.',
+        'Arraste as quatro pontas até os cantos do papel.',
+        'Corte e baixe a página alinhada.',
+      ],
+      faq: [
+        ...privacyFaq('pt'),
+        {
+          q: 'O recorte acha a borda sozinho?',
+          a: 'Não. Você posiciona as quatro pontas para controlar exatamente o que entra na página.',
+        },
+      ],
+    },
+    en: {
+      title: 'Margin Adjust — Crop Photo of a Sheet | PDFWINDOWS',
+      description:
+        'Crop the table around a photographed page in your browser. Drag four corners, straighten perspective, and download the sheet — free, local, no upload.',
+      keywords:
+        'crop document photo, four corner crop, perspective correction, scan sheet photo, margin adjust',
+      h1: 'Margin Adjust',
+      intro:
+        'Photograph a sheet, mark the four corners, and crop away the surroundings. The page comes out aligned, locally in your browser.',
+      benefits: [
+        'Four handles on the sheet corners',
+        'Removes desk and photo background',
+        'PNG or JPG download with no upload',
+      ],
+      howItWorks: [
+        'Upload the photo of the sheet.',
+        'Drag the four corners onto the paper edges.',
+        'Crop and download the aligned page.',
+      ],
+      faq: [
+        ...privacyFaq('en'),
+        {
+          q: 'Does it auto-detect the paper edge?',
+          a: 'No. You place the four corners so you control exactly what is included on the page.',
+        },
+      ],
+    },
+    es: {
+      title: 'Ajuste de Margen — Recortar Foto de una Hoja | PDFWINDOWS',
+      description:
+        'Recorte la mesa alrededor de una hoja fotografiada en el navegador. Ajuste las 4 puntas, enderece la perspectiva y descargue la página — gratis y local.',
+      keywords:
+        'recortar foto de hoja, ajuste de margen, cuatro esquinas, corrección de perspectiva, quitar mesa',
+      h1: 'Ajuste de Margen',
+      intro:
+        'Fotografie una hoja, marque las cuatro puntas y recorte el entorno. La página sale alineada, en local en el navegador.',
+      benefits: [
+        'Cuatro controladores en las esquinas de la hoja',
+        'Quita mesa y fondo de la foto',
+        'Descarga PNG o JPG sin subida',
+      ],
+      howItWorks: [
+        'Suba la foto de la hoja.',
+        'Arrastre las cuatro puntas hasta los extremos del papel.',
+        'Recorte y descargue la página alineada.',
+      ],
+      faq: [
+        ...privacyFaq('es'),
+        {
+          q: '¿Detecta solo el borde del papel?',
+          a: 'No. Usted coloca las cuatro puntas para controlar exactamente qué entra en la página.',
         },
       ],
     },

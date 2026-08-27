@@ -33,5 +33,8 @@ describe('i18n routes', () => {
     expect(getLocalizedPublicPath('en', '/pdf-watermark')).toBe('/en/watermark-pdf');
     expect(getLocalizedPublicPath('pt', '/pdf-watermark')).toBe('/pt/marca-dagua-pdf');
     expect(getLocalizedPublicPath('es', '/pdf-watermark')).toBe('/es/marca-de-agua-pdf');
+    expect(getLocalizedPublicPath('pt', '/ajuste-de-margem')).toBe('/pt/ajuste-de-margem');
+    expect(getLocalizedPublicPath('en', '/ajuste-de-margem')).toBe('/en/margin-adjust');
+    expect(getLocalizedPublicPath('es', '/ajuste-de-margem')).toBe('/es/ajuste-de-margen');
   });
 });

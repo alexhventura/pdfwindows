@@ -56,6 +56,11 @@
     "pt": "/redacao-pdf",
     "es": "/redaccion-pdf"
   },
+  "/ajuste-de-margem": {
+    "en": "/margin-adjust",
+    "pt": "/ajuste-de-margem",
+    "es": "/ajuste-de-margen"
+  },
   "/privacy": { "en": "/privacy", "pt": "/privacidade", "es": "/privacidad" },
   "/terms": { "en": "/terms", "pt": "/termos", "es": "/terminos" }
 }

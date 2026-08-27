@@ -31,6 +31,7 @@ import { DESBLOQUEAR_PDF_CONTENT } from './tools/desbloquear-pdf';
 import { RAIO_X_ARQUIVO_CONTENT } from './tools/raio-x-de-arquivo';
 import { ORGANIZAR_PAGINAS_PDF_CONTENT } from './tools/organizar-paginas-pdf';
 import { REDACAO_PDF_CONTENT } from './tools/redacao-pdf';
+import { AJUSTE_DE_MARGEM_CONTENT } from './tools/ajuste-de-margem';
 
 export const RICH_CONTENT_REGISTRY: ToolContentRegistry = {
   '/': HOME_CONTENT,
@@ -65,6 +66,7 @@ export const RICH_CONTENT_REGISTRY: ToolContentRegistry = {
   '/raio-x-de-arquivo': RAIO_X_ARQUIVO_CONTENT,
   '/organizar-paginas-pdf': ORGANIZAR_PAGINAS_PDF_CONTENT,
   '/redacao-pdf': REDACAO_PDF_CONTENT,
+  '/ajuste-de-margem': AJUSTE_DE_MARGEM_CONTENT,
 };
 
 export function getRichContent(path: string, lang: import('../../types').LanguageType) {

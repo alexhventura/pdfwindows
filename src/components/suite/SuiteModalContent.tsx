@@ -24,6 +24,7 @@ const SUITE_LAZY_TOOLS: Record<string, SuiteLazyTool> = {
   'organize-pdf': lazy(() => import('./tools/OrganizePdfSuiteTool')),
   'redact-pdf': lazy(() => import('./tools/RedactPdfSuiteTool')),
   'document-converter': lazy(() => import('./tools/DocumentConverterSuiteTool')),
+  'margin-adjust': lazy(() => import('./tools/MarginAdjustSuiteTool')),
   'document-studio': lazy(() =>
     import('../../documentStudio/DocumentStudioModal').then((m) => ({
       default: ({ onClose, lang }: SuiteToolProps) => (

@@ -43,6 +43,8 @@ const RICH_LOADERS: Record<string, RichLoader> = {
   '/organizar-paginas-pdf': async (lang) =>
     (await import('./tools/organizar-paginas-pdf')).ORGANIZAR_PAGINAS_PDF_CONTENT[lang],
   '/redacao-pdf': async (lang) => (await import('./tools/redacao-pdf')).REDACAO_PDF_CONTENT[lang],
+  '/ajuste-de-margem': async (lang) =>
+    (await import('./tools/ajuste-de-margem')).AJUSTE_DE_MARGEM_CONTENT[lang],
 };
 
 function legacyToRich(path: string, lang: LanguageType): ToolRichContent {

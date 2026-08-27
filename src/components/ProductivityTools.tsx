@@ -15,6 +15,7 @@ import {
   ScanSearch,
   Layers,
   SquareStack,
+  Crop,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import type { LanguageType } from '../types';
@@ -163,6 +164,17 @@ const tools: Tool[] = [
     icon: <SquareStack size={24} />,
     color: 'bg-slate-700',
   },
+  {
+    id: 'margin-adjust',
+    name: { pt: 'Ajuste de Margem', en: 'Margin Adjust', es: 'Ajuste de Margen' },
+    description: {
+      pt: 'Fotografe uma folha, marque as quatro pontas e corte o ambiente em volta.',
+      en: 'Photograph a sheet, mark the four corners, and crop away the surroundings.',
+      es: 'Fotografie una hoja, marque las cuatro puntas y recorte el entorno.',
+    },
+    icon: <Crop size={24} />,
+    color: 'bg-orange-600',
+  },
 ];
 
 const SUITE_PATHS: Record<string, string> = {
@@ -178,6 +190,7 @@ const SUITE_PATHS: Record<string, string> = {
   'file-xray': '/raio-x-de-arquivo',
   'organize-pdf': '/organizar-paginas-pdf',
   'redact-pdf': '/redacao-pdf',
+  'margin-adjust': '/ajuste-de-margem',
 };
 
 export const ProductivityTools = ({
@@ -202,7 +215,7 @@ export const ProductivityTools = ({
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="tool-catalog-grid">
         {tools.map((tool) => {
           const card = (
             <>

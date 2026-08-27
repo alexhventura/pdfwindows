@@ -2399,6 +2399,81 @@
       }
     ]
   },
+  "/en/margin-adjust": {
+    "lang": "en",
+    "title": "Margin Adjust — Crop Photo of a Sheet | PDFWINDOWS",
+    "description": "Crop the table around a photographed page in your browser. Drag four corners, straighten perspective, and download the sheet — free, local, no upload.",
+    "keywords": "crop document photo, four corner crop, perspective correction, scan sheet photo, remove table background, margin adjust, document flatten browser",
+    "canonical": "https://www.pdfwindows.com/en/margin-adjust",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/margin-adjust"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/ajuste-de-margem"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/ajuste-de-margen"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/margin-adjust"
+      }
+    ]
+  },
+  "/pt/ajuste-de-margem": {
+    "lang": "pt-BR",
+    "title": "Ajuste de Margem — Cortar Foto de Folha | PDFWINDOWS",
+    "description": "Recorte a mesa ao redor de uma folha fotografada no navegador. Ajuste as 4 pontas, alinhe a perspectiva e baixe a página — grátis, local e sem upload.",
+    "keywords": "cortar foto de folha, ajustar margem, quatro pontas, correção de perspectiva, recortar mesa, digitalizar folha celular, crop documento",
+    "canonical": "https://www.pdfwindows.com/pt/ajuste-de-margem",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/margin-adjust"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/ajuste-de-margem"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/ajuste-de-margen"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/margin-adjust"
+      }
+    ]
+  },
+  "/es/ajuste-de-margen": {
+    "lang": "es",
+    "title": "Ajuste de Margen — Recortar Foto de una Hoja | PDFWINDOWS",
+    "description": "Recorte la mesa alrededor de una hoja fotografiada en el navegador. Ajuste las 4 puntas, enderece la perspectiva y descargue la página — gratis y local.",
+    "keywords": "recortar foto de hoja, ajuste de margen, cuatro esquinas, corrección de perspectiva, quitar mesa, escanear hoja móvil, crop documento",
+    "canonical": "https://www.pdfwindows.com/es/ajuste-de-margen",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/margin-adjust"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/ajuste-de-margem"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/ajuste-de-margen"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/margin-adjust"
+      }
+    ]
+  },
   "/en/privacy": {
     "lang": "en",
     "title": "Privacy Policy | PDFWINDOWS",

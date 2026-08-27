@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, FileText, Image as ImageIcon, FileSpreadsheet, LayoutTemplate, Droplet, Type, Unlock, FileKey2, ScanSearch, Layers, SquareStack } from 'lucide-react';
+import { ArrowUpRight, FileText, Image as ImageIcon, FileSpreadsheet, LayoutTemplate, Droplet, Type, Unlock, FileKey2, ScanSearch, Layers, SquareStack, Crop } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { TOOL_PAGES } from '../seo/toolCatalog';
 
@@ -11,7 +11,7 @@ export function ToolCardGrid({ limit }: { limit?: number }) {
   const pages = limit ? TOOL_PAGES.slice(0, limit) : TOOL_PAGES;
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+    <div className="tool-catalog-grid">
       {pages.map((tool) => {
         const copy = tool.copy[lang];
         const Icon =
@@ -31,6 +31,8 @@ export function ToolCardGrid({ limit }: { limit?: number }) {
                         ? SquareStack
                     : tool.suiteId === 'document-converter'
                       ? FileText
+                    : tool.suiteId === 'margin-adjust'
+                      ? Crop
                     : tool.kind === 'suite'
                     ? LayoutTemplate
                     : tool.operation?.startsWith('img-')
