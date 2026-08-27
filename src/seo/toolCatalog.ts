@@ -15,7 +15,8 @@ export type SuiteToolId =
   | 'unlock-pdf'
   | 'file-xray'
   | 'organize-pdf'
-  | 'redact-pdf';
+  | 'redact-pdf'
+  | 'document-converter';
 
 export interface FaqItem {
   q: string;
@@ -1461,82 +1462,82 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
       ],
     },
   }),
-  page('/txt-to-pdf', 'converter', 'txt-to-pdf', undefined, {
+  page('/txt-to-pdf', 'suite', undefined, 'document-converter', {
     pt: {
-      title: 'Converter TXT para PDF Online | PDFWINDOWS',
+      title: 'Conversor de Documento Online | PDFWINDOWS',
       description:
-        'Transforme arquivos de texto em PDF legíveis no navegador. Rápido, seguro e sem upload.',
-      keywords: 'txt para pdf, texto para pdf, converter txt, arquivo texto pdf',
-      h1: 'Converter TXT para PDF',
+        'Converta Word, PDF, TXT e Excel no navegador. Identifique a extensão, escolha o destino e baixe localmente — grátis e sem upload.',
+      keywords: 'conversor de documento, word para pdf, excel para csv, txt para pdf, converter docx',
+      h1: 'Conversor de Documento',
       intro:
-        'Gere PDFs com layout limpo a partir de arquivos .txt. Ideal para documentos, notas e relatórios de texto.',
+        'Envie Word, PDF, texto ou planilha. O conversor identifica a extensão e lista os formatos de destino disponíveis para baixar no seu computador.',
       benefits: [
-        'Layout limpo e profissional',
-        'Processamento instantâneo',
-        'Arquivo permanece no seu computador',
+        'Identifica automaticamente o tipo do arquivo enviado',
+        'Lista destinos compatíveis para Word, PDF, TXT e Excel',
+        'Conversão local no navegador, sem upload',
       ],
       howItWorks: [
-        'Escolha o arquivo .txt.',
-        'Inicie a conversão.',
-        'Baixe o PDF gerado.',
+        'Envie um documento Word, PDF, TXT ou Excel.',
+        'Confira a extensão identificada e escolha o formato de destino.',
+        'Converta e baixe o arquivo gerado.',
       ],
       faq: [
         ...privacyFaq('pt'),
         {
-          q: 'Posso personalizar a formatação do PDF?',
-          a: 'O PDF é gerado com layout limpo e legível. Para formatação avançada, use o Estúdio de Documentos.',
+          q: 'Quais formatos posso converter?',
+          a: 'Word OOXML (.docx e aparentados), PDF, TXT, RTF, ODT, HTML, XLSX e CSV. Arquivos Word binários antigos (.doc) precisam ser salvos como .docx antes.',
         },
       ],
     },
     en: {
-      title: 'Convert TXT to PDF Online | PDFWINDOWS',
+      title: 'Document Converter Online | PDFWINDOWS',
       description:
-        'Turn text files into readable PDFs in your browser. Fast, secure, and no upload.',
-      keywords: 'txt to pdf, text to pdf, convert txt, text file to pdf',
-      h1: 'Convert TXT to PDF',
+        'Convert Word, PDF, TXT, and Excel in your browser. Detect the extension, pick a target format, and download locally — free, no upload.',
+      keywords: 'document converter, word to pdf, excel to csv, txt to pdf, convert docx browser',
+      h1: 'Document Converter',
       intro:
-        'Generate clean-layout PDFs from .txt files. Perfect for documents, notes, and text reports.',
+        'Upload Word, PDF, text, or a spreadsheet. The converter identifies the extension and lists available output formats to download on your computer.',
       benefits: [
-        'Clean, professional layout',
-        'Instant processing',
-        'File stays on your computer',
+        'Automatically identifies the uploaded file type',
+        'Lists compatible targets for Word, PDF, TXT, and Excel',
+        'Local browser conversion with no upload',
       ],
       howItWorks: [
-        'Choose your .txt file.',
-        'Start the conversion.',
-        'Download your generated PDF.',
+        'Upload a Word, PDF, TXT, or Excel document.',
+        'Check the identified extension and choose the output format.',
+        'Convert and download the generated file.',
       ],
       faq: [
         ...privacyFaq('en'),
         {
-          q: 'Can I customize the PDF formatting?',
-          a: 'The PDF is generated with a clean, readable layout. For advanced formatting, use Document Studio.',
+          q: 'Which formats can I convert?',
+          a: 'Word OOXML (.docx and related), PDF, TXT, RTF, ODT, HTML, XLSX, and CSV. Legacy binary Word (.doc) files must be saved as .docx first.',
         },
       ],
     },
     es: {
-      title: 'Convertir TXT a PDF Online | PDFWINDOWS',
+      title: 'Convertir Documentos Online | PDFWINDOWS',
       description:
-        'Transforme archivos de texto en PDF legibles en el navegador. Rápido, seguro y sin subida.',
-      keywords: 'txt a pdf, texto a pdf, convertir txt, archivo texto pdf',
-      h1: 'Convertir TXT a PDF',
+        'Convierta Word, PDF, TXT y Excel en el navegador. Identifique la extensión, elija el destino y descargue localmente — gratis y sin subida.',
+      keywords: 'conversor de documento, word a pdf, excel a csv, txt a pdf, convertir docx',
+      h1: 'Conversor de Documento',
       intro:
-        'Genere PDF con diseño limpio a partir de archivos .txt. Ideal para documentos, notas e informes de texto.',
+        'Envíe Word, PDF, texto o hoja de cálculo. El conversor identifica la extensión y lista los formatos de destino disponibles para descargar en su computadora.',
       benefits: [
-        'Diseño limpio y profesional',
-        'Procesamiento instantáneo',
-        'El archivo permanece en su computadora',
+        'Identifica automáticamente el tipo de archivo enviado',
+        'Lista destinos compatibles para Word, PDF, TXT y Excel',
+        'Conversión local en el navegador, sin subida',
       ],
       howItWorks: [
-        'Elija el archivo .txt.',
-        'Inicie la conversión.',
-        'Descargue el PDF generado.',
+        'Envíe un documento Word, PDF, TXT o Excel.',
+        'Confirme la extensión identificada y elija el formato de destino.',
+        'Convierta y descargue el archivo generado.',
       ],
       faq: [
         ...privacyFaq('es'),
         {
-          q: '¿Puedo personalizar el formato del PDF?',
-          a: 'El PDF se genera con un diseño limpio y legible. Para formato avanzado, use el Estudio de Documentos.',
+          q: '¿Qué formatos puedo convertir?',
+          a: 'Word OOXML (.docx y relacionados), PDF, TXT, RTF, ODT, HTML, XLSX y CSV. Los Word binarios antiguos (.doc) deben guardarse como .docx antes.',
         },
       ],
     },

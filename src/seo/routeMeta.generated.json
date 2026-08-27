@@ -1426,9 +1426,9 @@
   },
   "/en/txt-to-pdf": {
     "lang": "en",
-    "title": "TXT to PDF Online Offline | PDFWINDOWS",
-    "description": "Convert plain text to PDF in your browser. Format notes, logs, or scripts locally and download a print-ready document — free, fast, no upload.",
-    "keywords": "txt to pdf, text to pdf offline, convert txt file pdf browser, plain text pdf free, notepad to pdf local",
+    "title": "Document Converter Online Offline | PDFWINDOWS",
+    "description": "Convert Word, PDF, TXT, and Excel in your browser. Identify the extension, pick a target format, and download locally — free, private, and no upload.",
+    "keywords": "document converter, word to pdf offline, excel to csv browser, txt to pdf local, convert docx html rtf odt",
     "canonical": "https://www.pdfwindows.com/en/txt-to-pdf",
     "alternates": [
       {
@@ -1451,9 +1451,9 @@
   },
   "/pt/txt-para-pdf": {
     "lang": "pt-BR",
-    "title": "TXT para PDF Online Offline | PDFWINDOWS",
-    "description": "Converta arquivos de texto puro em PDFs legíveis no navegador. Crie PDFs compartilháveis a partir de .txt localmente — sem upload, layout limpo.",
-    "keywords": "txt para pdf, texto para pdf offline, converter txt pdf navegador, texto puro pdf gratis, bloco de notas para pdf local",
+    "title": "Conversor de Documento Online Offline | PDFWINDOWS",
+    "description": "Converta Word, PDF, TXT e Excel no navegador. Identifique a extensão, escolha o destino e baixe o arquivo localmente — grátis, privado e sem upload.",
+    "keywords": "conversor de documento, word para pdf offline, excel para csv navegador, txt para pdf local, converter docx html rtf odt",
     "canonical": "https://www.pdfwindows.com/pt/txt-para-pdf",
     "alternates": [
       {
@@ -1476,9 +1476,9 @@
   },
   "/es/txt-a-pdf": {
     "lang": "es",
-    "title": "TXT a PDF Online Offline | PDFWINDOWS",
-    "description": "Convierte texto plano a PDF en el navegador. Formatea notas, logs o scripts localmente y descarga un documento listo para imprimir — gratis y sin subir.",
-    "keywords": "txt a pdf, texto a pdf offline, convertir txt pdf navegador, texto plano pdf gratis, bloc de notas a pdf local",
+    "title": "Convertir Documentos Online Offline | PDFWINDOWS",
+    "description": "Convierta Word, PDF, TXT y Excel en el navegador. Identifique la extensión, elija el destino y descargue localmente — gratis, privado y sin subida.",
+    "keywords": "conversor de documento, word a pdf offline, excel a csv navegador, txt a pdf local, convertir docx html rtf odt",
     "canonical": "https://www.pdfwindows.com/es/txt-a-pdf",
     "alternates": [
       {

@@ -67,8 +67,9 @@ export const META_DESCRIPTION_OVERRIDES: Partial<
     es: 'Convierte XML a JSON en el navegador. Transforma feeds, configs y respuestas de API localmente con vista previa clara — gratis, privado y sin subir.',
   },
   '/txt-to-pdf': {
-    en: 'Convert plain text to PDF in your browser. Format notes, logs, or scripts locally and download a print-ready document — free, fast, no upload.',
-    es: 'Convierte texto plano a PDF en el navegador. Formatea notas, logs o scripts localmente y descarga un documento listo para imprimir — gratis y sin subir.',
+    en: 'Convert Word, PDF, TXT, and Excel in your browser. Identify the extension, pick a target format, and download locally — free, private, and no upload.',
+    pt: 'Converta Word, PDF, TXT e Excel no navegador. Identifique a extensão, escolha o destino e baixe o arquivo localmente — grátis, privado e sem upload.',
+    es: 'Convierta Word, PDF, TXT y Excel en el navegador. Identifique la extensión, elija el destino y descargue localmente — gratis, privado y sin subida.',
   },
   '/estudio-documentos': {
     en: 'Create and edit documents in your browser with Document Studio. Draft letters, contracts, and reports offline, then export PDF — free, no upload.',

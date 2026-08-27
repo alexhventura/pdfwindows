@@ -29,6 +29,8 @@ export function ToolCardGrid({ limit }: { limit?: number }) {
                       ? Layers
                       : tool.suiteId === 'redact-pdf'
                         ? SquareStack
+                    : tool.suiteId === 'document-converter'
+                      ? FileText
                     : tool.kind === 'suite'
                     ? LayoutTemplate
                     : tool.operation?.startsWith('img-')

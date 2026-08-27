@@ -36,6 +36,7 @@ const SUITE_LAZY_TOOLS: Record<string, SuiteLazyTool> = {
   'file-xray': lazy(() => import('./tools/FileXraySuiteTool')),
   'organize-pdf': lazy(() => import('./tools/OrganizePdfSuiteTool')),
   'redact-pdf': lazy(() => import('./tools/RedactPdfSuiteTool')),
+  'document-converter': lazy(() => import('./tools/DocumentConverterSuiteTool')),
 };
 
 function SuiteToolLoader({

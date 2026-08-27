@@ -89,9 +89,9 @@ export const conversionDirectory: Record<LanguageType, DirectoryContent> = {
               'Normalize XML de sistemas legados para pipelines de dados internos.',
           },
           {
-            name: 'TXT → PDF',
+            name: 'Conversor de Documento (Word, PDF, TXT, Excel)',
             description:
-              'Formalize atas, declarações simples ou logs de texto em PDF imprimível.',
+              'Identifique a extensão do arquivo e converta para os formatos disponíveis — PDF, DOCX, HTML, CSV e outros — sem enviar o documento a servidores.',
           },
         ],
       },
@@ -170,9 +170,9 @@ export const conversionDirectory: Record<LanguageType, DirectoryContent> = {
               'Normalize legacy XML feeds into structured JSON for internal tooling.',
           },
           {
-            name: 'TXT → PDF',
+            name: 'Document Converter (Word, PDF, TXT, Excel)',
             description:
-              'Turn plain-text minutes, statements, or logs into printable PDFs.',
+              'Identify the file extension and convert to available formats — PDF, DOCX, HTML, CSV, and more — without uploading the document.',
           },
         ],
       },
@@ -251,9 +251,9 @@ export const conversionDirectory: Record<LanguageType, DirectoryContent> = {
               'Normalice XML de sistemas legados para flujos de datos internos.',
           },
           {
-            name: 'TXT → PDF',
+            name: 'Conversor de Documento (Word, PDF, TXT, Excel)',
             description:
-              'Formalice actas, declaraciones simples o registros de texto en PDF imprimible.',
+              'Identifique la extensión del archivo y convierta a los formatos disponibles — PDF, DOCX, HTML, CSV y otros — sin subir el documento a servidores.',
           },
         ],
       },

@@ -3,7 +3,7 @@ import { Upload, Loader2, AlertCircle, X, Plus } from 'lucide-react';
 import type { LanguageType } from '../../types';
 import { ModalHeader } from './shared';
 
-export type DocToolAccept = 'pdf' | 'pdf-docx' | 'file-xray';
+export type DocToolAccept = 'pdf' | 'pdf-docx' | 'file-xray' | 'documents';
 
 interface Labels {
   dropTitle: string;
@@ -64,6 +64,24 @@ export const SUITE_UPLOAD_SUBTITLE: Record<LanguageType, string> = {
   es: 'Suba sus archivos y procese localmente.',
 };
 
+const DOCUMENT_EXTS = new Set([
+  'pdf',
+  'txt',
+  'docx',
+  'dotx',
+  'docm',
+  'dotm',
+  'doc',
+  'dot',
+  'rtf',
+  'odt',
+  'html',
+  'htm',
+  'xlsx',
+  'xlsm',
+  'csv',
+]);
+
 const XRAY_EXTS = new Set([
   'pdf',
   'docx',
@@ -83,6 +101,7 @@ function isAllowed(file: File, accept: DocToolAccept): boolean {
   const ext = file.name.split('.').pop()?.toLowerCase() || '';
   if (accept === 'pdf') return ext === 'pdf' || file.type === 'application/pdf';
   if (accept === 'file-xray') return XRAY_EXTS.has(ext);
+  if (accept === 'documents') return DOCUMENT_EXTS.has(ext);
   return (
     ext === 'pdf' ||
     ext === 'docx' ||
@@ -147,6 +166,8 @@ export function DocumentToolDropzone({
       ? '.pdf,application/pdf'
       : accept === 'file-xray'
         ? '.pdf,.docx,.xlsx,.pptx,.jpg,.jpeg,.png,.webp,.gif,.csv,.txt,.zip'
+        : accept === 'documents'
+          ? '.pdf,.txt,.docx,.dotx,.docm,.dotm,.doc,.dot,.rtf,.odt,.html,.htm,.xlsx,.xlsm,.csv'
         : '.pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document';
 
   const chips = labels.formats
