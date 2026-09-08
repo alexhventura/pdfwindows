@@ -36,7 +36,8 @@ import {
   type NormalizedRect,
   type PdfEditOp,
 } from '../../../engines/pdfToolkit';
-import { extractEditableSpans, spanEditOps, type EditableSpan } from '../../../utils/pdfEditableText';
+import { composeEditedText, extractEditableSpans, spanEditOps, type EditableSpan } from '../../../utils/pdfEditableText';
+import { convertDocument, type ConversionTargetId } from '../../../engines/documentConverter';
 
 type Props = { lang: LanguageType; onClose: () => void; showHeader?: boolean };
 
@@ -818,14 +819,18 @@ function editPdfCopy(lang: LanguageType) {
       undo: 'Desfazer última ação',
       reset: 'Recomeçar',
       changes: 'alteração(ões)',
-      generate: 'Gerar PDF editado',
-      nothing: 'Faça ao menos uma edição antes de gerar o PDF.',
-      failed: 'Não foi possível gerar o PDF editado.',
+      generate: 'Aplicar edições',
+      nothing: 'Faça ao menos uma edição antes de salvar.',
+      failed: 'Não foi possível gerar o arquivo editado.',
       readFail: 'Não foi possível ler este PDF.',
-      download: 'Baixar PDF editado',
-      again: 'Outro PDF',
+      download: 'Baixar arquivo',
+      again: 'Outro arquivo',
       loadingText: 'Lendo o texto do PDF…',
       fontNote: 'O texto editado ou acrescentado usa a fonte padrão Helvetica, então pode não ficar idêntico ao original.',
+      saveTitle: 'Salvar como',
+      saveHint: 'Escolha a extensão do arquivo final. Formatos de texto (Word, TXT, RTF…) usam o conteúdo editado; PDF e imagem preservam o layout da página.',
+      saving: 'Gerando arquivo…',
+      edited: 'edições aplicadas',
     };
   }
   if (lang === 'es') {
@@ -845,14 +850,18 @@ function editPdfCopy(lang: LanguageType) {
       undo: 'Deshacer última acción',
       reset: 'Reiniciar',
       changes: 'cambio(s)',
-      generate: 'Generar PDF editado',
-      nothing: 'Haz al menos una edición antes de generar el PDF.',
-      failed: 'No se pudo generar el PDF editado.',
+      generate: 'Aplicar ediciones',
+      nothing: 'Haz al menos una edición antes de guardar.',
+      failed: 'No se pudo generar el archivo editado.',
       readFail: 'No se pudo leer este PDF.',
-      download: 'Descargar PDF editado',
-      again: 'Otro PDF',
+      download: 'Descargar archivo',
+      again: 'Otro archivo',
       loadingText: 'Leyendo el texto del PDF…',
       fontNote: 'El texto editado o añadido usa la fuente estándar Helvetica, por lo que puede no ser idéntico al original.',
+      saveTitle: 'Guardar como',
+      saveHint: 'Elige la extensión del archivo final. Los formatos de texto (Word, TXT, RTF…) usan el contenido editado; PDF e imagen conservan el diseño de la página.',
+      saving: 'Generando archivo…',
+      edited: 'ediciones aplicadas',
     };
   }
   return {
@@ -871,15 +880,42 @@ function editPdfCopy(lang: LanguageType) {
     undo: 'Undo last action',
     reset: 'Start over',
     changes: 'change(s)',
-    generate: 'Generate edited PDF',
-    nothing: 'Make at least one edit before generating the PDF.',
-    failed: 'Could not generate the edited PDF.',
+    generate: 'Apply edits',
+    nothing: 'Make at least one edit before saving.',
+    failed: 'Could not generate the edited file.',
     readFail: 'Could not read this PDF.',
-    download: 'Download edited PDF',
-    again: 'Another PDF',
+    download: 'Download file',
+    again: 'Another file',
     loadingText: 'Reading the PDF text…',
     fontNote: 'Edited or added text uses the standard Helvetica font, so it may not look identical to the original.',
+    saveTitle: 'Save as',
+    saveHint: 'Choose the final file extension. Text formats (Word, TXT, RTF…) use the edited content; PDF and image keep the page layout.',
+    saving: 'Building file…',
+    edited: 'edits applied',
   };
+}
+
+type SaveFormat = 'pdf' | ConversionTargetId;
+
+const SAVE_FORMATS: Array<{ id: SaveFormat; label: string; ext: string }> = [
+  { id: 'pdf', label: 'PDF', ext: 'pdf' },
+  { id: 'docx', label: 'Word', ext: 'docx' },
+  { id: 'txt', label: 'TXT', ext: 'txt' },
+  { id: 'rtf', label: 'RTF', ext: 'rtf' },
+  { id: 'odt', label: 'OpenDocument', ext: 'odt' },
+  { id: 'html', label: 'HTML', ext: 'html' },
+  { id: 'xml', label: 'XML', ext: 'xml' },
+  { id: 'png', label: 'PNG', ext: 'png' },
+  { id: 'jpeg', label: 'JPG', ext: 'jpg' },
+];
+
+function triggerDownload(blob: Blob, name: string) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = name;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 4000);
 }
 
 export function EditPdfSuiteTool({ lang, onClose, showHeader }: Props) {
@@ -903,7 +939,9 @@ export function EditPdfSuiteTool({ lang, onClose, showHeader }: Props) {
   const imageBytes = useRef<Uint8Array | null>(null);
   const [drag, setDrag] = useState<{ x0: number; y0: number; x1: number; y1: number } | null>(null);
   const [display, setDisplay] = useState<{ w: number; h: number }>({ w: 0, h: 0 });
-  const [out, setOut] = useState<{ url: string; name: string } | null>(null);
+  const [edited, setEdited] = useState<{ pdfFile: File; text: string } | null>(null);
+  const [format, setFormat] = useState<SaveFormat>('pdf');
+  const [saving, setSaving] = useState(false);
 
   const open = useCallback(
     async (f: File) => {
@@ -1014,8 +1052,8 @@ export function EditPdfSuiteTool({ lang, onClose, showHeader }: Props) {
   };
 
   const startOver = () => {
-    if (out) URL.revokeObjectURL(out.url);
-    setOut(null);
+    setEdited(null);
+    setFormat('pdf');
     setFile(null);
     setSpans([]);
     resetEdits();
@@ -1085,12 +1123,40 @@ export function EditPdfSuiteTool({ lang, onClose, showHeader }: Props) {
     setError(null);
     try {
       const res = await applyPdfEdits(file, ops);
-      if (out) URL.revokeObjectURL(out.url);
-      setOut({ url: URL.createObjectURL(res.blob), name: res.fileName });
+      const stem = file.name.replace(/\.[^.]+$/, '') || 'documento';
+      const pdfFile = new File([res.blob], `${stem}_editado.pdf`, { type: 'application/pdf' });
+      const text = composeEditedText(spans, edits, addedTexts, preview.pageCount);
+      setEdited({ pdfFile, text });
+      setFormat('pdf');
     } catch {
       setError(t.failed);
     } finally {
       setBusy(false);
+    }
+  };
+
+  const downloadAs = async () => {
+    if (!edited || !file) return;
+    setSaving(true);
+    setError(null);
+    const stem = file.name.replace(/\.[^.]+$/, '') || 'documento';
+    try {
+      if (format === 'pdf') {
+        triggerDownload(edited.pdfFile, `${stem}_editado.pdf`);
+      } else if (format === 'txt') {
+        triggerDownload(new Blob([edited.text], { type: 'text/plain;charset=utf-8' }), `${stem}_editado.txt`);
+      } else if (format === 'png' || format === 'jpeg') {
+        const res = await convertDocument(edited.pdfFile, format);
+        triggerDownload(res.blob, res.fileName);
+      } else {
+        const txtFile = new File([edited.text], `${stem}_editado.txt`, { type: 'text/plain' });
+        const res = await convertDocument(txtFile, format);
+        triggerDownload(res.blob, res.fileName);
+      }
+    } catch {
+      setError(t.failed);
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -1113,8 +1179,8 @@ export function EditPdfSuiteTool({ lang, onClose, showHeader }: Props) {
       closeLabel={closeLbl(lang)}
     >
       {!file && <DocumentToolDropzone lang={lang} accept="pdf" onFile={(f) => void open(f)} labels={pdfDropLabels(lang, 'PDF')} />}
-      {file && !out && preview.pageCount === 0 && <ToolBusyState label={t.loadingText} />}
-      {file && !out && preview.pageCount > 0 && (
+      {file && !edited && preview.pageCount === 0 && <ToolBusyState label={t.loadingText} />}
+      {file && !edited && preview.pageCount > 0 && (
         <div className="space-y-3">
           <p className="text-[11px] text-slate-500">{t.intro}</p>
           {loadingSpans && <ToolBusyState label={t.loadingText} />}
@@ -1191,7 +1257,12 @@ export function EditPdfSuiteTool({ lang, onClose, showHeader }: Props) {
                       lineHeight: 1,
                       padding: 0,
                       margin: 0,
-                      border: editing ? '1px solid #2563eb' : '1px solid transparent',
+                      border: '1px solid transparent',
+                      borderBottom: editing
+                        ? '1px solid #2563eb'
+                        : active
+                          ? '1px solid #93c5fd'
+                          : '1px dotted rgba(37,99,235,0.3)',
                       borderRadius: 2,
                       color: active ? '#0f172a' : 'transparent',
                       background: active ? '#ffffff' : 'transparent',
@@ -1302,12 +1373,48 @@ export function EditPdfSuiteTool({ lang, onClose, showHeader }: Props) {
             </p>
           )}
           <button type="button" className="w-full btn-primary py-3.5" disabled={busy || changeCount === 0} onClick={() => void generate()}>
-            {t.generate}
+            {busy ? t.saving : t.generate}
           </button>
         </div>
       )}
-      {out && (
-        <DownloadReady url={out.url} name={out.name} label={t.download} again={t.again} onAgain={startOver} />
+      {edited && (
+        <div className="space-y-4">
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-[11px] font-semibold text-emerald-700">
+            {changeCount} {t.edited}
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs font-semibold text-slate-600">{t.saveTitle}</label>
+            <div className="flex flex-wrap gap-2">
+              {SAVE_FORMATS.map((fmt) => (
+                <button
+                  key={fmt.id}
+                  type="button"
+                  className={`btn-secondary py-2 px-3 text-[11px] ${format === fmt.id ? 'ring-2 ring-win-blue' : ''}`}
+                  onClick={() => setFormat(fmt.id)}
+                >
+                  {fmt.label} <span className="text-slate-400">.{fmt.ext}</span>
+                </button>
+              ))}
+            </div>
+            <p className="text-[10px] text-slate-400">{t.saveHint}</p>
+          </div>
+          {error && (
+            <p role="alert" className="text-xs text-rose-700 font-semibold flex gap-2">
+              <AlertCircle size={14} /> {error}
+            </p>
+          )}
+          <button
+            type="button"
+            className="w-full btn-primary py-3.5 inline-flex items-center justify-center gap-2"
+            disabled={saving}
+            onClick={() => void downloadAs()}
+          >
+            <Download size={16} /> {saving ? t.saving : t.download}
+          </button>
+          <button type="button" className="text-xs font-semibold text-win-blue inline-flex items-center gap-1 mx-auto" onClick={startOver}>
+            <RefreshCw size={12} /> {t.again}
+          </button>
+        </div>
       )}
     </SuiteWorkspaceShell>
   );
