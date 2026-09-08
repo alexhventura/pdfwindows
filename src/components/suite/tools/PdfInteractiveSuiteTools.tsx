@@ -776,8 +776,8 @@ interface AddedText {
   x: number;
   y: number;
   w: number;
+  /** Normalized height of the text box (drives font size on screen and in the PDF). */
   h: number;
-  fontSize: number;
   text: string;
 }
 
@@ -1037,7 +1037,7 @@ export function EditPdfSuiteTool({ lang, onClose, showHeader }: Props) {
       const id = `add-${Date.now()}`;
       setAddedTexts((prev) => [
         ...prev,
-        { id, pageIndex: preview.pageIndex, x: Math.max(0, p.x), y: Math.max(0, p.y - 0.02), w: 0.4, h: 0.05, fontSize: 14, text: '' },
+        { id, pageIndex: preview.pageIndex, x: Math.max(0, p.x), y: Math.max(0, p.y - 0.02), w: 0.5, h: 0.038, text: '' },
       ]);
       pushHistory('add');
       setEditingId(id);
@@ -1072,7 +1072,7 @@ export function EditPdfSuiteTool({ lang, onClose, showHeader }: Props) {
     }
     for (const a of addedTexts) {
       if (!a.text.trim()) continue;
-      ops.push({ kind: 'text', pageIndex: a.pageIndex, x: a.x, y: a.y, w: a.w, h: a.h, text: a.text, fontSize: a.fontSize });
+      ops.push({ kind: 'text', pageIndex: a.pageIndex, x: a.x, y: a.y, w: a.w, h: a.h, text: a.text });
     }
     for (const img of addedImages) {
       ops.push({ kind: 'image', pageIndex: img.pageIndex, x: img.x, y: img.y, w: img.w, h: img.h, png: img.png });
@@ -1113,11 +1113,12 @@ export function EditPdfSuiteTool({ lang, onClose, showHeader }: Props) {
       closeLabel={closeLbl(lang)}
     >
       {!file && <DocumentToolDropzone lang={lang} accept="pdf" onFile={(f) => void open(f)} labels={pdfDropLabels(lang, 'PDF')} />}
-      {loadingSpans && <ToolBusyState label={t.loadingText} />}
-      {file && !out && !loadingSpans && (
+      {file && !out && preview.pageCount === 0 && <ToolBusyState label={t.loadingText} />}
+      {file && !out && preview.pageCount > 0 && (
         <div className="space-y-3">
           <p className="text-[11px] text-slate-500">{t.intro}</p>
-          {spans.length === 0 && (
+          {loadingSpans && <ToolBusyState label={t.loadingText} />}
+          {!loadingSpans && spans.length === 0 && (
             <p className="text-[11px] font-semibold text-amber-700 flex gap-2">
               <AlertCircle size={14} className="shrink-0" /> {t.scanned}
             </p>
@@ -1206,7 +1207,7 @@ export function EditPdfSuiteTool({ lang, onClose, showHeader }: Props) {
             {/* Added text boxes */}
             {display.h > 0 &&
               pageAdded.map((item) => {
-                const fpx = Math.max(8, (item.fontSize / 72) * display.h);
+                const fpx = Math.max(8, item.h * display.h * 0.8);
                 return (
                   <input
                     key={item.id}

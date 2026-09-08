@@ -232,10 +232,10 @@ export async function applyPdfEdits(
     } else if (op.kind === 'rect') {
       page.drawRectangle({ x, y, width: w, height: h, borderColor: color, borderWidth: 1.5, color: undefined });
     } else if (op.kind === 'text') {
-      const size = Math.max(6, op.fontSize || 12);
+      const size = Math.max(6, op.fontSize ?? h * 0.8);
       page.drawText(sanitizePdfText(op.text || ''), {
         x: op.atBaseline ? x : x + 4,
-        y: op.atBaseline ? y : y + Math.max(4, h - size - 2),
+        y: op.atBaseline ? y : y + Math.max(2, h - size - 2),
         size,
         font,
         color,
