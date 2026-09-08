@@ -29,7 +29,7 @@ export interface NormalizedRect {
 }
 
 export interface PdfEditOp {
-  kind: 'text' | 'rect' | 'image';
+  kind: 'text' | 'rect' | 'image' | 'erase';
   pageIndex: number;
   x: number;
   y: number;
@@ -39,6 +39,8 @@ export interface PdfEditOp {
   color?: string;
   fontSize?: number;
   png?: Uint8Array;
+  /** Draw the text sitting on the bottom edge of the box (used to replace original text in place). */
+  atBaseline?: boolean;
 }
 
 export interface FormFillValue {
@@ -225,13 +227,16 @@ export async function applyPdfEdits(
     const x = clamp01(op.x) * width;
     const y = height - (clamp01(op.y) + clamp01(op.h)) * height;
     const color = hexRgb(op.color || '#0f172a');
-    if (op.kind === 'rect') {
+    if (op.kind === 'erase') {
+      page.drawRectangle({ x, y, width: w, height: h, color: hexRgb(op.color || '#ffffff'), borderWidth: 0 });
+    } else if (op.kind === 'rect') {
       page.drawRectangle({ x, y, width: w, height: h, borderColor: color, borderWidth: 1.5, color: undefined });
     } else if (op.kind === 'text') {
+      const size = Math.max(6, op.fontSize || 12);
       page.drawText(sanitizePdfText(op.text || ''), {
-        x: x + 4,
-        y: y + Math.max(4, h - (op.fontSize || 12) - 2),
-        size: Math.max(8, op.fontSize || 12),
+        x: op.atBaseline ? x : x + 4,
+        y: op.atBaseline ? y : y + Math.max(4, h - size - 2),
+        size,
         font,
         color,
       });

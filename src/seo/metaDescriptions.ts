@@ -121,9 +121,9 @@ export const META_DESCRIPTION_OVERRIDES: Partial<
     es: 'Compare el texto de dos PDF en el navegador. Vea líneas añadidas y quitadas lado a lado — gratis, local y sin subida a nuestros servidores.',
   },
   '/editar-pdf': {
-    en: 'Add text, a rectangle, or an image stamp to a PDF in your browser. Visual overlay on the page — free, local, and no upload to our servers.',
-    pt: 'Adicione texto, retângulo ou imagem num PDF no navegador. Carimbo visual por cima da página — grátis, local e sem upload para os nossos servidores.',
-    es: 'Añada texto, rectángulo o imagen a un PDF en el navegador. Sellos visuales sobre la página — gratis, local y sin subida a nuestros servidores.',
+    en: 'Edit PDF text right in your browser: click to change existing text, delete it, or add new text and images. Free, local, and no upload to our servers.',
+    pt: 'Edite o texto do PDF no navegador: clique para alterar o texto existente, apague-o ou acrescente texto e imagens. Grátis, local e sem upload para os nossos servidores.',
+    es: 'Edite el texto del PDF en el navegador: haga clic para cambiar el texto existente, bórrelo o añada texto e imágenes. Gratis, local y sin subida a nuestros servidores.',
   },
   '/escanear-para-pdf': {
     en: 'Capture pages with the camera or upload photos and build a PDF in your browser — free, local processing, and no upload to our servers.',

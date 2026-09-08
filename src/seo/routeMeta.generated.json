@@ -2777,7 +2777,7 @@
   "/en/edit-pdf": {
     "lang": "en",
     "title": "Edit PDF Online | PDFWINDOWS",
-    "description": "Add text, a rectangle, or an image stamp to a PDF in your browser. Visual overlay on the page — free, local, and no upload to our servers. Free on-device copy.",
+    "description": "Edit PDF text right in your browser: click to change existing text, delete it, or add new text and images. Free, local, and no upload to our servers.",
     "keywords": "edit pdf, add text to pdf, stamp pdf, annotate pdf local",
     "canonical": "https://www.pdfwindows.com/en/edit-pdf",
     "alternates": [
@@ -2802,7 +2802,7 @@
   "/pt/editar-pdf": {
     "lang": "pt-BR",
     "title": "Editar PDF Online | PDFWINDOWS",
-    "description": "Adicione texto, retângulo ou imagem num PDF no navegador. Carimbo visual por cima da página — grátis, local e sem upload para os nossos servidores.",
+    "description": "Edite o texto do PDF no navegador: clique para alterar o texto existente, apague-o ou acrescente texto e imagens. Grátis, local e sem upload para os nossos.",
     "keywords": "editar pdf, adicionar texto pdf, carimbo pdf, anotar pdf local",
     "canonical": "https://www.pdfwindows.com/pt/editar-pdf",
     "alternates": [
@@ -2827,7 +2827,7 @@
   "/es/editar-pdf": {
     "lang": "es",
     "title": "Editar PDF en el navegador | PDFWINDOWS",
-    "description": "Añada texto, rectángulo o imagen a un PDF en el navegador. Sellos visuales sobre la página — gratis, local y sin subida a nuestros servidores.",
+    "description": "Edite el texto del PDF en el navegador: haga clic para cambiar el texto existente, bórrelo o añada texto e imágenes. Gratis, local y sin subida a nuestros.",
     "keywords": "editar pdf, añadir texto pdf, sello pdf, anotar pdf local",
     "canonical": "https://www.pdfwindows.com/es/editar-pdf",
     "alternates": [

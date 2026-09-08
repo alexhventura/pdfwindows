@@ -237,9 +237,9 @@ const tools: Tool[] = [
     id: 'edit-pdf',
     name: { pt: 'Editar PDF', en: 'Edit PDF', es: 'Editar PDF' },
     description: {
-      pt: 'Adicione texto, retângulo ou imagem por cima da página.',
-      en: 'Add text, a rectangle, or an image on top of the page.',
-      es: 'Añada texto, un rectángulo o una imagen sobre la página.',
+      pt: 'Altere ou apague o texto existente e acrescente texto e imagens.',
+      en: 'Change or delete existing text, and add new text and images.',
+      es: 'Cambie o borre el texto existente y añada texto e imágenes.',
     },
     icon: <Pencil size={24} />,
     color: 'bg-blue-600',
