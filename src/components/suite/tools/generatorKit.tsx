@@ -41,10 +41,30 @@ export function GeneratorPanel({
   const [copied, setCopied] = useState(false);
   const copy = useCallback(async () => {
     if (!value) return;
-    try {
-      await navigator.clipboard.writeText(value);
+    const flash = () => {
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
+    };
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(value);
+        flash();
+        return;
+      }
+    } catch {
+      /* fall back to legacy copy below */
+    }
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = value;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      flash();
     } catch {
       /* clipboard unavailable */
     }
