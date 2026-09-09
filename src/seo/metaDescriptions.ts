@@ -116,6 +116,31 @@ export const META_DESCRIPTION_OVERRIDES: Partial<
     pt: 'Gere chaves aleatórias no formato 5×5 (XXXXX-XXXXX-…) para mockups, tutoriais e testes de interface. São apenas exemplos e não são licenças válidas de software algum.',
     es: 'Genera claves aleatorias en formato 5×5 (XXXXX-XXXXX-…) para maquetas, tutoriales y pruebas de interfaz. Son solo ejemplos y no son licencias válidas de software.',
   },
+  '/gerador-pis': {
+    en: 'Generate PIS/PASEP numbers with a valid check digit to test HR and payroll systems in your browser. Free, private, and no upload of data to our servers.',
+    pt: 'Gere números de PIS/PASEP com dígito verificador válido para testar sistemas de RH e folha de pagamento no navegador. Grátis, privado e sem upload de dados.',
+    es: 'Genera números de PIS/PASEP con dígito verificador válido para probar sistemas de RR. HH. y nómina en el navegador. Gratis, privado y sin subir datos.',
+  },
+  '/gerador-senha': {
+    en: 'Create strong, random passwords in your browser with custom length and character types, using a cryptographic generator. 100% local — nothing is ever sent.',
+    pt: 'Crie senhas fortes e aleatórias no navegador, com tamanho e tipos de caractere personalizáveis, usando gerador criptográfico. 100% local — nada é enviado.',
+    es: 'Crea contraseñas fuertes y aleatorias en el navegador, con longitud y tipos de caracteres personalizables y generador criptográfico. 100% local, nada se envía.',
+  },
+  '/gerador-uuid': {
+    en: 'Generate UUID v4 unique identifiers in your browser, one or many at once, and copy them all in a click. Free, local, no signup and no upload to our servers.',
+    pt: 'Gere identificadores únicos UUID v4 no navegador, um ou vários de uma vez, e copie tudo com um clique. Grátis, local, sem cadastro e sem upload aos servidores.',
+    es: 'Genera identificadores únicos UUID v4 en el navegador, uno o varios a la vez, y cópialos con un clic. Gratis, local, sin registro y sin subir a servidores.',
+  },
+  '/gerador-cartao-teste': {
+    en: 'Generate Luhn-valid test card numbers for Visa, Mastercard and Amex, with CVV and expiry, to test payment forms. Not real cards and hold no funds whatsoever.',
+    pt: 'Gere números de cartão válidos por Luhn para Visa, Mastercard e Amex, com CVV e validade, para testar formulários de pagamento. Não são cartões reais nem têm fundos.',
+    es: 'Genera números de tarjeta válidos por Luhn para Visa, Mastercard y Amex, con CVV y vencimiento, para probar pagos. No son tarjetas reales y no tienen fondos.',
+  },
+  '/validar-cpf-cnpj': {
+    en: 'Validate CPF, CNPJ, PIS/PASEP and card numbers by check digit and Luhn, with automatic type detection, right in your browser. Free, local, no upload of data.',
+    pt: 'Valide CPF, CNPJ, PIS/PASEP e números de cartão por dígito verificador e Luhn, com detecção automática do tipo, no navegador. Grátis, local e sem upload de dados.',
+    es: 'Valida CPF, CNPJ, PIS/PASEP y números de tarjeta por dígito verificador y Luhn, con detección automática del tipo, en el navegador. Gratis, local y sin subir datos.',
+  },
   '/limpador-codigo': {
     en: 'Clean and format code in your browser. Beautify JSON, HTML, CSS, and snippets locally with Prettier — free developer utility, private, no upload.',
     pt: 'Limpe e formate código no navegador. Embeleze JSON, HTML, CSS e snippets localmente com Prettier — utilitário grátis para devs, privado e sem upload.',

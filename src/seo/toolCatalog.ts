@@ -37,7 +37,12 @@ export type SuiteToolId =
   | 'cnpj-gen'
   | 'rg-gen'
   | 'phone-gen'
-  | 'product-key-gen';
+  | 'product-key-gen'
+  | 'pis-gen'
+  | 'password-gen'
+  | 'uuid-gen'
+  | 'credit-card-gen'
+  | 'doc-validator';
 
 export interface FaqItem {
   q: string;
@@ -2144,6 +2149,181 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
       'Não. São strings aleatórias apenas no formato visual, sem qualquer validade de licença.',
       'No. They are random strings in the visual format only, with no license validity whatsoever.',
       'No. Son cadenas aleatorias solo con el formato visual, sin validez de licencia.',
+    ],
+  }),
+  localSuitePage('/gerador-pis', 'pis-gen', {
+    title: [
+      'Gerador de PIS/PASEP para Testes | PDFWINDOWS',
+      'PIS/PASEP Generator for Testing | PDFWINDOWS',
+      'Generador de PIS/PASEP para Pruebas | PDFWINDOWS',
+    ],
+    description: [
+      'Gere números de PIS/PASEP com dígito verificador válido para testes de software, no navegador.',
+      'Generate PIS/PASEP numbers with a valid check digit for software testing, in your browser.',
+      'Genera números de PIS/PASEP con dígito verificador válido para pruebas, en el navegador.',
+    ],
+    keywords: ['gerador pis, pis pasep teste', 'pis pasep generator test', 'generador pis pasep prueba'],
+    h1: ['Gerador de PIS/PASEP', 'PIS/PASEP Generator', 'Generador de PIS/PASEP'],
+    intro: [
+      'Crie números de PIS/PASEP fictícios com dígito verificador para testar sistemas de RH e folha.',
+      'Create fictitious PIS/PASEP numbers with a check digit to test HR and payroll systems.',
+      'Crea números de PIS/PASEP ficticios con dígito verificador para probar sistemas de RR. HH.',
+    ],
+    benefits: [
+      ['Dígito verificador correto', 'Correct check digit', 'Dígito verificador correcto'],
+      ['Processamento local', 'Local processing', 'Procesamiento local'],
+      ['Copiar com um clique', 'One-click copy', 'Copiar con un clic'],
+    ],
+    how: [
+      ['Abra a ferramenta.', 'Open the tool.', 'Abre la herramienta.'],
+      ['Clique em gerar.', 'Click generate.', 'Haz clic en generar.'],
+      ['Copie o PIS de teste.', 'Copy the test PIS.', 'Copia el PIS de prueba.'],
+    ],
+    faqQ: ['Serve para cadastros reais?', 'Is it valid for real registrations?', '¿Sirve para registros reales?'],
+    faqA: [
+      'Não. Apenas para testes de software.',
+      'No. For software testing only.',
+      'No. Solo para pruebas de software.',
+    ],
+  }),
+  localSuitePage('/gerador-senha', 'password-gen', {
+    title: [
+      'Gerador de Senhas Forte | PDFWINDOWS',
+      'Strong Password Generator | PDFWINDOWS',
+      'Generador de Contraseñas Fuerte | PDFWINDOWS',
+    ],
+    description: [
+      'Crie senhas fortes e aleatórias no navegador, com tamanho e tipos de caractere personalizáveis. 100% local, nada é enviado.',
+      'Create strong, random passwords in your browser with custom length and character types. 100% local, nothing is sent.',
+      'Crea contraseñas fuertes y aleatorias en el navegador, con longitud y tipos personalizables. 100% local.',
+    ],
+    keywords: ['gerador de senha, senha forte aleatoria', 'password generator, strong random password', 'generador de contraseñas'],
+    h1: ['Gerador de Senhas', 'Password Generator', 'Generador de Contraseñas'],
+    intro: [
+      'Gere senhas seguras usando o gerador criptográfico do navegador. Escolha tamanho e tipos de caractere; nada sai do seu dispositivo.',
+      "Generate secure passwords using the browser's cryptographic generator. Pick length and character types; nothing leaves your device.",
+      'Genera contraseñas seguras con el generador criptográfico del navegador. Elige longitud y tipos; nada sale de tu dispositivo.',
+    ],
+    benefits: [
+      ['Aleatoriedade criptográfica', 'Cryptographic randomness', 'Aleatoriedad criptográfica'],
+      ['Tamanho e tipos ajustáveis', 'Adjustable length and types', 'Longitud y tipos ajustables'],
+      ['Indicador de força', 'Strength indicator', 'Indicador de fuerza'],
+    ],
+    how: [
+      ['Ajuste o tamanho e os tipos.', 'Adjust length and types.', 'Ajusta longitud y tipos.'],
+      ['Clique em gerar.', 'Click generate.', 'Haz clic en generar.'],
+      ['Copie a senha.', 'Copy the password.', 'Copia la contraseña.'],
+    ],
+    faqQ: ['A senha é enviada a algum servidor?', 'Is the password sent to any server?', '¿La contraseña se envía a un servidor?'],
+    faqA: [
+      'Não. É gerada e permanece somente no seu navegador.',
+      'No. It is generated and stays only in your browser.',
+      'No. Se genera y permanece solo en tu navegador.',
+    ],
+  }),
+  localSuitePage('/gerador-uuid', 'uuid-gen', {
+    title: [
+      'Gerador de UUID v4 | PDFWINDOWS',
+      'UUID v4 Generator | PDFWINDOWS',
+      'Generador de UUID v4 | PDFWINDOWS',
+    ],
+    description: [
+      'Gere identificadores únicos UUID v4 no navegador, um ou vários de uma vez. Grátis, local e sem cadastro.',
+      'Generate UUID v4 unique identifiers in your browser, one or many at a time. Free, local, no signup.',
+      'Genera identificadores únicos UUID v4 en el navegador, uno o varios a la vez. Gratis y local.',
+    ],
+    keywords: ['gerador uuid, uuid v4 online', 'uuid generator, uuid v4 online', 'generador uuid v4'],
+    h1: ['Gerador de UUID', 'UUID Generator', 'Generador de UUID'],
+    intro: [
+      'Crie UUIDs versão 4 para bancos de dados, APIs e testes. Gere em lote e copie tudo de uma vez.',
+      'Create version 4 UUIDs for databases, APIs and tests. Generate in bulk and copy all at once.',
+      'Crea UUID versión 4 para bases de datos, APIs y pruebas. Genera en lote y copia todo a la vez.',
+    ],
+    benefits: [
+      ['UUID v4 conforme RFC 4122', 'RFC 4122 UUID v4', 'UUID v4 según RFC 4122'],
+      ['Geração em lote', 'Bulk generation', 'Generación en lote'],
+      ['Copiar com um clique', 'One-click copy', 'Copiar con un clic'],
+    ],
+    how: [
+      ['Escolha a quantidade.', 'Choose how many.', 'Elige la cantidad.'],
+      ['Clique em gerar.', 'Click generate.', 'Haz clic en generar.'],
+      ['Copie os UUIDs.', 'Copy the UUIDs.', 'Copia los UUID.'],
+    ],
+    faqQ: ['Os UUIDs são únicos?', 'Are the UUIDs unique?', '¿Los UUID son únicos?'],
+    faqA: [
+      'A probabilidade de colisão de UUID v4 é praticamente nula.',
+      'The collision probability of UUID v4 is practically zero.',
+      'La probabilidad de colisión de UUID v4 es prácticamente nula.',
+    ],
+  }),
+  localSuitePage('/gerador-cartao-teste', 'credit-card-gen', {
+    title: [
+      'Gerador de Cartão de Crédito para Testes | PDFWINDOWS',
+      'Test Credit Card Number Generator | PDFWINDOWS',
+      'Generador de Tarjeta para Pruebas | PDFWINDOWS',
+    ],
+    description: [
+      'Gere números de cartão válidos pelo algoritmo de Luhn (Visa, Mastercard, Amex) para testar formulários de pagamento. Não são cartões reais.',
+      'Generate Luhn-valid card numbers (Visa, Mastercard, Amex) to test payment forms. These are not real cards.',
+      'Genera números de tarjeta válidos por Luhn (Visa, Mastercard, Amex) para probar formularios de pago. No son tarjetas reales.',
+    ],
+    keywords: ['gerador cartao credito teste, numero cartao luhn', 'test credit card generator, luhn valid card', 'generador tarjeta prueba luhn'],
+    h1: ['Gerador de Cartão (Teste)', 'Test Credit Card Generator', 'Generador de Tarjeta (Prueba)'],
+    intro: [
+      'Crie números de cartão fictícios que passam na validação de Luhn, com CVV e validade, para testar checkouts. Nenhum cartão real é usado.',
+      'Create fictitious card numbers that pass Luhn validation, with CVV and expiry, to test checkouts. No real card is used.',
+      'Crea números de tarjeta ficticios que pasan la validación de Luhn, con CVV y vencimiento, para probar checkouts.',
+    ],
+    benefits: [
+      ['Válidos pelo algoritmo de Luhn', 'Luhn-valid numbers', 'Válidos por el algoritmo de Luhn'],
+      ['Visa, Mastercard e Amex', 'Visa, Mastercard and Amex', 'Visa, Mastercard y Amex'],
+      ['CVV e validade incluídos', 'CVV and expiry included', 'CVV y vencimiento incluidos'],
+    ],
+    how: [
+      ['Escolha a bandeira.', 'Pick the brand.', 'Elige la marca.'],
+      ['Clique em gerar.', 'Click generate.', 'Haz clic en generar.'],
+      ['Copie o número de teste.', 'Copy the test number.', 'Copia el número de prueba.'],
+    ],
+    faqQ: ['Dá para comprar com esse número?', 'Can I buy anything with this number?', '¿Puedo comprar con este número?'],
+    faqA: [
+      'Não. É fictício, sem fundos, apenas para testar validação de formulários.',
+      'No. It is fictitious, holds no funds, and only tests form validation.',
+      'No. Es ficticio, sin fondos, solo para probar la validación de formularios.',
+    ],
+  }),
+  localSuitePage('/validar-cpf-cnpj', 'doc-validator', {
+    title: [
+      'Validador de CPF e CNPJ Online | PDFWINDOWS',
+      'CPF and CNPJ Validator Online | PDFWINDOWS',
+      'Validador de CPF y CNPJ en Línea | PDFWINDOWS',
+    ],
+    description: [
+      'Valide CPF, CNPJ, PIS/PASEP e números de cartão (Luhn) direto no navegador, com detecção automática do tipo. Grátis e local.',
+      'Validate CPF, CNPJ, PIS/PASEP and card numbers (Luhn) right in your browser, with automatic type detection. Free and local.',
+      'Valida CPF, CNPJ, PIS/PASEP y números de tarjeta (Luhn) en el navegador, con detección automática. Gratis y local.',
+    ],
+    keywords: ['validador cpf cnpj, verificar cpf online', 'cpf cnpj validator, verify cpf online', 'validador cpf cnpj en linea'],
+    h1: ['Validador de CPF e CNPJ', 'CPF and CNPJ Validator', 'Validador de CPF y CNPJ'],
+    intro: [
+      'Cole um número e veja na hora se o dígito verificador confere. Detecta CPF, CNPJ, PIS/PASEP ou cartão pelo tamanho. Nada é enviado.',
+      'Paste a number and instantly see whether the check digit is correct. It detects CPF, CNPJ, PIS/PASEP or card by length. Nothing is sent.',
+      'Pega un número y ve al instante si el dígito verificador es correcto. Detecta CPF, CNPJ, PIS/PASEP o tarjeta por longitud. Nada se envía.',
+    ],
+    benefits: [
+      ['Detecção automática do tipo', 'Automatic type detection', 'Detección automática del tipo'],
+      ['Checa dígito verificador e Luhn', 'Checks check digit and Luhn', 'Verifica dígito verificador y Luhn'],
+      ['100% local', '100% local', '100% local'],
+    ],
+    how: [
+      ['Cole ou digite o número.', 'Paste or type the number.', 'Pega o escribe el número.'],
+      ['Veja o resultado na hora.', 'See the result instantly.', 'Ve el resultado al instante.'],
+      ['Ajuste e teste outro.', 'Adjust and test another.', 'Ajusta y prueba otro.'],
+    ],
+    faqQ: ['O validador confirma que o documento existe?', 'Does it confirm the document exists?', '¿Confirma que el documento existe?'],
+    faqA: [
+      'Não. Ele checa apenas o dígito verificador/algoritmo, não consulta órgãos oficiais.',
+      'No. It only checks the check digit/algorithm; it does not query official agencies.',
+      'No. Solo verifica el dígito verificador/algoritmo; no consulta órganos oficiales.',
     ],
   }),
   page('/limpador-codigo', 'suite', undefined, 'code-clean', {

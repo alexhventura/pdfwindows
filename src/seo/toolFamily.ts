@@ -61,6 +61,11 @@ const SUITE_FAMILY: Record<string, ToolFamily> = {
   'rg-gen': 'utility',
   'phone-gen': 'utility',
   'product-key-gen': 'utility',
+  'pis-gen': 'utility',
+  'password-gen': 'utility',
+  'uuid-gen': 'utility',
+  'credit-card-gen': 'utility',
+  'doc-validator': 'utility',
   'code-clean': 'utility',
   'file-xray': 'utility',
 };

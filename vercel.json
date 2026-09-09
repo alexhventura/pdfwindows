@@ -392,6 +392,51 @@
       "permanent": true
     },
     {
+      "source": "/en/gerador-pis",
+      "destination": "/en/pis-generator",
+      "permanent": true
+    },
+    {
+      "source": "/es/gerador-pis",
+      "destination": "/es/generador-pis",
+      "permanent": true
+    },
+    {
+      "source": "/en/gerador-senha",
+      "destination": "/en/password-generator",
+      "permanent": true
+    },
+    {
+      "source": "/es/gerador-senha",
+      "destination": "/es/generador-contrasena",
+      "permanent": true
+    },
+    {
+      "source": "/en/gerador-uuid",
+      "destination": "/en/uuid-generator",
+      "permanent": true
+    },
+    {
+      "source": "/es/gerador-uuid",
+      "destination": "/es/generador-uuid",
+      "permanent": true
+    },
+    {
+      "source": "/en/gerador-cartao-teste",
+      "destination": "/en/test-card-generator",
+      "permanent": true
+    },
+    {
+      "source": "/es/gerador-cartao-teste",
+      "destination": "/es/generador-tarjeta-prueba",
+      "permanent": true
+    },
+    {
+      "source": "/en/validar-cpf-cnpj",
+      "destination": "/en/cpf-cnpj-validator",
+      "permanent": true
+    },
+    {
       "source": "/en/limpador-codigo",
       "destination": "/en/code-cleaner",
       "permanent": true
@@ -1189,6 +1234,96 @@
     {
       "source": "/es/product-key-generator",
       "destination": "/es/generador-clave-producto",
+      "permanent": true
+    },
+    {
+      "source": "/en/generador-pis",
+      "destination": "/en/pis-generator",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pis-generator",
+      "destination": "/pt/gerador-pis",
+      "permanent": true
+    },
+    {
+      "source": "/pt/generador-pis",
+      "destination": "/pt/gerador-pis",
+      "permanent": true
+    },
+    {
+      "source": "/es/pis-generator",
+      "destination": "/es/generador-pis",
+      "permanent": true
+    },
+    {
+      "source": "/en/generador-contrasena",
+      "destination": "/en/password-generator",
+      "permanent": true
+    },
+    {
+      "source": "/pt/password-generator",
+      "destination": "/pt/gerador-senha",
+      "permanent": true
+    },
+    {
+      "source": "/pt/generador-contrasena",
+      "destination": "/pt/gerador-senha",
+      "permanent": true
+    },
+    {
+      "source": "/es/password-generator",
+      "destination": "/es/generador-contrasena",
+      "permanent": true
+    },
+    {
+      "source": "/en/generador-uuid",
+      "destination": "/en/uuid-generator",
+      "permanent": true
+    },
+    {
+      "source": "/pt/uuid-generator",
+      "destination": "/pt/gerador-uuid",
+      "permanent": true
+    },
+    {
+      "source": "/pt/generador-uuid",
+      "destination": "/pt/gerador-uuid",
+      "permanent": true
+    },
+    {
+      "source": "/es/uuid-generator",
+      "destination": "/es/generador-uuid",
+      "permanent": true
+    },
+    {
+      "source": "/en/generador-tarjeta-prueba",
+      "destination": "/en/test-card-generator",
+      "permanent": true
+    },
+    {
+      "source": "/pt/test-card-generator",
+      "destination": "/pt/gerador-cartao-teste",
+      "permanent": true
+    },
+    {
+      "source": "/pt/generador-tarjeta-prueba",
+      "destination": "/pt/gerador-cartao-teste",
+      "permanent": true
+    },
+    {
+      "source": "/es/test-card-generator",
+      "destination": "/es/generador-tarjeta-prueba",
+      "permanent": true
+    },
+    {
+      "source": "/pt/cpf-cnpj-validator",
+      "destination": "/pt/validar-cpf-cnpj",
+      "permanent": true
+    },
+    {
+      "source": "/es/cpf-cnpj-validator",
+      "destination": "/es/validar-cpf-cnpj",
       "permanent": true
     },
     {

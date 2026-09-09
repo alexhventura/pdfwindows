@@ -34,6 +34,7 @@ import {
   KeySquare,
   UserCheck,
   QrCode,
+  ShieldCheck,
   type LucideIcon,
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
@@ -73,6 +74,11 @@ const SUITE_ICONS: Record<string, LucideIcon> = {
   'rg-gen': Contact,
   'phone-gen': Phone,
   'product-key-gen': KeySquare,
+  'pis-gen': Hash,
+  'password-gen': KeyRound,
+  'uuid-gen': Fingerprint,
+  'credit-card-gen': CreditCard,
+  'doc-validator': ShieldCheck,
 };
 
 function toolIcon(tool: ToolPageDefinition) {

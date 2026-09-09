@@ -14,6 +14,7 @@ import {
   isValidLuhn,
   isValidPisPasep,
   passwordStrength,
+  validateDocument,
 } from '../generators';
 
 describe('document generators produce valid check digits', () => {
@@ -104,5 +105,20 @@ describe('product key generator', () => {
   it('produces 5 groups of 5 unambiguous chars', () => {
     const key = generateProductKey();
     expect(key).toMatch(/^[BCDFGHJKMPQRTVWXY2346789]{5}(-[BCDFGHJKMPQRTVWXY2346789]{5}){4}$/);
+  });
+});
+
+describe('validateDocument', () => {
+  it('detects and validates generated documents', () => {
+    expect(validateDocument(generateCpf())).toMatchObject({ kind: 'cpf', valid: true });
+    expect(validateDocument(generateCnpj())).toMatchObject({ kind: 'cnpj', valid: true });
+    expect(validateDocument(generatePisPasep())).toMatchObject({ valid: true });
+    expect(validateDocument(generateCreditCard('visa').number)).toMatchObject({ kind: 'card', valid: true });
+  });
+
+  it('flags invalid or unknown inputs', () => {
+    expect(validateDocument('111.111.111-11')).toMatchObject({ kind: 'cpf', valid: false });
+    expect(validateDocument('00.000.000/0000-00')).toMatchObject({ kind: 'cnpj', valid: false });
+    expect(validateDocument('123')).toMatchObject({ kind: 'unknown', valid: false });
   });
 });

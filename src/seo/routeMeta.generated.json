@@ -2174,6 +2174,381 @@
       }
     ]
   },
+  "/en/pis-generator": {
+    "lang": "en",
+    "title": "PIS/PASEP Generator for Software Testing | PDFWINDOWS",
+    "description": "Generate PIS/PASEP numbers with a valid check digit to test HR and payroll systems in your browser. Free, private, and no upload of data to our servers.",
+    "keywords": "pis pasep generator test, valid pis for development, fake pis qa, nis test number, pis check digit",
+    "canonical": "https://www.pdfwindows.com/en/pis-generator",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/pis-generator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/gerador-pis"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/generador-pis"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/pis-generator"
+      }
+    ]
+  },
+  "/pt/gerador-pis": {
+    "lang": "pt-BR",
+    "title": "Gerador de PIS/PASEP para Testes de Software | PDFWINDOWS",
+    "description": "Gere números de PIS/PASEP com dígito verificador válido para testar sistemas de RH e folha de pagamento no navegador. Grátis, privado e sem upload de dados.",
+    "keywords": "gerador pis pasep teste, pis valido desenvolvimento, pis fake qa, nis teste, pis digito verificador",
+    "canonical": "https://www.pdfwindows.com/pt/gerador-pis",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/pis-generator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/gerador-pis"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/generador-pis"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/pis-generator"
+      }
+    ]
+  },
+  "/es/generador-pis": {
+    "lang": "es",
+    "title": "Generador de PIS/PASEP para Pruebas de Software | PDFWINDOWS",
+    "description": "Genera números de PIS/PASEP con dígito verificador válido para probar sistemas de RR. HH. y nómina en el navegador. Gratis, privado y sin subir datos.",
+    "keywords": "generador pis pasep prueba, pis valido desarrollo, pis fake qa, nis prueba, pis digito verificador",
+    "canonical": "https://www.pdfwindows.com/es/generador-pis",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/pis-generator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/gerador-pis"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/generador-pis"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/pis-generator"
+      }
+    ]
+  },
+  "/en/password-generator": {
+    "lang": "en",
+    "title": "Strong Password Generator (Local, Private) | PDFWINDOWS",
+    "description": "Create strong, random passwords in your browser with custom length and character types, using a cryptographic generator. 100% local — nothing is ever sent.",
+    "keywords": "password generator, strong random password, secure password maker, local password generator, browser password tool",
+    "canonical": "https://www.pdfwindows.com/en/password-generator",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/password-generator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/gerador-senha"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/generador-contrasena"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/password-generator"
+      }
+    ]
+  },
+  "/pt/gerador-senha": {
+    "lang": "pt-BR",
+    "title": "Gerador de Senhas Forte (Local e Privado) | PDFWINDOWS",
+    "description": "Crie senhas fortes e aleatórias no navegador, com tamanho e tipos de caractere personalizáveis, usando gerador criptográfico. 100% local — nada é enviado.",
+    "keywords": "gerador de senha, senha forte aleatoria, criar senha segura, gerador senha local, gerador senha navegador",
+    "canonical": "https://www.pdfwindows.com/pt/gerador-senha",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/password-generator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/gerador-senha"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/generador-contrasena"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/password-generator"
+      }
+    ]
+  },
+  "/es/generador-contrasena": {
+    "lang": "es",
+    "title": "Generador de Contraseñas Fuerte (Local y Privado) | PDFWINDOWS",
+    "description": "Crea contraseñas fuertes y aleatorias en el navegador, con longitud y tipos de caracteres personalizables y generador criptográfico. 100% local, nada se envía.",
+    "keywords": "generador de contraseñas, contraseña fuerte aleatoria, crear contraseña segura, generador contraseña local, generador contraseña navegador",
+    "canonical": "https://www.pdfwindows.com/es/generador-contrasena",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/password-generator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/gerador-senha"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/generador-contrasena"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/password-generator"
+      }
+    ]
+  },
+  "/en/uuid-generator": {
+    "lang": "en",
+    "title": "UUID v4 Generator (Bulk, Local) | PDFWINDOWS",
+    "description": "Generate UUID v4 unique identifiers in your browser, one or many at once, and copy them all in a click. Free, local, no signup and no upload to our servers.",
+    "keywords": "uuid generator, uuid v4 online, generate guid, bulk uuid, random identifier generator",
+    "canonical": "https://www.pdfwindows.com/en/uuid-generator",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/uuid-generator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/gerador-uuid"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/generador-uuid"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/uuid-generator"
+      }
+    ]
+  },
+  "/pt/gerador-uuid": {
+    "lang": "pt-BR",
+    "title": "Gerador de UUID v4 (Em Lote, Local) | PDFWINDOWS",
+    "description": "Gere identificadores únicos UUID v4 no navegador, um ou vários de uma vez, e copie tudo com um clique. Grátis, local, sem cadastro e sem upload aos servidores.",
+    "keywords": "gerador uuid, uuid v4 online, gerar guid, uuid em lote, gerador identificador aleatorio",
+    "canonical": "https://www.pdfwindows.com/pt/gerador-uuid",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/uuid-generator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/gerador-uuid"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/generador-uuid"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/uuid-generator"
+      }
+    ]
+  },
+  "/es/generador-uuid": {
+    "lang": "es",
+    "title": "Generador de UUID v4 (En Lote, Local) | PDFWINDOWS",
+    "description": "Genera identificadores únicos UUID v4 en el navegador, uno o varios a la vez, y cópialos con un clic. Gratis, local, sin registro y sin subir a servidores.",
+    "keywords": "generador uuid, uuid v4 online, generar guid, uuid en lote, generador identificador aleatorio",
+    "canonical": "https://www.pdfwindows.com/es/generador-uuid",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/uuid-generator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/gerador-uuid"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/generador-uuid"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/uuid-generator"
+      }
+    ]
+  },
+  "/en/test-card-generator": {
+    "lang": "en",
+    "title": "Test Credit Card Number Generator (Luhn) | PDFWINDOWS",
+    "description": "Generate Luhn-valid test card numbers for Visa, Mastercard and Amex, with CVV and expiry, to test payment forms. Not real cards and hold no funds whatsoever.",
+    "keywords": "test credit card generator, luhn valid card number, fake card for testing, payment form test card, dummy card number",
+    "canonical": "https://www.pdfwindows.com/en/test-card-generator",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/test-card-generator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/gerador-cartao-teste"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/generador-tarjeta-prueba"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/test-card-generator"
+      }
+    ]
+  },
+  "/pt/gerador-cartao-teste": {
+    "lang": "pt-BR",
+    "title": "Gerador de Cartão de Crédito para Testes (Luhn) | PDFWINDOWS",
+    "description": "Gere números de cartão válidos por Luhn para Visa, Mastercard e Amex, com CVV e validade, para testar formulários de pagamento. Não são cartões reais nem têm.",
+    "keywords": "gerador cartao credito teste, numero cartao luhn valido, cartao fake teste, cartao teste formulario pagamento, numero cartao ficticio",
+    "canonical": "https://www.pdfwindows.com/pt/gerador-cartao-teste",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/test-card-generator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/gerador-cartao-teste"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/generador-tarjeta-prueba"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/test-card-generator"
+      }
+    ]
+  },
+  "/es/generador-tarjeta-prueba": {
+    "lang": "es",
+    "title": "Generador de Tarjeta de Crédito para Pruebas (Luhn) | PDFWINDOWS",
+    "description": "Genera números de tarjeta válidos por Luhn para Visa, Mastercard y Amex, con CVV y vencimiento, para probar pagos. No son tarjetas reales y no tienen fondos.",
+    "keywords": "generador tarjeta credito prueba, numero tarjeta luhn valido, tarjeta fake prueba, tarjeta prueba formulario pago, numero tarjeta ficticio",
+    "canonical": "https://www.pdfwindows.com/es/generador-tarjeta-prueba",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/test-card-generator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/gerador-cartao-teste"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/generador-tarjeta-prueba"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/test-card-generator"
+      }
+    ]
+  },
+  "/en/cpf-cnpj-validator": {
+    "lang": "en",
+    "title": "CPF and CNPJ Validator (Local) | PDFWINDOWS",
+    "description": "Validate CPF, CNPJ, PIS/PASEP and card numbers by check digit and Luhn, with automatic type detection, right in your browser. Free, local, no upload of data.",
+    "keywords": "cpf cnpj validator, verify cpf online, check digit validator, luhn card checker, validate brazil document",
+    "canonical": "https://www.pdfwindows.com/en/cpf-cnpj-validator",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/cpf-cnpj-validator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/validar-cpf-cnpj"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/validar-cpf-cnpj"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/cpf-cnpj-validator"
+      }
+    ]
+  },
+  "/pt/validar-cpf-cnpj": {
+    "lang": "pt-BR",
+    "title": "Validador de CPF e CNPJ (Local) | PDFWINDOWS",
+    "description": "Valide CPF, CNPJ, PIS/PASEP e números de cartão por dígito verificador e Luhn, com detecção automática do tipo, no navegador. Grátis, local e sem upload de.",
+    "keywords": "validador cpf cnpj, verificar cpf online, validar digito verificador, checar cartao luhn, validar documento brasil",
+    "canonical": "https://www.pdfwindows.com/pt/validar-cpf-cnpj",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/cpf-cnpj-validator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/validar-cpf-cnpj"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/validar-cpf-cnpj"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/cpf-cnpj-validator"
+      }
+    ]
+  },
+  "/es/validar-cpf-cnpj": {
+    "lang": "es",
+    "title": "Validador de CPF y CNPJ (Local) | PDFWINDOWS",
+    "description": "Valida CPF, CNPJ, PIS/PASEP y números de tarjeta por dígito verificador y Luhn, con detección automática del tipo, en el navegador. Gratis, local y sin subir.",
+    "keywords": "validador cpf cnpj, verificar cpf en linea, validar digito verificador, comprobar tarjeta luhn, validar documento brasil",
+    "canonical": "https://www.pdfwindows.com/es/validar-cpf-cnpj",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/cpf-cnpj-validator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/validar-cpf-cnpj"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/validar-cpf-cnpj"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/cpf-cnpj-validator"
+      }
+    ]
+  },
   "/en/code-cleaner": {
     "lang": "en",
     "title": "Code Formatter & Minifier Online Offline | PDFWINDOWS",

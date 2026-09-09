@@ -36,6 +36,7 @@ import {
   Fingerprint,
   CreditCard,
   KeySquare,
+  ShieldCheck,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import type { LanguageType } from '../types';
@@ -129,6 +130,61 @@ const tools: Tool[] = [
     },
     icon: <KeySquare size={24} />,
     color: 'bg-emerald-500',
+  },
+  {
+    id: 'pis-gen',
+    name: { pt: 'Gerador de PIS/PASEP', en: 'PIS/PASEP Generator', es: 'Generador de PIS/PASEP' },
+    description: {
+      pt: 'PIS/PASEP com dígito válido para testes.',
+      en: 'PIS/PASEP with valid check digit for testing.',
+      es: 'PIS/PASEP con dígito válido para pruebas.',
+    },
+    icon: <Hash size={24} />,
+    color: 'bg-orange-500',
+  },
+  {
+    id: 'password-gen',
+    name: { pt: 'Gerador de Senha', en: 'Password Generator', es: 'Generador de Contraseña' },
+    description: {
+      pt: 'Senhas fortes e aleatórias, 100% local.',
+      en: 'Strong random passwords, 100% local.',
+      es: 'Contraseñas fuertes y aleatorias, 100% local.',
+    },
+    icon: <KeyRound size={24} />,
+    color: 'bg-emerald-500',
+  },
+  {
+    id: 'uuid-gen',
+    name: { pt: 'Gerador de UUID', en: 'UUID Generator', es: 'Generador de UUID' },
+    description: {
+      pt: 'UUID v4 em lote, com um clique.',
+      en: 'UUID v4 in bulk, one click.',
+      es: 'UUID v4 en lote, un clic.',
+    },
+    icon: <Fingerprint size={24} />,
+    color: 'bg-emerald-500',
+  },
+  {
+    id: 'credit-card-gen',
+    name: { pt: 'Cartão de Teste', en: 'Test Card', es: 'Tarjeta de Prueba' },
+    description: {
+      pt: 'Números válidos por Luhn para testar checkout.',
+      en: 'Luhn-valid numbers to test checkout.',
+      es: 'Números válidos por Luhn para probar checkout.',
+    },
+    icon: <CreditCard size={24} />,
+    color: 'bg-emerald-500',
+  },
+  {
+    id: 'doc-validator',
+    name: { pt: 'Validador CPF/CNPJ', en: 'CPF/CNPJ Validator', es: 'Validador CPF/CNPJ' },
+    description: {
+      pt: 'Valida CPF, CNPJ, PIS e cartão (Luhn).',
+      en: 'Validates CPF, CNPJ, PIS and cards (Luhn).',
+      es: 'Valida CPF, CNPJ, PIS y tarjetas (Luhn).',
+    },
+    icon: <ShieldCheck size={24} />,
+    color: 'bg-teal-500',
   },
   {
     id: 'code-clean',
@@ -426,6 +482,11 @@ const SUITE_PATHS: Record<string, string> = {
   'rg-gen': '/gerador-rg',
   'phone-gen': '/gerador-telefone',
   'product-key-gen': '/gerador-chave-produto',
+  'pis-gen': '/gerador-pis',
+  'password-gen': '/gerador-senha',
+  'uuid-gen': '/gerador-uuid',
+  'credit-card-gen': '/gerador-cartao-teste',
+  'doc-validator': '/validar-cpf-cnpj',
   'code-clean': '/limpador-codigo',
   'document-studio': '/estudio-documentos',
   'report-gen': '/gerador-relatorios',

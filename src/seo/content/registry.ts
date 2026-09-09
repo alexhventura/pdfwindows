@@ -28,6 +28,11 @@ import { GERADOR_CNPJ_CONTENT } from './tools/gerador-cnpj';
 import { GERADOR_RG_CONTENT } from './tools/gerador-rg';
 import { GERADOR_TELEFONE_CONTENT } from './tools/gerador-telefone';
 import { GERADOR_CHAVE_PRODUTO_CONTENT } from './tools/gerador-chave-produto';
+import { GERADOR_PIS_CONTENT } from './tools/gerador-pis';
+import { GERADOR_SENHA_CONTENT } from './tools/gerador-senha';
+import { GERADOR_UUID_CONTENT } from './tools/gerador-uuid';
+import { GERADOR_CARTAO_TESTE_CONTENT } from './tools/gerador-cartao-teste';
+import { VALIDAR_CPF_CNPJ_CONTENT } from './tools/validar-cpf-cnpj';
 import { LIMPADOR_CODIGO_CONTENT } from './tools/limpador-codigo';
 import { IDENTIFICADOR_FONTES_CONTENT } from './tools/identificador-de-fontes';
 import { REMOVER_RESTRICOES_CONTENT } from './tools/remover-restricoes';
@@ -87,6 +92,11 @@ export const RICH_CONTENT_REGISTRY: ToolContentRegistry = {
   '/gerador-rg': GERADOR_RG_CONTENT,
   '/gerador-telefone': GERADOR_TELEFONE_CONTENT,
   '/gerador-chave-produto': GERADOR_CHAVE_PRODUTO_CONTENT,
+  '/gerador-pis': GERADOR_PIS_CONTENT,
+  '/gerador-senha': GERADOR_SENHA_CONTENT,
+  '/gerador-uuid': GERADOR_UUID_CONTENT,
+  '/gerador-cartao-teste': GERADOR_CARTAO_TESTE_CONTENT,
+  '/validar-cpf-cnpj': VALIDAR_CPF_CNPJ_CONTENT,
   '/limpador-codigo': LIMPADOR_CODIGO_CONTENT,
   '/identificador-de-fontes': IDENTIFICADOR_FONTES_CONTENT,
   '/remover-restricoes': REMOVER_RESTRICOES_CONTENT,

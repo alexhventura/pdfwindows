@@ -283,3 +283,32 @@ export function generateProductKey(groups = 5, size = 5): string {
   }
   return out.join('-');
 }
+
+// ---------------------------------------------------------------------------
+// Document validator (detects and checks CPF, CNPJ, PIS/PASEP or card via Luhn)
+// ---------------------------------------------------------------------------
+
+export type DocKind = 'cpf' | 'cnpj' | 'pis' | 'card' | 'unknown';
+
+export interface DocValidationResult {
+  kind: DocKind;
+  valid: boolean;
+  digits: string;
+}
+
+export function validateDocument(input: string): DocValidationResult {
+  const digits = input.replace(/\D/g, '');
+  if (digits.length === 11) {
+    // 11 digits can be CPF or PIS/PASEP; prefer whichever validates.
+    if (isValidCpf(digits)) return { kind: 'cpf', valid: true, digits };
+    if (isValidPisPasep(digits)) return { kind: 'pis', valid: true, digits };
+    return { kind: 'cpf', valid: false, digits };
+  }
+  if (digits.length === 14) {
+    return { kind: 'cnpj', valid: isValidCnpj(digits), digits };
+  }
+  if (digits.length >= 13 && digits.length <= 19) {
+    return { kind: 'card', valid: isValidLuhn(digits), digits };
+  }
+  return { kind: 'unknown', valid: false, digits };
+}
