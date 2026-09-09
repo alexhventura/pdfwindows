@@ -33,7 +33,17 @@ export type SuiteToolId =
   | 'pdf-to-word'
   | 'word-to-pdf'
   | 'excel-to-pdf'
-  | 'html-to-pdf';
+  | 'html-to-pdf'
+  | 'cnpj-gen'
+  | 'rg-gen'
+  | 'phone-gen'
+  | 'product-key-gen'
+  | 'pis-gen'
+  | 'password-gen'
+  | 'uuid-gen'
+  | 'credit-card-gen'
+  | 'doc-validator'
+  | 'email-signature';
 
 export interface FaqItem {
   q: string;
@@ -1994,6 +2004,372 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
       ],
     },
   }),
+  localSuitePage('/gerador-cnpj', 'cnpj-gen', {
+    title: [
+      'Gerador de CNPJ para Testes | PDFWINDOWS',
+      'CNPJ Generator for Testing | PDFWINDOWS',
+      'Generador de CNPJ para Pruebas | PDFWINDOWS',
+    ],
+    description: [
+      'Gere CNPJs com dígitos verificadores válidos para testes de software, direto no navegador. Grátis, local e sem cadastro.',
+      'Generate CNPJ numbers with valid check digits for software testing, right in your browser. Free, local, no signup.',
+      'Genera CNPJ con dígitos verificadores válidos para pruebas de software en el navegador. Gratis y local.',
+    ],
+    keywords: [
+      'gerador cnpj, cnpj valido teste, gerar cnpj',
+      'cnpj generator, valid cnpj test, brazil company id',
+      'generador cnpj, cnpj valido prueba',
+    ],
+    h1: ['Gerador de CNPJ', 'CNPJ Generator', 'Generador de CNPJ'],
+    intro: [
+      'Crie CNPJs com formato e dígitos verificadores válidos para testar cadastros e validações. Os números são fictícios.',
+      'Create CNPJ numbers with a valid format and check digits to test forms and validations. Numbers are fictitious.',
+      'Crea CNPJ con formato y dígitos verificadores válidos para probar formularios. Los números son ficticios.',
+    ],
+    benefits: [
+      ['Dígitos verificadores corretos', 'Correct check digits', 'Dígitos verificadores correctos'],
+      ['100% no navegador', '100% in the browser', '100% en el navegador'],
+      ['Copiar com um clique', 'One-click copy', 'Copiar con un clic'],
+    ],
+    how: [
+      ['Abra a ferramenta.', 'Open the tool.', 'Abre la herramienta.'],
+      ['Clique em gerar.', 'Click generate.', 'Haz clic en generar.'],
+      ['Copie o CNPJ de teste.', 'Copy the test CNPJ.', 'Copia el CNPJ de prueba.'],
+    ],
+    faqQ: [
+      'Posso usar esses CNPJs em cadastros reais?',
+      'Can I use these CNPJs for real registrations?',
+      '¿Puedo usar estos CNPJ en registros reales?',
+    ],
+    faqA: [
+      'Não. São apenas para testes de software e não correspondem a empresas reais.',
+      'No. They are for software testing only and do not correspond to real companies.',
+      'No. Son solo para pruebas de software y no corresponden a empresas reales.',
+    ],
+  }),
+  localSuitePage('/gerador-rg', 'rg-gen', {
+    title: [
+      'Gerador de RG para Testes | PDFWINDOWS',
+      'RG Generator for Testing | PDFWINDOWS',
+      'Generador de RG para Pruebas | PDFWINDOWS',
+    ],
+    description: [
+      'Gere números de RG (formato SSP-SP) com dígito verificador para testes, no navegador. Grátis e local.',
+      'Generate RG numbers (SSP-SP format) with a check digit for testing, in your browser. Free and local.',
+      'Genera números de RG (formato SSP-SP) con dígito verificador para pruebas, en el navegador.',
+    ],
+    keywords: ['gerador rg, rg valido teste', 'rg generator test, brazil id number', 'generador rg prueba'],
+    h1: ['Gerador de RG', 'RG Generator', 'Generador de RG'],
+    intro: [
+      'Crie números de RG fictícios com dígito verificador para testar formulários e validações.',
+      'Create fictitious RG numbers with a check digit to test forms and validations.',
+      'Crea números de RG ficticios con dígito verificador para probar formularios.',
+    ],
+    benefits: [
+      ['Dígito verificador (mod 11)', 'Check digit (mod 11)', 'Dígito verificador (mod 11)'],
+      ['Processamento local', 'Local processing', 'Procesamiento local'],
+      ['Copiar com um clique', 'One-click copy', 'Copiar con un clic'],
+    ],
+    how: [
+      ['Abra a ferramenta.', 'Open the tool.', 'Abre la herramienta.'],
+      ['Clique em gerar.', 'Click generate.', 'Haz clic en generar.'],
+      ['Copie o RG de teste.', 'Copy the test RG.', 'Copia el RG de prueba.'],
+    ],
+    faqQ: ['Esse RG é de uma pessoa real?', 'Is this RG from a real person?', '¿Este RG es de una persona real?'],
+    faqA: [
+      'Não. É gerado aleatoriamente apenas para testes.',
+      'No. It is generated randomly for testing only.',
+      'No. Se genera aleatoriamente solo para pruebas.',
+    ],
+  }),
+  localSuitePage('/gerador-telefone', 'phone-gen', {
+    title: [
+      'Gerador de Telefone para Testes | PDFWINDOWS',
+      'Phone Number Generator for Testing | PDFWINDOWS',
+      'Generador de Teléfono para Pruebas | PDFWINDOWS',
+    ],
+    description: [
+      'Gere números de celular brasileiros com DDD válido para testes de software. Grátis, local e sem upload.',
+      'Generate Brazilian mobile numbers with a valid area code for software testing. Free and local.',
+      'Genera números móviles brasileños con DDD válido para pruebas de software. Gratis y local.',
+    ],
+    keywords: ['gerador telefone, numero celular teste', 'phone number generator, brazil mobile test', 'generador telefono prueba'],
+    h1: ['Gerador de Telefone', 'Phone Number Generator', 'Generador de Teléfono'],
+    intro: [
+      'Crie números de celular fictícios com DDD válido para testar cadastros e máscaras de formulário.',
+      'Create fictitious mobile numbers with a valid area code to test forms and input masks.',
+      'Crea números móviles ficticios con DDD válido para probar formularios y máscaras.',
+    ],
+    benefits: [
+      ['DDDs brasileiros válidos', 'Valid Brazilian area codes', 'DDD brasileños válidos'],
+      ['Formato de celular (9 dígitos)', 'Mobile format (9 digits)', 'Formato móvil (9 dígitos)'],
+      ['Copiar com um clique', 'One-click copy', 'Copiar con un clic'],
+    ],
+    how: [
+      ['Abra a ferramenta.', 'Open the tool.', 'Abre la herramienta.'],
+      ['Clique em gerar.', 'Click generate.', 'Haz clic en generar.'],
+      ['Copie o telefone de teste.', 'Copy the test phone.', 'Copia el teléfono de prueba.'],
+    ],
+    faqQ: ['O número pertence a alguém?', 'Does the number belong to anyone?', '¿El número pertenece a alguien?'],
+    faqA: [
+      'Não. É fictício, gerado apenas para testes.',
+      'No. It is fictitious, generated for testing only.',
+      'No. Es ficticio, generado solo para pruebas.',
+    ],
+  }),
+  localSuitePage('/gerador-chave-produto', 'product-key-gen', {
+    title: [
+      'Gerador de Chave de Produto (Formato) | PDFWINDOWS',
+      'Product Key Format Generator | PDFWINDOWS',
+      'Generador de Clave de Producto | PDFWINDOWS',
+    ],
+    description: [
+      'Gere chaves aleatórias no formato 5×5 (XXXXX-XXXXX-...) para mockups e testes de interface. Não são licenças reais de software.',
+      'Generate random 5×5 keys (XXXXX-XXXXX-...) for mockups and UI testing. These are not real software licenses.',
+      'Genera claves aleatorias en formato 5×5 (XXXXX-XXXXX-...) para maquetas y pruebas. No son licencias reales.',
+    ],
+    keywords: ['gerador chave produto, serial mockup teste', 'product key format generator, mock serial key', 'generador clave producto mock'],
+    h1: ['Gerador de Chave de Produto', 'Product Key Generator', 'Generador de Clave de Producto'],
+    intro: [
+      'Crie chaves no formato de 5 grupos de 5 caracteres para preencher telas, mockups e testes. São aleatórias e não ativam nenhum software.',
+      'Create keys in the 5-group of 5-character format to fill screens, mockups and tests. They are random and activate no software.',
+      'Crea claves con formato de 5 grupos de 5 caracteres para maquetas y pruebas. Son aleatorias y no activan software.',
+    ],
+    benefits: [
+      ['Formato 5×5 realista', 'Realistic 5×5 format', 'Formato 5×5 realista'],
+      ['Sem caracteres ambíguos', 'No ambiguous characters', 'Sin caracteres ambiguos'],
+      ['Copiar com um clique', 'One-click copy', 'Copiar con un clic'],
+    ],
+    how: [
+      ['Abra a ferramenta.', 'Open the tool.', 'Abre la herramienta.'],
+      ['Clique em gerar.', 'Click generate.', 'Haz clic en generar.'],
+      ['Copie a chave de exemplo.', 'Copy the sample key.', 'Copia la clave de ejemplo.'],
+    ],
+    faqQ: ['Isso ativa o Windows ou algum software?', 'Does this activate Windows or any software?', '¿Esto activa Windows o algún software?'],
+    faqA: [
+      'Não. São strings aleatórias apenas no formato visual, sem qualquer validade de licença.',
+      'No. They are random strings in the visual format only, with no license validity whatsoever.',
+      'No. Son cadenas aleatorias solo con el formato visual, sin validez de licencia.',
+    ],
+  }),
+  localSuitePage('/gerador-pis', 'pis-gen', {
+    title: [
+      'Gerador de PIS/PASEP para Testes | PDFWINDOWS',
+      'PIS/PASEP Generator for Testing | PDFWINDOWS',
+      'Generador de PIS/PASEP para Pruebas | PDFWINDOWS',
+    ],
+    description: [
+      'Gere números de PIS/PASEP com dígito verificador válido para testes de software, no navegador.',
+      'Generate PIS/PASEP numbers with a valid check digit for software testing, in your browser.',
+      'Genera números de PIS/PASEP con dígito verificador válido para pruebas, en el navegador.',
+    ],
+    keywords: ['gerador pis, pis pasep teste', 'pis pasep generator test', 'generador pis pasep prueba'],
+    h1: ['Gerador de PIS/PASEP', 'PIS/PASEP Generator', 'Generador de PIS/PASEP'],
+    intro: [
+      'Crie números de PIS/PASEP fictícios com dígito verificador para testar sistemas de RH e folha.',
+      'Create fictitious PIS/PASEP numbers with a check digit to test HR and payroll systems.',
+      'Crea números de PIS/PASEP ficticios con dígito verificador para probar sistemas de RR. HH.',
+    ],
+    benefits: [
+      ['Dígito verificador correto', 'Correct check digit', 'Dígito verificador correcto'],
+      ['Processamento local', 'Local processing', 'Procesamiento local'],
+      ['Copiar com um clique', 'One-click copy', 'Copiar con un clic'],
+    ],
+    how: [
+      ['Abra a ferramenta.', 'Open the tool.', 'Abre la herramienta.'],
+      ['Clique em gerar.', 'Click generate.', 'Haz clic en generar.'],
+      ['Copie o PIS de teste.', 'Copy the test PIS.', 'Copia el PIS de prueba.'],
+    ],
+    faqQ: ['Serve para cadastros reais?', 'Is it valid for real registrations?', '¿Sirve para registros reales?'],
+    faqA: [
+      'Não. Apenas para testes de software.',
+      'No. For software testing only.',
+      'No. Solo para pruebas de software.',
+    ],
+  }),
+  localSuitePage('/gerador-senha', 'password-gen', {
+    title: [
+      'Gerador de Senhas Forte | PDFWINDOWS',
+      'Strong Password Generator | PDFWINDOWS',
+      'Generador de Contraseñas Fuerte | PDFWINDOWS',
+    ],
+    description: [
+      'Crie senhas fortes e aleatórias no navegador, com tamanho e tipos de caractere personalizáveis. 100% local, nada é enviado.',
+      'Create strong, random passwords in your browser with custom length and character types. 100% local, nothing is sent.',
+      'Crea contraseñas fuertes y aleatorias en el navegador, con longitud y tipos personalizables. 100% local.',
+    ],
+    keywords: ['gerador de senha, senha forte aleatoria', 'password generator, strong random password', 'generador de contraseñas'],
+    h1: ['Gerador de Senhas', 'Password Generator', 'Generador de Contraseñas'],
+    intro: [
+      'Gere senhas seguras usando o gerador criptográfico do navegador. Escolha tamanho e tipos de caractere; nada sai do seu dispositivo.',
+      "Generate secure passwords using the browser's cryptographic generator. Pick length and character types; nothing leaves your device.",
+      'Genera contraseñas seguras con el generador criptográfico del navegador. Elige longitud y tipos; nada sale de tu dispositivo.',
+    ],
+    benefits: [
+      ['Aleatoriedade criptográfica', 'Cryptographic randomness', 'Aleatoriedad criptográfica'],
+      ['Tamanho e tipos ajustáveis', 'Adjustable length and types', 'Longitud y tipos ajustables'],
+      ['Indicador de força', 'Strength indicator', 'Indicador de fuerza'],
+    ],
+    how: [
+      ['Ajuste o tamanho e os tipos.', 'Adjust length and types.', 'Ajusta longitud y tipos.'],
+      ['Clique em gerar.', 'Click generate.', 'Haz clic en generar.'],
+      ['Copie a senha.', 'Copy the password.', 'Copia la contraseña.'],
+    ],
+    faqQ: ['A senha é enviada a algum servidor?', 'Is the password sent to any server?', '¿La contraseña se envía a un servidor?'],
+    faqA: [
+      'Não. É gerada e permanece somente no seu navegador.',
+      'No. It is generated and stays only in your browser.',
+      'No. Se genera y permanece solo en tu navegador.',
+    ],
+  }),
+  localSuitePage('/gerador-uuid', 'uuid-gen', {
+    title: [
+      'Gerador de UUID v4 | PDFWINDOWS',
+      'UUID v4 Generator | PDFWINDOWS',
+      'Generador de UUID v4 | PDFWINDOWS',
+    ],
+    description: [
+      'Gere identificadores únicos UUID v4 no navegador, um ou vários de uma vez. Grátis, local e sem cadastro.',
+      'Generate UUID v4 unique identifiers in your browser, one or many at a time. Free, local, no signup.',
+      'Genera identificadores únicos UUID v4 en el navegador, uno o varios a la vez. Gratis y local.',
+    ],
+    keywords: ['gerador uuid, uuid v4 online', 'uuid generator, uuid v4 online', 'generador uuid v4'],
+    h1: ['Gerador de UUID', 'UUID Generator', 'Generador de UUID'],
+    intro: [
+      'Crie UUIDs versão 4 para bancos de dados, APIs e testes. Gere em lote e copie tudo de uma vez.',
+      'Create version 4 UUIDs for databases, APIs and tests. Generate in bulk and copy all at once.',
+      'Crea UUID versión 4 para bases de datos, APIs y pruebas. Genera en lote y copia todo a la vez.',
+    ],
+    benefits: [
+      ['UUID v4 conforme RFC 4122', 'RFC 4122 UUID v4', 'UUID v4 según RFC 4122'],
+      ['Geração em lote', 'Bulk generation', 'Generación en lote'],
+      ['Copiar com um clique', 'One-click copy', 'Copiar con un clic'],
+    ],
+    how: [
+      ['Escolha a quantidade.', 'Choose how many.', 'Elige la cantidad.'],
+      ['Clique em gerar.', 'Click generate.', 'Haz clic en generar.'],
+      ['Copie os UUIDs.', 'Copy the UUIDs.', 'Copia los UUID.'],
+    ],
+    faqQ: ['Os UUIDs são únicos?', 'Are the UUIDs unique?', '¿Los UUID son únicos?'],
+    faqA: [
+      'A probabilidade de colisão de UUID v4 é praticamente nula.',
+      'The collision probability of UUID v4 is practically zero.',
+      'La probabilidad de colisión de UUID v4 es prácticamente nula.',
+    ],
+  }),
+  localSuitePage('/gerador-cartao-teste', 'credit-card-gen', {
+    title: [
+      'Gerador de Cartão de Crédito para Testes | PDFWINDOWS',
+      'Test Credit Card Number Generator | PDFWINDOWS',
+      'Generador de Tarjeta para Pruebas | PDFWINDOWS',
+    ],
+    description: [
+      'Gere números de cartão válidos pelo algoritmo de Luhn (Visa, Mastercard, Amex) para testar formulários de pagamento. Não são cartões reais.',
+      'Generate Luhn-valid card numbers (Visa, Mastercard, Amex) to test payment forms. These are not real cards.',
+      'Genera números de tarjeta válidos por Luhn (Visa, Mastercard, Amex) para probar formularios de pago. No son tarjetas reales.',
+    ],
+    keywords: ['gerador cartao credito teste, numero cartao luhn', 'test credit card generator, luhn valid card', 'generador tarjeta prueba luhn'],
+    h1: ['Gerador de Cartão (Teste)', 'Test Credit Card Generator', 'Generador de Tarjeta (Prueba)'],
+    intro: [
+      'Crie números de cartão fictícios que passam na validação de Luhn, com CVV e validade, para testar checkouts. Nenhum cartão real é usado.',
+      'Create fictitious card numbers that pass Luhn validation, with CVV and expiry, to test checkouts. No real card is used.',
+      'Crea números de tarjeta ficticios que pasan la validación de Luhn, con CVV y vencimiento, para probar checkouts.',
+    ],
+    benefits: [
+      ['Válidos pelo algoritmo de Luhn', 'Luhn-valid numbers', 'Válidos por el algoritmo de Luhn'],
+      ['Visa, Mastercard e Amex', 'Visa, Mastercard and Amex', 'Visa, Mastercard y Amex'],
+      ['CVV e validade incluídos', 'CVV and expiry included', 'CVV y vencimiento incluidos'],
+    ],
+    how: [
+      ['Escolha a bandeira.', 'Pick the brand.', 'Elige la marca.'],
+      ['Clique em gerar.', 'Click generate.', 'Haz clic en generar.'],
+      ['Copie o número de teste.', 'Copy the test number.', 'Copia el número de prueba.'],
+    ],
+    faqQ: ['Dá para comprar com esse número?', 'Can I buy anything with this number?', '¿Puedo comprar con este número?'],
+    faqA: [
+      'Não. É fictício, sem fundos, apenas para testar validação de formulários.',
+      'No. It is fictitious, holds no funds, and only tests form validation.',
+      'No. Es ficticio, sin fondos, solo para probar la validación de formularios.',
+    ],
+  }),
+  localSuitePage('/validar-cpf-cnpj', 'doc-validator', {
+    title: [
+      'Validador de CPF e CNPJ Online | PDFWINDOWS',
+      'CPF and CNPJ Validator Online | PDFWINDOWS',
+      'Validador de CPF y CNPJ en Línea | PDFWINDOWS',
+    ],
+    description: [
+      'Valide CPF, CNPJ, PIS/PASEP e números de cartão (Luhn) direto no navegador, com detecção automática do tipo. Grátis e local.',
+      'Validate CPF, CNPJ, PIS/PASEP and card numbers (Luhn) right in your browser, with automatic type detection. Free and local.',
+      'Valida CPF, CNPJ, PIS/PASEP y números de tarjeta (Luhn) en el navegador, con detección automática. Gratis y local.',
+    ],
+    keywords: ['validador cpf cnpj, verificar cpf online', 'cpf cnpj validator, verify cpf online', 'validador cpf cnpj en linea'],
+    h1: ['Validador de CPF e CNPJ', 'CPF and CNPJ Validator', 'Validador de CPF y CNPJ'],
+    intro: [
+      'Cole um número e veja na hora se o dígito verificador confere. Detecta CPF, CNPJ, PIS/PASEP ou cartão pelo tamanho. Nada é enviado.',
+      'Paste a number and instantly see whether the check digit is correct. It detects CPF, CNPJ, PIS/PASEP or card by length. Nothing is sent.',
+      'Pega un número y ve al instante si el dígito verificador es correcto. Detecta CPF, CNPJ, PIS/PASEP o tarjeta por longitud. Nada se envía.',
+    ],
+    benefits: [
+      ['Detecção automática do tipo', 'Automatic type detection', 'Detección automática del tipo'],
+      ['Checa dígito verificador e Luhn', 'Checks check digit and Luhn', 'Verifica dígito verificador y Luhn'],
+      ['100% local', '100% local', '100% local'],
+    ],
+    how: [
+      ['Cole ou digite o número.', 'Paste or type the number.', 'Pega o escribe el número.'],
+      ['Veja o resultado na hora.', 'See the result instantly.', 'Ve el resultado al instante.'],
+      ['Ajuste e teste outro.', 'Adjust and test another.', 'Ajusta y prueba otro.'],
+    ],
+    faqQ: ['O validador confirma que o documento existe?', 'Does it confirm the document exists?', '¿Confirma que el documento existe?'],
+    faqA: [
+      'Não. Ele checa apenas o dígito verificador/algoritmo, não consulta órgãos oficiais.',
+      'No. It only checks the check digit/algorithm; it does not query official agencies.',
+      'No. Solo verifica el dígito verificador/algoritmo; no consulta órganos oficiales.',
+    ],
+  }),
+  localSuitePage('/criador-assinatura-email', 'email-signature', {
+    title: [
+      'Criador de Assinatura de E-mail | PDFWINDOWS',
+      'Email Signature Creator | PDFWINDOWS',
+      'Creador de Firma de Correo | PDFWINDOWS',
+    ],
+    description: [
+      'Crie uma assinatura de e-mail profissional com foto e logo e baixe como imagem PNG, tudo no navegador. Grátis, local e sem upload.',
+      'Create a professional email signature with photo and logo and download it as a PNG image, all in your browser. Free, local, no upload.',
+      'Crea una firma de correo profesional con foto y logo y descárgala como imagen PNG, todo en el navegador. Gratis, local y sin subir.',
+    ],
+    keywords: [
+      'assinatura de email, criar assinatura email, assinatura profissional com foto',
+      'email signature generator, create email signature, professional signature with logo',
+      'firma de correo, crear firma email, firma profesional con foto',
+    ],
+    h1: ['Criador de Assinatura de E-mail', 'Email Signature Creator', 'Creador de Firma de Correo'],
+    intro: [
+      'Escolha um modelo, defina as cores, insira foto e logo, preencha seus dados e baixe a assinatura como imagem. O preview é idêntico ao arquivo final.',
+      'Pick a template, set the colors, add a photo and logo, fill in your details and download the signature as an image. The preview matches the final file.',
+      'Elige una plantilla, define los colores, agrega foto y logo, completa tus datos y descarga la firma como imagen. La vista previa coincide con el archivo final.',
+    ],
+    benefits: [
+      ['4 modelos profissionais', '4 professional templates', '4 plantillas profesionales'],
+      ['Foto, logo e fundo transparente', 'Photo, logo and transparent background', 'Foto, logo y fondo transparente'],
+      ['Preview idêntico ao PNG baixado', 'Preview identical to the downloaded PNG', 'Vista previa idéntica al PNG descargado'],
+    ],
+    how: [
+      ['Escolha fundo, cor e modelo.', 'Choose background, color and template.', 'Elige fondo, color y plantilla.'],
+      ['Preencha seus dados e adicione foto/logo.', 'Fill in your details and add a photo/logo.', 'Completa tus datos y agrega foto/logo.'],
+      ['Baixe como PNG, JPG ou WEBP.', 'Download as PNG, JPG or WEBP.', 'Descarga como PNG, JPG o WEBP.'],
+    ],
+    faqQ: [
+      'Minhas fotos são enviadas para algum servidor?',
+      'Are my photos uploaded to a server?',
+      '¿Mis fotos se suben a un servidor?',
+    ],
+    faqA: [
+      'Não. A foto, o logo e os dados ficam apenas no seu navegador; a imagem é gerada localmente.',
+      'No. Your photo, logo and data stay only in your browser; the image is generated locally.',
+      'No. Tu foto, logo y datos permanecen solo en tu navegador; la imagen se genera localmente.',
+    ],
+  }),
   page('/limpador-codigo', 'suite', undefined, 'code-clean', {
     pt: {
       title: 'Formatador de Código Online Grátis | PDFWINDOWS',
@@ -2844,32 +3220,32 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
   localSuitePage('/editar-pdf', 'edit-pdf', {
     title: ['Editar PDF Online | PDFWINDOWS', 'Edit PDF Online | PDFWINDOWS', 'Editar PDF en el navegador | PDFWINDOWS'],
     description: [
-      'Adicione texto, retângulo ou imagem num PDF no navegador. Carimbo visual por cima da página — grátis, local e sem upload.',
-      'Add text, a rectangle, or an image to a PDF in your browser. Visual stamps on the page — free, local, no upload.',
-      'Añada texto, rectángulo o imagen a un PDF en el navegador. Sellos visuales sobre la página — gratis y local.',
+      'Edite o texto do PDF no navegador: altere, apague ou acrescente texto e imagens direto na página — grátis, local e sem upload.',
+      'Edit PDF text in your browser: change, delete, or add text and images right on the page — free, local, no upload.',
+      'Edite el texto del PDF en el navegador: cambie, borre o añada texto e imágenes en la página — gratis y local.',
     ],
-    keywords: ['editar pdf, adicionar texto pdf, carimbo pdf', 'edit pdf, add text to pdf, stamp pdf', 'editar pdf, añadir texto pdf'],
+    keywords: ['editar pdf, alterar texto pdf, apagar texto pdf', 'edit pdf, change pdf text, delete pdf text', 'editar pdf, cambiar texto pdf'],
     h1: ['Editar PDF', 'Edit PDF', 'Editar PDF'],
     intro: [
-      'Carimbe texto, retângulo ou imagem sobre a página. Não reescreve o texto original do PDF.',
-      'Stamp text, a rectangle, or an image onto the page. It does not rewrite the original PDF text.',
-      'Selle texto, un rectángulo o una imagen sobre la página. No reescribe el texto original del PDF.',
+      'Envie um PDF com texto selecionável e edite direto na página: altere trechos, apague o que não quer ou acrescente texto novo.',
+      'Upload a PDF with selectable text and edit it right on the page: change pieces, delete what you do not want, or add new text.',
+      'Suba un PDF con texto seleccionable y edítalo en la página: cambia fragmentos, borra lo que no quieras o añade texto nuevo.',
     ],
     benefits: [
-      ['Texto, retângulo ou imagem', 'Text, rectangle, or image', 'Texto, rectángulo o imagen'],
-      ['Clique para posicionar', 'Click to place', 'Clic para colocar'],
-      ['Cópia nova; original intacto', 'New copy; original intact', 'Copia nueva; original intacto'],
+      ['Alterar ou apagar texto existente', 'Change or delete existing text', 'Cambiar o borrar texto existente'],
+      ['Acrescentar texto e imagens', 'Add new text and images', 'Añadir texto e imágenes'],
+      ['100% local; original intacto', '100% local; original intact', '100% local; original intacto'],
     ],
     how: [
       ['Envie o PDF.', 'Upload the PDF.', 'Suba el PDF.'],
-      ['Escolha o tipo e clique na página.', 'Choose the type and click the page.', 'Elija el tipo y pulse la página.'],
+      ['Clique no texto para editar ou apagar; acrescente o que faltar.', 'Click text to edit or delete; add what is missing.', 'Pulsa el texto para editar o borrar; añade lo que falte.'],
       ['Baixe o PDF editado.', 'Download the edited PDF.', 'Descargue el PDF editado.'],
     ],
     faqQ: ['Posso alterar o texto original da página?', 'Can I change the original page text?', '¿Puedo cambiar el texto original de la página?'],
     faqA: [
-      'Não. Esta ferramenta adiciona conteúdo por cima. Para apagar dados visíveis, use Redação PDF.',
-      'No. This tool adds content on top. To hide visible data, use Redact PDF.',
-      'No. Esta herramienta añade contenido encima. Para ocultar datos, use Redacción PDF.',
+      'Sim, em PDFs com texto selecionável: clique no trecho para reescrever ou apagá-lo. O texto editado usa a fonte Helvetica e não reflui como no Word. Para tarjar dados sensíveis, use Redação PDF.',
+      'Yes, on PDFs with selectable text: click a piece to rewrite or delete it. Edited text uses the Helvetica font and does not reflow like Word. To black out sensitive data, use Redact PDF.',
+      'Sí, en PDF con texto seleccionable: pulsa un fragmento para reescribirlo o borrarlo. El texto editado usa la fuente Helvetica y no se reajusta como en Word. Para ocultar datos, usa Redacción PDF.',
     ],
   }),
   localSuitePage('/escanear-para-pdf', 'scan-to-pdf', {

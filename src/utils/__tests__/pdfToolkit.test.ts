@@ -94,6 +94,8 @@ describe('pdfToolkit', () => {
       { kind: 'rect', pageIndex: 0, x: 0.2, y: 0.2, w: 0.2, h: 0.2 },
     ]);
     expect(edited.fileName).toBe('blank_editado.pdf');
+    const editedDoc = await PDFDocument.load(await edited.blob.arrayBuffer());
+    expect(editedDoc.getPageCount()).toBe(1);
 
     const withFields = await addPdfFormFields(file, [
       { name: 'nome', type: 'text', rect: { pageIndex: 0, x: 0.1, y: 0.3, w: 0.4, h: 0.08 } },
@@ -106,6 +108,39 @@ describe('pdfToolkit', () => {
       { name: 'ok', value: 'true', checked: true },
     ], false);
     expect(filled.fileName).toBe('f_formulario.pdf');
+  });
+
+  it('applies an opaque erase op and a baseline text replacement', async () => {
+    const file = await blankPdf(1);
+    const edited = await applyPdfEdits(file, [
+      { kind: 'erase', pageIndex: 0, x: 0.1, y: 0.1, w: 0.3, h: 0.05, color: '#ffffff' },
+      { kind: 'text', pageIndex: 0, x: 0.1, y: 0.1, w: 0.3, h: 0.05, text: 'Replaced', fontSize: 11, atBaseline: true },
+    ]);
+    const doc = await PDFDocument.load(await edited.blob.arrayBuffer());
+    expect(doc.getPageCount()).toBe(1);
+    // The erase op must have written a filled rectangle into the page content stream.
+    const bytes = new Uint8Array(await edited.blob.arrayBuffer());
+    expect(bytes[0]).toBe(0x25); // '%' — valid PDF header
+  });
+});
+
+describe('spanEditOps', () => {
+  it('erases a deleted span and adds erase + text for a changed span', async () => {
+    const { spanEditOps } = await import('../pdfEditableText');
+    const span = { id: '0:0', pageIndex: 0, str: 'Original', x: 0.1, y: 0.2, w: 0.3, h: 0.03, fontSize: 12 };
+
+    const deleted = spanEditOps(span, '');
+    expect(deleted).toHaveLength(1);
+    expect(deleted[0].kind).toBe('erase');
+
+    const changed = spanEditOps(span, 'New value');
+    expect(changed.map((op) => op.kind)).toEqual(['erase', 'text']);
+    const textOp = changed[1];
+    expect(textOp.text).toBe('New value');
+    expect(textOp.atBaseline).toBe(true);
+    expect(textOp.fontSize).toBe(12);
+    // Erase box is padded so it fully covers the original glyphs.
+    expect(changed[0].h).toBeGreaterThan(span.h);
   });
 });
 

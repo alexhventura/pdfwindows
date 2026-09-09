@@ -1,5 +1,18 @@
-import { useCallback, useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
-import { AlertCircle, Camera, ChevronLeft, ChevronRight, Download, RefreshCw, Trash2 } from 'lucide-react';
+import { useCallback, useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
+import {
+  AlertCircle,
+  Camera,
+  ChevronLeft,
+  ChevronRight,
+  Download,
+  Eraser,
+  ImagePlus,
+  MousePointerClick,
+  RefreshCw,
+  Trash2,
+  Type,
+  Undo2,
+} from 'lucide-react';
 import type { PDFDocumentProxy } from 'pdfjs-dist';
 import type { LanguageType } from '../../../types';
 import {
@@ -23,7 +36,8 @@ import {
   type NormalizedRect,
   type PdfEditOp,
 } from '../../../engines/pdfToolkit';
-import { sanitizePdfText } from '../../../utils/pdfTextSanitizer';
+import { composeEditedText, extractEditableSpans, spanEditOps, type EditableSpan } from '../../../utils/pdfEditableText';
+import { convertDocument, type ConversionTargetId } from '../../../engines/documentConverter';
 
 type Props = { lang: LanguageType; onClose: () => void; showHeader?: boolean };
 
@@ -755,19 +769,217 @@ export function PdfFormsSuiteTool({ lang, onClose, showHeader }: Props) {
   );
 }
 
+type EditTool = 'select' | 'addText' | 'erase' | 'image';
+
+interface AddedText {
+  id: string;
+  pageIndex: number;
+  x: number;
+  y: number;
+  w: number;
+  /** Normalized height of the text box (drives font size on screen and in the PDF). */
+  h: number;
+  text: string;
+}
+
+interface EraseRect {
+  id: string;
+  pageIndex: number;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
+interface AddedImage {
+  id: string;
+  pageIndex: number;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  png: Uint8Array;
+}
+
+function editPdfCopy(lang: LanguageType) {
+  if (lang === 'pt') {
+    return {
+      title: 'Editar PDF',
+      intro: 'Envie um PDF com texto selecionável e edite direto na página: clique em um texto para alterar, apague o que não quer ou acrescente texto novo. Depois escolha como salvar.',
+      scanned: 'Este PDF não tem texto selecionável (parece digitalizado). Você ainda pode acrescentar texto, apagar áreas e inserir imagens por cima.',
+      toolSelect: 'Editar texto',
+      toolAdd: 'Acrescentar texto',
+      toolErase: 'Apagar área',
+      toolImage: 'Imagem',
+      selectHint: 'Clique em um trecho para editar. Apague todo o texto do campo para remover aquele trecho do PDF.',
+      addHint: 'Clique na página onde o novo texto deve começar e digite.',
+      eraseHint: 'Arraste sobre a página para cobrir (apagar) uma área com branco.',
+      imageHint: 'Escolha uma imagem e clique na página para posicioná-la.',
+      newTextPlaceholder: 'Novo texto',
+      undo: 'Desfazer última ação',
+      reset: 'Recomeçar',
+      changes: 'alteração(ões)',
+      generate: 'Aplicar edições',
+      nothing: 'Faça ao menos uma edição antes de salvar.',
+      failed: 'Não foi possível gerar o arquivo editado.',
+      readFail: 'Não foi possível ler este PDF.',
+      download: 'Baixar arquivo',
+      again: 'Outro arquivo',
+      loadingText: 'Lendo o texto do PDF…',
+      fontNote: 'O texto editado ou acrescentado usa a fonte padrão Helvetica, então pode não ficar idêntico ao original.',
+      saveTitle: 'Salvar como',
+      saveHint: 'Escolha a extensão do arquivo final. Formatos de texto (Word, TXT, RTF…) usam o conteúdo editado; PDF e imagem preservam o layout da página.',
+      saving: 'Gerando arquivo…',
+      edited: 'edições aplicadas',
+    };
+  }
+  if (lang === 'es') {
+    return {
+      title: 'Editar PDF',
+      intro: 'Sube un PDF con texto seleccionable y edítalo directamente en la página: haz clic en un texto para cambiarlo, borra lo que no quieras o añade texto nuevo. Luego elige cómo guardar.',
+      scanned: 'Este PDF no tiene texto seleccionable (parece escaneado). Aún puedes añadir texto, borrar áreas e insertar imágenes encima.',
+      toolSelect: 'Editar texto',
+      toolAdd: 'Añadir texto',
+      toolErase: 'Borrar área',
+      toolImage: 'Imagen',
+      selectHint: 'Haz clic en un fragmento para editarlo. Borra todo el campo para eliminar ese texto del PDF.',
+      addHint: 'Haz clic donde debe empezar el nuevo texto y escribe.',
+      eraseHint: 'Arrastra sobre la página para cubrir (borrar) un área con blanco.',
+      imageHint: 'Elige una imagen y haz clic en la página para colocarla.',
+      newTextPlaceholder: 'Texto nuevo',
+      undo: 'Deshacer última acción',
+      reset: 'Reiniciar',
+      changes: 'cambio(s)',
+      generate: 'Aplicar ediciones',
+      nothing: 'Haz al menos una edición antes de guardar.',
+      failed: 'No se pudo generar el archivo editado.',
+      readFail: 'No se pudo leer este PDF.',
+      download: 'Descargar archivo',
+      again: 'Otro archivo',
+      loadingText: 'Leyendo el texto del PDF…',
+      fontNote: 'El texto editado o añadido usa la fuente estándar Helvetica, por lo que puede no ser idéntico al original.',
+      saveTitle: 'Guardar como',
+      saveHint: 'Elige la extensión del archivo final. Los formatos de texto (Word, TXT, RTF…) usan el contenido editado; PDF e imagen conservan el diseño de la página.',
+      saving: 'Generando archivo…',
+      edited: 'ediciones aplicadas',
+    };
+  }
+  return {
+    title: 'Edit PDF',
+    intro: 'Upload a PDF with selectable text and edit it right on the page: click any text to change it, delete what you do not want, or add new text. Then choose how to save.',
+    scanned: 'This PDF has no selectable text (it looks scanned). You can still add text, erase areas, and insert images on top.',
+    toolSelect: 'Edit text',
+    toolAdd: 'Add text',
+    toolErase: 'Erase area',
+    toolImage: 'Image',
+    selectHint: 'Click a piece of text to edit it. Clear the whole field to remove that text from the PDF.',
+    addHint: 'Click where the new text should start, then type.',
+    eraseHint: 'Drag on the page to cover (erase) an area with white.',
+    imageHint: 'Pick an image, then click the page to place it.',
+    newTextPlaceholder: 'New text',
+    undo: 'Undo last action',
+    reset: 'Start over',
+    changes: 'change(s)',
+    generate: 'Apply edits',
+    nothing: 'Make at least one edit before saving.',
+    failed: 'Could not generate the edited file.',
+    readFail: 'Could not read this PDF.',
+    download: 'Download file',
+    again: 'Another file',
+    loadingText: 'Reading the PDF text…',
+    fontNote: 'Edited or added text uses the standard Helvetica font, so it may not look identical to the original.',
+    saveTitle: 'Save as',
+    saveHint: 'Choose the final file extension. Text formats (Word, TXT, RTF…) use the edited content; PDF and image keep the page layout.',
+    saving: 'Building file…',
+    edited: 'edits applied',
+  };
+}
+
+type SaveFormat = 'pdf' | ConversionTargetId;
+
+const SAVE_FORMATS: Array<{ id: SaveFormat; label: string; ext: string }> = [
+  { id: 'pdf', label: 'PDF', ext: 'pdf' },
+  { id: 'docx', label: 'Word', ext: 'docx' },
+  { id: 'txt', label: 'TXT', ext: 'txt' },
+  { id: 'rtf', label: 'RTF', ext: 'rtf' },
+  { id: 'odt', label: 'OpenDocument', ext: 'odt' },
+  { id: 'html', label: 'HTML', ext: 'html' },
+  { id: 'xml', label: 'XML', ext: 'xml' },
+  { id: 'png', label: 'PNG', ext: 'png' },
+  { id: 'jpeg', label: 'JPG', ext: 'jpg' },
+];
+
+function triggerDownload(blob: Blob, name: string) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = name;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 4000);
+}
+
 export function EditPdfSuiteTool({ lang, onClose, showHeader }: Props) {
+  const t = editPdfCopy(lang);
   const preview = usePdfPreview();
+  const stageRef = useRef<HTMLDivElement>(null);
   const [file, setFile] = useState<File | null>(null);
-  const [mode, setMode] = useState<'text' | 'rect' | 'image'>('text');
-  const [ops, setOps] = useState<PdfEditOp[]>([]);
-  const [text, setText] = useState('');
   const [busy, setBusy] = useState(false);
+  const [loadingSpans, setLoadingSpans] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [tool, setTool] = useState<EditTool>('select');
+
+  const [spans, setSpans] = useState<EditableSpan[]>([]);
+  const [edits, setEdits] = useState<Record<string, string>>({});
+  const [addedTexts, setAddedTexts] = useState<AddedText[]>([]);
+  const [eraseRects, setEraseRects] = useState<EraseRect[]>([]);
+  const [addedImages, setAddedImages] = useState<AddedImage[]>([]);
+  const [history, setHistory] = useState<Array<'edit' | 'add' | 'erase' | 'image'>>([]);
+  const [editingId, setEditingId] = useState<string | null>(null);
+
   const imageBytes = useRef<Uint8Array | null>(null);
-  const [out, setOut] = useState<{ url: string; name: string } | null>(null);
+  const [drag, setDrag] = useState<{ x0: number; y0: number; x1: number; y1: number } | null>(null);
+  const [display, setDisplay] = useState<{ w: number; h: number }>({ w: 0, h: 0 });
+  const [edited, setEdited] = useState<{ pdfFile: File; text: string } | null>(null);
+  const [format, setFormat] = useState<SaveFormat>('pdf');
+  const [saving, setSaving] = useState(false);
+
+  const open = useCallback(
+    async (f: File) => {
+      setFile(f);
+      setError(null);
+      setLoadingSpans(true);
+      try {
+        await preview.load(f);
+      } catch {
+        setError(t.readFail);
+        setLoadingSpans(false);
+        return;
+      }
+      try {
+        const { spans: found } = await extractEditableSpans(f);
+        setSpans(found);
+      } catch {
+        setSpans([]);
+      } finally {
+        setLoadingSpans(false);
+      }
+    },
+    [preview, t.readFail]
+  );
 
   useEffect(() => {
     if (file && preview.pageCount) void preview.paint();
-  }, [file, preview.pageCount, preview.pageIndex, ops]);
+  }, [file, preview.pageCount, preview.pageIndex]);
+
+  useEffect(() => {
+    const el = preview.pageRef.current;
+    if (!el) return;
+    const measure = () => setDisplay({ w: el.clientWidth, h: el.clientHeight });
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [file, preview.paintTick]);
 
   useEffect(() => {
     const overlay = preview.overlayRef.current;
@@ -775,63 +987,228 @@ export function EditPdfSuiteTool({ lang, onClose, showHeader }: Props) {
     const ctx = overlay.getContext('2d');
     if (!ctx) return;
     ctx.clearRect(0, 0, overlay.width, overlay.height);
-    ctx.strokeStyle = '#2563eb';
-    for (const op of ops.filter((item) => item.pageIndex === preview.pageIndex)) {
-      ctx.strokeRect(op.x * overlay.width, op.y * overlay.height, op.w * overlay.width, op.h * overlay.height);
-      if (op.kind === 'text' && op.text) {
-        ctx.fillStyle = '#0f172a';
-        ctx.font = '12px sans-serif';
-        ctx.fillText(op.text, op.x * overlay.width + 4, op.y * overlay.height + 14);
-      }
+    const drawRect = (x: number, y: number, w: number, h: number, fill: string, stroke: string) => {
+      ctx.fillStyle = fill;
+      ctx.fillRect(x * overlay.width, y * overlay.height, w * overlay.width, h * overlay.height);
+      ctx.strokeStyle = stroke;
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(x * overlay.width, y * overlay.height, w * overlay.width, h * overlay.height);
+    };
+    for (const r of eraseRects.filter((item) => item.pageIndex === preview.pageIndex)) {
+      drawRect(r.x, r.y, r.w, r.h, 'rgba(255,255,255,0.92)', '#f43f5e');
     }
-  }, [ops, preview.pageIndex, preview.paintTick]);
+    for (const img of addedImages.filter((item) => item.pageIndex === preview.pageIndex)) {
+      drawRect(img.x, img.y, img.w, img.h, 'rgba(37,99,235,0.08)', '#2563eb');
+    }
+    if (drag) {
+      const x = Math.min(drag.x0, drag.x1);
+      const y = Math.min(drag.y0, drag.y1);
+      drawRect(x, y, Math.abs(drag.x1 - drag.x0), Math.abs(drag.y1 - drag.y0), 'rgba(244,63,94,0.15)', '#f43f5e');
+    }
+  }, [eraseRects, addedImages, drag, preview.pageIndex, preview.paintTick]);
 
-  const modeLabel = (id: 'text' | 'rect' | 'image') => {
-    if (lang === 'pt') return id === 'text' ? 'Texto' : id === 'rect' ? 'Retângulo' : 'Imagem';
-    if (lang === 'es') return id === 'text' ? 'Texto' : id === 'rect' ? 'Rectángulo' : 'Imagen';
-    return id === 'text' ? 'Text' : id === 'rect' ? 'Rectangle' : 'Image';
+  const pageSpans = useMemo(
+    () => spans.filter((s) => s.pageIndex === preview.pageIndex),
+    [spans, preview.pageIndex]
+  );
+  const pageAdded = useMemo(
+    () => addedTexts.filter((a) => a.pageIndex === preview.pageIndex),
+    [addedTexts, preview.pageIndex]
+  );
+
+  const changeCount =
+    Object.keys(edits).filter((id) => {
+      const span = spans.find((s) => s.id === id);
+      return span && edits[id] !== span.str;
+    }).length +
+    addedTexts.filter((a) => a.text.trim()).length +
+    eraseRects.length +
+    addedImages.length;
+
+  const normPointer = (e: ReactPointerEvent<HTMLElement>) => {
+    const el = e.currentTarget;
+    const b = el.getBoundingClientRect();
+    return { x: (e.clientX - b.left) / b.width, y: (e.clientY - b.top) / b.height };
   };
+
+  const pushHistory = (kind: 'edit' | 'add' | 'erase' | 'image') => setHistory((prev) => [...prev, kind]);
+
+  const undo = () => {
+    const last = history[history.length - 1];
+    if (!last) return;
+    setHistory((prev) => prev.slice(0, -1));
+    if (last === 'add') setAddedTexts((prev) => prev.slice(0, -1));
+    else if (last === 'erase') setEraseRects((prev) => prev.slice(0, -1));
+    else if (last === 'image') setAddedImages((prev) => prev.slice(0, -1));
+  };
+
+  const resetEdits = () => {
+    setEdits({});
+    setAddedTexts([]);
+    setEraseRects([]);
+    setAddedImages([]);
+    setHistory([]);
+    setEditingId(null);
+  };
+
+  const startOver = () => {
+    setEdited(null);
+    setFormat('pdf');
+    setFile(null);
+    setSpans([]);
+    resetEdits();
+    setTool('select');
+    imageBytes.current = null;
+  };
+
+  const setSpanText = (span: EditableSpan, value: string) =>
+    setEdits((prev) => {
+      const next = { ...prev };
+      if (value === span.str) delete next[span.id];
+      else next[span.id] = value;
+      return next;
+    });
+
+  const handleStageClick = (e: ReactPointerEvent<HTMLDivElement>) => {
+    if (tool === 'addText') {
+      const p = normPointer(e);
+      const id = `add-${Date.now()}`;
+      setAddedTexts((prev) => [
+        ...prev,
+        { id, pageIndex: preview.pageIndex, x: Math.max(0, p.x), y: Math.max(0, p.y - 0.02), w: 0.5, h: 0.038, text: '' },
+      ]);
+      pushHistory('add');
+      setEditingId(id);
+    } else if (tool === 'image' && imageBytes.current) {
+      const p = normPointer(e);
+      setAddedImages((prev) => [
+        ...prev,
+        {
+          id: `img-${Date.now()}`,
+          pageIndex: preview.pageIndex,
+          x: Math.max(0, p.x - 0.12),
+          y: Math.max(0, p.y - 0.08),
+          w: 0.24,
+          h: 0.16,
+          png: imageBytes.current as Uint8Array,
+        },
+      ]);
+      pushHistory('image');
+    }
+  };
+
+  const generate = async () => {
+    if (!file) return;
+    const ops: PdfEditOp[] = [];
+    for (const span of spans) {
+      const value = edits[span.id];
+      if (value === undefined || value === span.str) continue;
+      ops.push(...spanEditOps(span, value));
+    }
+    for (const r of eraseRects) {
+      ops.push({ kind: 'erase', pageIndex: r.pageIndex, x: r.x, y: r.y, w: r.w, h: r.h, color: '#ffffff' });
+    }
+    for (const a of addedTexts) {
+      if (!a.text.trim()) continue;
+      ops.push({ kind: 'text', pageIndex: a.pageIndex, x: a.x, y: a.y, w: a.w, h: a.h, text: a.text });
+    }
+    for (const img of addedImages) {
+      ops.push({ kind: 'image', pageIndex: img.pageIndex, x: img.x, y: img.y, w: img.w, h: img.h, png: img.png });
+    }
+    if (ops.length === 0) {
+      setError(t.nothing);
+      return;
+    }
+    setBusy(true);
+    setError(null);
+    try {
+      const res = await applyPdfEdits(file, ops);
+      const stem = file.name.replace(/\.[^.]+$/, '') || 'documento';
+      const pdfFile = new File([res.blob], `${stem}_editado.pdf`, { type: 'application/pdf' });
+      const text = composeEditedText(spans, edits, addedTexts, preview.pageCount);
+      setEdited({ pdfFile, text });
+      setFormat('pdf');
+    } catch {
+      setError(t.failed);
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const downloadAs = async () => {
+    if (!edited || !file) return;
+    setSaving(true);
+    setError(null);
+    const stem = file.name.replace(/\.[^.]+$/, '') || 'documento';
+    try {
+      if (format === 'pdf') {
+        triggerDownload(edited.pdfFile, `${stem}_editado.pdf`);
+      } else if (format === 'txt') {
+        triggerDownload(new Blob([edited.text], { type: 'text/plain;charset=utf-8' }), `${stem}_editado.txt`);
+      } else if (format === 'png' || format === 'jpeg') {
+        const res = await convertDocument(edited.pdfFile, format);
+        triggerDownload(res.blob, res.fileName);
+      } else {
+        const txtFile = new File([edited.text], `${stem}_editado.txt`, { type: 'text/plain' });
+        const res = await convertDocument(txtFile, format);
+        triggerDownload(res.blob, res.fileName);
+      }
+    } catch {
+      setError(t.failed);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const tools: Array<{ id: EditTool; label: string; icon: typeof Type }> = [
+    { id: 'select', label: t.toolSelect, icon: MousePointerClick },
+    { id: 'addText', label: t.toolAdd, icon: Type },
+    { id: 'erase', label: t.toolErase, icon: Eraser },
+    { id: 'image', label: t.toolImage, icon: ImagePlus },
+  ];
+  const hint =
+    tool === 'select' ? t.selectHint : tool === 'addText' ? t.addHint : tool === 'erase' ? t.eraseHint : t.imageHint;
+  const spansInteractive = tool === 'select';
 
   return (
     <SuiteWorkspaceShell
-      title={lang === 'pt' ? 'Editar PDF' : lang === 'es' ? 'Editar PDF' : 'Edit PDF'}
+      title={t.title}
       subtitle={SUITE_UPLOAD_SUBTITLE[lang]}
       showHeader={showHeader}
       onClose={onClose}
       closeLabel={closeLbl(lang)}
     >
-      {!file && <DocumentToolDropzone lang={lang} accept="pdf" onFile={(f) => { setFile(f); void preview.load(f); }} labels={pdfDropLabels(lang, 'PDF')} />}
-      {file && !out && (
+      {!file && <DocumentToolDropzone lang={lang} accept="pdf" onFile={(f) => void open(f)} labels={pdfDropLabels(lang, 'PDF')} />}
+      {file && !edited && preview.pageCount === 0 && <ToolBusyState label={t.loadingText} />}
+      {file && !edited && preview.pageCount > 0 && (
         <div className="space-y-3">
-          <p className="text-[11px] text-slate-500">
-            {lang === 'pt'
-              ? 'Adiciona texto, retângulo ou imagem por cima. Não edita o texto original da página.'
-              : 'Adds text, a rectangle, or an image on top. It does not edit the original page text.'}
-          </p>
+          <p className="text-[11px] text-slate-500">{t.intro}</p>
+          {loadingSpans && <ToolBusyState label={t.loadingText} />}
+          {!loadingSpans && spans.length === 0 && (
+            <p className="text-[11px] font-semibold text-amber-700 flex gap-2">
+              <AlertCircle size={14} className="shrink-0" /> {t.scanned}
+            </p>
+          )}
           <div className="flex flex-wrap gap-2">
-            {(['text', 'rect', 'image'] as const).map((id) => (
+            {tools.map(({ id, label, icon: Icon }) => (
               <button
                 key={id}
                 type="button"
-                className={`btn-secondary py-2 px-3 text-[11px] ${mode === id ? 'ring-2 ring-win-blue' : ''}`}
-                onClick={() => setMode(id)}
+                className={`btn-secondary py-2 px-3 text-[11px] inline-flex items-center gap-1 ${tool === id ? 'ring-2 ring-win-blue' : ''}`}
+                onClick={() => {
+                  setTool(id);
+                  setEditingId(null);
+                }}
               >
-                {modeLabel(id)}
+                <Icon size={13} /> {label}
               </button>
             ))}
           </div>
-          {mode === 'text' && (
-            <input
-              className={inputClass}
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              placeholder={lang === 'pt' ? 'Texto a inserir' : 'Text to stamp'}
-            />
-          )}
-          {mode === 'image' && (
+          {tool === 'image' && (
             <input
               type="file"
               accept="image/png,image/jpeg"
+              className="text-[11px]"
               onChange={async (e) => {
                 const img = e.target.files?.[0];
                 if (!img) return;
@@ -839,7 +1216,8 @@ export function EditPdfSuiteTool({ lang, onClose, showHeader }: Props) {
               }}
             />
           )}
-          {preview.pageCount > 0 && (
+          <p className="text-[11px] font-semibold text-slate-500">{hint}</p>
+          {preview.pageCount > 1 && (
             <PageNav
               pageIndex={preview.pageIndex}
               pageCount={preview.pageCount}
@@ -847,67 +1225,196 @@ export function EditPdfSuiteTool({ lang, onClose, showHeader }: Props) {
               onNext={() => preview.setPageIndex((i) => i + 1)}
             />
           )}
-          <div className="relative mx-auto max-w-[720px] border rounded-xl overflow-hidden">
-            <canvas ref={preview.pageRef} className="block w-full" />
-            <canvas
-              ref={preview.overlayRef}
-              className="absolute inset-0 w-full h-full cursor-crosshair"
-              onClick={(e) => {
-                const c = preview.overlayRef.current;
-                if (!c) return;
-                const b = c.getBoundingClientRect();
-                const x = (e.clientX - b.left) / b.width;
-                const y = (e.clientY - b.top) / b.height;
-                const op: PdfEditOp = {
-                  kind: mode,
-                  pageIndex: preview.pageIndex,
-                  x: Math.max(0, x - 0.12),
-                  y: Math.max(0, y - 0.03),
-                  w: mode === 'rect' ? 0.24 : 0.28,
-                  h: mode === 'text' ? 0.06 : 0.16,
-                  text: sanitizePdfText(text),
-                  png: mode === 'image' ? imageBytes.current || undefined : undefined,
-                };
-                setOps((prev) => [...prev, op]);
-              }}
-            />
-          </div>
-          <button type="button" className="btn-secondary text-[11px]" onClick={() => setOps((prev) => prev.slice(0, -1))}>
-            {lang === 'pt' ? 'Desfazer' : 'Undo'}
-          </button>
-          <button
-            type="button"
-            className="w-full btn-primary py-3.5"
-            disabled={busy || ops.length === 0}
-            onClick={async () => {
-              if (!file) return;
-              setBusy(true);
-              try {
-                const res = await applyPdfEdits(file, ops);
-                if (out) URL.revokeObjectURL(out.url);
-                setOut({ url: URL.createObjectURL(res.blob), name: res.fileName });
-              } finally {
-                setBusy(false);
-              }
-            }}
+          <div
+            ref={stageRef}
+            className="relative mx-auto max-w-[720px] border rounded-xl overflow-hidden touch-none"
           >
-            {lang === 'pt' ? 'Gerar PDF editado' : 'Generate edited PDF'}
+            <canvas ref={preview.pageRef} className="block w-full" />
+            {/* Editable original text spans */}
+            {spansInteractive &&
+              display.h > 0 &&
+              pageSpans.map((span) => {
+                const value = edits[span.id] ?? span.str;
+                const dirty = span.id in edits && edits[span.id] !== span.str;
+                const editing = editingId === span.id;
+                const active = dirty || editing;
+                const fpx = Math.max(6, span.h * display.h * 0.86);
+                return (
+                  <input
+                    key={span.id}
+                    value={value}
+                    spellCheck={false}
+                    onFocus={() => setEditingId(span.id)}
+                    onChange={(e) => setSpanText(span, e.target.value)}
+                    onBlur={() => setEditingId((cur) => (cur === span.id ? null : cur))}
+                    className="absolute outline-none"
+                    style={{
+                      left: `${span.x * 100}%`,
+                      top: `${span.y * 100}%`,
+                      width: `${Math.max(span.w, 0.04) * 100}%`,
+                      height: `${Math.max(span.h * 1.25, 0.02) * 100}%`,
+                      fontSize: `${fpx}px`,
+                      lineHeight: 1,
+                      padding: 0,
+                      margin: 0,
+                      border: '1px solid transparent',
+                      borderBottom: editing
+                        ? '1px solid #2563eb'
+                        : active
+                          ? '1px solid #93c5fd'
+                          : '1px dotted rgba(37,99,235,0.3)',
+                      borderRadius: 2,
+                      color: active ? '#0f172a' : 'transparent',
+                      background: active ? '#ffffff' : 'transparent',
+                      caretColor: '#2563eb',
+                      fontFamily: 'Helvetica, Arial, sans-serif',
+                      boxSizing: 'border-box',
+                      whiteSpace: 'pre',
+                      overflow: 'hidden',
+                    }}
+                  />
+                );
+              })}
+            {/* Added text boxes */}
+            {display.h > 0 &&
+              pageAdded.map((item) => {
+                const fpx = Math.max(8, item.h * display.h * 0.8);
+                return (
+                  <input
+                    key={item.id}
+                    value={item.text}
+                    autoFocus={editingId === item.id}
+                    spellCheck={false}
+                    placeholder={t.newTextPlaceholder}
+                    onChange={(e) =>
+                      setAddedTexts((prev) => prev.map((a) => (a.id === item.id ? { ...a, text: e.target.value } : a)))
+                    }
+                    className="absolute outline-none"
+                    style={{
+                      left: `${item.x * 100}%`,
+                      top: `${item.y * 100}%`,
+                      width: `${item.w * 100}%`,
+                      fontSize: `${fpx}px`,
+                      lineHeight: 1.1,
+                      padding: '1px 2px',
+                      border: '1px dashed #2563eb',
+                      borderRadius: 2,
+                      color: '#0f172a',
+                      background: 'rgba(255,255,255,0.9)',
+                      fontFamily: 'Helvetica, Arial, sans-serif',
+                      boxSizing: 'border-box',
+                      pointerEvents: tool === 'erase' ? 'none' : 'auto',
+                    }}
+                  />
+                );
+              })}
+            {/* Interaction layer for add / erase / image */}
+            {tool !== 'select' && (
+              <div
+                className="absolute inset-0"
+                style={{ cursor: tool === 'erase' ? 'crosshair' : 'copy' }}
+                onPointerDown={(e) => {
+                  if (tool !== 'erase') return;
+                  e.currentTarget.setPointerCapture(e.pointerId);
+                  const p = normPointer(e);
+                  setDrag({ x0: p.x, y0: p.y, x1: p.x, y1: p.y });
+                }}
+                onPointerMove={(e) => {
+                  if (tool !== 'erase' || !drag) return;
+                  const p = normPointer(e);
+                  setDrag((d) => (d ? { ...d, x1: p.x, y1: p.y } : d));
+                }}
+                onPointerUp={() => {
+                  if (tool === 'erase' && drag) {
+                    const x = Math.min(drag.x0, drag.x1);
+                    const y = Math.min(drag.y0, drag.y1);
+                    const w = Math.abs(drag.x1 - drag.x0);
+                    const h = Math.abs(drag.y1 - drag.y0);
+                    setDrag(null);
+                    if (w > 0.005 && h > 0.005) {
+                      setEraseRects((prev) => [
+                        ...prev,
+                        { id: `erase-${Date.now()}`, pageIndex: preview.pageIndex, x, y, w, h },
+                      ]);
+                      pushHistory('erase');
+                    }
+                  }
+                }}
+                onClick={handleStageClick}
+              />
+            )}
+            <canvas ref={preview.overlayRef} className="absolute inset-0 w-full h-full pointer-events-none" />
+          </div>
+          <p className="text-[10px] text-slate-400">{t.fontNote}</p>
+          <div className="flex flex-wrap items-center gap-2">
+            <button
+              type="button"
+              className="btn-secondary text-[11px] py-2 px-3 inline-flex items-center gap-1 disabled:opacity-40"
+              disabled={history.length === 0}
+              onClick={undo}
+            >
+              <Undo2 size={13} /> {t.undo}
+            </button>
+            <button
+              type="button"
+              className="btn-secondary text-[11px] py-2 px-3 inline-flex items-center gap-1 disabled:opacity-40"
+              disabled={changeCount === 0}
+              onClick={resetEdits}
+            >
+              <Trash2 size={13} /> {t.reset}
+            </button>
+            <span className="text-[11px] font-semibold text-slate-500">
+              {changeCount} {t.changes}
+            </span>
+          </div>
+          {error && (
+            <p role="alert" className="text-xs text-rose-700 font-semibold flex gap-2">
+              <AlertCircle size={14} /> {error}
+            </p>
+          )}
+          <button type="button" className="w-full btn-primary py-3.5" disabled={busy || changeCount === 0} onClick={() => void generate()}>
+            {busy ? t.saving : t.generate}
           </button>
         </div>
       )}
-      {out && (
-        <DownloadReady
-          url={out.url}
-          name={out.name}
-          label={lang === 'pt' ? 'Baixar PDF' : 'Download PDF'}
-          again={lang === 'pt' ? 'Outro PDF' : 'Another PDF'}
-          onAgain={() => {
-            URL.revokeObjectURL(out.url);
-            setOut(null);
-            setFile(null);
-            setOps([]);
-          }}
-        />
+      {edited && (
+        <div className="space-y-4">
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-[11px] font-semibold text-emerald-700">
+            {changeCount} {t.edited}
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs font-semibold text-slate-600">{t.saveTitle}</label>
+            <div className="flex flex-wrap gap-2">
+              {SAVE_FORMATS.map((fmt) => (
+                <button
+                  key={fmt.id}
+                  type="button"
+                  className={`btn-secondary py-2 px-3 text-[11px] ${format === fmt.id ? 'ring-2 ring-win-blue' : ''}`}
+                  onClick={() => setFormat(fmt.id)}
+                >
+                  {fmt.label} <span className="text-slate-400">.{fmt.ext}</span>
+                </button>
+              ))}
+            </div>
+            <p className="text-[10px] text-slate-400">{t.saveHint}</p>
+          </div>
+          {error && (
+            <p role="alert" className="text-xs text-rose-700 font-semibold flex gap-2">
+              <AlertCircle size={14} /> {error}
+            </p>
+          )}
+          <button
+            type="button"
+            className="w-full btn-primary py-3.5 inline-flex items-center justify-center gap-2"
+            disabled={saving}
+            onClick={() => void downloadAs()}
+          >
+            <Download size={16} /> {saving ? t.saving : t.download}
+          </button>
+          <button type="button" className="text-xs font-semibold text-win-blue inline-flex items-center gap-1 mx-auto" onClick={startOver}>
+            <RefreshCw size={12} /> {t.again}
+          </button>
+        </div>
       )}
     </SuiteWorkspaceShell>
   );

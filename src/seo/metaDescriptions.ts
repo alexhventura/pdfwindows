@@ -96,6 +96,56 @@ export const META_DESCRIPTION_OVERRIDES: Partial<
     pt: 'Gere CPFs válidos para testes no navegador. Crie documentos fictícios localmente para QA, desenvolvimento e homologação — grátis, privado e sem upload.',
     es: 'Genera CPF válidos para pruebas en el navegador. Crea documentos ficticios localmente para QA, desarrollo y homologación — gratis, privado y sin subir.',
   },
+  '/gerador-cnpj': {
+    en: 'Generate CNPJ numbers with valid check digits for software testing and form validation, right in your browser. Free, local, and no upload to our servers.',
+    pt: 'Gere CNPJs com dígitos verificadores válidos para testes de software e validação de formulários, direto no navegador. Grátis, local e sem upload aos servidores.',
+    es: 'Genera CNPJ con dígitos verificadores válidos para pruebas de software y validación de formularios en el navegador. Gratis, local y sin subir a servidores.',
+  },
+  '/gerador-rg': {
+    en: 'Generate RG numbers in the SSP-SP format with a valid check digit to test forms and validations in your browser. Free, private, and no upload to our servers.',
+    pt: 'Gere números de RG no formato SSP-SP com dígito verificador válido para testar formulários e validações no navegador. Grátis, privado e sem upload aos servidores.',
+    es: 'Genera números de RG en formato SSP-SP con dígito verificador válido para probar formularios en el navegador. Gratis, privado y sin subir a servidores.',
+  },
+  '/gerador-telefone': {
+    en: 'Generate Brazilian mobile phone numbers with a valid area code (DDD) to test forms and input masks. Runs 100% in your browser — free, private, no upload.',
+    pt: 'Gere números de celular brasileiros com DDD válido para testar cadastros e máscaras de formulário. Roda 100% no navegador — grátis, privado e sem upload.',
+    es: 'Genera números de móvil brasileños con DDD válido para probar formularios y máscaras de entrada. Funciona 100% en el navegador — gratis, privado y sin subir.',
+  },
+  '/gerador-chave-produto': {
+    en: 'Generate random keys in the 5×5 (XXXXX-XXXXX-…) format for mockups, tutorials and UI testing. They are placeholders only and not valid software licenses at all.',
+    pt: 'Gere chaves aleatórias no formato 5×5 (XXXXX-XXXXX-…) para mockups, tutoriais e testes de interface. São apenas exemplos e não são licenças válidas de software algum.',
+    es: 'Genera claves aleatorias en formato 5×5 (XXXXX-XXXXX-…) para maquetas, tutoriales y pruebas de interfaz. Son solo ejemplos y no son licencias válidas de software.',
+  },
+  '/gerador-pis': {
+    en: 'Generate PIS/PASEP numbers with a valid check digit to test HR and payroll systems in your browser. Free, private, and no upload of data to our servers.',
+    pt: 'Gere números de PIS/PASEP com dígito verificador válido para testar sistemas de RH e folha de pagamento no navegador. Grátis, privado e sem upload de dados.',
+    es: 'Genera números de PIS/PASEP con dígito verificador válido para probar sistemas de RR. HH. y nómina en el navegador. Gratis, privado y sin subir datos.',
+  },
+  '/gerador-senha': {
+    en: 'Create strong, random passwords in your browser with custom length and character types, using a cryptographic generator. 100% local — nothing is ever sent.',
+    pt: 'Crie senhas fortes e aleatórias no navegador, com tamanho e tipos de caractere personalizáveis, usando gerador criptográfico. 100% local — nada é enviado.',
+    es: 'Crea contraseñas fuertes y aleatorias en el navegador, con longitud y tipos de caracteres personalizables y generador criptográfico. 100% local, nada se envía.',
+  },
+  '/gerador-uuid': {
+    en: 'Generate UUID v4 unique identifiers in your browser, one or many at once, and copy them all in a click. Free, local, no signup and no upload to our servers.',
+    pt: 'Gere identificadores únicos UUID v4 no navegador, um ou vários de uma vez, e copie tudo com um clique. Grátis, local, sem cadastro e sem upload aos servidores.',
+    es: 'Genera identificadores únicos UUID v4 en el navegador, uno o varios a la vez, y cópialos con un clic. Gratis, local, sin registro y sin subir a servidores.',
+  },
+  '/gerador-cartao-teste': {
+    en: 'Generate Luhn-valid test card numbers for Visa, Mastercard and Amex, with CVV and expiry, to test payment forms. Not real cards and hold no funds whatsoever.',
+    pt: 'Gere números de cartão válidos por Luhn para Visa, Mastercard e Amex, com CVV e validade, para testar formulários de pagamento. Não são cartões reais nem têm fundos.',
+    es: 'Genera números de tarjeta válidos por Luhn para Visa, Mastercard y Amex, con CVV y vencimiento, para probar pagos. No son tarjetas reales y no tienen fondos.',
+  },
+  '/validar-cpf-cnpj': {
+    en: 'Validate CPF, CNPJ, PIS/PASEP and card numbers by check digit and Luhn, with automatic type detection, right in your browser. Free, local, no upload of data.',
+    pt: 'Valide CPF, CNPJ, PIS/PASEP e números de cartão por dígito verificador e Luhn, com detecção automática do tipo, no navegador. Grátis, local e sem upload de dados.',
+    es: 'Valida CPF, CNPJ, PIS/PASEP y números de tarjeta por dígito verificador y Luhn, con detección automática del tipo, en el navegador. Gratis, local y sin subir datos.',
+  },
+  '/criador-assinatura-email': {
+    en: 'Create a professional email signature with photo, logo and 4 templates, then download it as a PNG, JPG or WEBP image — all local in your browser, no upload.',
+    pt: 'Crie uma assinatura de e-mail profissional com foto, logo e 4 modelos, e baixe como imagem PNG, JPG ou WEBP — tudo local no navegador, sem upload de dados.',
+    es: 'Crea una firma de correo profesional con foto, logo y 4 plantillas, y descárgala como imagen PNG, JPG o WEBP — todo local en tu navegador, sin subir datos.',
+  },
   '/limpador-codigo': {
     en: 'Clean and format code in your browser. Beautify JSON, HTML, CSS, and snippets locally with Prettier — free developer utility, private, no upload.',
     pt: 'Limpe e formate código no navegador. Embeleze JSON, HTML, CSS e snippets localmente com Prettier — utilitário grátis para devs, privado e sem upload.',
@@ -121,9 +171,9 @@ export const META_DESCRIPTION_OVERRIDES: Partial<
     es: 'Compare el texto de dos PDF en el navegador. Vea líneas añadidas y quitadas lado a lado — gratis, local y sin subida a nuestros servidores.',
   },
   '/editar-pdf': {
-    en: 'Add text, a rectangle, or an image stamp to a PDF in your browser. Visual overlay on the page — free, local, and no upload to our servers.',
-    pt: 'Adicione texto, retângulo ou imagem num PDF no navegador. Carimbo visual por cima da página — grátis, local e sem upload para os nossos servidores.',
-    es: 'Añada texto, rectángulo o imagen a un PDF en el navegador. Sellos visuales sobre la página — gratis, local y sin subida a nuestros servidores.',
+    en: 'Edit PDF text right in your browser: click to change existing text, delete it, or add new text and images. Free, local, and no upload to our servers.',
+    pt: 'Edite o texto do PDF no navegador: clique para alterar o texto existente, apague-o ou acrescente texto e imagens. Grátis, local e sem upload para os nossos servidores.',
+    es: 'Edite el texto del PDF en el navegador: haga clic para cambiar el texto existente, bórrelo o añada texto e imágenes. Gratis, local y sin subida a nuestros servidores.',
   },
   '/escanear-para-pdf': {
     en: 'Capture pages with the camera or upload photos and build a PDF in your browser — free, local processing, and no upload to our servers.',
