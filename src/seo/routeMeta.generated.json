@@ -2549,6 +2549,81 @@
       }
     ]
   },
+  "/en/email-signature-generator": {
+    "lang": "en",
+    "title": "Email Signature Creator (Free, Local) | PDFWINDOWS",
+    "description": "Create a professional email signature with photo, logo and 4 templates, then download it as a PNG, JPG or WEBP image — all local in your browser, no upload.",
+    "keywords": "email signature generator, create email signature, professional signature with logo, email signature with photo, signature image maker",
+    "canonical": "https://www.pdfwindows.com/en/email-signature-generator",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/email-signature-generator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/criador-assinatura-email"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/creador-firma-email"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/email-signature-generator"
+      }
+    ]
+  },
+  "/pt/criador-assinatura-email": {
+    "lang": "pt-BR",
+    "title": "Criador de Assinatura de E-mail (Grátis e Local) | PDFWINDOWS",
+    "description": "Crie uma assinatura de e-mail profissional com foto, logo e 4 modelos, e baixe como imagem PNG, JPG ou WEBP — tudo local no navegador, sem upload de dados.",
+    "keywords": "assinatura de email, criar assinatura de email, assinatura profissional com logo, assinatura com foto, gerador de assinatura imagem",
+    "canonical": "https://www.pdfwindows.com/pt/criador-assinatura-email",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/email-signature-generator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/criador-assinatura-email"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/creador-firma-email"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/email-signature-generator"
+      }
+    ]
+  },
+  "/es/creador-firma-email": {
+    "lang": "es",
+    "title": "Creador de Firma de Correo (Gratis y Local) | PDFWINDOWS",
+    "description": "Crea una firma de correo profesional con foto, logo y 4 plantillas, y descárgala como imagen PNG, JPG o WEBP — todo local en tu navegador, sin subir datos.",
+    "keywords": "firma de correo, crear firma de correo, firma profesional con logo, firma con foto, generador de firma imagen",
+    "canonical": "https://www.pdfwindows.com/es/creador-firma-email",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/email-signature-generator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/criador-assinatura-email"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/creador-firma-email"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/email-signature-generator"
+      }
+    ]
+  },
   "/en/code-cleaner": {
     "lang": "en",
     "title": "Code Formatter & Minifier Online Offline | PDFWINDOWS",

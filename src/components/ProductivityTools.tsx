@@ -37,6 +37,7 @@ import {
   CreditCard,
   KeySquare,
   ShieldCheck,
+  Mail,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import type { LanguageType } from '../types';
@@ -185,6 +186,17 @@ const tools: Tool[] = [
     },
     icon: <ShieldCheck size={24} />,
     color: 'bg-teal-500',
+  },
+  {
+    id: 'email-signature',
+    name: { pt: 'Assinatura de E-mail', en: 'Email Signature', es: 'Firma de Correo' },
+    description: {
+      pt: 'Crie uma assinatura profissional e baixe como imagem.',
+      en: 'Create a professional signature and download it as an image.',
+      es: 'Crea una firma profesional y descárgala como imagen.',
+    },
+    icon: <Mail size={24} />,
+    color: 'bg-indigo-500',
   },
   {
     id: 'code-clean',
@@ -487,6 +499,7 @@ const SUITE_PATHS: Record<string, string> = {
   'uuid-gen': '/gerador-uuid',
   'credit-card-gen': '/gerador-cartao-teste',
   'doc-validator': '/validar-cpf-cnpj',
+  'email-signature': '/criador-assinatura-email',
   'code-clean': '/limpador-codigo',
   'document-studio': '/estudio-documentos',
   'report-gen': '/gerador-relatorios',

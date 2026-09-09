@@ -145,6 +145,30 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/compare-pdf"/>
   </url>
   <url>
+    <loc>https://www.pdfwindows.com/en/email-signature-generator</loc>
+    <lastmod>2026-09-09</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/email-signature-generator"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/criador-assinatura-email"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/creador-firma-email"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/email-signature-generator"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/pt/criador-assinatura-email</loc>
+    <lastmod>2026-09-09</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/email-signature-generator"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/criador-assinatura-email"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/creador-firma-email"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/email-signature-generator"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/es/creador-firma-email</loc>
+    <lastmod>2026-09-09</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/email-signature-generator"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/criador-assinatura-email"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/creador-firma-email"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/email-signature-generator"/>
+  </url>
+  <url>
     <loc>https://www.pdfwindows.com/en/csv-to-json</loc>
     <lastmod>2026-09-09</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/csv-to-json"/>

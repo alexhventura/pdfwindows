@@ -42,7 +42,8 @@ export type SuiteToolId =
   | 'password-gen'
   | 'uuid-gen'
   | 'credit-card-gen'
-  | 'doc-validator';
+  | 'doc-validator'
+  | 'email-signature';
 
 export interface FaqItem {
   q: string;
@@ -2324,6 +2325,49 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
       'Não. Ele checa apenas o dígito verificador/algoritmo, não consulta órgãos oficiais.',
       'No. It only checks the check digit/algorithm; it does not query official agencies.',
       'No. Solo verifica el dígito verificador/algoritmo; no consulta órganos oficiales.',
+    ],
+  }),
+  localSuitePage('/criador-assinatura-email', 'email-signature', {
+    title: [
+      'Criador de Assinatura de E-mail | PDFWINDOWS',
+      'Email Signature Creator | PDFWINDOWS',
+      'Creador de Firma de Correo | PDFWINDOWS',
+    ],
+    description: [
+      'Crie uma assinatura de e-mail profissional com foto e logo e baixe como imagem PNG, tudo no navegador. Grátis, local e sem upload.',
+      'Create a professional email signature with photo and logo and download it as a PNG image, all in your browser. Free, local, no upload.',
+      'Crea una firma de correo profesional con foto y logo y descárgala como imagen PNG, todo en el navegador. Gratis, local y sin subir.',
+    ],
+    keywords: [
+      'assinatura de email, criar assinatura email, assinatura profissional com foto',
+      'email signature generator, create email signature, professional signature with logo',
+      'firma de correo, crear firma email, firma profesional con foto',
+    ],
+    h1: ['Criador de Assinatura de E-mail', 'Email Signature Creator', 'Creador de Firma de Correo'],
+    intro: [
+      'Escolha um modelo, defina as cores, insira foto e logo, preencha seus dados e baixe a assinatura como imagem. O preview é idêntico ao arquivo final.',
+      'Pick a template, set the colors, add a photo and logo, fill in your details and download the signature as an image. The preview matches the final file.',
+      'Elige una plantilla, define los colores, agrega foto y logo, completa tus datos y descarga la firma como imagen. La vista previa coincide con el archivo final.',
+    ],
+    benefits: [
+      ['4 modelos profissionais', '4 professional templates', '4 plantillas profesionales'],
+      ['Foto, logo e fundo transparente', 'Photo, logo and transparent background', 'Foto, logo y fondo transparente'],
+      ['Preview idêntico ao PNG baixado', 'Preview identical to the downloaded PNG', 'Vista previa idéntica al PNG descargado'],
+    ],
+    how: [
+      ['Escolha fundo, cor e modelo.', 'Choose background, color and template.', 'Elige fondo, color y plantilla.'],
+      ['Preencha seus dados e adicione foto/logo.', 'Fill in your details and add a photo/logo.', 'Completa tus datos y agrega foto/logo.'],
+      ['Baixe como PNG, JPG ou WEBP.', 'Download as PNG, JPG or WEBP.', 'Descarga como PNG, JPG o WEBP.'],
+    ],
+    faqQ: [
+      'Minhas fotos são enviadas para algum servidor?',
+      'Are my photos uploaded to a server?',
+      '¿Mis fotos se suben a un servidor?',
+    ],
+    faqA: [
+      'Não. A foto, o logo e os dados ficam apenas no seu navegador; a imagem é gerada localmente.',
+      'No. Your photo, logo and data stay only in your browser; the image is generated locally.',
+      'No. Tu foto, logo y datos permanecen solo en tu navegador; la imagen se genera localmente.',
     ],
   }),
   page('/limpador-codigo', 'suite', undefined, 'code-clean', {

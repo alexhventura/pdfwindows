@@ -61,7 +61,7 @@ describe('sitemap generation', () => {
     expect(robotsValidation.valid, robotsValidation.errors.join('; ')).toBe(true);
 
     const locs = parseSitemapLocs(xml);
-    expect(locs.length).toBe(180);
+    expect(locs.length).toBe(183);
 
     for (const loc of locs) {
       expect(loc).not.toMatch(/pdfwindows\.app/i);
@@ -107,7 +107,7 @@ describe('sitemap generation', () => {
     expect(new Set(locs).size).toBe(locs.length);
   });
 
-  it('generates 60 pages per locale (180 total)', () => {
+  it('generates 61 pages per locale (183 total)', () => {
     const xml = readFileSync('public/sitemap.xml', 'utf8');
     const locs = parseSitemapLocs(xml);
 
@@ -122,10 +122,10 @@ describe('sitemap generation', () => {
       es: locs.filter((loc) => localeSegment(loc, 'es')),
     };
 
-    expect(byLocale.en.length).toBe(60);
-    expect(byLocale.pt.length).toBe(60);
-    expect(byLocale.es.length).toBe(60);
-    expect(locs.length).toBe(180);
+    expect(byLocale.en.length).toBe(61);
+    expect(byLocale.pt.length).toBe(61);
+    expect(byLocale.es.length).toBe(61);
+    expect(locs.length).toBe(183);
   });
 
   it('build entries use git or build date for lastmod', () => {

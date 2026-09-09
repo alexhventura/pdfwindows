@@ -40,6 +40,7 @@ const RICH_LOADERS: Record<string, RichLoader> = {
   '/gerador-uuid': async (lang) => (await import('./tools/gerador-uuid')).GERADOR_UUID_CONTENT[lang],
   '/gerador-cartao-teste': async (lang) => (await import('./tools/gerador-cartao-teste')).GERADOR_CARTAO_TESTE_CONTENT[lang],
   '/validar-cpf-cnpj': async (lang) => (await import('./tools/validar-cpf-cnpj')).VALIDAR_CPF_CNPJ_CONTENT[lang],
+  '/criador-assinatura-email': async (lang) => (await import('./tools/criador-assinatura-email')).CRIADOR_ASSINATURA_EMAIL_CONTENT[lang],
   '/limpador-codigo': async (lang) => (await import('./tools/limpador-codigo')).LIMPADOR_CODIGO_CONTENT[lang],
   '/identificador-de-fontes': async (lang) =>
     (await import('./tools/identificador-de-fontes')).IDENTIFICADOR_FONTES_CONTENT[lang],

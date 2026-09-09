@@ -437,6 +437,16 @@
       "permanent": true
     },
     {
+      "source": "/en/criador-assinatura-email",
+      "destination": "/en/email-signature-generator",
+      "permanent": true
+    },
+    {
+      "source": "/es/criador-assinatura-email",
+      "destination": "/es/creador-firma-email",
+      "permanent": true
+    },
+    {
       "source": "/en/limpador-codigo",
       "destination": "/en/code-cleaner",
       "permanent": true
@@ -1324,6 +1334,26 @@
     {
       "source": "/es/cpf-cnpj-validator",
       "destination": "/es/validar-cpf-cnpj",
+      "permanent": true
+    },
+    {
+      "source": "/en/creador-firma-email",
+      "destination": "/en/email-signature-generator",
+      "permanent": true
+    },
+    {
+      "source": "/pt/email-signature-generator",
+      "destination": "/pt/criador-assinatura-email",
+      "permanent": true
+    },
+    {
+      "source": "/pt/creador-firma-email",
+      "destination": "/pt/criador-assinatura-email",
+      "permanent": true
+    },
+    {
+      "source": "/es/email-signature-generator",
+      "destination": "/es/creador-firma-email",
       "permanent": true
     },
     {

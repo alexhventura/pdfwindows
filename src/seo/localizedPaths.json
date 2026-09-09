@@ -34,6 +34,7 @@
   "/gerador-uuid": { "en": "/uuid-generator", "pt": "/gerador-uuid", "es": "/generador-uuid" },
   "/gerador-cartao-teste": { "en": "/test-card-generator", "pt": "/gerador-cartao-teste", "es": "/generador-tarjeta-prueba" },
   "/validar-cpf-cnpj": { "en": "/cpf-cnpj-validator", "pt": "/validar-cpf-cnpj", "es": "/validar-cpf-cnpj" },
+  "/criador-assinatura-email": { "en": "/email-signature-generator", "pt": "/criador-assinatura-email", "es": "/creador-firma-email" },
   "/limpador-codigo": { "en": "/code-cleaner", "pt": "/limpador-de-codigo", "es": "/limpiador-de-codigo" },
   "/identificador-de-fontes": {
     "en": "/font-identifier",

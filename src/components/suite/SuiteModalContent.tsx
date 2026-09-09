@@ -24,6 +24,7 @@ const SUITE_LAZY_TOOLS: Record<string, SuiteLazyTool> = {
   'uuid-gen': lazy(() => import('./tools/UuidSuiteTool')),
   'credit-card-gen': lazy(() => import('./tools/CreditCardSuiteTool')),
   'doc-validator': lazy(() => import('./tools/DocValidatorSuiteTool')),
+  'email-signature': lazy(() => import('./tools/EmailSignatureSuiteTool').then((m) => ({ default: m.EmailSignatureSuiteTool }))),
   'code-clean': lazy(() => import('./tools/CodeCleanerSuiteTool')),
   'report-gen': lazy(() => import('./tools/ReportSuiteTool')),
   'font-identifier': lazy(() => import('./tools/FontIdentifierSuiteTool')),

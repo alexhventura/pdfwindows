@@ -141,6 +141,11 @@ export const META_DESCRIPTION_OVERRIDES: Partial<
     pt: 'Valide CPF, CNPJ, PIS/PASEP e números de cartão por dígito verificador e Luhn, com detecção automática do tipo, no navegador. Grátis, local e sem upload de dados.',
     es: 'Valida CPF, CNPJ, PIS/PASEP y números de tarjeta por dígito verificador y Luhn, con detección automática del tipo, en el navegador. Gratis, local y sin subir datos.',
   },
+  '/criador-assinatura-email': {
+    en: 'Create a professional email signature with photo, logo and 4 templates, then download it as a PNG, JPG or WEBP image — all local in your browser, no upload.',
+    pt: 'Crie uma assinatura de e-mail profissional com foto, logo e 4 modelos, e baixe como imagem PNG, JPG ou WEBP — tudo local no navegador, sem upload de dados.',
+    es: 'Crea una firma de correo profesional con foto, logo y 4 plantillas, y descárgala como imagen PNG, JPG o WEBP — todo local en tu navegador, sin subir datos.',
+  },
   '/limpador-codigo': {
     en: 'Clean and format code in your browser. Beautify JSON, HTML, CSS, and snippets locally with Prettier — free developer utility, private, no upload.',
     pt: 'Limpe e formate código no navegador. Embeleze JSON, HTML, CSS e snippets localmente com Prettier — utilitário grátis para devs, privado e sem upload.',

@@ -35,6 +35,7 @@ import {
   UserCheck,
   QrCode,
   ShieldCheck,
+  Mail,
   type LucideIcon,
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
@@ -79,6 +80,7 @@ const SUITE_ICONS: Record<string, LucideIcon> = {
   'uuid-gen': Fingerprint,
   'credit-card-gen': CreditCard,
   'doc-validator': ShieldCheck,
+  'email-signature': Mail,
 };
 
 function toolIcon(tool: ToolPageDefinition) {

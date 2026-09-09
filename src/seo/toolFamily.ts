@@ -66,6 +66,7 @@ const SUITE_FAMILY: Record<string, ToolFamily> = {
   'uuid-gen': 'utility',
   'credit-card-gen': 'utility',
   'doc-validator': 'utility',
+  'email-signature': 'image',
   'code-clean': 'utility',
   'file-xray': 'utility',
 };
