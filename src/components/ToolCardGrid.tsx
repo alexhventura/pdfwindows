@@ -25,6 +25,15 @@ import {
   Presentation,
   FileType,
   Globe,
+  Building2,
+  Contact,
+  Phone,
+  KeyRound,
+  Fingerprint,
+  CreditCard,
+  KeySquare,
+  UserCheck,
+  QrCode,
   type LucideIcon,
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
@@ -58,6 +67,12 @@ const SUITE_ICONS: Record<string, LucideIcon> = {
   'pdf-to-word': FileType,
   'word-to-pdf': FileType,
   'html-to-pdf': Globe,
+  'qr-gen': QrCode,
+  'cpf-gen': UserCheck,
+  'cnpj-gen': Building2,
+  'rg-gen': Contact,
+  'phone-gen': Phone,
+  'product-key-gen': KeySquare,
 };
 
 function toolIcon(tool: ToolPageDefinition) {

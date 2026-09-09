@@ -57,6 +57,10 @@ const SUITE_FAMILY: Record<string, ToolFamily> = {
   'pdf-to-pptx': 'document',
   'qr-gen': 'utility',
   'cpf-gen': 'utility',
+  'cnpj-gen': 'utility',
+  'rg-gen': 'utility',
+  'phone-gen': 'utility',
+  'product-key-gen': 'utility',
   'code-clean': 'utility',
   'file-xray': 'utility',
 };

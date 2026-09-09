@@ -24,6 +24,10 @@ import { CAPTURADOR_CORES_CONTENT } from './tools/capturador-de-cores';
 import { GERADOR_RELATORIOS_CONTENT } from './tools/gerador-relatorios';
 import { GERADOR_QR_CODE_CONTENT } from './tools/gerador-qr-code';
 import { GERADOR_CPF_CONTENT } from './tools/gerador-cpf';
+import { GERADOR_CNPJ_CONTENT } from './tools/gerador-cnpj';
+import { GERADOR_RG_CONTENT } from './tools/gerador-rg';
+import { GERADOR_TELEFONE_CONTENT } from './tools/gerador-telefone';
+import { GERADOR_CHAVE_PRODUTO_CONTENT } from './tools/gerador-chave-produto';
 import { LIMPADOR_CODIGO_CONTENT } from './tools/limpador-codigo';
 import { IDENTIFICADOR_FONTES_CONTENT } from './tools/identificador-de-fontes';
 import { REMOVER_RESTRICOES_CONTENT } from './tools/remover-restricoes';
@@ -79,6 +83,10 @@ export const RICH_CONTENT_REGISTRY: ToolContentRegistry = {
   '/gerador-relatorios': GERADOR_RELATORIOS_CONTENT,
   '/gerador-qr-code': GERADOR_QR_CODE_CONTENT,
   '/gerador-cpf': GERADOR_CPF_CONTENT,
+  '/gerador-cnpj': GERADOR_CNPJ_CONTENT,
+  '/gerador-rg': GERADOR_RG_CONTENT,
+  '/gerador-telefone': GERADOR_TELEFONE_CONTENT,
+  '/gerador-chave-produto': GERADOR_CHAVE_PRODUTO_CONTENT,
   '/limpador-codigo': LIMPADOR_CODIGO_CONTENT,
   '/identificador-de-fontes': IDENTIFICADOR_FONTES_CONTENT,
   '/remover-restricoes': REMOVER_RESTRICOES_CONTENT,

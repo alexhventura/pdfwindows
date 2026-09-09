@@ -31,6 +31,10 @@ const RICH_LOADERS: Record<string, RichLoader> = {
   '/gerador-relatorios': async (lang) => (await import('./tools/gerador-relatorios')).GERADOR_RELATORIOS_CONTENT[lang],
   '/gerador-qr-code': async (lang) => (await import('./tools/gerador-qr-code')).GERADOR_QR_CODE_CONTENT[lang],
   '/gerador-cpf': async (lang) => (await import('./tools/gerador-cpf')).GERADOR_CPF_CONTENT[lang],
+  '/gerador-cnpj': async (lang) => (await import('./tools/gerador-cnpj')).GERADOR_CNPJ_CONTENT[lang],
+  '/gerador-rg': async (lang) => (await import('./tools/gerador-rg')).GERADOR_RG_CONTENT[lang],
+  '/gerador-telefone': async (lang) => (await import('./tools/gerador-telefone')).GERADOR_TELEFONE_CONTENT[lang],
+  '/gerador-chave-produto': async (lang) => (await import('./tools/gerador-chave-produto')).GERADOR_CHAVE_PRODUTO_CONTENT[lang],
   '/limpador-codigo': async (lang) => (await import('./tools/limpador-codigo')).LIMPADOR_CODIGO_CONTENT[lang],
   '/identificador-de-fontes': async (lang) =>
     (await import('./tools/identificador-de-fontes')).IDENTIFICADOR_FONTES_CONTENT[lang],

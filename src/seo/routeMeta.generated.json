@@ -1874,6 +1874,306 @@
       }
     ]
   },
+  "/en/cnpj-generator": {
+    "lang": "en",
+    "title": "CNPJ Generator for Software Testing | PDFWINDOWS",
+    "description": "Generate CNPJ numbers with valid check digits for software testing and form validation, right in your browser. Free, local, and no upload to our servers.",
+    "keywords": "cnpj generator test, valid cnpj for development, fake cnpj qa, brazil company id test, cnpj validator test",
+    "canonical": "https://www.pdfwindows.com/en/cnpj-generator",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/cnpj-generator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/gerador-cnpj"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/generador-cnpj"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/cnpj-generator"
+      }
+    ]
+  },
+  "/pt/gerador-cnpj": {
+    "lang": "pt-BR",
+    "title": "Gerador de CNPJ para Testes de Software | PDFWINDOWS",
+    "description": "Gere CNPJs com dígitos verificadores válidos para testes de software e validação de formulários, direto no navegador. Grátis, local e sem upload aos servidores.",
+    "keywords": "gerador cnpj teste, cnpj valido para desenvolvimento, cnpj fake qa, testar validador cnpj, cnpj empresa teste",
+    "canonical": "https://www.pdfwindows.com/pt/gerador-cnpj",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/cnpj-generator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/gerador-cnpj"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/generador-cnpj"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/cnpj-generator"
+      }
+    ]
+  },
+  "/es/generador-cnpj": {
+    "lang": "es",
+    "title": "Generador de CNPJ para Pruebas de Software | PDFWINDOWS",
+    "description": "Genera CNPJ con dígitos verificadores válidos para pruebas de software y validación de formularios en el navegador. Gratis, local y sin subir a servidores.",
+    "keywords": "generador cnpj prueba, cnpj valido desarrollo, cnpj fake qa, probar validador cnpj, cnpj empresa prueba",
+    "canonical": "https://www.pdfwindows.com/es/generador-cnpj",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/cnpj-generator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/gerador-cnpj"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/generador-cnpj"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/cnpj-generator"
+      }
+    ]
+  },
+  "/en/rg-generator": {
+    "lang": "en",
+    "title": "RG Generator for Software Testing | PDFWINDOWS",
+    "description": "Generate RG numbers in the SSP-SP format with a valid check digit to test forms and validations in your browser. Free, private, and no upload to our servers.",
+    "keywords": "rg generator test, valid rg for development, fake rg qa, brazil id number test, rg check digit",
+    "canonical": "https://www.pdfwindows.com/en/rg-generator",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/rg-generator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/gerador-rg"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/generador-rg"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/rg-generator"
+      }
+    ]
+  },
+  "/pt/gerador-rg": {
+    "lang": "pt-BR",
+    "title": "Gerador de RG para Testes de Software | PDFWINDOWS",
+    "description": "Gere números de RG no formato SSP-SP com dígito verificador válido para testar formulários e validações no navegador. Grátis, privado e sem upload aos.",
+    "keywords": "gerador rg teste, rg valido desenvolvimento, rg fake qa, testar validador rg, rg digito verificador",
+    "canonical": "https://www.pdfwindows.com/pt/gerador-rg",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/rg-generator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/gerador-rg"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/generador-rg"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/rg-generator"
+      }
+    ]
+  },
+  "/es/generador-rg": {
+    "lang": "es",
+    "title": "Generador de RG para Pruebas de Software | PDFWINDOWS",
+    "description": "Genera números de RG en formato SSP-SP con dígito verificador válido para probar formularios en el navegador. Gratis, privado y sin subir a servidores.",
+    "keywords": "generador rg prueba, rg valido desarrollo, rg fake qa, probar validador rg, rg digito verificador",
+    "canonical": "https://www.pdfwindows.com/es/generador-rg",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/rg-generator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/gerador-rg"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/generador-rg"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/rg-generator"
+      }
+    ]
+  },
+  "/en/phone-number-generator": {
+    "lang": "en",
+    "title": "Brazilian Phone Number Generator for Testing | PDFWINDOWS",
+    "description": "Generate Brazilian mobile phone numbers with a valid area code (DDD) to test forms and input masks. Runs 100% in your browser — free, private, no upload.",
+    "keywords": "phone number generator test, brazil mobile test number, fake phone qa, ddd valid test, whatsapp test number",
+    "canonical": "https://www.pdfwindows.com/en/phone-number-generator",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/phone-number-generator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/gerador-telefone"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/generador-telefono"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/phone-number-generator"
+      }
+    ]
+  },
+  "/pt/gerador-telefone": {
+    "lang": "pt-BR",
+    "title": "Gerador de Telefone para Testes de Software | PDFWINDOWS",
+    "description": "Gere números de celular brasileiros com DDD válido para testar cadastros e máscaras de formulário. Roda 100% no navegador — grátis, privado e sem upload.",
+    "keywords": "gerador telefone teste, numero celular teste, telefone fake qa, ddd valido teste, numero whatsapp teste",
+    "canonical": "https://www.pdfwindows.com/pt/gerador-telefone",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/phone-number-generator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/gerador-telefone"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/generador-telefono"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/phone-number-generator"
+      }
+    ]
+  },
+  "/es/generador-telefono": {
+    "lang": "es",
+    "title": "Generador de Teléfono para Pruebas de Software | PDFWINDOWS",
+    "description": "Genera números de móvil brasileños con DDD válido para probar formularios y máscaras de entrada. Funciona 100% en el navegador — gratis, privado y sin subir.",
+    "keywords": "generador telefono prueba, numero movil prueba, telefono fake qa, ddd valido prueba, numero whatsapp prueba",
+    "canonical": "https://www.pdfwindows.com/es/generador-telefono",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/phone-number-generator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/gerador-telefone"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/generador-telefono"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/phone-number-generator"
+      }
+    ]
+  },
+  "/en/product-key-generator": {
+    "lang": "en",
+    "title": "Product Key Format Generator for Mockups | PDFWINDOWS",
+    "description": "Generate random keys in the 5×5 (XXXXX-XXXXX-…) format for mockups, tutorials and UI testing. They are placeholders only and not valid software licenses at all.",
+    "keywords": "product key format generator, mock serial key, placeholder license key, ui mockup key, fake activation key format",
+    "canonical": "https://www.pdfwindows.com/en/product-key-generator",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/product-key-generator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/gerador-chave-produto"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/generador-clave-producto"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/product-key-generator"
+      }
+    ]
+  },
+  "/pt/gerador-chave-produto": {
+    "lang": "pt-BR",
+    "title": "Gerador de Chave de Produto para Mockups | PDFWINDOWS",
+    "description": "Gere chaves aleatórias no formato 5×5 (XXXXX-XXXXX-…) para mockups, tutoriais e testes de interface. São apenas exemplos e não são licenças válidas de.",
+    "keywords": "gerador chave de produto, serial mockup, chave de licença exemplo, chave placeholder ui, formato chave ativacao",
+    "canonical": "https://www.pdfwindows.com/pt/gerador-chave-produto",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/product-key-generator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/gerador-chave-produto"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/generador-clave-producto"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/product-key-generator"
+      }
+    ]
+  },
+  "/es/generador-clave-producto": {
+    "lang": "es",
+    "title": "Generador de Clave de Producto para Maquetas | PDFWINDOWS",
+    "description": "Genera claves aleatorias en formato 5×5 (XXXXX-XXXXX-…) para maquetas, tutoriales y pruebas de interfaz. Son solo ejemplos y no son licencias válidas de.",
+    "keywords": "generador clave de producto, serial maqueta, clave de licencia ejemplo, clave placeholder ui, formato clave activacion",
+    "canonical": "https://www.pdfwindows.com/es/generador-clave-producto",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/product-key-generator"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/gerador-chave-produto"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/generador-clave-producto"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/product-key-generator"
+      }
+    ]
+  },
   "/en/code-cleaner": {
     "lang": "en",
     "title": "Code Formatter & Minifier Online Offline | PDFWINDOWS",

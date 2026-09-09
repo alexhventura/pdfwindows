@@ -96,6 +96,26 @@ export const META_DESCRIPTION_OVERRIDES: Partial<
     pt: 'Gere CPFs válidos para testes no navegador. Crie documentos fictícios localmente para QA, desenvolvimento e homologação — grátis, privado e sem upload.',
     es: 'Genera CPF válidos para pruebas en el navegador. Crea documentos ficticios localmente para QA, desarrollo y homologación — gratis, privado y sin subir.',
   },
+  '/gerador-cnpj': {
+    en: 'Generate CNPJ numbers with valid check digits for software testing and form validation, right in your browser. Free, local, and no upload to our servers.',
+    pt: 'Gere CNPJs com dígitos verificadores válidos para testes de software e validação de formulários, direto no navegador. Grátis, local e sem upload aos servidores.',
+    es: 'Genera CNPJ con dígitos verificadores válidos para pruebas de software y validación de formularios en el navegador. Gratis, local y sin subir a servidores.',
+  },
+  '/gerador-rg': {
+    en: 'Generate RG numbers in the SSP-SP format with a valid check digit to test forms and validations in your browser. Free, private, and no upload to our servers.',
+    pt: 'Gere números de RG no formato SSP-SP com dígito verificador válido para testar formulários e validações no navegador. Grátis, privado e sem upload aos servidores.',
+    es: 'Genera números de RG en formato SSP-SP con dígito verificador válido para probar formularios en el navegador. Gratis, privado y sin subir a servidores.',
+  },
+  '/gerador-telefone': {
+    en: 'Generate Brazilian mobile phone numbers with a valid area code (DDD) to test forms and input masks. Runs 100% in your browser — free, private, no upload.',
+    pt: 'Gere números de celular brasileiros com DDD válido para testar cadastros e máscaras de formulário. Roda 100% no navegador — grátis, privado e sem upload.',
+    es: 'Genera números de móvil brasileños con DDD válido para probar formularios y máscaras de entrada. Funciona 100% en el navegador — gratis, privado y sin subir.',
+  },
+  '/gerador-chave-produto': {
+    en: 'Generate random keys in the 5×5 (XXXXX-XXXXX-…) format for mockups, tutorials and UI testing. They are placeholders only and not valid software licenses at all.',
+    pt: 'Gere chaves aleatórias no formato 5×5 (XXXXX-XXXXX-…) para mockups, tutoriais e testes de interface. São apenas exemplos e não são licenças válidas de software algum.',
+    es: 'Genera claves aleatorias en formato 5×5 (XXXXX-XXXXX-…) para maquetas, tutoriales y pruebas de interfaz. Son solo ejemplos y no son licencias válidas de software.',
+  },
   '/limpador-codigo': {
     en: 'Clean and format code in your browser. Beautify JSON, HTML, CSS, and snippets locally with Prettier — free developer utility, private, no upload.',
     pt: 'Limpe e formate código no navegador. Embeleze JSON, HTML, CSS e snippets localmente com Prettier — utilitário grátis para devs, privado e sem upload.',

@@ -33,7 +33,11 @@ export type SuiteToolId =
   | 'pdf-to-word'
   | 'word-to-pdf'
   | 'excel-to-pdf'
-  | 'html-to-pdf';
+  | 'html-to-pdf'
+  | 'cnpj-gen'
+  | 'rg-gen'
+  | 'phone-gen'
+  | 'product-key-gen';
 
 export interface FaqItem {
   q: string;
@@ -1993,6 +1997,154 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
         },
       ],
     },
+  }),
+  localSuitePage('/gerador-cnpj', 'cnpj-gen', {
+    title: [
+      'Gerador de CNPJ para Testes | PDFWINDOWS',
+      'CNPJ Generator for Testing | PDFWINDOWS',
+      'Generador de CNPJ para Pruebas | PDFWINDOWS',
+    ],
+    description: [
+      'Gere CNPJs com dígitos verificadores válidos para testes de software, direto no navegador. Grátis, local e sem cadastro.',
+      'Generate CNPJ numbers with valid check digits for software testing, right in your browser. Free, local, no signup.',
+      'Genera CNPJ con dígitos verificadores válidos para pruebas de software en el navegador. Gratis y local.',
+    ],
+    keywords: [
+      'gerador cnpj, cnpj valido teste, gerar cnpj',
+      'cnpj generator, valid cnpj test, brazil company id',
+      'generador cnpj, cnpj valido prueba',
+    ],
+    h1: ['Gerador de CNPJ', 'CNPJ Generator', 'Generador de CNPJ'],
+    intro: [
+      'Crie CNPJs com formato e dígitos verificadores válidos para testar cadastros e validações. Os números são fictícios.',
+      'Create CNPJ numbers with a valid format and check digits to test forms and validations. Numbers are fictitious.',
+      'Crea CNPJ con formato y dígitos verificadores válidos para probar formularios. Los números son ficticios.',
+    ],
+    benefits: [
+      ['Dígitos verificadores corretos', 'Correct check digits', 'Dígitos verificadores correctos'],
+      ['100% no navegador', '100% in the browser', '100% en el navegador'],
+      ['Copiar com um clique', 'One-click copy', 'Copiar con un clic'],
+    ],
+    how: [
+      ['Abra a ferramenta.', 'Open the tool.', 'Abre la herramienta.'],
+      ['Clique em gerar.', 'Click generate.', 'Haz clic en generar.'],
+      ['Copie o CNPJ de teste.', 'Copy the test CNPJ.', 'Copia el CNPJ de prueba.'],
+    ],
+    faqQ: [
+      'Posso usar esses CNPJs em cadastros reais?',
+      'Can I use these CNPJs for real registrations?',
+      '¿Puedo usar estos CNPJ en registros reales?',
+    ],
+    faqA: [
+      'Não. São apenas para testes de software e não correspondem a empresas reais.',
+      'No. They are for software testing only and do not correspond to real companies.',
+      'No. Son solo para pruebas de software y no corresponden a empresas reales.',
+    ],
+  }),
+  localSuitePage('/gerador-rg', 'rg-gen', {
+    title: [
+      'Gerador de RG para Testes | PDFWINDOWS',
+      'RG Generator for Testing | PDFWINDOWS',
+      'Generador de RG para Pruebas | PDFWINDOWS',
+    ],
+    description: [
+      'Gere números de RG (formato SSP-SP) com dígito verificador para testes, no navegador. Grátis e local.',
+      'Generate RG numbers (SSP-SP format) with a check digit for testing, in your browser. Free and local.',
+      'Genera números de RG (formato SSP-SP) con dígito verificador para pruebas, en el navegador.',
+    ],
+    keywords: ['gerador rg, rg valido teste', 'rg generator test, brazil id number', 'generador rg prueba'],
+    h1: ['Gerador de RG', 'RG Generator', 'Generador de RG'],
+    intro: [
+      'Crie números de RG fictícios com dígito verificador para testar formulários e validações.',
+      'Create fictitious RG numbers with a check digit to test forms and validations.',
+      'Crea números de RG ficticios con dígito verificador para probar formularios.',
+    ],
+    benefits: [
+      ['Dígito verificador (mod 11)', 'Check digit (mod 11)', 'Dígito verificador (mod 11)'],
+      ['Processamento local', 'Local processing', 'Procesamiento local'],
+      ['Copiar com um clique', 'One-click copy', 'Copiar con un clic'],
+    ],
+    how: [
+      ['Abra a ferramenta.', 'Open the tool.', 'Abre la herramienta.'],
+      ['Clique em gerar.', 'Click generate.', 'Haz clic en generar.'],
+      ['Copie o RG de teste.', 'Copy the test RG.', 'Copia el RG de prueba.'],
+    ],
+    faqQ: ['Esse RG é de uma pessoa real?', 'Is this RG from a real person?', '¿Este RG es de una persona real?'],
+    faqA: [
+      'Não. É gerado aleatoriamente apenas para testes.',
+      'No. It is generated randomly for testing only.',
+      'No. Se genera aleatoriamente solo para pruebas.',
+    ],
+  }),
+  localSuitePage('/gerador-telefone', 'phone-gen', {
+    title: [
+      'Gerador de Telefone para Testes | PDFWINDOWS',
+      'Phone Number Generator for Testing | PDFWINDOWS',
+      'Generador de Teléfono para Pruebas | PDFWINDOWS',
+    ],
+    description: [
+      'Gere números de celular brasileiros com DDD válido para testes de software. Grátis, local e sem upload.',
+      'Generate Brazilian mobile numbers with a valid area code for software testing. Free and local.',
+      'Genera números móviles brasileños con DDD válido para pruebas de software. Gratis y local.',
+    ],
+    keywords: ['gerador telefone, numero celular teste', 'phone number generator, brazil mobile test', 'generador telefono prueba'],
+    h1: ['Gerador de Telefone', 'Phone Number Generator', 'Generador de Teléfono'],
+    intro: [
+      'Crie números de celular fictícios com DDD válido para testar cadastros e máscaras de formulário.',
+      'Create fictitious mobile numbers with a valid area code to test forms and input masks.',
+      'Crea números móviles ficticios con DDD válido para probar formularios y máscaras.',
+    ],
+    benefits: [
+      ['DDDs brasileiros válidos', 'Valid Brazilian area codes', 'DDD brasileños válidos'],
+      ['Formato de celular (9 dígitos)', 'Mobile format (9 digits)', 'Formato móvil (9 dígitos)'],
+      ['Copiar com um clique', 'One-click copy', 'Copiar con un clic'],
+    ],
+    how: [
+      ['Abra a ferramenta.', 'Open the tool.', 'Abre la herramienta.'],
+      ['Clique em gerar.', 'Click generate.', 'Haz clic en generar.'],
+      ['Copie o telefone de teste.', 'Copy the test phone.', 'Copia el teléfono de prueba.'],
+    ],
+    faqQ: ['O número pertence a alguém?', 'Does the number belong to anyone?', '¿El número pertenece a alguien?'],
+    faqA: [
+      'Não. É fictício, gerado apenas para testes.',
+      'No. It is fictitious, generated for testing only.',
+      'No. Es ficticio, generado solo para pruebas.',
+    ],
+  }),
+  localSuitePage('/gerador-chave-produto', 'product-key-gen', {
+    title: [
+      'Gerador de Chave de Produto (Formato) | PDFWINDOWS',
+      'Product Key Format Generator | PDFWINDOWS',
+      'Generador de Clave de Producto | PDFWINDOWS',
+    ],
+    description: [
+      'Gere chaves aleatórias no formato 5×5 (XXXXX-XXXXX-...) para mockups e testes de interface. Não são licenças reais de software.',
+      'Generate random 5×5 keys (XXXXX-XXXXX-...) for mockups and UI testing. These are not real software licenses.',
+      'Genera claves aleatorias en formato 5×5 (XXXXX-XXXXX-...) para maquetas y pruebas. No son licencias reales.',
+    ],
+    keywords: ['gerador chave produto, serial mockup teste', 'product key format generator, mock serial key', 'generador clave producto mock'],
+    h1: ['Gerador de Chave de Produto', 'Product Key Generator', 'Generador de Clave de Producto'],
+    intro: [
+      'Crie chaves no formato de 5 grupos de 5 caracteres para preencher telas, mockups e testes. São aleatórias e não ativam nenhum software.',
+      'Create keys in the 5-group of 5-character format to fill screens, mockups and tests. They are random and activate no software.',
+      'Crea claves con formato de 5 grupos de 5 caracteres para maquetas y pruebas. Son aleatorias y no activan software.',
+    ],
+    benefits: [
+      ['Formato 5×5 realista', 'Realistic 5×5 format', 'Formato 5×5 realista'],
+      ['Sem caracteres ambíguos', 'No ambiguous characters', 'Sin caracteres ambiguos'],
+      ['Copiar com um clique', 'One-click copy', 'Copiar con un clic'],
+    ],
+    how: [
+      ['Abra a ferramenta.', 'Open the tool.', 'Abre la herramienta.'],
+      ['Clique em gerar.', 'Click generate.', 'Haz clic en generar.'],
+      ['Copie a chave de exemplo.', 'Copy the sample key.', 'Copia la clave de ejemplo.'],
+    ],
+    faqQ: ['Isso ativa o Windows ou algum software?', 'Does this activate Windows or any software?', '¿Esto activa Windows o algún software?'],
+    faqA: [
+      'Não. São strings aleatórias apenas no formato visual, sem qualquer validade de licença.',
+      'No. They are random strings in the visual format only, with no license validity whatsoever.',
+      'No. Son cadenas aleatorias solo con el formato visual, sin validez de licencia.',
+    ],
   }),
   page('/limpador-codigo', 'suite', undefined, 'code-clean', {
     pt: {

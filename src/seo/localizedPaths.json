@@ -25,6 +25,10 @@
   "/gerador-relatorios": { "en": "/report-generator", "pt": "/gerador-de-relatorios", "es": "/generador-de-informes" },
   "/gerador-qr-code": { "en": "/qr-code-generator", "pt": "/gerador-qr-code", "es": "/generador-qr" },
   "/gerador-cpf": { "en": "/cpf-generator", "pt": "/gerador-cpf", "es": "/generador-cpf" },
+  "/gerador-cnpj": { "en": "/cnpj-generator", "pt": "/gerador-cnpj", "es": "/generador-cnpj" },
+  "/gerador-rg": { "en": "/rg-generator", "pt": "/gerador-rg", "es": "/generador-rg" },
+  "/gerador-telefone": { "en": "/phone-number-generator", "pt": "/gerador-telefone", "es": "/generador-telefono" },
+  "/gerador-chave-produto": { "en": "/product-key-generator", "pt": "/gerador-chave-produto", "es": "/generador-clave-producto" },
   "/limpador-codigo": { "en": "/code-cleaner", "pt": "/limpador-de-codigo", "es": "/limpiador-de-codigo" },
   "/identificador-de-fontes": {
     "en": "/font-identifier",

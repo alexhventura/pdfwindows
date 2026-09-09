@@ -29,6 +29,13 @@ import {
   Presentation,
   FileType,
   Globe,
+  Building2,
+  Contact,
+  Phone,
+  KeyRound,
+  Fingerprint,
+  CreditCard,
+  KeySquare,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import type { LanguageType } from '../types';
@@ -78,6 +85,50 @@ const tools: Tool[] = [
     },
     icon: <UserCheck size={24} />,
     color: 'bg-orange-500',
+  },
+  {
+    id: 'cnpj-gen',
+    name: { pt: 'Gerador de CNPJ', en: 'CNPJ Generator', es: 'Generador de CNPJ' },
+    description: {
+      pt: 'CNPJs com dígitos válidos para testes.',
+      en: 'CNPJs with valid check digits for testing.',
+      es: 'CNPJ con dígitos válidos para pruebas.',
+    },
+    icon: <Building2 size={24} />,
+    color: 'bg-orange-500',
+  },
+  {
+    id: 'rg-gen',
+    name: { pt: 'Gerador de RG', en: 'RG Generator', es: 'Generador de RG' },
+    description: {
+      pt: 'RG (SSP-SP) com dígito verificador para testes.',
+      en: 'RG (SSP-SP) with check digit for testing.',
+      es: 'RG (SSP-SP) con dígito verificador para pruebas.',
+    },
+    icon: <Contact size={24} />,
+    color: 'bg-orange-500',
+  },
+  {
+    id: 'phone-gen',
+    name: { pt: 'Gerador de Telefone', en: 'Phone Generator', es: 'Generador de Teléfono' },
+    description: {
+      pt: 'Celular com DDD válido para testes.',
+      en: 'Mobile number with valid area code for testing.',
+      es: 'Móvil con DDD válido para pruebas.',
+    },
+    icon: <Phone size={24} />,
+    color: 'bg-orange-500',
+  },
+  {
+    id: 'product-key-gen',
+    name: { pt: 'Chave de Produto', en: 'Product Key', es: 'Clave de Producto' },
+    description: {
+      pt: 'Chave 5×5 aleatória para mockups (não é licença).',
+      en: 'Random 5×5 key for mockups (not a license).',
+      es: 'Clave 5×5 aleatoria para maquetas (no es licencia).',
+    },
+    icon: <KeySquare size={24} />,
+    color: 'bg-emerald-500',
   },
   {
     id: 'code-clean',
@@ -371,6 +422,10 @@ const SUITE_PATHS: Record<string, string> = {
   'color-picker': '/capturador-de-cores',
   'qr-gen': '/gerador-qr-code',
   'cpf-gen': '/gerador-cpf',
+  'cnpj-gen': '/gerador-cnpj',
+  'rg-gen': '/gerador-rg',
+  'phone-gen': '/gerador-telefone',
+  'product-key-gen': '/gerador-chave-produto',
   'code-clean': '/limpador-codigo',
   'document-studio': '/estudio-documentos',
   'report-gen': '/gerador-relatorios',

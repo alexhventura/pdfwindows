@@ -352,6 +352,46 @@
       "permanent": true
     },
     {
+      "source": "/en/gerador-cnpj",
+      "destination": "/en/cnpj-generator",
+      "permanent": true
+    },
+    {
+      "source": "/es/gerador-cnpj",
+      "destination": "/es/generador-cnpj",
+      "permanent": true
+    },
+    {
+      "source": "/en/gerador-rg",
+      "destination": "/en/rg-generator",
+      "permanent": true
+    },
+    {
+      "source": "/es/gerador-rg",
+      "destination": "/es/generador-rg",
+      "permanent": true
+    },
+    {
+      "source": "/en/gerador-telefone",
+      "destination": "/en/phone-number-generator",
+      "permanent": true
+    },
+    {
+      "source": "/es/gerador-telefone",
+      "destination": "/es/generador-telefono",
+      "permanent": true
+    },
+    {
+      "source": "/en/gerador-chave-produto",
+      "destination": "/en/product-key-generator",
+      "permanent": true
+    },
+    {
+      "source": "/es/gerador-chave-produto",
+      "destination": "/es/generador-clave-producto",
+      "permanent": true
+    },
+    {
       "source": "/en/limpador-codigo",
       "destination": "/en/code-cleaner",
       "permanent": true
@@ -364,6 +404,201 @@
     {
       "source": "/es/limpador-codigo",
       "destination": "/es/limpiador-de-codigo",
+      "permanent": true
+    },
+    {
+      "source": "/en/identificador-de-fontes",
+      "destination": "/en/font-identifier",
+      "permanent": true
+    },
+    {
+      "source": "/es/identificador-de-fontes",
+      "destination": "/es/identificador-de-fuentes",
+      "permanent": true
+    },
+    {
+      "source": "/en/remover-restricoes",
+      "destination": "/en/remove-restrictions",
+      "permanent": true
+    },
+    {
+      "source": "/es/remover-restricoes",
+      "destination": "/es/quitar-restricciones",
+      "permanent": true
+    },
+    {
+      "source": "/en/desbloquear-pdf",
+      "destination": "/en/unlock-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/raio-x-de-arquivo",
+      "destination": "/en/file-xray",
+      "permanent": true
+    },
+    {
+      "source": "/es/raio-x-de-arquivo",
+      "destination": "/es/rayos-x-de-archivo",
+      "permanent": true
+    },
+    {
+      "source": "/en/organizar-paginas-pdf",
+      "destination": "/en/organize-pdf-pages",
+      "permanent": true
+    },
+    {
+      "source": "/en/redacao-pdf",
+      "destination": "/en/redact-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/redacao-pdf",
+      "destination": "/es/redaccion-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/ajuste-de-margem",
+      "destination": "/en/margin-adjust",
+      "permanent": true
+    },
+    {
+      "source": "/es/ajuste-de-margem",
+      "destination": "/es/ajuste-de-margen",
+      "permanent": true
+    },
+    {
+      "source": "/en/assinatura-pdf",
+      "destination": "/en/sign-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/assinatura-pdf",
+      "destination": "/es/firma-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/numerador-de-paginas",
+      "destination": "/en/page-numbers",
+      "permanent": true
+    },
+    {
+      "source": "/es/numerador-de-paginas",
+      "destination": "/es/numeros-de-pagina",
+      "permanent": true
+    },
+    {
+      "source": "/en/recortar-pdf",
+      "destination": "/en/crop-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/comparar-pdf",
+      "destination": "/en/compare-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/editar-pdf",
+      "destination": "/en/edit-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/escanear-para-pdf",
+      "destination": "/en/scan-to-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/escanear-para-pdf",
+      "destination": "/es/escanear-a-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/reparar-pdf",
+      "destination": "/en/repair-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/pdf-para-pdfa",
+      "destination": "/en/pdf-to-pdfa",
+      "permanent": true
+    },
+    {
+      "source": "/es/pdf-para-pdfa",
+      "destination": "/es/pdf-a-pdfa",
+      "permanent": true
+    },
+    {
+      "source": "/en/formularios-pdf",
+      "destination": "/en/pdf-forms",
+      "permanent": true
+    },
+    {
+      "source": "/en/pdf-para-powerpoint",
+      "destination": "/en/pdf-to-powerpoint",
+      "permanent": true
+    },
+    {
+      "source": "/es/pdf-para-powerpoint",
+      "destination": "/es/pdf-a-powerpoint",
+      "permanent": true
+    },
+    {
+      "source": "/en/powerpoint-para-pdf",
+      "destination": "/en/powerpoint-to-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/powerpoint-para-pdf",
+      "destination": "/es/powerpoint-a-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/pdf-para-excel",
+      "destination": "/en/pdf-to-excel",
+      "permanent": true
+    },
+    {
+      "source": "/es/pdf-para-excel",
+      "destination": "/es/pdf-a-excel",
+      "permanent": true
+    },
+    {
+      "source": "/en/pdf-para-word",
+      "destination": "/en/pdf-to-word",
+      "permanent": true
+    },
+    {
+      "source": "/es/pdf-para-word",
+      "destination": "/es/pdf-a-word",
+      "permanent": true
+    },
+    {
+      "source": "/en/word-para-pdf",
+      "destination": "/en/word-to-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/word-para-pdf",
+      "destination": "/es/word-a-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/excel-para-pdf",
+      "destination": "/en/excel-to-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/excel-para-pdf",
+      "destination": "/es/excel-a-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/html-para-pdf",
+      "destination": "/en/html-to-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/html-para-pdf",
+      "destination": "/es/html-a-pdf",
       "permanent": true
     },
     {
@@ -877,6 +1112,86 @@
       "permanent": true
     },
     {
+      "source": "/en/generador-cnpj",
+      "destination": "/en/cnpj-generator",
+      "permanent": true
+    },
+    {
+      "source": "/pt/cnpj-generator",
+      "destination": "/pt/gerador-cnpj",
+      "permanent": true
+    },
+    {
+      "source": "/pt/generador-cnpj",
+      "destination": "/pt/gerador-cnpj",
+      "permanent": true
+    },
+    {
+      "source": "/es/cnpj-generator",
+      "destination": "/es/generador-cnpj",
+      "permanent": true
+    },
+    {
+      "source": "/en/generador-rg",
+      "destination": "/en/rg-generator",
+      "permanent": true
+    },
+    {
+      "source": "/pt/rg-generator",
+      "destination": "/pt/gerador-rg",
+      "permanent": true
+    },
+    {
+      "source": "/pt/generador-rg",
+      "destination": "/pt/gerador-rg",
+      "permanent": true
+    },
+    {
+      "source": "/es/rg-generator",
+      "destination": "/es/generador-rg",
+      "permanent": true
+    },
+    {
+      "source": "/en/generador-telefono",
+      "destination": "/en/phone-number-generator",
+      "permanent": true
+    },
+    {
+      "source": "/pt/phone-number-generator",
+      "destination": "/pt/gerador-telefone",
+      "permanent": true
+    },
+    {
+      "source": "/pt/generador-telefono",
+      "destination": "/pt/gerador-telefone",
+      "permanent": true
+    },
+    {
+      "source": "/es/phone-number-generator",
+      "destination": "/es/generador-telefono",
+      "permanent": true
+    },
+    {
+      "source": "/en/generador-clave-producto",
+      "destination": "/en/product-key-generator",
+      "permanent": true
+    },
+    {
+      "source": "/pt/product-key-generator",
+      "destination": "/pt/gerador-chave-produto",
+      "permanent": true
+    },
+    {
+      "source": "/pt/generador-clave-producto",
+      "destination": "/pt/gerador-chave-produto",
+      "permanent": true
+    },
+    {
+      "source": "/es/product-key-generator",
+      "destination": "/es/generador-clave-producto",
+      "permanent": true
+    },
+    {
       "source": "/en/limpador-de-codigo",
       "destination": "/en/code-cleaner",
       "permanent": true
@@ -904,6 +1219,396 @@
     {
       "source": "/es/limpador-de-codigo",
       "destination": "/es/limpiador-de-codigo",
+      "permanent": true
+    },
+    {
+      "source": "/en/identificador-de-fuentes",
+      "destination": "/en/font-identifier",
+      "permanent": true
+    },
+    {
+      "source": "/pt/font-identifier",
+      "destination": "/pt/identificador-de-fontes",
+      "permanent": true
+    },
+    {
+      "source": "/pt/identificador-de-fuentes",
+      "destination": "/pt/identificador-de-fontes",
+      "permanent": true
+    },
+    {
+      "source": "/es/font-identifier",
+      "destination": "/es/identificador-de-fuentes",
+      "permanent": true
+    },
+    {
+      "source": "/en/quitar-restricciones",
+      "destination": "/en/remove-restrictions",
+      "permanent": true
+    },
+    {
+      "source": "/pt/remove-restrictions",
+      "destination": "/pt/remover-restricoes",
+      "permanent": true
+    },
+    {
+      "source": "/pt/quitar-restricciones",
+      "destination": "/pt/remover-restricoes",
+      "permanent": true
+    },
+    {
+      "source": "/es/remove-restrictions",
+      "destination": "/es/quitar-restricciones",
+      "permanent": true
+    },
+    {
+      "source": "/pt/unlock-pdf",
+      "destination": "/pt/desbloquear-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/unlock-pdf",
+      "destination": "/es/desbloquear-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/rayos-x-de-archivo",
+      "destination": "/en/file-xray",
+      "permanent": true
+    },
+    {
+      "source": "/pt/file-xray",
+      "destination": "/pt/raio-x-de-arquivo",
+      "permanent": true
+    },
+    {
+      "source": "/pt/rayos-x-de-archivo",
+      "destination": "/pt/raio-x-de-arquivo",
+      "permanent": true
+    },
+    {
+      "source": "/es/file-xray",
+      "destination": "/es/rayos-x-de-archivo",
+      "permanent": true
+    },
+    {
+      "source": "/pt/organize-pdf-pages",
+      "destination": "/pt/organizar-paginas-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/organize-pdf-pages",
+      "destination": "/es/organizar-paginas-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/redaccion-pdf",
+      "destination": "/en/redact-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/redact-pdf",
+      "destination": "/pt/redacao-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/redaccion-pdf",
+      "destination": "/pt/redacao-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/redact-pdf",
+      "destination": "/es/redaccion-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/ajuste-de-margen",
+      "destination": "/en/margin-adjust",
+      "permanent": true
+    },
+    {
+      "source": "/pt/margin-adjust",
+      "destination": "/pt/ajuste-de-margem",
+      "permanent": true
+    },
+    {
+      "source": "/pt/ajuste-de-margen",
+      "destination": "/pt/ajuste-de-margem",
+      "permanent": true
+    },
+    {
+      "source": "/es/margin-adjust",
+      "destination": "/es/ajuste-de-margen",
+      "permanent": true
+    },
+    {
+      "source": "/en/firma-pdf",
+      "destination": "/en/sign-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/sign-pdf",
+      "destination": "/pt/assinatura-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/firma-pdf",
+      "destination": "/pt/assinatura-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/sign-pdf",
+      "destination": "/es/firma-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/numeros-de-pagina",
+      "destination": "/en/page-numbers",
+      "permanent": true
+    },
+    {
+      "source": "/pt/page-numbers",
+      "destination": "/pt/numerador-de-paginas",
+      "permanent": true
+    },
+    {
+      "source": "/pt/numeros-de-pagina",
+      "destination": "/pt/numerador-de-paginas",
+      "permanent": true
+    },
+    {
+      "source": "/es/page-numbers",
+      "destination": "/es/numeros-de-pagina",
+      "permanent": true
+    },
+    {
+      "source": "/pt/crop-pdf",
+      "destination": "/pt/recortar-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/crop-pdf",
+      "destination": "/es/recortar-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/compare-pdf",
+      "destination": "/pt/comparar-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/compare-pdf",
+      "destination": "/es/comparar-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/edit-pdf",
+      "destination": "/pt/editar-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/edit-pdf",
+      "destination": "/es/editar-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/escanear-a-pdf",
+      "destination": "/en/scan-to-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/scan-to-pdf",
+      "destination": "/pt/escanear-para-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/escanear-a-pdf",
+      "destination": "/pt/escanear-para-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/scan-to-pdf",
+      "destination": "/es/escanear-a-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/repair-pdf",
+      "destination": "/pt/reparar-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/repair-pdf",
+      "destination": "/es/reparar-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/pdf-a-pdfa",
+      "destination": "/en/pdf-to-pdfa",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pdf-to-pdfa",
+      "destination": "/pt/pdf-para-pdfa",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pdf-a-pdfa",
+      "destination": "/pt/pdf-para-pdfa",
+      "permanent": true
+    },
+    {
+      "source": "/es/pdf-to-pdfa",
+      "destination": "/es/pdf-a-pdfa",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pdf-forms",
+      "destination": "/pt/formularios-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/pdf-forms",
+      "destination": "/es/formularios-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/pdf-a-powerpoint",
+      "destination": "/en/pdf-to-powerpoint",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pdf-to-powerpoint",
+      "destination": "/pt/pdf-para-powerpoint",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pdf-a-powerpoint",
+      "destination": "/pt/pdf-para-powerpoint",
+      "permanent": true
+    },
+    {
+      "source": "/es/pdf-to-powerpoint",
+      "destination": "/es/pdf-a-powerpoint",
+      "permanent": true
+    },
+    {
+      "source": "/en/powerpoint-a-pdf",
+      "destination": "/en/powerpoint-to-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/powerpoint-to-pdf",
+      "destination": "/pt/powerpoint-para-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/powerpoint-a-pdf",
+      "destination": "/pt/powerpoint-para-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/powerpoint-to-pdf",
+      "destination": "/es/powerpoint-a-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/pdf-a-excel",
+      "destination": "/en/pdf-to-excel",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pdf-to-excel",
+      "destination": "/pt/pdf-para-excel",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pdf-a-excel",
+      "destination": "/pt/pdf-para-excel",
+      "permanent": true
+    },
+    {
+      "source": "/es/pdf-to-excel",
+      "destination": "/es/pdf-a-excel",
+      "permanent": true
+    },
+    {
+      "source": "/en/pdf-a-word",
+      "destination": "/en/pdf-to-word",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pdf-to-word",
+      "destination": "/pt/pdf-para-word",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pdf-a-word",
+      "destination": "/pt/pdf-para-word",
+      "permanent": true
+    },
+    {
+      "source": "/es/pdf-to-word",
+      "destination": "/es/pdf-a-word",
+      "permanent": true
+    },
+    {
+      "source": "/en/word-a-pdf",
+      "destination": "/en/word-to-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/word-to-pdf",
+      "destination": "/pt/word-para-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/word-a-pdf",
+      "destination": "/pt/word-para-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/word-to-pdf",
+      "destination": "/es/word-a-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/excel-a-pdf",
+      "destination": "/en/excel-to-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/excel-to-pdf",
+      "destination": "/pt/excel-para-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/excel-a-pdf",
+      "destination": "/pt/excel-para-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/excel-to-pdf",
+      "destination": "/es/excel-a-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/html-a-pdf",
+      "destination": "/en/html-to-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/html-to-pdf",
+      "destination": "/pt/html-para-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/html-a-pdf",
+      "destination": "/pt/html-para-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/html-to-pdf",
+      "destination": "/es/html-a-pdf",
       "permanent": true
     },
     {
