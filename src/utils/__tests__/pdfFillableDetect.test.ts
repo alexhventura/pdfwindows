@@ -110,7 +110,6 @@ describe('detectFillableSlots', () => {
     expect(slots.some((slot) => slot.kind === 'text' && slot.y > 394 && slot.y < 408 && slot.x < 100 && slot.w > 120)).toBe(true);
     expect(slots.some((slot) => slot.kind === 'text' && slot.y > 408 && slot.x > 360 && slot.w > 30)).toBe(true);
     expect(slots.some((slot) => slot.kind === 'text' && slot.y > 338 && slot.y < 355 && slot.x > 230 && slot.w > 150)).toBe(true);
-    expect(slots.some((slot) => slot.kind === 'text' && slot.y > 320 && slot.y < 340 && slot.w > 400)).toBe(true);
   });
 
   it('fills the year after printed date slashes and a left-aligned header', () => {
@@ -158,6 +157,26 @@ describe('detectFillableSlots', () => {
     );
     expect(slots.filter((slot) => slot.kind === 'text' && slot.y > 385 && slot.x > 80 && slot.w > 200).length).toBeGreaterThanOrEqual(2);
     expect(slots.some((slot) => slot.y > 335 && slot.y < 360 && slot.x > 220 && slot.w > 200)).toBe(true);
+  });
+
+  it('keeps fields on the printed line without covering the next row', () => {
+    const slots = detectFillableSlots(
+      [
+        { str: 'NOME:', x: 25.1, y: 627, w: 30.5, h: 10 },
+        { str: 'CNS:', x: 25.1, y: 613.7, w: 21.8, h: 10 },
+      ],
+      596,
+      842,
+      0
+    );
+    const text = slots.filter((slot) => slot.kind === 'text');
+    expect(text.every((slot) => slot.h <= 14)).toBe(true);
+    const nome = text.find((slot) => slot.y > 618);
+    const cns = text.find((slot) => slot.y > 600 && slot.y < 618);
+    expect(nome).toBeTruthy();
+    expect(cns).toBeTruthy();
+    const overlap = Math.max(0, Math.min(nome!.y + nome!.h, cns!.y + cns!.h) - Math.max(nome!.y, cns!.y));
+    expect(overlap).toBeLessThan(2);
   });
 });
 

@@ -6,7 +6,6 @@ import {
   DocumentToolDropzone,
   ToolBusyState,
   SuiteWorkspaceShell,
-  SUITE_UPLOAD_SUBTITLE,
 } from '../DocumentToolDropzone';
 import { loadPdfJS } from '../../../utils/pdfjsLoader';
 import { extractFillableLayout, writeFillablePdf } from '../../../engines/makeFillablePdf';
@@ -22,39 +21,45 @@ function copy(lang: LanguageType) {
   if (lang === 'es') {
     return {
       title: 'PDF Editable',
+      subtitle: 'Los campos se alinean a las líneas del formulario y no cubren el texto impreso.',
       drop: 'PDF',
-      intro: 'Haga clic en las cajas azules e introduzca el texto. Luego descargue el PDF para abrirlo en el ordenador y guardar.',
-      run: 'Detectando campos…',
-      download: 'Descargar PDF editable',
+      intro: 'Escriba solo en los espacios en blanco. El texto original permanece fijo. Luego descargue una copia rellenable.',
+      run: 'Alineando campos al formulario…',
+      download: 'Descargar PDF rellenable',
       again: 'Otro archivo',
       none: 'No se encontraron espacios para rellenar.',
       fail: 'No se pudo procesar este PDF.',
       saveFail: 'No se pudo generar el PDF editable.',
+      fields: (n: number) => (n === 1 ? '1 campo alineado' : `${n} campos alineados al formulario`),
     };
   }
   if (lang === 'en') {
     return {
       title: 'Editable PDF',
+      subtitle: 'Fields follow the printed lines and stay clear of existing text.',
       drop: 'PDF',
-      intro: 'Click the blue boxes and type. Then download the PDF to open on your computer and save.',
-      run: 'Finding fields…',
+      intro: 'Type only in the blanks. Printed labels stay as they are. Then download a fillable copy.',
+      run: 'Aligning fields to the form…',
       download: 'Download fillable PDF',
       again: 'Another file',
       none: 'No fillable blanks were found.',
       fail: 'Could not process this PDF.',
       saveFail: 'Could not generate the fillable PDF.',
+      fields: (n: number) => (n === 1 ? '1 aligned field' : `${n} fields aligned to the form`),
     };
   }
   return {
     title: 'PDF Editável',
+    subtitle: 'Os campos acompanham as linhas do formulário e não cobrem o texto impresso.',
     drop: 'PDF',
-    intro: 'Clique nas caixas azuis e digite. Depois baixe o PDF para abrir no computador, conferir e salvar.',
-    run: 'Localizando campos…',
-    download: 'Baixar PDF editável',
+    intro: 'Preencha só os espaços em branco. Os rótulos originais permanecem visíveis. Depois baixe uma cópia preenchível.',
+    run: 'Alinhando campos ao formulário…',
+    download: 'Baixar PDF preenchível',
     again: 'Outro arquivo',
     none: 'Não foram encontrados espaços para preencher.',
     fail: 'Não foi possível processar este PDF.',
     saveFail: 'Não foi possível gerar o PDF editável.',
+    fields: (n: number) => (n === 1 ? '1 campo alinhado' : `${n} campos alinhados ao formulário`),
   };
 }
 
@@ -204,7 +209,7 @@ export function EditablePdfSuiteTool({ lang, onClose, showHeader }: Props) {
   return (
     <SuiteWorkspaceShell
       title={t.title}
-      subtitle={SUITE_UPLOAD_SUBTITLE[lang]}
+      subtitle={t.subtitle}
       showHeader={showHeader}
       onClose={onClose}
       closeLabel={closeLabel(lang)}
@@ -222,7 +227,10 @@ export function EditablePdfSuiteTool({ lang, onClose, showHeader }: Props) {
         )}
         {file && !busy && pageCount > 0 && (
           <div className="space-y-3">
-            <p className="text-[11px] text-slate-500 leading-relaxed">{t.intro}</p>
+            <p className="text-[12px] text-slate-600 leading-relaxed">{t.intro}</p>
+            {slots.length > 0 && (
+              <p className="text-[11px] font-semibold text-slate-500">{t.fields(slots.length)}</p>
+            )}
             {slots.length === 0 && (
               <p className="text-[11px] font-semibold text-amber-700 flex gap-2">
                 <AlertCircle size={14} className="shrink-0" /> {t.none}
@@ -246,7 +254,7 @@ export function EditablePdfSuiteTool({ lang, onClose, showHeader }: Props) {
                 </button>
               </div>
             )}
-            <div className="relative mx-auto max-w-[720px] border rounded-xl overflow-hidden bg-white">
+            <div className="relative mx-auto max-w-[720px] border border-slate-200 shadow-sm rounded-xl overflow-hidden bg-white">
               <canvas ref={pageRef} className="block w-full" />
               {pageMeta &&
                 paintTick > 0 &&
@@ -256,6 +264,7 @@ export function EditablePdfSuiteTool({ lang, onClose, showHeader }: Props) {
                   const top = ((pageMeta.height - slot.y - slot.h) / pageMeta.height) * 100;
                   const width = (slot.w / pageMeta.width) * 100;
                   const height = (slot.h / pageMeta.height) * 100;
+                  const fontPx = Math.max(8, Math.min(11, (slot.h / pageMeta.height) * (pageRef.current?.clientHeight || 900) * 0.72));
                   if (slot.kind === 'checkbox') {
                     return (
                       <label
@@ -267,11 +276,12 @@ export function EditablePdfSuiteTool({ lang, onClose, showHeader }: Props) {
                           type="checkbox"
                           checked={values[name] === 'true'}
                           onChange={(e) => setValues((prev) => ({ ...prev, [name]: e.target.checked ? 'true' : '' }))}
-                          className="w-[70%] h-[70%] accent-win-blue cursor-pointer"
+                          className="w-[72%] h-[72%] accent-win-blue cursor-pointer"
                         />
                       </label>
                     );
                   }
+                  const filled = Boolean(values[name]);
                   return (
                     <input
                       key={name}
@@ -279,20 +289,20 @@ export function EditablePdfSuiteTool({ lang, onClose, showHeader }: Props) {
                       onChange={(e) => setValues((prev) => ({ ...prev, [name]: e.target.value }))}
                       spellCheck={false}
                       aria-label={name}
-                      className="absolute outline-none"
+                      className="absolute outline-none transition-colors"
                       style={{
                         left: `${left}%`,
                         top: `${top}%`,
-                        width: `${Math.max(width, 2)}%`,
-                        height: `${Math.max(height, 1.6)}%`,
-                        fontSize: '11px',
-                        lineHeight: 1.1,
-                        padding: '1px 3px',
+                        width: `${width}%`,
+                        height: `${height}%`,
+                        fontSize: `${fontPx}px`,
+                        lineHeight: 1,
+                        padding: '0 2px',
                         margin: 0,
-                        border: '1px solid #2563eb',
-                        borderRadius: 2,
+                        border: filled ? '1px solid #93c5fd' : '1px solid rgba(59,130,246,0.45)',
+                        borderRadius: 1,
                         color: '#0f172a',
-                        background: 'rgba(239,246,255,0.88)',
+                        background: filled ? 'rgba(255,255,255,0.92)' : 'rgba(239,246,255,0.35)',
                         caretColor: '#2563eb',
                         fontFamily: 'Helvetica, Arial, sans-serif',
                         boxSizing: 'border-box',

@@ -3360,9 +3360,9 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
     ],
     h1: ['PDF Editável', 'Editable PDF', 'PDF Editable'],
     intro: [
-      'Envie um PDF com linhas, ( ) e espaços para preencher. A ferramenta cria campos reais e devolve um arquivo para abrir no computador, preencher e salvar.',
-      'Upload a PDF with lines, ( ) marks, and blanks. The tool creates real fields and returns a file you can open on your computer, fill in, and save.',
-      'Suba un PDF con líneas, ( ) y espacios para rellenar. La herramienta crea campos reales y devuelve un archivo para abrir en el ordenador, rellenar y guardar.',
+      'Envie o PDF do formulário. A ferramenta alinha campos só nos espaços em branco — sem cobrir rótulos — e devolve uma cópia preenchível para salvar no computador.',
+      'Upload the form PDF. The tool places fields only in the blanks — without covering labels — and returns a fillable copy you can save on your computer.',
+      'Suba el PDF del formulario. La herramienta alinea campos solo en los espacios en blanco — sin cubrir rótulos — y devuelve una copia rellenable para guardar en el ordenador.',
     ],
     benefits: [
       ['Campos para preencher no leitor local', 'Fields to fill in your local reader', 'Campos para rellenar en el lector local'],

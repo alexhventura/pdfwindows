@@ -36,9 +36,11 @@ const PAREN_CHECK_RE = /\(\s*\)/;
 const LEFT_MARGIN = 24;
 const RIGHT_PAD = 24;
 const MIN_FIELD_W = 16;
-const MIN_FIELD_H = 12;
+const MIN_FIELD_H = 11;
 const MIN_WIDE_BLANK = 12;
+const MAX_LINE_FIELD_H = 13.5;
 const MAX_SLOTS_PER_PAGE = 180;
+const INK_PAD = 1.6;
 
 function clamp(n: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, n));
@@ -63,13 +65,22 @@ function groupLines(runs: FillableTextRun[]): FillableTextRun[][] {
   return lines;
 }
 
-function fieldBox(x: number, baseline: number, w: number, h: number): { x: number; y: number; w: number; h: number } {
-  const height = Math.max(18, h * 1.7);
+function fieldBox(x: number, baseline: number, w: number, fontH: number): { x: number; y: number; w: number; h: number } {
+  const height = clamp(fontH + 1.8, MIN_FIELD_H, MAX_LINE_FIELD_H);
   return {
     x,
-    y: baseline - h * 0.35,
+    y: baseline - 1.15,
     w,
     h: height,
+  };
+}
+
+function glyphBox(run: FillableTextRun): { x: number; y: number; w: number; h: number } {
+  return {
+    x: run.x,
+    y: run.y - run.h * 0.12,
+    w: Math.max(run.w, 2),
+    h: run.h * 1.08,
   };
 }
 
@@ -106,7 +117,12 @@ function overlapRatio(a: FillableSlot, b: FillableSlot): number {
 function mergeSlots(slots: FillableSlot[]): FillableSlot[] {
   const out: FillableSlot[] = [];
   for (const slot of slots) {
-    const hit = out.find((existing) => existing.kind === slot.kind && overlapRatio(existing, slot) >= 0.35);
+    const hit = out.find((existing) => {
+      if (existing.kind !== slot.kind) return false;
+      if (overlapRatio(existing, slot) < 0.45) return false;
+      const unionH = Math.max(existing.y + existing.h, slot.y + slot.h) - Math.min(existing.y, slot.y);
+      return unionH <= MAX_LINE_FIELD_H + 1.5;
+    });
     if (!hit) {
       out.push({ ...slot });
       continue;
@@ -114,11 +130,76 @@ function mergeSlots(slots: FillableSlot[]): FillableSlot[] {
     const x = Math.min(hit.x, slot.x);
     const y = Math.min(hit.y, slot.y);
     hit.w = Math.max(hit.x + hit.w, slot.x + slot.w) - x;
-    hit.h = Math.max(hit.y + hit.h, slot.y + slot.h) - y;
+    hit.h = Math.min(MAX_LINE_FIELD_H, Math.max(hit.y + hit.h, slot.y + slot.h) - y);
     hit.x = x;
     hit.y = y;
   }
   return out;
+}
+
+function overlapAmount(
+  a: { x: number; y: number; w: number; h: number },
+  b: { x: number; y: number; w: number; h: number }
+): { ix: number; iy: number } {
+  const ix = Math.max(0, Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x));
+  const iy = Math.max(0, Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y));
+  return { ix, iy };
+}
+
+function clipSlotsAgainstInk(slots: FillableSlot[], runs: FillableTextRun[]): FillableSlot[] {
+  const glyphs = runs.filter(isInk).map(glyphBox);
+  const clipped: FillableSlot[] = [];
+  for (const slot of slots) {
+    if (slot.kind === 'checkbox') {
+      clipped.push(slot);
+      continue;
+    }
+    let { x, y, w, h } = slot;
+    for (const glyph of glyphs) {
+      const { ix, iy } = overlapAmount({ x, y, w, h }, glyph);
+      if (ix < 2 || iy < 2.2) continue;
+      const contained =
+        x >= glyph.x - 1.5 &&
+        x + w <= glyph.x + glyph.w + 1.5 &&
+        y >= glyph.y - 2 &&
+        y + h <= glyph.y + glyph.h + 4;
+      if (contained) continue;
+      const fieldMid = x + w / 2;
+      const glyphMid = glyph.x + glyph.w / 2;
+      if (glyphMid <= fieldMid) {
+        const nextX = glyph.x + glyph.w + INK_PAD;
+        w = x + w - nextX;
+        x = nextX;
+      } else {
+        w = glyph.x - INK_PAD - x;
+      }
+      if (w < MIN_FIELD_W) break;
+    }
+    if (w >= MIN_FIELD_W && h >= MIN_FIELD_H) clipped.push({ ...slot, x, y, w, h: Math.min(h, MAX_LINE_FIELD_H) });
+  }
+  return clipped;
+}
+
+function separateStackedRows(slots: FillableSlot[]): FillableSlot[] {
+  const text = slots.filter((slot) => slot.kind === 'text' && slot.h < 36);
+  const other = slots.filter((slot) => slot.kind !== 'text' || slot.h >= 36);
+  const sorted = [...text].sort((a, b) => b.y - a.y || a.x - b.x);
+  for (let i = 0; i < sorted.length; i++) {
+    const upper = sorted[i]!;
+    for (let j = i + 1; j < sorted.length; j++) {
+      const lower = sorted[j]!;
+      const { ix, iy } = overlapAmount(upper, lower);
+      if (ix < 8 || iy < 1.2) continue;
+      const gap = upper.y - (lower.y + lower.h);
+      if (gap >= 0.8) continue;
+      const overflow = 1.2 - gap;
+      const shrink = Math.min(overflow / 2, 2.2);
+      upper.y += shrink * 0.15;
+      upper.h = Math.max(MIN_FIELD_H, upper.h - shrink);
+      lower.h = Math.max(MIN_FIELD_H, lower.h - shrink);
+    }
+  }
+  return [...sorted, ...other];
 }
 
 function pushSlot(
@@ -193,7 +274,8 @@ function collectColonAndGaps(
   pageIndex: number,
   pageWidth: number,
   pageHeight: number,
-  slots: FillableSlot[]
+  slots: FillableSlot[],
+  rules: DrawnRule[]
 ) {
   const ink = line.filter(isInk);
   if (ink.length === 0) return;
@@ -218,7 +300,10 @@ function collectColonAndGaps(
   const remaining = usableRight - (last.x + last.w);
   const endsWithColon = /[:：]\s*$/.test(last.str.trim()) || /[:：]\s*$/.test(lineText);
   const isDenseParagraph = !endsWithColon && letters >= 40 && inkWidth >= pageWidth * 0.58;
-  if (remaining >= 20 && !isDenseParagraph) {
+  const coveredByRule = rules.some(
+    (rule) => Math.abs(rule.y - last.y) < 7 && rule.x + 4 >= last.x + last.w - 10 && rule.w >= 20
+  );
+  if (remaining >= 20 && !isDenseParagraph && !coveredByRule) {
     pushSlot(slots, pageIndex, 'text', fieldBox(last.x + last.w + 3, last.y, remaining - 3, avgH), pageWidth, pageHeight);
   }
 }
@@ -292,28 +377,12 @@ function collectUnderlineRows(
   const ink = line.filter(isInk);
   const marks = line.filter((run) => run.str.trim() === '_' || LEADER_RE.test(run.str.trim()));
   if (ink.length > 0 || marks.length === 0) return;
+  const left = Math.min(...marks.map((run) => run.x));
+  const right = Math.max(...marks.map((run) => run.x + run.w));
+  if (right - left < 48) return;
   const y = marks[0]!.y;
   const h = Math.max(marks[0]!.h, 10);
-  pushSlot(
-    slots,
-    pageIndex,
-    'text',
-    fieldBox(LEFT_MARGIN, y, pageWidth - LEFT_MARGIN - RIGHT_PAD, h),
-    pageWidth,
-    pageHeight
-  );
-}
-
-export function dedupeDrawnRules(rules: DrawnRule[]): DrawnRule[] {
-  const sorted = [...rules].sort((a, b) => b.y - a.y || a.x - b.x);
-  const out: DrawnRule[] = [];
-  for (const rule of sorted) {
-    if (rule.w < 22) continue;
-    const hit = out.find((existing) => Math.abs(existing.y - rule.y) < 2 && Math.abs(existing.x - rule.x) < 4 && Math.abs(existing.w - rule.w) < 8);
-    if (!hit) out.push({ ...rule });
-    else hit.y = Math.min(hit.y, rule.y);
-  }
-  return out;
+  pushSlot(slots, pageIndex, 'text', fieldBox(left, y, right - left, h), pageWidth, pageHeight);
 }
 
 function collectDrawnRules(
@@ -327,8 +396,32 @@ function collectDrawnRules(
     if (rule.y < 40 || rule.y > pageHeight - 28) continue;
     const nearEdge = rule.x < 18 && rule.x + rule.w > pageWidth - 18;
     if (nearEdge && (rule.y < 80 || rule.y > pageHeight - 80)) continue;
-    pushSlot(slots, pageIndex, 'text', fieldBox(rule.x, rule.y + 3, rule.w, 12), pageWidth, pageHeight);
+    pushSlot(
+      slots,
+      pageIndex,
+      'text',
+      {
+        x: rule.x + 0.5,
+        y: rule.y + 0.35,
+        w: rule.w - 1,
+        h: 11.5,
+      },
+      pageWidth,
+      pageHeight
+    );
   }
+}
+
+export function dedupeDrawnRules(rules: DrawnRule[]): DrawnRule[] {
+  const sorted = [...rules].sort((a, b) => b.y - a.y || a.x - b.x);
+  const out: DrawnRule[] = [];
+  for (const rule of sorted) {
+    if (rule.w < 22) continue;
+    const hit = out.find((existing) => Math.abs(existing.y - rule.y) < 2 && Math.abs(existing.x - rule.x) < 4 && Math.abs(existing.w - rule.w) < 8);
+    if (!hit) out.push({ ...rule });
+    else hit.y = Math.min(hit.y, rule.y);
+  }
+  return out;
 }
 
 function collectLeaderChunks(runs: FillableTextRun[], pageIndex: number, pageWidth: number, pageHeight: number, slots: FillableSlot[]) {
@@ -361,13 +454,15 @@ export function detectFillableSlots(
   for (const line of lines) {
     collectCheckboxes(line, pageIndex, pageWidth, pageHeight, slots);
     collectWideBlanks(line, pageIndex, pageWidth, pageHeight, slots);
-    collectColonAndGaps(line, pageIndex, pageWidth, pageHeight, slots);
+    collectColonAndGaps(line, pageIndex, pageWidth, pageHeight, slots, rules);
     collectDateParts(line, pageIndex, pageWidth, pageHeight, slots);
     collectInlineSlashDates(line, pageIndex, pageWidth, pageHeight, slots);
     collectUnderlineRows(line, pageIndex, pageWidth, pageHeight, slots);
   }
 
-  let merged = mergeSlots(slots).filter((slot) => slot.y > 14 && slot.y + slot.h < pageHeight - 16);
+  let merged = separateStackedRows(clipSlotsAgainstInk(mergeSlots(slots), contentRuns)).filter(
+    (slot) => slot.y > 14 && slot.y + slot.h < pageHeight - 16
+  );
   if (merged.length === 0) {
     pushSlot(
       merged,

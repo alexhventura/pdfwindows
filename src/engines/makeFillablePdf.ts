@@ -188,7 +188,7 @@ function existingWidgetBoxes(doc: PDFDocument): Map<number, Array<{ x: number; y
 }
 
 function fieldFontSize(height: number): number {
-  return Math.max(7, Math.min(11, Math.floor(height) - 6));
+  return Math.max(8, Math.min(10, height - 3.2));
 }
 
 async function writableCopy(src: PDFDocument): Promise<PDFDocument> {
@@ -239,16 +239,16 @@ export async function writeFillablePdf(
         y: slot.y,
         width: Math.min(slot.w, slot.h),
         height: Math.min(slot.w, slot.h),
-        borderWidth: 0.9,
-        borderColor: rgb(0.12, 0.42, 0.86),
-        backgroundColor: rgb(0.93, 0.96, 1),
+        borderWidth: 0.5,
+        borderColor: rgb(0.38, 0.49, 0.68),
+        backgroundColor: rgb(1, 1, 1),
       });
       if (value === 'true' || value === '1' || value === 'on') box.check();
     } else {
       const text = form.createTextField(name);
       text.disableReadOnly();
       text.enableScrolling();
-      if (slot.h >= 40) text.enableMultiline();
+      if (slot.h >= 36) text.enableMultiline();
       try {
         text.setFontSize(fieldFontSize(slot.h));
       } catch {
@@ -263,10 +263,10 @@ export async function writeFillablePdf(
         y: slot.y,
         width: slot.w,
         height: slot.h,
-        borderWidth: 0.8,
-        borderColor: rgb(0.12, 0.42, 0.86),
-        backgroundColor: rgb(0.93, 0.96, 1),
-        textColor: rgb(0.08, 0.12, 0.2),
+        borderWidth: 0.45,
+        borderColor: rgb(0.42, 0.52, 0.7),
+        backgroundColor: rgb(1, 1, 1),
+        textColor: rgb(0.12, 0.16, 0.22),
         font,
       });
       if (value) {
