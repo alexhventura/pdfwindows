@@ -111,6 +111,11 @@
     "pt": "/pdf-para-pdfa",
     "es": "/pdf-a-pdfa"
   },
+  "/pdf-editavel": {
+    "en": "/editable-pdf",
+    "pt": "/pdf-editavel",
+    "es": "/pdf-editable"
+  },
   "/formularios-pdf": {
     "en": "/pdf-forms",
     "pt": "/formularios-pdf",

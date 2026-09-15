@@ -889,6 +889,30 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/compress-pdf"/>
   </url>
   <url>
+    <loc>https://www.pdfwindows.com/en/editable-pdf</loc>
+    <lastmod>2026-09-09</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/editable-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/pdf-editavel"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/pdf-editable"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/editable-pdf"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/pt/pdf-editavel</loc>
+    <lastmod>2026-09-09</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/editable-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/pdf-editavel"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/pdf-editable"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/editable-pdf"/>
+  </url>
+  <url>
+    <loc>https://www.pdfwindows.com/es/pdf-editable</loc>
+    <lastmod>2026-09-09</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/editable-pdf"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.pdfwindows.com/pt/pdf-editavel"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pdfwindows.com/es/pdf-editable"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pdfwindows.com/en/editable-pdf"/>
+  </url>
+  <url>
     <loc>https://www.pdfwindows.com/en/extract-pdf-text</loc>
     <lastmod>2026-09-09</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.pdfwindows.com/en/extract-pdf-text"/>

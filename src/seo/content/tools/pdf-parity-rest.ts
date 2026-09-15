@@ -129,6 +129,61 @@ export const EDIT_PDF_CONTENT = article(
   }
 );
 
+export const EDITABLE_PDF_CONTENT = article(
+  ['/formularios-pdf', '/editar-pdf', '/pdf-para-word', '/assinatura-pdf'],
+  {
+    toolName: ['PDF Editável', 'Editable PDF', 'PDF Editable'],
+    title: ['PDF Editável Online | PDFWINDOWS', 'Editable PDF Online | PDFWINDOWS', 'PDF Editable Online | PDFWINDOWS'],
+    description: [
+      'Envie um PDF e baixe uma cópia editável com campos para preencher no computador — grátis, local e sem upload.',
+      'Upload a PDF and download a fillable copy you can complete on your computer — free, local, and no upload.',
+      'Suba un PDF y descargue una copia editable con campos para rellenar en el ordenador — gratis, local y sin subida.',
+    ],
+    keywords: [
+      'pdf editavel, pdf preenchivel, formulario pdf, campos acroform local',
+      'editable pdf, fillable pdf, pdf form fields, make pdf editable local',
+      'pdf editable, pdf rellenable, formulario pdf, campos acroform local',
+    ],
+    h1: ['PDF Editável', 'Editable PDF', 'PDF Editable'],
+    promise: [
+      'Muitos PDFs só têm linhas desenhadas: nome, CPF, data. PDF Editável lê o texto da página, cria campos AcroForm nesses vazios e devolve um arquivo para abrir no Adobe Reader, Edge ou Preview, preencher e salvar. Tudo no navegador, sem enviar o documento.',
+      'Many PDFs only have drawn lines: name, ID, date. Editable PDF reads the page text, creates AcroForm fields in those blanks, and returns a file you can open in Adobe Reader, Edge, or Preview, fill in, and save. All in the browser, with no upload.',
+      'Muchos PDF solo tienen líneas dibujadas: nombre, documento, fecha. PDF Editable lee el texto, crea campos AcroForm en esos huecos y devuelve un archivo para abrir en Adobe Reader, Edge o Preview, rellenar y guardar. Todo en el navegador, sin subida.',
+    ],
+    limit: [
+      'Não transforma o PDF num Word. O texto já impresso permanece fixo; só as linhas em branco, underscores e rótulos com dois-pontos viram campos. Digitalizações sem texto extraível pedem OCR antes. XFA não é suportado.',
+      'It does not turn the PDF into Word. Printed text stays fixed; only blank lines, underscores, and colon labels become fields. Scans without extractable text need OCR first. XFA is not supported.',
+      'No convierte el PDF en Word. El texto impreso sigue fijo; solo las líneas en blanco, guiones bajos y etiquetas con dos puntos se vuelven campos. Los escaneos sin texto extraíble piden OCR antes. XFA no es compatible.',
+    ],
+    workflow: [
+      'Envie o PDF, gere a cópia editável e abra o download no leitor do computador. Clique nas caixas azuis, preencha e salve. Se faltar um campo, use Formulários PDF para adicionar na mão. Para reescrever um parágrafo, use Editar PDF.',
+      'Upload the PDF, generate the fillable copy, and open the download in your computer’s reader. Click the blue boxes, fill them in, and save. If a field is missing, use PDF Forms to add it by hand. To rewrite a paragraph, use Edit PDF.',
+      'Suba el PDF, genere la copia editable y ábrala en el lector del ordenador. Pulse las cajas azules, rellene y guarde. Si falta un campo, use Formularios PDF para añadirlo a mano. Para reescribir un párrafo, use Editar PDF.',
+    ],
+    faq: [
+      ['Consigo editar o texto original do parágrafo?', 'Can I edit the original paragraph text?', '¿Puedo editar el texto original del párrafo?'],
+      [
+        'Não. Esta ferramenta cria campos de formulário nas linhas em branco. Para alterar o texto já impresso, use Editar PDF. Para um DOCX, use PDF para Word.',
+        'No. This tool creates form fields on blank lines. To change printed text, use Edit PDF. For a DOCX, use PDF to Word.',
+        'No. Esta herramienta crea campos de formulario en las líneas en blanco. Para cambiar el texto impreso, use Editar PDF. Para un DOCX, use PDF a Word.',
+      ],
+      ['O PDF preenchido pode ser salvo de novo no computador?', 'Can the filled PDF be saved again on the computer?', '¿El PDF rellenado se puede guardar de nuevo en el ordenador?'],
+      [
+        'Sim. Abra a cópia no Adobe Reader, Microsoft Edge ou Preview, preencha os campos e use Salvar. O original no disco não é sobrescrito.',
+        'Yes. Open the copy in Adobe Reader, Microsoft Edge, or Preview, fill the fields, and use Save. The original on disk is not overwritten.',
+        'Sí. Abra la copia en Adobe Reader, Microsoft Edge o Preview, rellene los campos y use Guardar. El original en disco no se sobrescribe.',
+      ],
+    ],
+    cases: [
+      { title: ['Ficha de cadastro', 'Intake sheet', 'Ficha de alta'], body: ['RH transforma o modelo em PDF preenchível e manda para o candidato preencher no computador.', 'HR turns the template into a fillable PDF and sends it for the candidate to complete on a computer.', 'RR. HH. convierte la plantilla en PDF rellenable y la envía al candidato para completarla en el ordenador.'] },
+      { title: ['Requerimento com linhas', 'Lined request form', 'Solicitud con líneas'], body: ['O PDF da prefeitura só tinha underscores; os campos azuis ficam no lugar das linhas.', 'The city PDF only had underscores; the blue fields sit on those lines.', 'El PDF del ayuntamiento solo tenía guiones; los campos azules quedan sobre las líneas.'] },
+      { title: ['Contrato para dados', 'Contract for details', 'Contrato para datos'], body: ['As partes preenchem nome, CPF e data no leitor, sem converter para Word.', 'The parties fill name, ID, and date in the reader, without converting to Word.', 'Las partes rellenan nombre, documento y fecha en el lector, sin convertir a Word.'] },
+      { title: ['Depois de OCR', 'After OCR', 'Después del OCR'], body: ['Um scan vira texto extraível no OCR e depois recebe campos nesta ferramenta.', 'A scan becomes extractable text in OCR and then receives fields here.', 'Un escaneo pasa a texto extraíble en el OCR y luego recibe campos aquí.'] },
+      { title: ['Antes de assinar', 'Before signing', 'Antes de firmar'], body: ['Preencha os dados, salve, e use Assinatura PDF se ainda faltar o traço.', 'Fill in the details, save, then use Sign PDF if a signature stroke is still needed.', 'Rellene los datos, guarde y use Firma PDF si aún falta el trazo.'] },
+    ],
+  }
+);
+
 export const SCAN_TO_PDF_CONTENT = article(
   ['/image-to-pdf', '/ajuste-de-margem', '/pdf-ocr', '/organizar-paginas-pdf'],
   {
@@ -276,7 +331,7 @@ export const PDFA_CONTENT = article(
 );
 
 export const PDF_FORMS_CONTENT = article(
-  ['/assinatura-pdf', '/editar-pdf', '/redacao-pdf', '/desbloquear-pdf'],
+  ['/pdf-editavel', '/assinatura-pdf', '/editar-pdf', '/redacao-pdf'],
   {
     toolName: ['Formulários PDF', 'PDF Forms', 'Formularios PDF'],
     title: ['Formulários PDF Online | PDFWINDOWS', 'PDF Forms Online | PDFWINDOWS', 'Formularios PDF Online | PDFWINDOWS'],

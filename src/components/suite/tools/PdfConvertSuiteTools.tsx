@@ -3,6 +3,7 @@ import type { LanguageType } from '../../../types';
 import { ConvertOnceSuiteTool, trilingual } from './ConvertOnceSuiteTool';
 import { addPageNumbers, pageNumberWords, repairPdf, toArchivalPdf, type PageNumberFormatId, type PageNumberAlign, type PageNumberBand } from '../../../engines/pdfToolkit';
 import { htmlFileToPdf, officeToPdf, pdfToExcel, pdfToWord, pptxToPdf, buildPptxFromImages } from '../../../engines/officeBridge';
+import { makePdfFillable } from '../../../engines/makeFillablePdf';
 import { rasterizePdfPagesPng } from '../../../utils/pdfRaster';
 import { inputClass } from '../shared';
 
@@ -44,6 +45,27 @@ export function PdfaSuiteTool(props: Props) {
           'Gera uma cópia sem cifra, com metadados. Não é um PDF/A certificado ISO — falta perfil ICC de impressão.',
           'Writes an unencrypted copy with metadata. This is not a certified ISO PDF/A — no printer ICC profile is embedded.',
           'Genera una copia sin cifrado, con metadatos. No es un PDF/A certificado ISO: falta el perfil ICC.',
+        ]
+      )}
+    />
+  );
+}
+
+export function EditablePdfSuiteTool(props: Props) {
+  return (
+    <ConvertOnceSuiteTool
+      {...props}
+      accept="pdf"
+      convert={makePdfFillable}
+      copy={trilingual(
+        ['PDF Editável', 'Editable PDF', 'PDF Editable'],
+        'PDF',
+        ['Envie um PDF.', 'Upload a PDF.', 'Envíe un PDF.'],
+        ['Gerar PDF editável', 'Make PDF fillable', 'Generar PDF editable'],
+        [
+          'Detecta linhas, espaços largos e caixas ( ) desenhadas no PDF e cria campos para preencher no Adobe Reader, Edge ou Preview. Depois é só salvar. O texto impresso permanece fixo.',
+          'Finds drawn lines, wide blanks, and ( ) boxes on the PDF and creates fields you can fill in Adobe Reader, Edge, or Preview. Then save. Printed text stays fixed.',
+          'Detecta líneas, espacios anchos y cajas ( ) dibujadas en el PDF y crea campos para rellenar en Adobe Reader, Edge o Preview. Luego guarde. El texto impreso sigue fijo.',
         ]
       )}
     />

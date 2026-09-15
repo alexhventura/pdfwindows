@@ -27,6 +27,7 @@ export type SuiteToolId =
   | 'repair-pdf'
   | 'pdf-to-pdfa'
   | 'pdf-forms'
+  | 'editable-pdf'
   | 'pdf-to-pptx'
   | 'pptx-to-pdf'
   | 'pdf-to-excel'
@@ -3339,6 +3340,49 @@ export const TOOL_PAGES: ToolPageDefinition[] = [
       'Não. É uma cópia de arquivo inspirada no PDF/A, sem perfil ICC de impressão.',
       'No. It is an archival-inspired copy without a printer ICC profile.',
       'No. Es una copia de archivo inspirada en PDF/A, sin perfil ICC de impresión.',
+    ],
+  }),
+  localSuitePage('/pdf-editavel', 'editable-pdf', {
+    title: [
+      'PDF Editável Online | PDFWINDOWS',
+      'Editable PDF Online | PDFWINDOWS',
+      'PDF Editable Online | PDFWINDOWS',
+    ],
+    description: [
+      'Envie um PDF e baixe uma cópia editável com campos para preencher no computador — grátis, local e sem upload.',
+      'Upload a PDF and download a fillable copy you can complete on your computer — free, local, and no upload.',
+      'Suba un PDF y descargue una copia editable con campos para rellenar en el ordenador — gratis, local y sin subida.',
+    ],
+    keywords: [
+      'pdf editavel, pdf preenchivel, formulario pdf, campos pdf',
+      'editable pdf, fillable pdf, pdf form fields, make pdf editable',
+      'pdf editable, pdf rellenable, formulario pdf, campos pdf',
+    ],
+    h1: ['PDF Editável', 'Editable PDF', 'PDF Editable'],
+    intro: [
+      'Envie um PDF com linhas, ( ) e espaços para preencher. A ferramenta cria campos reais e devolve um arquivo para abrir no computador, preencher e salvar.',
+      'Upload a PDF with lines, ( ) marks, and blanks. The tool creates real fields and returns a file you can open on your computer, fill in, and save.',
+      'Suba un PDF con líneas, ( ) y espacios para rellenar. La herramienta crea campos reales y devuelve un archivo para abrir en el ordenador, rellenar y guardar.',
+    ],
+    benefits: [
+      ['Campos para preencher no leitor local', 'Fields to fill in your local reader', 'Campos para rellenar en el lector local'],
+      ['Cópia nova; original intacto', 'New copy; original intact', 'Copia nueva; original intacto'],
+      ['Processamento 100% local', '100% local processing', 'Procesamiento 100% local'],
+    ],
+    how: [
+      ['Envie o PDF.', 'Upload the PDF.', 'Suba el PDF.'],
+      ['Gere a cópia editável.', 'Generate the fillable copy.', 'Genere la copia editable.'],
+      ['Abra no computador, preencha e salve.', 'Open it on your computer, fill it in, and save.', 'Ábralo en el ordenador, rellene y guarde.'],
+    ],
+    faqQ: [
+      'Consigo editar o texto original do parágrafo?',
+      'Can I edit the original paragraph text?',
+      '¿Puedo editar el texto original del párrafo?',
+    ],
+    faqA: [
+      'Não. Esta ferramenta cria campos de formulário nas linhas em branco. Para alterar o texto já impresso, use Editar PDF.',
+      'No. This tool creates form fields on blank lines. To change printed text, use Edit PDF.',
+      'No. Esta herramienta crea campos de formulario en las líneas en blanco. Para cambiar el texto impreso, use Editar PDF.',
     ],
   }),
   localSuitePage('/formularios-pdf', 'pdf-forms', {

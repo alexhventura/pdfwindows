@@ -50,6 +50,7 @@ import {
 } from './tools/pdf-parity';
 import {
   EDIT_PDF_CONTENT,
+  EDITABLE_PDF_CONTENT,
   SCAN_TO_PDF_CONTENT,
   REPAIR_PDF_CONTENT,
   PDFA_CONTENT,
@@ -112,6 +113,7 @@ export const RICH_CONTENT_REGISTRY: ToolContentRegistry = {
   '/recortar-pdf': CROP_PDF_CONTENT,
   '/comparar-pdf': COMPARE_PDF_CONTENT,
   '/editar-pdf': EDIT_PDF_CONTENT,
+  '/pdf-editavel': EDITABLE_PDF_CONTENT,
   '/escanear-para-pdf': SCAN_TO_PDF_CONTENT,
   '/reparar-pdf': REPAIR_PDF_CONTENT,
   '/pdf-para-pdfa': PDFA_CONTENT,

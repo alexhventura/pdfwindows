@@ -38,6 +38,7 @@ import {
   KeySquare,
   ShieldCheck,
   Mail,
+  FileEdit,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import type { LanguageType } from '../types';
@@ -364,6 +365,17 @@ const tools: Tool[] = [
     color: 'bg-blue-600',
   },
   {
+    id: 'editable-pdf',
+    name: { pt: 'PDF Editável', en: 'Editable PDF', es: 'PDF Editable' },
+    description: {
+      pt: 'Gera um PDF com campos para preencher no Reader, Edge ou Preview e salvar de novo.',
+      en: 'Builds a PDF with fields you can fill in Reader, Edge, or Preview and save again.',
+      es: 'Genera un PDF con campos para rellenar en Reader, Edge o Preview y volver a guardar.',
+    },
+    icon: <FileEdit size={24} />,
+    color: 'bg-blue-700',
+  },
+  {
     id: 'scan-to-pdf',
     name: { pt: 'Escanear para PDF', en: 'Scan to PDF', es: 'Escanear a PDF' },
     description: {
@@ -515,6 +527,7 @@ const SUITE_PATHS: Record<string, string> = {
   'crop-pdf': '/recortar-pdf',
   'compare-pdf': '/comparar-pdf',
   'edit-pdf': '/editar-pdf',
+  'editable-pdf': '/pdf-editavel',
   'scan-to-pdf': '/escanear-para-pdf',
   'repair-pdf': '/reparar-pdf',
   'pdf-to-pdfa': '/pdf-para-pdfa',

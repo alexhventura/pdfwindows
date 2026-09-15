@@ -64,6 +64,7 @@ const SUITE_LAZY_TOOLS: Record<string, SuiteLazyTool> = {
   'edit-pdf': lazy(() => import('./tools/PdfInteractiveSuiteTools').then((m) => ({ default: m.EditPdfSuiteTool }))),
   'scan-to-pdf': lazy(() => import('./tools/PdfInteractiveSuiteTools').then((m) => ({ default: m.ScanToPdfSuiteTool }))),
   'pdf-forms': lazy(() => import('./tools/PdfInteractiveSuiteTools').then((m) => ({ default: m.PdfFormsSuiteTool }))),
+  'editable-pdf': lazy(() => import('./tools/PdfConvertSuiteTools').then((m) => ({ default: m.EditablePdfSuiteTool }))),
 };
 
 function SuiteToolLoader({

@@ -27,6 +27,7 @@ describe('toolFamily', () => {
     expect(pdf).toContain('/numerador-de-paginas');
     expect(pdf).toContain('/recortar-pdf');
     expect(pdf).toContain('/editar-pdf');
+    expect(pdf).toContain('/pdf-editavel');
   });
 
   it('groups image converters and photo tools together', () => {

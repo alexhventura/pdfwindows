@@ -582,6 +582,16 @@
       "permanent": true
     },
     {
+      "source": "/en/pdf-editavel",
+      "destination": "/en/editable-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/pdf-editavel",
+      "destination": "/es/pdf-editable",
+      "permanent": true
+    },
+    {
       "source": "/en/formularios-pdf",
       "destination": "/en/pdf-forms",
       "permanent": true
@@ -1624,6 +1634,26 @@
     {
       "source": "/es/pdf-to-pdfa",
       "destination": "/es/pdf-a-pdfa",
+      "permanent": true
+    },
+    {
+      "source": "/en/pdf-editable",
+      "destination": "/en/editable-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/pt/editable-pdf",
+      "destination": "/pt/pdf-editavel",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pdf-editable",
+      "destination": "/pt/pdf-editavel",
+      "permanent": true
+    },
+    {
+      "source": "/es/editable-pdf",
+      "destination": "/es/pdf-editable",
       "permanent": true
     },
     {

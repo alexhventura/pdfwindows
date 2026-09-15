@@ -3824,6 +3824,81 @@
       }
     ]
   },
+  "/en/editable-pdf": {
+    "lang": "en",
+    "title": "Editable PDF Online | PDFWINDOWS",
+    "description": "Turn a PDF into a fillable file: download it, open it on your computer, type into the fields, and save again — free and local. Free on-device copy.",
+    "keywords": "editable pdf, fillable pdf, pdf form fields, make pdf editable local",
+    "canonical": "https://www.pdfwindows.com/en/editable-pdf",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/editable-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/pdf-editavel"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/pdf-editable"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/editable-pdf"
+      }
+    ]
+  },
+  "/pt/pdf-editavel": {
+    "lang": "pt-BR",
+    "title": "PDF Editável Online | PDFWINDOWS",
+    "description": "Transforme um PDF em arquivo editável: baixe, abra no computador, preencha os campos e salve de novo — grátis e local. Grátis no aparelho. Sem fila na nuvem.",
+    "keywords": "pdf editavel, pdf preenchivel, formulario pdf, campos acroform local",
+    "canonical": "https://www.pdfwindows.com/pt/pdf-editavel",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/editable-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/pdf-editavel"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/pdf-editable"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/editable-pdf"
+      }
+    ]
+  },
+  "/es/pdf-editable": {
+    "lang": "es",
+    "title": "PDF Editable Online | PDFWINDOWS",
+    "description": "Convierta un PDF en archivo editable: descárguelo, ábralo en el ordenador, rellene los campos y guarde de nuevo — gratis y local. Gratis en el aparato.",
+    "keywords": "pdf editable, pdf rellenable, formulario pdf, campos acroform local",
+    "canonical": "https://www.pdfwindows.com/es/pdf-editable",
+    "alternates": [
+      {
+        "hreflang": "en",
+        "href": "https://www.pdfwindows.com/en/editable-pdf"
+      },
+      {
+        "hreflang": "pt-BR",
+        "href": "https://www.pdfwindows.com/pt/pdf-editavel"
+      },
+      {
+        "hreflang": "es",
+        "href": "https://www.pdfwindows.com/es/pdf-editable"
+      },
+      {
+        "hreflang": "x-default",
+        "href": "https://www.pdfwindows.com/en/editable-pdf"
+      }
+    ]
+  },
   "/en/pdf-forms": {
     "lang": "en",
     "title": "PDF Forms Online | PDFWINDOWS",

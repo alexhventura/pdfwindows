@@ -175,6 +175,11 @@ export const META_DESCRIPTION_OVERRIDES: Partial<
     pt: 'Edite o texto do PDF no navegador: clique para alterar o texto existente, apague-o ou acrescente texto e imagens. Grátis, local e sem upload para os nossos servidores.',
     es: 'Edite el texto del PDF en el navegador: haga clic para cambiar el texto existente, bórrelo o añada texto e imágenes. Gratis, local y sin subida a nuestros servidores.',
   },
+  '/pdf-editavel': {
+    en: 'Turn a PDF into a fillable file: download it, open it on your computer, type into the fields, and save again — free and local.',
+    pt: 'Transforme um PDF em arquivo editável: baixe, abra no computador, preencha os campos e salve de novo — grátis e local.',
+    es: 'Convierta un PDF en archivo editable: descárguelo, ábralo en el ordenador, rellene los campos y guarde de nuevo — gratis y local.',
+  },
   '/escanear-para-pdf': {
     en: 'Capture pages with the camera or upload photos and build a PDF in your browser — free, local processing, and no upload to our servers.',
     pt: 'Capture páginas com a câmera ou envie fotos e monte um PDF no navegador — grátis, processamento local e sem upload para os nossos servidores.',

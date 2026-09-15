@@ -41,6 +41,7 @@ const SUITE_FAMILY: Record<string, ToolFamily> = {
   'repair-pdf': 'pdf',
   'pdf-to-pdfa': 'pdf',
   'pdf-forms': 'pdf',
+  'editable-pdf': 'pdf',
   'scan-to-pdf': 'image',
   'margin-adjust': 'image',
   'color-picker': 'image',

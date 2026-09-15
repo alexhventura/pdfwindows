@@ -36,6 +36,7 @@ import {
   QrCode,
   ShieldCheck,
   Mail,
+  FileEdit,
   type LucideIcon,
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
@@ -58,6 +59,7 @@ const SUITE_ICONS: Record<string, LucideIcon> = {
   'crop-pdf': Scissors,
   'compare-pdf': Columns2,
   'edit-pdf': Pencil,
+  'editable-pdf': FileEdit,
   'scan-to-pdf': Camera,
   'repair-pdf': Wrench,
   'pdf-to-pdfa': Archive,

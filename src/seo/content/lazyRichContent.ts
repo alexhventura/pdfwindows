@@ -62,6 +62,7 @@ const RICH_LOADERS: Record<string, RichLoader> = {
   '/recortar-pdf': async (lang) => (await import('./tools/pdf-parity')).CROP_PDF_CONTENT[lang],
   '/comparar-pdf': async (lang) => (await import('./tools/pdf-parity')).COMPARE_PDF_CONTENT[lang],
   '/editar-pdf': async (lang) => (await import('./tools/pdf-parity-rest')).EDIT_PDF_CONTENT[lang],
+  '/pdf-editavel': async (lang) => (await import('./tools/pdf-parity-rest')).EDITABLE_PDF_CONTENT[lang],
   '/escanear-para-pdf': async (lang) =>
     (await import('./tools/pdf-parity-rest')).SCAN_TO_PDF_CONTENT[lang],
   '/reparar-pdf': async (lang) => (await import('./tools/pdf-parity-rest')).REPAIR_PDF_CONTENT[lang],

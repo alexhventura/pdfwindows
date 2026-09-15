@@ -41,6 +41,9 @@ describe('i18n routes', () => {
     expect(getLocalizedPublicPath('es', '/assinatura-pdf')).toBe('/es/firma-pdf');
     expect(getLocalizedPublicPath('pt', '/numerador-de-paginas')).toBe('/pt/numerador-de-paginas');
     expect(getLocalizedPublicPath('en', '/pdf-para-word')).toBe('/en/pdf-to-word');
+    expect(getLocalizedPublicPath('pt', '/pdf-editavel')).toBe('/pt/pdf-editavel');
+    expect(getLocalizedPublicPath('en', '/pdf-editavel')).toBe('/en/editable-pdf');
+    expect(getLocalizedPublicPath('es', '/pdf-editavel')).toBe('/es/pdf-editable');
     expect(getLocalizedPublicPath('es', '/html-para-pdf')).toBe('/es/html-a-pdf');
   });
 });
