@@ -18,20 +18,27 @@ export interface FillableSlot {
   w: number;
   h: number;
   kind: FillableSlotKind;
+  name?: string;
+}
+
+/** Horizontal rule drawn in the PDF content stream (underline / blank line). */
+export interface DrawnRule {
+  x: number;
+  y: number;
+  w: number;
 }
 
 const LEADER_RE = /^[\s_\.\-–—·•]{3,}$/;
 const UNDERSCORE_CHUNK_RE = /_{3,}|\.{5,}|…{2,}/;
 const CHECKBOX_GLYPH_RE = /^(☐|☑|□|■|\[\s?\]|\[x\])$/i;
 const PAREN_CHECK_RE = /\(\s*\)/;
-const SECTION_HEADER_RE = /^[A-ZÁÉÍÓÚÂÊÔÃÕÇ0-9\s/–—-]+:$/;
 
-const LEFT_MARGIN = 36;
-const RIGHT_PAD = 36;
-const MIN_FIELD_W = 22;
-const MIN_FIELD_H = 10;
+const LEFT_MARGIN = 24;
+const RIGHT_PAD = 24;
+const MIN_FIELD_W = 16;
+const MIN_FIELD_H = 12;
 const MIN_WIDE_BLANK = 12;
-const MAX_SLOTS_PER_PAGE = 150;
+const MAX_SLOTS_PER_PAGE = 180;
 
 function clamp(n: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, n));
@@ -57,10 +64,10 @@ function groupLines(runs: FillableTextRun[]): FillableTextRun[][] {
 }
 
 function fieldBox(x: number, baseline: number, w: number, h: number): { x: number; y: number; w: number; h: number } {
-  const height = Math.max(MIN_FIELD_H, h * 1.35);
+  const height = Math.max(18, h * 1.7);
   return {
     x,
-    y: baseline - h * 0.22,
+    y: baseline - h * 0.35,
     w,
     h: height,
   };
@@ -80,21 +87,26 @@ function isInk(run: FillableTextRun): boolean {
   return !isWhitespace(run.str) && !LEADER_RE.test(run.str.trim()) && run.str.trim() !== '_';
 }
 
+function isSlash(run: FillableTextRun): boolean {
+  return run.str.trim() === '/';
+}
+
 function inkLetters(text: string): number {
   return (text.match(/[\p{L}\p{N}]/gu) ?? []).length;
 }
 
-function overlaps(a: FillableSlot, b: FillableSlot): boolean {
-  if (a.pageIndex !== b.pageIndex) return false;
+function overlapRatio(a: FillableSlot, b: FillableSlot): number {
+  if (a.pageIndex !== b.pageIndex) return 0;
   const ix = Math.max(0, Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x));
   const iy = Math.max(0, Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y));
-  return ix > 2 && iy > 2;
+  const smaller = Math.min(a.w * a.h, b.w * b.h);
+  return smaller > 0 ? (ix * iy) / smaller : 0;
 }
 
 function mergeSlots(slots: FillableSlot[]): FillableSlot[] {
   const out: FillableSlot[] = [];
   for (const slot of slots) {
-    const hit = out.find((existing) => overlaps(existing, slot) && existing.kind === slot.kind);
+    const hit = out.find((existing) => existing.kind === slot.kind && overlapRatio(existing, slot) >= 0.35);
     if (!hit) {
       out.push({ ...slot });
       continue;
@@ -117,8 +129,9 @@ function pushSlot(
   pageWidth: number,
   pageHeight: number
 ) {
-  const x = clamp(box.x, 8, pageWidth - MIN_FIELD_W - 8);
-  const w = clamp(box.w, kind === 'checkbox' ? 10 : MIN_FIELD_W, pageWidth - x - 8);
+  const minW = kind === 'checkbox' ? 10 : MIN_FIELD_W;
+  const x = clamp(box.x, 8, pageWidth - minW - 8);
+  const w = clamp(box.w, minW, pageWidth - x - 8);
   const y = clamp(box.y, 8, pageHeight - MIN_FIELD_H - 8);
   const h = clamp(box.h, kind === 'checkbox' ? 10 : MIN_FIELD_H, pageHeight - y - 8);
   if (kind === 'checkbox') {
@@ -170,8 +183,8 @@ function collectWideBlanks(line: FillableTextRun[], pageIndex: number, pageWidth
       !!next &&
       next.str.trimStart().startsWith(')');
     if (checkboxGap) continue;
-    if (run.w < 22) continue;
-    pushSlot(slots, pageIndex, 'text', fieldBox(run.x, run.y, run.w, run.h), pageWidth, pageHeight);
+    if (run.w < 16) continue;
+    pushSlot(slots, pageIndex, 'text', fieldBox(run.x, run.y, Math.max(run.w, 22), run.h), pageWidth, pageHeight);
   }
 }
 
@@ -191,7 +204,7 @@ function collectColonAndGaps(
   const inkWidth = last.x + last.w - first.x;
   const letters = Math.max(1, inkLetters(lineText));
   const avgChar = inkWidth / letters;
-  const minGap = Math.max(36, avgChar * 4);
+  const minGap = Math.max(18, avgChar * 2.2);
 
   for (let i = 0; i < ink.length - 1; i++) {
     const a = ink[i]!;
@@ -204,11 +217,117 @@ function collectColonAndGaps(
   const usableRight = pageWidth - RIGHT_PAD;
   const remaining = usableRight - (last.x + last.w);
   const endsWithColon = /[:：]\s*$/.test(last.str.trim()) || /[:：]\s*$/.test(lineText);
-  const sectionHeader = SECTION_HEADER_RE.test(lineText) && inkLetters(lineText) >= 18;
-  const shortLastWord = inkLetters(last.str) <= 16 && inkWidth < pageWidth * 0.55 && first.x <= pageWidth * 0.5;
-
-  if (remaining >= 40 && !sectionHeader && (endsWithColon || shortLastWord)) {
+  const isDenseParagraph = !endsWithColon && letters >= 40 && inkWidth >= pageWidth * 0.58;
+  if (remaining >= 20 && !isDenseParagraph) {
     pushSlot(slots, pageIndex, 'text', fieldBox(last.x + last.w + 3, last.y, remaining - 3, avgH), pageWidth, pageHeight);
+  }
+}
+
+function collectDateParts(
+  line: FillableTextRun[],
+  pageIndex: number,
+  pageWidth: number,
+  pageHeight: number,
+  slots: FillableSlot[]
+) {
+  const ink = line.filter(isInk);
+  const slashes = ink.filter(isSlash);
+  if (slashes.length === 0) return;
+  const avgH = ink.reduce((sum, run) => sum + run.h, 0) / Math.max(1, ink.length);
+  const usableRight = pageWidth - RIGHT_PAD;
+
+  const anchors = ink.filter((run) => isSlash(run) || /[:：]\s*$/.test(run.str.trim()) || /^data\b/i.test(run.str.trim()));
+  for (let i = 0; i < anchors.length; i++) {
+    const a = anchors[i]!;
+    const next = anchors[i + 1];
+    const right = next ? next.x : isSlash(a) ? Math.min(usableRight, a.x + a.w + 58) : usableRight;
+    const gap = right - (a.x + a.w);
+    if (gap < 16) continue;
+    pushSlot(slots, pageIndex, 'text', fieldBox(a.x + a.w + 1, a.y, gap - 2, avgH), pageWidth, pageHeight);
+  }
+
+  const lastSlash = slashes[slashes.length - 1]!;
+  const remaining = usableRight - (lastSlash.x + lastSlash.w);
+  if (remaining >= 16) {
+    pushSlot(slots, pageIndex, 'text', fieldBox(lastSlash.x + lastSlash.w + 1, lastSlash.y, Math.min(remaining - 1, 56), avgH), pageWidth, pageHeight);
+  }
+}
+
+function collectInlineSlashDates(
+  line: FillableTextRun[],
+  pageIndex: number,
+  pageWidth: number,
+  pageHeight: number,
+  slots: FillableSlot[]
+) {
+  for (const run of line) {
+    if (!run.str.includes('/') || run.str.trim() === '/') continue;
+    const chars = [...run.str];
+    const charW = run.w / Math.max(1, chars.length);
+    const slashAt: number[] = [];
+    chars.forEach((ch, i) => {
+      if (ch === '/') slashAt.push(i);
+    });
+    if (slashAt.length === 0) continue;
+    const bounds = [0, ...slashAt, chars.length];
+    for (let i = 0; i < bounds.length - 1; i++) {
+      const from = i === 0 ? bounds[i]! : bounds[i]! + 1;
+      const to = bounds[i + 1]!;
+      const slice = chars.slice(from, to).join('');
+      if (inkLetters(slice) > 3) continue;
+      const w = Math.max(0, (to - from) * charW);
+      if (w < 16) continue;
+      pushSlot(slots, pageIndex, 'text', fieldBox(run.x + from * charW, run.y, w, run.h), pageWidth, pageHeight);
+    }
+  }
+}
+
+function collectUnderlineRows(
+  line: FillableTextRun[],
+  pageIndex: number,
+  pageWidth: number,
+  pageHeight: number,
+  slots: FillableSlot[]
+) {
+  const ink = line.filter(isInk);
+  const marks = line.filter((run) => run.str.trim() === '_' || LEADER_RE.test(run.str.trim()));
+  if (ink.length > 0 || marks.length === 0) return;
+  const y = marks[0]!.y;
+  const h = Math.max(marks[0]!.h, 10);
+  pushSlot(
+    slots,
+    pageIndex,
+    'text',
+    fieldBox(LEFT_MARGIN, y, pageWidth - LEFT_MARGIN - RIGHT_PAD, h),
+    pageWidth,
+    pageHeight
+  );
+}
+
+export function dedupeDrawnRules(rules: DrawnRule[]): DrawnRule[] {
+  const sorted = [...rules].sort((a, b) => b.y - a.y || a.x - b.x);
+  const out: DrawnRule[] = [];
+  for (const rule of sorted) {
+    if (rule.w < 22) continue;
+    const hit = out.find((existing) => Math.abs(existing.y - rule.y) < 2 && Math.abs(existing.x - rule.x) < 4 && Math.abs(existing.w - rule.w) < 8);
+    if (!hit) out.push({ ...rule });
+    else hit.y = Math.min(hit.y, rule.y);
+  }
+  return out;
+}
+
+function collectDrawnRules(
+  rules: DrawnRule[],
+  pageIndex: number,
+  pageWidth: number,
+  pageHeight: number,
+  slots: FillableSlot[]
+) {
+  for (const rule of dedupeDrawnRules(rules)) {
+    if (rule.y < 40 || rule.y > pageHeight - 28) continue;
+    const nearEdge = rule.x < 18 && rule.x + rule.w > pageWidth - 18;
+    if (nearEdge && (rule.y < 80 || rule.y > pageHeight - 80)) continue;
+    pushSlot(slots, pageIndex, 'text', fieldBox(rule.x, rule.y + 3, rule.w, 12), pageWidth, pageHeight);
   }
 }
 
@@ -230,20 +349,25 @@ export function detectFillableSlots(
   runs: FillableTextRun[],
   pageWidth: number,
   pageHeight: number,
-  pageIndex: number
+  pageIndex: number,
+  rules: DrawnRule[] = []
 ): FillableSlot[] {
   const slots: FillableSlot[] = [];
   const contentRuns = runs.filter((run) => run.str.length > 0 && run.w > 0.5 && run.h > 0.5);
   const lines = groupLines(contentRuns);
 
   collectLeaderChunks(contentRuns, pageIndex, pageWidth, pageHeight, slots);
+  collectDrawnRules(rules, pageIndex, pageWidth, pageHeight, slots);
   for (const line of lines) {
     collectCheckboxes(line, pageIndex, pageWidth, pageHeight, slots);
     collectWideBlanks(line, pageIndex, pageWidth, pageHeight, slots);
     collectColonAndGaps(line, pageIndex, pageWidth, pageHeight, slots);
+    collectDateParts(line, pageIndex, pageWidth, pageHeight, slots);
+    collectInlineSlashDates(line, pageIndex, pageWidth, pageHeight, slots);
+    collectUnderlineRows(line, pageIndex, pageWidth, pageHeight, slots);
   }
 
-  let merged = mergeSlots(slots).filter((slot) => slot.y > 18 && slot.y + slot.h < pageHeight - 22);
+  let merged = mergeSlots(slots).filter((slot) => slot.y > 14 && slot.y + slot.h < pageHeight - 16);
   if (merged.length === 0) {
     pushSlot(
       merged,
@@ -262,5 +386,8 @@ export function detectFillableSlots(
 
   merged.sort((a, b) => b.y - a.y || a.x - b.x);
   if (merged.length > MAX_SLOTS_PER_PAGE) merged = merged.slice(0, MAX_SLOTS_PER_PAGE);
-  return merged;
+  return merged.map((slot, index) => ({
+    ...slot,
+    name: `fill_${slot.pageIndex + 1}_${index + 1}`,
+  }));
 }

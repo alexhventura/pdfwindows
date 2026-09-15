@@ -81,6 +81,83 @@ describe('detectFillableSlots', () => {
     expect(slots.some((slot) => slot.kind === 'text' && slot.x > 30 && slot.x < 50 && slot.w > 100 && slot.y > 545 && slot.y < 575)).toBe(true);
     expect(slots.some((slot) => slot.kind === 'text' && slot.x > 80 && slot.w > 80 && slot.y > 255 && slot.y < 280)).toBe(true);
     expect(slots.some((slot) => slot.kind === 'text' && slot.x > 40 && slot.x < 120 && slot.w > 200 && slot.y > 600)).toBe(true);
+    expect(slots.some((slot) => slot.kind === 'text' && slot.y > 600 && slot.x > 470 && slot.w > 40)).toBe(true);
+  });
+
+  it('fills date slashes, exam values and justificar lines', () => {
+    const pageW = 596;
+    const pageH = 842;
+    const runs: FillableTextRun[] = [
+      { str: 'RESULTADOS DE EXAMES:', x: 25.1, y: 427.9, w: 131.8, h: 10 },
+      { str: 'GLICEMIA DE JEJUM:', x: 25.1, y: 414.6, w: 92.2, h: 10 },
+      { str: 'DATA:', x: 277.1, y: 414.6, w: 27, h: 10 },
+      { str: ' ', x: 304.2, y: 414.6, w: 29.1, h: 10 },
+      { str: '/', x: 333.3, y: 414.6, w: 3.8, h: 10 },
+      { str: ' ', x: 337.1, y: 414.6, w: 27.4, h: 10 },
+      { str: '/', x: 364.5, y: 414.6, w: 3.8, h: 10 },
+      { str: 'HB GLICADA*:', x: 25.1, y: 401.2, w: 63.6, h: 10 },
+      { str: 'DATA:', x: 277.1, y: 401.2, w: 27, h: 10 },
+      { str: ' ', x: 304.2, y: 401.2, w: 29.1, h: 10 },
+      { str: '/', x: 333.3, y: 401.2, w: 3.8, h: 10 },
+      { str: ' ', x: 337.1, y: 401.2, w: 27.4, h: 10 },
+      { str: '/', x: 364.5, y: 401.2, w: 3.8, h: 10 },
+      { str: 'JUSTIFICAR PARA MAIS DE 04', x: 25.1, y: 348.2, w: 135.4, h: 10 },
+      { str: 'VERIFICAÇÕES:', x: 168, y: 348.2, w: 70.3, h: 10 },
+      { str: '_', x: 563.8, y: 334.9, w: 6.3, h: 10 },
+    ];
+    const slots = detectFillableSlots(runs, pageW, pageH, 0);
+    expect(slots.some((slot) => slot.kind === 'text' && slot.y > 408 && slot.y < 422 && slot.x < 130 && slot.w > 120)).toBe(true);
+    expect(slots.some((slot) => slot.kind === 'text' && slot.y > 394 && slot.y < 408 && slot.x < 100 && slot.w > 120)).toBe(true);
+    expect(slots.some((slot) => slot.kind === 'text' && slot.y > 408 && slot.x > 360 && slot.w > 30)).toBe(true);
+    expect(slots.some((slot) => slot.kind === 'text' && slot.y > 338 && slot.y < 355 && slot.x > 230 && slot.w > 150)).toBe(true);
+    expect(slots.some((slot) => slot.kind === 'text' && slot.y > 320 && slot.y < 340 && slot.w > 400)).toBe(true);
+  });
+
+  it('fills the year after printed date slashes and a left-aligned header', () => {
+    const runs: FillableTextRun[] = [
+      { str: 'DATA DE NASC:', x: 349.1, y: 613.7, w: 67.2, h: 10 },
+      { str: '/', x: 445.8, y: 613.7, w: 3.8, h: 10 },
+      { str: '/', x: 476.9, y: 613.7, w: 3.8, h: 10 },
+      { str: 'AUTOMONITORAMENTO DIÁRIO', x: 25.1, y: 374.7, w: 143, h: 10 },
+      { str: 'DATA:  /  /  ', x: 277.1, y: 414.6, w: 160, h: 10 },
+    ];
+    const slots = detectFillableSlots(runs, 596, 842, 0);
+    expect(slots.some((slot) => slot.y > 600 && slot.x > 470 && slot.w >= 30)).toBe(true);
+    expect(slots.some((slot) => slot.y > 360 && slot.y < 385 && slot.x > 160 && slot.w > 200)).toBe(true);
+    expect(slots.filter((slot) => slot.y > 405 && slot.y < 425 && slot.kind === 'text').length).toBeGreaterThanOrEqual(2);
+  });
+
+  it('turns drawn underlines into text fields', () => {
+    const slots = detectFillableSlots(
+      [{ str: 'JUSTIFICAR PARA MAIS DE 04 VERIFICAÇÕES:', x: 25, y: 348, w: 213, h: 10 }],
+      596,
+      842,
+      0,
+      [
+        { x: 242.4, y: 347.3, w: 330.6 },
+        { x: 416.4, y: 612.2, w: 29.4 },
+        { x: 449.6, y: 612.2, w: 27.2 },
+        { x: 480.7, y: 612.2, w: 46.6 },
+      ]
+    );
+    expect(slots.some((slot) => slot.y > 340 && slot.y < 360 && slot.x > 230 && slot.w > 250)).toBe(true);
+    expect(slots.some((slot) => slot.y > 600 && slot.x > 470 && slot.w > 30)).toBe(true);
+    expect(slots.filter((slot) => slot.y > 600 && slot.x > 410 && slot.x < 510 && slot.kind === 'text').length).toBeGreaterThanOrEqual(2);
+  });
+
+  it('adds an editable field after every remaining label', () => {
+    const slots = detectFillableSlots(
+      [
+        { str: 'GLICEMIA DE JEJUM:', x: 25, y: 414, w: 92, h: 10 },
+        { str: 'HB GLICADA*:', x: 25, y: 401, w: 64, h: 10 },
+        { str: 'JUSTIFICAR PARA MAIS DE 04 VERIFICAÇÕES:', x: 25, y: 348, w: 213, h: 10 },
+      ],
+      596,
+      842,
+      0
+    );
+    expect(slots.filter((slot) => slot.kind === 'text' && slot.y > 385 && slot.x > 80 && slot.w > 200).length).toBeGreaterThanOrEqual(2);
+    expect(slots.some((slot) => slot.y > 335 && slot.y < 360 && slot.x > 220 && slot.w > 200)).toBe(true);
   });
 });
 
@@ -105,6 +182,9 @@ describe('writeFillablePdf', () => {
     expect(fields.length).toBeGreaterThan(0);
     const firstText = fields.find((field): field is PDFTextField => field instanceof PDFTextField);
     expect(firstText).toBeTruthy();
+    expect(firstText!.isReadOnly()).toBe(false);
+    const appearance = firstText!.acroField.getDefaultAppearance() ?? '';
+    expect(appearance).toMatch(/[1-9]\d*(?:\.\d+)? Tf/);
     firstText!.setText('Maria Silva');
     const saved = await filled.save();
     const again = await PDFDocument.load(saved);
