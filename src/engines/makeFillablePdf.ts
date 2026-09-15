@@ -239,9 +239,9 @@ export async function writeFillablePdf(
         y: slot.y,
         width: Math.min(slot.w, slot.h),
         height: Math.min(slot.w, slot.h),
-        borderWidth: 0.5,
-        borderColor: rgb(0.38, 0.49, 0.68),
-        backgroundColor: rgb(1, 1, 1),
+        borderWidth: 0,
+        borderColor: undefined,
+        backgroundColor: undefined,
       });
       if (value === 'true' || value === '1' || value === 'on') box.check();
     } else {
@@ -263,9 +263,9 @@ export async function writeFillablePdf(
         y: slot.y,
         width: slot.w,
         height: slot.h,
-        borderWidth: 0.45,
-        borderColor: rgb(0.42, 0.52, 0.7),
-        backgroundColor: rgb(1, 1, 1),
+        borderWidth: 0,
+        borderColor: undefined,
+        backgroundColor: undefined,
         textColor: rgb(0.12, 0.16, 0.22),
         font,
       });

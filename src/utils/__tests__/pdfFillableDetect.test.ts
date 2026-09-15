@@ -202,6 +202,9 @@ describe('writeFillablePdf', () => {
     const firstText = fields.find((field): field is PDFTextField => field instanceof PDFTextField);
     expect(firstText).toBeTruthy();
     expect(firstText!.isReadOnly()).toBe(false);
+    const widget = firstText!.acroField.getWidgets()[0];
+    expect(widget?.getBorderStyle()?.getWidth() ?? 0).toBe(0);
+    expect(widget?.getAppearanceCharacteristics()?.getBackgroundColor()).toBeUndefined();
     const appearance = firstText!.acroField.getDefaultAppearance() ?? '';
     expect(appearance).toMatch(/[1-9]\d*(?:\.\d+)? Tf/);
     firstText!.setText('Maria Silva');

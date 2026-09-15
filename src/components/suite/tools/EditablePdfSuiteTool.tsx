@@ -1,14 +1,13 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { AlertCircle, ChevronLeft, ChevronRight, Download, RefreshCw } from 'lucide-react';
-import type { PDFDocumentProxy } from 'pdfjs-dist';
 import type { LanguageType } from '../../../types';
 import {
   DocumentToolDropzone,
   ToolBusyState,
   SuiteWorkspaceShell,
 } from '../DocumentToolDropzone';
-import { loadPdfJS } from '../../../utils/pdfjsLoader';
 import { extractFillableLayout, writeFillablePdf } from '../../../engines/makeFillablePdf';
+import { renderPdfPageThumbnailUrl } from '../../../utils/pdfThumbnail';
 import type { FillableSlot } from '../../../utils/pdfFillableDetect';
 
 type Props = { lang: LanguageType; onClose: () => void; showHeader?: boolean };
@@ -102,8 +101,8 @@ function dropLabels(lang: LanguageType, formats: string) {
 
 export function EditablePdfSuiteTool({ lang, onClose, showHeader }: Props) {
   const t = copy(lang);
-  const pageRef = useRef<HTMLCanvasElement>(null);
-  const pdfRef = useRef<PDFDocumentProxy | null>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const thumbCache = useRef<Map<number, string>>(new Map());
   const [file, setFile] = useState<File | null>(null);
   const [busy, setBusy] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -114,11 +113,15 @@ export function EditablePdfSuiteTool({ lang, onClose, showHeader }: Props) {
   const [slots, setSlots] = useState<FillableSlot[]>([]);
   const [values, setValues] = useState<Record<string, string>>({});
   const [out, setOut] = useState<{ url: string; name: string } | null>(null);
-  const [paintTick, setPaintTick] = useState(0);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+  const revokeThumbs = () => {
+    for (const url of thumbCache.current.values()) URL.revokeObjectURL(url);
+    thumbCache.current.clear();
+  };
 
   const reset = () => {
-    void pdfRef.current?.destroy?.();
-    pdfRef.current = null;
+    revokeThumbs();
     if (out) URL.revokeObjectURL(out.url);
     setFile(null);
     setBusy(false);
@@ -130,6 +133,15 @@ export function EditablePdfSuiteTool({ lang, onClose, showHeader }: Props) {
     setSlots([]);
     setValues({});
     setOut(null);
+    setPreviewUrl(null);
+  };
+
+  const thumbForPage = async (source: File, index: number) => {
+    const cached = thumbCache.current.get(index);
+    if (cached) return cached;
+    const url = await renderPdfPageThumbnailUrl(source, index + 1, 720);
+    thumbCache.current.set(index, url);
+    return url;
   };
 
   const open = async (next: File) => {
@@ -137,14 +149,16 @@ export function EditablePdfSuiteTool({ lang, onClose, showHeader }: Props) {
     setFile(next);
     setBusy(true);
     try {
-      const pdfjs = await loadPdfJS();
-      const pdf = await pdfjs.getDocument({ data: new Uint8Array(await next.arrayBuffer()).slice() }).promise;
-      pdfRef.current = pdf;
-      setPageCount(pdf.numPages);
-      setPageIndex(0);
-      const layout = await extractFillableLayout(next);
+      const [layout, thumb] = await Promise.all([
+        extractFillableLayout(next),
+        thumbForPage(next, 0).catch(() => null),
+      ]);
+      const count = Math.max(layout.pages.length, 1);
       setPages(layout.pages);
       setSlots(layout.slots);
+      setPageCount(count);
+      setPageIndex(0);
+      setPreviewUrl(thumb);
     } catch {
       setError(t.fail);
     } finally {
@@ -152,32 +166,23 @@ export function EditablePdfSuiteTool({ lang, onClose, showHeader }: Props) {
     }
   };
 
-  const paint = useCallback(async () => {
-    const pdf = pdfRef.current;
-    const canvas = pageRef.current;
-    if (!pdf || !canvas) return;
-    const page = await pdf.getPage(pageIndex + 1);
-    const base = page.getViewport({ scale: 1 });
-    const maxW = Math.min(720, canvas.parentElement?.clientWidth || 720);
-    const viewport = page.getViewport({ scale: maxW / base.width });
-    const width = Math.max(1, Math.floor(viewport.width));
-    const height = Math.max(1, Math.floor(viewport.height));
-    canvas.width = width;
-    canvas.height = height;
-    const ctx = canvas.getContext('2d', { alpha: false });
-    if (!ctx) return;
-    ctx.fillStyle = '#fff';
-    ctx.fillRect(0, 0, width, height);
-    await page.render({ canvasContext: ctx, viewport, canvas }).promise;
-    setPaintTick((tick) => tick + 1);
-  }, [pageIndex]);
-
   useEffect(() => {
-    if (file && pageCount) void paint();
-  }, [file, pageCount, pageIndex, paint]);
+    if (!file || busy || pageCount === 0) return;
+    let cancelled = false;
+    void thumbForPage(file, pageIndex)
+      .then((url) => {
+        if (!cancelled) setPreviewUrl(url);
+      })
+      .catch(() => {
+        if (!cancelled) setPreviewUrl(null);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [file, pageIndex, pageCount, busy]);
 
   useEffect(() => () => {
-    void pdfRef.current?.destroy?.();
+    revokeThumbs();
   }, []);
 
   const pageMeta = pages.find((page) => page.pageIndex === pageIndex) ?? pages[0];
@@ -254,17 +259,31 @@ export function EditablePdfSuiteTool({ lang, onClose, showHeader }: Props) {
                 </button>
               </div>
             )}
-            <div className="relative mx-auto max-w-[720px] border border-slate-200 shadow-sm rounded-xl overflow-hidden bg-white">
-              <canvas ref={pageRef} className="block w-full" />
+            <div
+              ref={stageRef}
+              className="relative mx-auto max-w-[720px] border border-slate-200 shadow-sm rounded-xl overflow-hidden bg-white"
+            >
+              {previewUrl ? (
+                <img
+                  src={previewUrl}
+                  alt={file.name}
+                  className="block w-full h-auto select-none pointer-events-none"
+                  draggable={false}
+                />
+              ) : (
+                <div className="min-h-[240px] flex items-center justify-center px-6 text-center text-xs font-semibold text-slate-400">
+                  {file.name}
+                </div>
+              )}
               {pageMeta &&
-                paintTick > 0 &&
+                previewUrl &&
                 pageSlots.map((slot) => {
                   const name = slot.name ?? '';
                   const left = (slot.x / pageMeta.width) * 100;
                   const top = ((pageMeta.height - slot.y - slot.h) / pageMeta.height) * 100;
                   const width = (slot.w / pageMeta.width) * 100;
                   const height = (slot.h / pageMeta.height) * 100;
-                  const fontPx = Math.max(8, Math.min(11, (slot.h / pageMeta.height) * (pageRef.current?.clientHeight || 900) * 0.72));
+                  const fontPx = Math.max(8, Math.min(11, (slot.h / pageMeta.height) * (stageRef.current?.clientHeight || 900) * 0.72));
                   if (slot.kind === 'checkbox') {
                     return (
                       <label
@@ -281,7 +300,6 @@ export function EditablePdfSuiteTool({ lang, onClose, showHeader }: Props) {
                       </label>
                     );
                   }
-                  const filled = Boolean(values[name]);
                   return (
                     <input
                       key={name}
@@ -289,7 +307,7 @@ export function EditablePdfSuiteTool({ lang, onClose, showHeader }: Props) {
                       onChange={(e) => setValues((prev) => ({ ...prev, [name]: e.target.value }))}
                       spellCheck={false}
                       aria-label={name}
-                      className="absolute outline-none transition-colors"
+                      className="absolute appearance-none border-0 p-0 m-0 bg-transparent shadow-none outline-none ring-0 focus:outline-none focus:ring-0 focus:border-0"
                       style={{
                         left: `${left}%`,
                         top: `${top}%`,
@@ -297,13 +315,17 @@ export function EditablePdfSuiteTool({ lang, onClose, showHeader }: Props) {
                         height: `${height}%`,
                         fontSize: `${fontPx}px`,
                         lineHeight: 1,
-                        padding: '0 2px',
+                        padding: 0,
                         margin: 0,
-                        border: filled ? '1px solid #93c5fd' : '1px solid rgba(59,130,246,0.45)',
-                        borderRadius: 1,
+                        border: 'none',
+                        outline: 'none',
+                        boxShadow: 'none',
+                        borderRadius: 0,
                         color: '#0f172a',
-                        background: filled ? 'rgba(255,255,255,0.92)' : 'rgba(239,246,255,0.35)',
-                        caretColor: '#2563eb',
+                        background: 'transparent',
+                        caretColor: '#0f172a',
+                        WebkitAppearance: 'none',
+                        appearance: 'none',
                         fontFamily: 'Helvetica, Arial, sans-serif',
                         boxSizing: 'border-box',
                       }}
